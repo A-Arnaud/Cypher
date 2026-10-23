@@ -1,6 +1,6 @@
 import {it,expect} from 'vitest';
 import {mkdtemp,writeFile,rm} from 'node:fs/promises';import path from 'node:path';
-import {defaultSettings,validatePatch,readSettings,saveSettings,safeBounds} from '../src/main/settings';
+import {defaultSettings,validatePatch,readSettings,saveSettings,safeBounds,serializeChanges} from '../src/main/settings';
 it('rejects unknown IPC fields and bad intervals',()=>{expect(()=>validatePatch(defaultSettings(),{command:'whoami'})).toThrow();expect(()=>validatePatch(defaultSettings(),{pollSeconds:0})).toThrow();expect(()=>validatePatch(defaultSettings(),{pinned:['unknown']})).toThrow();expect(()=>validatePatch(defaultSettings(),{language:'xx'})).toThrow()});
 it('accepts bilingual selection and requires explicit consent',()=>{const s=validatePatch(defaultSettings(),{language:'en',consents:['codex']});expect(s.language).toBe('en');expect(s.consents).toEqual(['codex']);expect(defaultSettings().consents).toEqual([])});
 it('keeps saved window on an available screen',()=>{const b=safeBounds({x:99999,y:-10000,width:388,height:650},{x:0,y:0,width:1920,height:1080});expect(b.x).toBeLessThanOrEqual(1532);expect(b.y).toBeGreaterThanOrEqual(0)});

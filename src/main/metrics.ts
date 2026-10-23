@@ -7,7 +7,8 @@ export function parseCodexLimits(data:unknown,now=Date.now()):Metric[]{
  for(const [id,raw] of buckets){if(!raw||typeof raw!=='object')continue;const bucket=raw as Record<string,any>;
   for(const key of ['primary','secondary']){
    const w=bucket[key];if(!w||typeof w.usedPercent!=='number'||!Number.isFinite(w.usedPercent)||w.usedPercent<0||w.usedPercent>100)continue;
-   if(typeof w.resetsAt==='number'&&Number.isFinite(w.resetsAt)&&w.resetsAt*1000<=now)continue;
+   if(w.resetsAt!==undefined&&w.resetsAt!==null&&(typeof w.resetsAt!=='number'||!Number.isFinite(w.resetsAt)||w.resetsAt<0||w.resetsAt*1000>8640000000000000))continue;
+   if(typeof w.resetsAt==='number'&&w.resetsAt*1000<=now)continue;
    const mins=typeof w.windowDurationMins==='number'&&w.windowDurationMins>0?w.windowDurationMins:undefined;
    result.push({id:`${id}:${key}`,label:mins?`${mins}m`:(key==='primary'?'session':'weekly'),used:w.usedPercent,limit:100,remainingPercent:100-w.usedPercent,unit:'percent',resetAt:typeof w.resetsAt==='number'&&Number.isFinite(w.resetsAt)&&w.resetsAt>0?w.resetsAt*1000:undefined,source:'provider',observedAt:now});
   }

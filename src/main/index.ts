@@ -1,6 +1,6 @@
 import {app,BrowserWindow,Tray,Menu,nativeImage,ipcMain,globalShortcut,screen,shell,Notification,type IpcMainInvokeEvent} from 'electron';
 import path from 'node:path';import os from 'node:os';
-import {catalog} from '../shared/catalog';import {copy} from '../shared/i18n';import type {AppState,Settings} from '../shared/model';import {discoverTools,type Detection} from './discovery';import {collectProvider} from './providers';import {Poller} from './poller';import {readSettings,saveSettings,validatePatch,safeBounds} from './settings';import {providerUrl,trustedSender} from './security';
+import {catalog} from '../shared/catalog';import {copy} from '../shared/i18n';import type {AppState,Settings} from '../shared/model';import {discoverTools,type Detection} from './discovery';import {collectProvider} from './providers';import {Poller} from './poller';import {readSettings,saveSettings,validatePatch,safeBounds,serializeChanges} from './settings';import {providerUrl,trustedSender} from './security';
 app.setName('Quota Glass');app.setAppUserModelId('local.quotaglass.desktop');
 if(process.env.QG_DATA_DIR)app.setPath('userData',process.env.QG_DATA_DIR);
 const ownsLock=app.requestSingleInstanceLock();if(!ownsLock)app.quit();
@@ -13,12 +13,13 @@ function trayMenu(){if(!tray||!state)return;const t=(k:string)=>copy(state.setti
 function bindShortcut(value:string){globalShortcut.unregisterAll();try{if(!globalShortcut.register(value,toggle))state.error='shortcutError';else if(state.error==='shortcutError')state.error=undefined}catch{state.error='shortcutError'}}
 function newPoller(){
  poller?.stop();poller=undefined;if(state.settings.paused){publish();return}
- const p=new Poller(catalog.map(c=>c.id),(id,signal)=>collectProvider(id,{detections,consents:state.settings.consents},signal),state.settings.pollSeconds*1000,state.settings.alertThresholds,(id,n)=>{if(Notification.isSupported()){const name=catalog.find(c=>c.id===id)?.name??id;new Notification({title:'Quota Glass · '+name,body:state.settings.language==='fr'?`Quota restant : ${n}% ou moins`:`Remaining quota: ${n}% or less`,silent:false}).show()}},alertHistory);
+ const p=new Poller(catalog.map(c=>c.id),(id,signal)=>collectProvider(id,{detections,consents:state.settings.consents},signal),state.settings.pollSeconds*1000,state.settings.alertThresholds,(id,n)=>{if(Notification.isSupported()){const name=catalog.find(c=>c.id===id)?.name??id;new Notification({title:'Quota Glass · '+name,body:state.settings.language==='fr'?`Quota restant : ${n}% ou moins`:`Remaining quota: ${n}% or less`,silent:false}).show()}},alertHistory,state.providers);
  poller=p;p.subscribe(values=>{state.providers=values;publish()});void refresh();
 }
 async function refresh(){if(!poller||state.settings.paused)return;state.refreshing=true;publish();try{await poller.refresh()}finally{state.refreshing=false;publish()}}
-async function changeSettings(input:unknown){const next=validatePatch(state.settings,input);if(next.startAtLogin)throw Error('portable-startup-disabled');const old=state.settings;await saveSettings(settingsFile,next);state.settings=next;window?.setAlwaysOnTop(next.alwaysOnTop);if(next.shortcut!==old.shortcut)bindShortcut(next.shortcut);if(JSON.stringify(next.consents)!==JSON.stringify(old.consents)){state.providers=state.providers.filter(p=>next.consents.includes(p.id)||!['codex','claude','ollama','lmstudio'].includes(p.id))}
- if(next.paused!==old.paused||next.pollSeconds!==old.pollSeconds||JSON.stringify(next.consents)!==JSON.stringify(old.consents)||JSON.stringify(next.alertThresholds)!==JSON.stringify(old.alertThresholds))newPoller();trayMenu();publish();}
+const queueSettings=serializeChanges(async({input,bounds}:{input:unknown;bounds?:Settings['bounds']})=>{const next=validatePatch(state.settings,input);if(bounds)next.bounds=bounds;if(next.startAtLogin)throw Error('portable-startup-disabled');const old=state.settings;await saveSettings(settingsFile,next);state.settings=next;window?.setAlwaysOnTop(next.alwaysOnTop);if(next.shortcut!==old.shortcut)bindShortcut(next.shortcut);if(JSON.stringify(next.consents)!==JSON.stringify(old.consents)){state.providers=state.providers.filter(p=>next.consents.includes(p.id)||!['codex','claude','ollama','lmstudio'].includes(p.id))}
+ if(next.paused!==old.paused||next.pollSeconds!==old.pollSeconds||JSON.stringify(next.consents)!==JSON.stringify(old.consents)||JSON.stringify(next.alertThresholds)!==JSON.stringify(old.alertThresholds))newPoller();trayMenu();publish();});
+function changeSettings(input:unknown){return queueSettings({input})}
 function verify(event:IpcMainInvokeEvent){if(!window||event.sender!==window.webContents||event.senderFrame!==window.webContents.mainFrame||!trustedSender(event.senderFrame.url,renderer,devUrl))throw Error('untrusted-sender')}
 function handlers(){ipcMain.handle('qg:state',e=>{verify(e);return state});ipcMain.handle('qg:refresh',async e=>{verify(e);await refresh()});ipcMain.handle('qg:settings',async(e,input)=>{verify(e);await changeSettings(input)});ipcMain.handle('qg:open',async(e,id)=>{verify(e);const url=providerUrl(id);if(!url)throw Error('invalid-provider');await shell.openExternal(url)});ipcMain.handle('qg:hide',e=>{verify(e);window?.hide()});ipcMain.handle('qg:quit',e=>{verify(e);app.quit()});}
 if(ownsLock){app.whenReady().then(async()=>{
@@ -30,7 +31,7 @@ if(ownsLock){app.whenReady().then(async()=>{
  if(process.platform==='win32')try{window.setBackgroundMaterial('acrylic')}catch{}
  window.webContents.setWindowOpenHandler(()=>({action:'deny'}));window.webContents.on('will-navigate',e=>e.preventDefault());window.webContents.session.setPermissionRequestHandler((_web, _permission,callback)=>callback(false));
  window.on('close',e=>{if(!quitting){e.preventDefault();window?.hide()}});
- let moveTimer:ReturnType<typeof setTimeout>|undefined;window.on('moved',()=>{clearTimeout(moveTimer);moveTimer=setTimeout(()=>{if(window&&!window.isDestroyed()){state.settings.bounds=window.getBounds();void saveSettings(settingsFile,state.settings).catch(()=>{})}},300)});
+ let moveTimer:ReturnType<typeof setTimeout>|undefined;window.on('moved',()=>{clearTimeout(moveTimer);moveTimer=setTimeout(()=>{if(window&&!window.isDestroyed()){void queueSettings({input:{},bounds:window.getBounds()}).catch(()=>{})}},300)});
  window.once('ready-to-show',()=>window?.show());
  tray=new Tray(nativeImage.createFromPath(path.join(__dirname,'../assets/icon.png')).resize({width:20,height:20}));tray.on('click',toggle);tray.on('double-click',()=>window?.show());trayMenu();handlers();bindShortcut(settings.shortcut);
  if(devUrl)await window.loadURL(devUrl);else await window.loadFile(renderer);newPoller();publish();

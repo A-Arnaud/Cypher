@@ -25,5 +25,6 @@ export function safeBounds(b:Settings['bounds'],work:{x:number;y:number;width:nu
  return {x:Math.round(Math.max(work.x,Math.min(bx,work.x+work.width-width))),y:Math.round(Math.max(work.y,Math.min(by,work.y+work.height-height))),width,height};
 }
 export async function readSettings(file:string):Promise<Settings>{try{const {bounds,...raw}=JSON.parse(await readFile(file,'utf8'));const s=validatePatch(defaultSettings(),raw);if(bounds&&['x','y','width','height'].every(k=>typeof bounds[k]==='number'&&Number.isFinite(bounds[k])))s.bounds=bounds;return s}catch{return defaultSettings()}}
+export function serializeChanges<T>(apply:(input:T)=>Promise<void>):(input:T)=>Promise<void>{let queue=Promise.resolve();return input=>{const operation=queue.then(()=>apply(input));queue=operation.catch(()=>{});return operation}}
 let saving=Promise.resolve();
 export function saveSettings(file:string,settings:Settings):Promise<void>{saving=saving.catch(()=>{}).then(async()=>{await mkdir(path.dirname(file),{recursive:true});const temp=file+'.tmp';await writeFile(temp,JSON.stringify(settings,null,2),'utf8');await rename(temp,file)});return saving}
