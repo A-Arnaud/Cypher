@@ -1,0 +1,8 @@
+import {it,expect} from 'vitest';import {mkdtemp,mkdir,writeFile,rm} from 'node:fs/promises';import path from 'node:path';import {codexStatus,cliCommand} from '../src/main/cli';
+it('reads account and quota over a real subprocess using explicitly synthetic test responses',async()=>{
+ const home=await mkdtemp(path.join(process.env.LOCALAPPDATA!,'hermes','cache','scratch','qg-protocol-'));try{
+ const file=path.join(home,'node_modules','@openai','codex','bin','codex.js');await mkdir(path.dirname(file),{recursive:true});await writeFile(file,String.raw`const readline=require('node:readline');readline.createInterface({input:process.stdin}).on('line',line=>{const q=JSON.parse(line);if(!q.id)return;let result;if(q.method==='initialize')result={};else if(q.method==='account/read')result={account:{type:'chatgpt',email:'fixture@example.com',planType:'plus'}};else if(q.method==='account/rateLimits/read'&&q.params?.excludeResetCreditDetails===true&&q.params?.supportsLunaReserve===false)result={rateLimits:{primary:{usedPercent:32,windowDurationMins:300,resetsAt:1999999999}}};else {process.stdout.write(JSON.stringify({id:q.id,error:{code:-1}})+'\n');return}process.stdout.write(JSON.stringify({id:q.id,result})+'\n')});`);
+ const result=await codexStatus(path.join(home,'codex.cmd'),new AbortController().signal);expect(result.account.planType).toBe('plus');expect(result.limits.rateLimits.primary.usedPercent).toBe(32);
+ }finally{await rm(home,{recursive:true,force:true,maxRetries:5,retryDelay:100})}
+});
+it('rejects arbitrary shell launchers',async()=>{await expect(cliCommand('C:/something/evil.ps1','codex')).rejects.toThrow('unsupported-launcher')});

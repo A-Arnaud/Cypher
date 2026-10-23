@@ -2,7 +2,8 @@ import {readFile,writeFile,mkdir,rename} from 'node:fs/promises';
 import path from 'node:path';
 import {catalog} from '../shared/catalog';
 import type {Settings} from '../shared/model';
-export function defaultSettings():Settings{return {language:'fr',pinned:['codex','claude','gemini'],alwaysOnTop:false,startAtLogin:false,paused:false,pollSeconds:60,shortcut:'Control+Alt+Q',compact:false,alertThresholds:[20,5],consents:[]}}
+import {defaultSettings} from '../shared/defaults';
+export {defaultSettings} from '../shared/defaults';
 export function validatePatch(current:Settings,input:unknown):Settings{
  if(!input||typeof input!=='object'||Array.isArray(input))throw Error('invalid-settings');
  const p=input as Record<string,unknown>;const next={...current};

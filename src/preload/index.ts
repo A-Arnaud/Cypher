@@ -1,0 +1,3 @@
+import {contextBridge,ipcRenderer} from 'electron';
+import type {AppState,QuotaBridge} from '../shared/model';
+const api:QuotaBridge={getState:()=>ipcRenderer.invoke('qg:state'),refresh:()=>ipcRenderer.invoke('qg:refresh'),updateSettings:patch=>ipcRenderer.invoke('qg:settings',patch),openProvider:id=>ipcRenderer.invoke('qg:open',id),hide:()=>ipcRenderer.invoke('qg:hide'),quit:()=>ipcRenderer.invoke('qg:quit'),subscribe:listener=>{const handler=(_event:unknown,state:AppState)=>listener(state);ipcRenderer.on('qg:update',handler);return()=>ipcRenderer.removeListener('qg:update',handler)}};contextBridge.exposeInMainWorld('quota',api);

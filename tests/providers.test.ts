@@ -11,6 +11,7 @@ it('rejects malformed percent and duplicate legacy quota buckets',()=>{
  expect(parseCodexLimits({rateLimits:{primary:{usedPercent:10}},rateLimitsByLimitId:{codex:{primary:{usedPercent:10}}}})).toHaveLength(1);
  expect(parseCodexLimits({rateLimits:{primary:{usedPercent:NaN}}})).toHaveLength(0);
 });
+it('does not show expired provider windows as current quota',()=>{expect(parseCodexLimits({rateLimits:{primary:{usedPercent:32,resetsAt:1}}},2000)).toEqual([])});
 it('masks account identifiers',()=>{expect(maskAccount('alice@example.com')).toBe('a•••@example.com');expect(maskAccount(null)).toBeUndefined()});
 it('requires opt-in before authenticated collection and never infers premium',async()=>{
  const s=await collectProvider('codex',{detections:[{id:'codex',installed:true,configPresent:true,evidence:[],executable:'unused'}],consents:[]},new AbortController().signal);

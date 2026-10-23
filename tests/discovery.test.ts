@@ -6,12 +6,12 @@ import {discoverTools} from '../src/main/discovery';
 import {catalog} from '../src/shared/catalog';
 describe('real installation evidence',()=>{
  it('does not turn an abandoned config directory into an installation',async()=>{
-  const home=await mkdtemp(path.join(process.env.TMPDIR ?? tmpdir(),'qg-'));
+  const home=await mkdtemp(path.join(path.join(process.env.LOCALAPPDATA!,'hermes','cache','scratch'),'qg-'));
   try {await mkdir(path.join(home,'.ollama'));const rows=await discoverTools({home,path:'',appData:home,localAppData:home});
   expect(rows.find(x=>x.id==='ollama')).toMatchObject({installed:false,configPresent:true});}finally{await rm(home,{recursive:true,force:true})}
  });
  it('finds actual CLI executable without executing it',async()=>{
-  const home=await mkdtemp(path.join(process.env.TMPDIR ?? tmpdir(),'qg-'));try{await writeFile(path.join(home,'codex.cmd'),'@echo off');
+  const home=await mkdtemp(path.join(path.join(process.env.LOCALAPPDATA!,'hermes','cache','scratch'),'qg-'));try{await writeFile(path.join(home,'codex.cmd'),'@echo off');
   const rows=await discoverTools({home,path:home,appData:home,localAppData:home});
   expect(rows.find(x=>x.id==='codex')).toMatchObject({installed:true,executable:path.join(home,'codex.cmd')});}finally{await rm(home,{recursive:true,force:true})}
  });

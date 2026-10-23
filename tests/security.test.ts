@@ -1,0 +1,3 @@
+import {it,expect} from 'vitest';import {providerUrl,trustedSender} from '../src/main/security';
+it('only opens predefined provider URLs, never arbitrary renderer URLs',()=>{expect(providerUrl('codex')).toBe('https://chatgpt.com/codex/settings/usage');expect(providerUrl('https://evil.example')).toBeUndefined();expect(providerUrl({id:'codex'})).toBeUndefined()});
+it('rejects external frame IPC and prefix lookalikes',()=>{expect(trustedSender('https://evil.example','C:/app/dist/renderer/index.html')).toBe(false);expect(trustedSender('file:///C:/app/dist/renderer/index.html','C:/app/dist/renderer/index.html')).toBe(true);expect(trustedSender('http://127.0.0.1:5173.evil.test','C:/app','http://127.0.0.1:5173')).toBe(false)});

@@ -26,7 +26,7 @@ export async function codexStatus(executable:string,signal:AbortSignal):Promise<
   const send=(method:string,params:unknown)=>new Promise<any>((res,rej)=>{const id=++sequence;pending.set(id,{resolve:res,reject:rej});child.stdin.write(JSON.stringify({id,method,params})+'\n')});
   child.stdin.on('error',()=>finish(Error('cli-exited')));
   lines.on('line',line=>{total+=line.length;if(total>2_000_000){finish(Error('output-limit'));return}try{const msg=JSON.parse(line);const p=pending.get(msg.id);if(!p)return;pending.delete(msg.id);msg.error?p.reject(Error('provider-rejected')):p.resolve(msg.result)}catch{}});
-  (async()=>{await send('initialize',{clientInfo:{name:'quota_glass',title:'Quota Glass',version:'0.1.0'},capabilities:null});child.stdin.write(JSON.stringify({method:'initialized'})+'\n');const a=await send('account/read',{refreshToken:false});let limits:any=null;if(a?.account?.type==='chatgpt')limits=await send('account/rateLimits/read',null);finish(undefined,{account:a?.account,limits})})().catch(()=>finish(Error('provider-unavailable')));
+  (async()=>{await send('initialize',{clientInfo:{name:'quota_glass',title:'Quota Glass',version:'0.1.0'},capabilities:null});child.stdin.write(JSON.stringify({method:'initialized'})+'\n');const a=await send('account/read',{refreshToken:false});let limits:any=null;if(a?.account?.type==='chatgpt')limits=await send('account/rateLimits/read',{supportsLunaReserve:false,excludeResetCreditDetails:true});finish(undefined,{account:a?.account,limits})})().catch(()=>finish(Error('provider-unavailable')));
  });
 }
 export async function claudeStatus(executable:string,signal:AbortSignal):Promise<any>{

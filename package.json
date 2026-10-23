@@ -29,7 +29,8 @@
       "target": [
         "portable"
       ],
-      "signAndEditExecutable": false
+      "signExecutable": false,
+      "icon": "assets/icon.ico"
     },
     "portable": {
       "artifactName": "Quota-Glass-${version}-win-x64.exe"
