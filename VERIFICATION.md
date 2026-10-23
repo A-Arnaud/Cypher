@@ -1,5 +1,16 @@
 # Vérification réelle — 2026-10-23
 
+## Cypher 0.3.0 — résumé, ordre libre et opacité pleine
+
+- 49 tests unitaires/subprocess, 4 parcours UI Edge et typecheck réussis ; build portable réussi ; audit npm zéro vulnérabilité signalée.
+- Résumé par défaut, poignées de déplacement pointer-capture, corps de ligne HTML5 et clavier haut/bas ; ordre partagé avec les cartes détaillées. Les déplacements IPC sont sérialisés depuis l'ordre courant.
+- Smoke natif sur le code compilé puis deux exécutions consécutives réussies sur le binaire empaqueté : 18 contrôles chacune. Ordre réellement déplacé Claude, Gemini, Codex et relu dans les préférences isolées. Petite fenêtre 380 × 264 pour trois profils ; détails agrandis et retour vérifiés. Vingt entrées de catalogue sélectionnées tiennent sans scroll dans la disposition native adaptative, capture inspectée ; ce test n'affirme pas vingt comptes connectés.
+- À 100 %, opacité native 1 et alpha intérieur du PNG à fond transparent égal à 255 ; fond CSS opaque et matériau natif none. Aperçu 55 %, préférence 68 %, refus de 0 % conservés.
+- Rapports empaquetés : C:/Users/Administrator/AppData/Local/hermes/cache/scratch/quota-glass-smoke-1792791818281/report.json et quota-glass-smoke-1792791822811/report.json. Captures widget.png, summary-many.png, settings.png, connections.png dans ces répertoires.
+- Bouton de connexion empaqueté retesté avec CLI et identités synthétiques seulement : terminal du bon profil, consentement individuel, collecte synthétique, dédoublonnage et révocation indépendants réussis. Répertoire qg-native-login-fixture-UctWeZ. Tests séparés WindowsHide et transport Unicode également réussis.
+- Un glisser HTML5 natif empaqueté a été intermittent ; la poignée utilise maintenant les événements pointeur avec capture, vérifiés dans les deux runs empaquetés. Une assertion de pause lisait avant la sauvegarde asynchrone : le smoke attend maintenant le vrai état IPC, sans répéter le clic.
+- Portable release/Cypher-0.3.0-win-x64.exe : 102434775 octets ; SHA256 b5f57c8b6e8b625710d63c250b9f522653d8a47f8e207990fef64da2ca77b8dd. Non signé. Aucun quota réel de compte utilisateur vérifié ; limites fournisseurs inchangées. Revue finale ciblée en cours.
+
 ## Cypher 0.2.0 — nom, logo, opacité et workers discrets
 
 - 44 tests unitaires/subprocess, 2 UI Edge et typecheck réussis ; audit npm zéro vulnérabilité signalée.

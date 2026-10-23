@@ -4,9 +4,17 @@ Widget Windows autonome FR / EN pour découvrir les outils IA locaux et lire les
 
 ## Lancer
 
-Double-cliquer `release/Cypher-0.2.0-win-x64.exe`. Aucun droit administrateur nécessaire. Le lancement portable extrait temporairement Electron ; patienter au premier démarrage. Application non signée : Windows peut afficher un avertissement. L'application ne télécharge pas de modèles et n'envoie aucun message IA.
+Double-cliquer `release/Cypher-0.3.0-win-x64.exe`. Aucun droit administrateur nécessaire. Le lancement portable extrait temporairement Electron ; patienter au premier démarrage. Application non signée : Windows peut afficher un avertissement. L'application ne télécharge pas de modèles et n'envoie aucun message IA.
 
 L'icône près de l'horloge (parfois dans les icônes masquées) affiche/masque le widget au clic. Ctrl+Alt+Q fait de même. Le bouton œil barré masque ; la croix visible « Quitter » arrête le processus et la collecte. Une fermeture native de la fenêtre masque également le widget. Masquer conserve la collecte ; Pause la suspend. La position est conservée. Le mode compact réduit les cartes. La fenêtre peut rester au premier plan. Quitter l'ancienne version avant de remplacer son exécutable portable.
+
+## Petit widget et ordre des profils
+
+La vue résumé affiche une ligne par profil épinglé. Glisser la poignée à gauche d'une ligne pour changer sa place ; l'ordre est enregistré et utilisé également dans les détails. Au clavier : focaliser la poignée puis utiliser les flèches haut/bas. Connexions permet de choisir les profils épinglés.
+
+Détails ouvre la grande interface et ses cartes complètes ; Retour au widget rétablit le petit aperçu. La flèche d'une ligne ouvre directement les détails de ce profil. La hauteur s'adapte au nombre de lignes ; une deuxième colonne apparaît si nécessaire. Les listes usuelles tiennent sans défilement ; un défilement de sécurité reste possible si la liste dépasse réellement la capacité de l'écran.
+
+À 100 %, le fond est désormais opaque, sans matériau acrylique natif. Les valeurs inférieures rendent volontairement la fenêtre transparente. Les quotas absents ne sont pas inventés : un tiret est affiché, avec état et explication dans les détails.
 
 ## Apparence et rafraîchissement discret
 
@@ -27,7 +35,7 @@ Si le CLI manque : « Déjà installé ? » sélectionne son exécutable .exe ou
 
 Gemini CLI propose maintenant le login, mais sa formule et ses quotas ne sont toujours pas lus. Cursor, Windsurf, Copilot et les agents : détection selon les chemins connus, pas de promesse de quotas. Les autres services sont au catalogue « Prévu » : ils ne sont pas connectés. Voir SUPPORT.md pour les capacités exactes. Les agents qui utilisent un fournisseur amont ne sont pas additionnés à sa facturation.
 
-Réglages > Langue permet Français / English. Actualisation par défaut toutes les 60 secondes ; les fournisseurs peuvent retourner des données retardées. Les erreurs conservent les dernières valeurs avec indication de péremption. Alertes aux seuils 20% / 5%, désactivables. Démarrage avec Windows désactivé dans cette version portable pour ne pas créer une entrée vers un exécutable extrait éphémère. Le flou natif dépend de Windows ; repli sombre translucide sur Windows 10.
+Réglages > Langue permet Français / English. Actualisation par défaut toutes les 60 secondes ; les fournisseurs peuvent retourner des données retardées. Les erreurs conservent les dernières valeurs avec indication de péremption. Alertes aux seuils 20% / 5%, désactivables. Démarrage avec Windows désactivé dans cette version portable pour ne pas créer une entrée vers un exécutable extrait éphémère. Le fond sombre est opaque à 100 % sur Windows 10 également ; seule une opacité choisie inférieure à 100 % laisse voir le bureau.
 
 ## Données et sécurité
 
