@@ -12,7 +12,7 @@ export function validatePatch(current:Settings,input:unknown):Settings{
   else if(k==='language'){if(v!=='fr'&&v!=='en')throw Error('invalid-language');next.language=v}
   else if(k==='pollSeconds'){if(!Number.isInteger(v)||Number(v)<30||Number(v)>900)throw Error('invalid-interval');next.pollSeconds=Number(v)}
   else if(k==='shortcut'){if(typeof v!=='string'||! /^(Control|Ctrl|Alt|Shift|Super)(\+(Control|Ctrl|Alt|Shift|Super)){0,3}\+[A-Z0-9]$/.test(v))throw Error('invalid-shortcut');next.shortcut=v}
-  else if(k==='pinned'||k==='consents'){if(!Array.isArray(v)||v.length>catalog.length||v.some(id=>typeof id!=='string'||!catalog.some(c=>c.id===id)))throw Error('invalid-provider');next[k]=[...new Set(v)]}
+  else if(k==='pinned'||k==='consents'){if(!Array.isArray(v)||v.length>256||v.some(id=>typeof id!=='string'||(!catalog.some(c=>c.id===id)&&!/^(codex|claude|gemini)-profile-[a-f0-9]{16}$/.test(id))))throw Error('invalid-provider');next[k]=[...new Set(v)]}
   else if(k==='alertThresholds'){if(!Array.isArray(v)||v.length>5||v.some(x=>typeof x!=='number'||!Number.isFinite(x)||x<1||x>99))throw Error('invalid-threshold');next.alertThresholds=[...new Set(v)].sort((a,b)=>b-a)}
   else throw Error('invalid-settings');
  }

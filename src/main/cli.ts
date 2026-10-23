@@ -1,10 +1,11 @@
 import {spawn,execFile} from 'node:child_process';
 import {stat} from 'node:fs/promises';
 import path from 'node:path';
+import {localAbsolute} from './profiles';
 import {createInterface} from 'node:readline';
-export async function cliCommand(executable:string,kind:'codex'|'claude'):Promise<{file:string;args:string[];env:NodeJS.ProcessEnv}>{
+export async function cliCommand(executable:string,kind:'codex'|'claude'|'gemini'):Promise<{file:string;args:string[];env:NodeJS.ProcessEnv}>{
  if(/\.(cmd|bat)$/i.test(executable)){
-  const entry=path.join(path.dirname(executable),'node_modules',kind==='codex'?'@openai/codex/bin/codex.js':'@anthropic-ai/claude-code/cli.js');
+  const entry=path.join(path.dirname(executable),'node_modules',kind==='codex'?'@openai/codex/bin/codex.js':kind==='claude'?'@anthropic-ai/claude-code/cli.js':'@google/gemini-cli/bundle/gemini.js');
   if(!(await stat(entry)).isFile())throw Error('unsupported-launcher');
   return {file:process.execPath,args:[entry],env:{...process.env,ELECTRON_RUN_AS_NODE:'1'}};
  }
@@ -12,10 +13,11 @@ export async function cliCommand(executable:string,kind:'codex'|'claude'):Promis
  return {file:executable,args:[],env:{...process.env}};
 }
 function terminate(pid:number|undefined){if(!pid)return;if(process.platform==='win32')execFile('taskkill.exe',['/pid',String(pid),'/t','/f'],{windowsHide:true},()=>{});else try{process.kill(pid)}catch{}}
-export async function codexStatus(executable:string,signal:AbortSignal):Promise<{account:any;limits:any}>{
+export function scopedEnvironment(kind:'codex'|'claude'|'gemini',base:NodeJS.ProcessEnv,values:Record<string,string>={}):NodeJS.ProcessEnv{const allowed={codex:'CODEX_HOME',claude:'CLAUDE_CONFIG_DIR',gemini:'GEMINI_CLI_HOME'}[kind];for(const [key,value] of Object.entries(values))if(key!==allowed||!localAbsolute(value))throw Error('invalid-profile-env');return {...base,...values}}
+export async function codexStatus(executable:string,signal:AbortSignal,profileEnv:Record<string,string>={}):Promise<{account:any;limits:any}>{
  const cmd=await cliCommand(executable,'codex');if(signal.aborted)throw Error('aborted');
  return new Promise((resolve,reject)=>{
-  const child=spawn(cmd.file,[...cmd.args,'app-server','--listen','stdio://'],{stdio:['pipe','pipe','pipe'],windowsHide:true,env:cmd.env});
+  const child=spawn(cmd.file,[...cmd.args,'app-server','--listen','stdio://'],{stdio:['pipe','pipe','pipe'],windowsHide:true,env:scopedEnvironment('codex',cmd.env,profileEnv)});
   let done=false;const pending=new Map<number,{resolve:(v:any)=>void;reject:(e:Error)=>void}>();let sequence=0,total=0;
   const lines=createInterface({input:child.stdout});
   const finish=(error?:Error,result?:{account:any;limits:any})=>{if(done)return;done=true;clearTimeout(timer);signal.removeEventListener('abort',abort);lines.close();child.stdin.end();terminate(child.pid);for(const p of pending.values())p.reject(Error('closed'));pending.clear();error?reject(error):resolve(result!)};
@@ -29,7 +31,7 @@ export async function codexStatus(executable:string,signal:AbortSignal):Promise<
   (async()=>{await send('initialize',{clientInfo:{name:'quota_glass',title:'Quota Glass',version:'0.1.0'},capabilities:null});child.stdin.write(JSON.stringify({method:'initialized'})+'\n');const a=await send('account/read',{refreshToken:false});let limits:any=null;if(a?.account?.type==='chatgpt')limits=await send('account/rateLimits/read',{supportsLunaReserve:false,excludeResetCreditDetails:true});finish(undefined,{account:a?.account,limits})})().catch(()=>finish(Error('provider-unavailable')));
  });
 }
-export async function claudeStatus(executable:string,signal:AbortSignal):Promise<any>{
+export async function claudeStatus(executable:string,signal:AbortSignal,profileEnv:Record<string,string>={}):Promise<any>{
  const cmd=await cliCommand(executable,'claude');if(signal.aborted)throw Error('aborted');
- return new Promise((resolve,reject)=>{const child=execFile(cmd.file,[...cmd.args,'auth','status','--json'],{env:cmd.env,windowsHide:true,timeout:12000,maxBuffer:200000},(err,stdout)=>{signal.removeEventListener('abort',abort);try{const data=JSON.parse(stdout);resolve(data)}catch{reject(Error('provider-unavailable'))}});const abort=()=>{terminate(child.pid);reject(Error('aborted'))};signal.addEventListener('abort',abort,{once:true})});
+ return new Promise((resolve,reject)=>{const child=execFile(cmd.file,[...cmd.args,'auth','status','--json'],{env:scopedEnvironment('claude',cmd.env,profileEnv),windowsHide:true,timeout:12000,maxBuffer:200000},(err,stdout)=>{signal.removeEventListener('abort',abort);try{const data=JSON.parse(stdout);resolve(data)}catch{reject(Error('provider-unavailable'))}});const abort=()=>{terminate(child.pid);reject(Error('aborted'))};signal.addEventListener('abort',abort,{once:true})});
 }
