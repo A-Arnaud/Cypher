@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 512 512" role="img" aria-label="Robot IA cyclope dont l'oeil est une jauge de quota">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FAFAFC"/><stop offset="1" stop-color="#D5D6DC"/></linearGradient>
+<linearGradient id="hd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3A3A3E"/><stop offset="1" stop-color="#151517"/></linearGradient>
+<linearGradient id="arc" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FF2D55"/><stop offset="1" stop-color="#FF9EB5"/></linearGradient>
+<filter id="sh" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="14" stdDeviation="14" flood-color="#4A4A55" flood-opacity="0.4"/></filter>
+</defs>
+<rect x="0" y="0" width="512" height="512" rx="115" fill="url(#bg)"/>
+<rect x="1" y="1" width="510" height="510" rx="114" fill="none" stroke="#000000" stroke-opacity="0.08" stroke-width="2"/>
+<g filter="url(#sh)">
+<rect x="249" y="96" width="14" height="44" rx="7" fill="#2A2A2D"/>
+<rect x="62" y="216" width="40" height="84" rx="20" fill="#2A2A2D"/>
+<rect x="410" y="216" width="40" height="84" rx="20" fill="#2A2A2D"/>
+<rect x="88" y="132" width="336" height="250" rx="100" fill="url(#hd)"/>
+</g>
+<circle cx="256" cy="88" r="17" fill="#FF9EB5"/>
+<circle cx="256" cy="257" r="104" fill="#0B0B0D"/>
+<circle cx="256" cy="257" r="88" fill="#FFFFFF"/>
+<circle cx="256" cy="257" r="60" fill="#1C1C1E"/>
+<g fill="none" stroke-width="16" stroke-linecap="round" transform="rotate(-90 256 257)">
+<circle cx="256" cy="257" r="42" stroke="#FFFFFF" stroke-opacity="0.16"/>
+<circle cx="256" cy="257" r="42" stroke="url(#arc)" stroke-dasharray="190 263.9"/>
+</g>
+<circle cx="256" cy="257" r="24" fill="#000000"/>
+<circle cx="236" cy="236" r="13" fill="#FFFFFF"/>
+<circle cx="276" cy="276" r="6" fill="#FFFFFF" fill-opacity="0.9"/>
+<circle cx="124" cy="334" r="9" fill="#FF9EB5" fill-opacity="0.95"/>
+<circle cx="388" cy="334" r="9" fill="#FF9EB5" fill-opacity="0.95"/>
+</svg>

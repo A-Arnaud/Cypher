@@ -1,10 +1,10 @@
 {
-  "name": "quota-glass",
-  "version": "0.1.0",
+  "name": "cypher-widget",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "description": "Local-first Windows AI quota monitor",
-  "author": "Quota Glass",
+  "author": "Cypher",
   "main": "dist/main/index.cjs",
   "scripts": {
     "dev": "node scripts/dev.cjs",
@@ -16,8 +16,8 @@
     "preview": "vite --host 127.0.0.1"
   },
   "build": {
-    "appId": "local.quotaglass.desktop",
-    "productName": "Quota Glass",
+    "appId": "local.cypher.widget",
+    "productName": "Cypher",
     "directories": {
       "output": "release"
     },
@@ -33,7 +33,7 @@
       "icon": "assets/icon.ico"
     },
     "portable": {
-      "artifactName": "Quota-Glass-${version}-win-x64.exe"
+      "artifactName": "Cypher-${version}-win-x64.exe"
     }
   },
   "dependencies": {
@@ -43,6 +43,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.64.1",
+    "@resvg/resvg-js": "^2.6.2",
     "@types/node": "^26.6.5",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",

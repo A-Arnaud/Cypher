@@ -1,0 +1,1 @@
+export class RescanQueue {private current:Promise<void>|undefined;run(action:()=>Promise<void>,fresh=false):Promise<void>{if(this.current)return fresh?this.current.catch(()=>{}).then(()=>this.run(action,true)):this.current;this.current=action().finally(()=>{this.current=undefined});return this.current}}

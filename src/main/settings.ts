@@ -10,6 +10,7 @@ export function validatePatch(current:Settings,input:unknown):Settings{
  for(const [k,v] of Object.entries(p)){
   if(['alwaysOnTop','startAtLogin','paused','compact'].includes(k)){if(typeof v!=='boolean')throw Error('invalid-settings');(next as any)[k]=v}
   else if(k==='language'){if(v!=='fr'&&v!=='en')throw Error('invalid-language');next.language=v}
+  else if(k==='opacity'){if(!Number.isInteger(v)||Number(v)<30||Number(v)>100)throw Error('invalid-opacity');next.opacity=Number(v)}
   else if(k==='pollSeconds'){if(!Number.isInteger(v)||Number(v)<30||Number(v)>900)throw Error('invalid-interval');next.pollSeconds=Number(v)}
   else if(k==='shortcut'){if(typeof v!=='string'||! /^(Control|Ctrl|Alt|Shift|Super)(\+(Control|Ctrl|Alt|Shift|Super)){0,3}\+[A-Z0-9]$/.test(v))throw Error('invalid-shortcut');next.shortcut=v}
   else if(k==='pinned'||k==='consents'){if(!Array.isArray(v)||v.length>256||v.some(id=>typeof id!=='string'||(!catalog.some(c=>c.id===id)&&!/^(codex|claude|gemini)-profile-[a-f0-9]{16}$/.test(id))))throw Error('invalid-provider');next[k]=[...new Set(v)]}
