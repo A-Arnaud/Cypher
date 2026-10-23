@@ -1,0 +1,2 @@
+// Test utility: poll resolved IPC snapshots in Node, not an async browser predicate.
+module.exports=async function waitState(page,predicate,timeout=30000){const end=Date.now()+timeout;let state;while(Date.now()<end){state=await page.evaluate(()=>window.quota.getState());if(predicate(state))return state;await new Promise(r=>setTimeout(r,50))}throw Error('App state condition timed out: '+JSON.stringify({refreshing:state?.refreshing,providerStates:state?.providers?.map(p=>({id:p.id,state:p.state}))}))};
