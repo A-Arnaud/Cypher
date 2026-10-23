@@ -1,0 +1,56 @@
+{
+  "name": "quota-glass",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Local-first Windows AI quota monitor",
+  "author": "Quota Glass",
+  "main": "dist/main/index.cjs",
+  "scripts": {
+    "dev": "node scripts/dev.cjs",
+    "build": "vite build && node scripts/build.cjs",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:ui": "playwright test",
+    "dist": "npm run build && electron-builder --win portable --x64",
+    "preview": "vite --host 127.0.0.1"
+  },
+  "build": {
+    "appId": "local.quotaglass.desktop",
+    "productName": "Quota Glass",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        "portable"
+      ],
+      "signAndEditExecutable": false
+    },
+    "portable": {
+      "artifactName": "Quota-Glass-${version}-win-x64.exe"
+    }
+  },
+  "dependencies": {
+    "lucide-react": "^1.61.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.1",
+    "@types/node": "^26.6.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "electron": "^45.0.0",
+    "electron-builder": "^26.15.3",
+    "esbuild": "^0.28.2",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.5",
+    "vitest": "^5.0.5"
+  }
+}
