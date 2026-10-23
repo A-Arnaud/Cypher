@@ -9,7 +9,7 @@
 - Rapports empaquetés : C:/Users/Administrator/AppData/Local/hermes/cache/scratch/quota-glass-smoke-1792791818281/report.json et quota-glass-smoke-1792791822811/report.json. Captures widget.png, summary-many.png, settings.png, connections.png dans ces répertoires.
 - Bouton de connexion empaqueté retesté avec CLI et identités synthétiques seulement : terminal du bon profil, consentement individuel, collecte synthétique, dédoublonnage et révocation indépendants réussis. Répertoire qg-native-login-fixture-UctWeZ. Tests séparés WindowsHide et transport Unicode également réussis.
 - Un glisser HTML5 natif empaqueté a été intermittent ; la poignée utilise maintenant les événements pointeur avec capture, vérifiés dans les deux runs empaquetés. Une assertion de pause lisait avant la sauvegarde asynchrone : le smoke attend maintenant le vrai état IPC, sans répéter le clic.
-- Portable release/Cypher-0.3.0-win-x64.exe : 102434775 octets ; SHA256 b5f57c8b6e8b625710d63c250b9f522653d8a47f8e207990fef64da2ca77b8dd. Non signé. Aucun quota réel de compte utilisateur vérifié ; limites fournisseurs inchangées. Revue finale ciblée en cours.
+- Portable release/Cypher-0.3.0-win-x64.exe : 102434775 octets ; SHA256 b5f57c8b6e8b625710d63c250b9f522653d8a47f8e207990fef64da2ca77b8dd. Non signé. Aucun quota réel de compte utilisateur vérifié ; limites fournisseurs inchangées. Revue finale ciblée terminée sans bug important démontré ; 12 tests ciblés supplémentaires réussis. Rapport lu : C:/Users/Administrator/AppData/Local/hermes/cache/scratch/cypher-compact-review.md. Les tests natifs précédents restent ceux exécutés par le parent ; le reviewer ne les a pas reproduits.
 
 ## Cypher 0.2.0 — nom, logo, opacité et workers discrets
 
