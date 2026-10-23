@@ -1,5 +1,20 @@
 # Vérification réelle — 2026-10-23
 
+## Cypher 0.2.0 — nom, logo, opacité et workers discrets
+
+- 44 tests unitaires/subprocess, 2 UI Edge et typecheck réussis ; audit npm zéro vulnérabilité signalée.
+- SVG original D:/Projets/icon.svg conservé octet pour octet (comparaison SHA256 réussie), PNG et ICO multi-résolution générés ; nom et logo Cypher inspectés dans une capture réelle.
+- Opacité native : preview 55 % sans sauvegarde, sauvegarde 68 %, refus de 0 % invisible et persistance contrôlés via le véritable BrowserWindow empaqueté. Slider UI clavier testé, FR/EN conservés.
+- Codex npm lance un enfant natif sans windowsHide : source installée vérifiée. Le produit résout maintenant directement ce binaire natif, et précharge un garde seulement pour les CLI Node de lecture restants.
+- Test du véritable ChildProcess natif d'un petit-enfant CLI synthétique : contrôle windowsHide=false ; worker corrigé windowsHide=true, environnement et options conservés. Aucun faux résultat de quota utilisé comme donnée utilisateur. Cela vérifie les options Windows effectives, pas une observation exhaustive de tous les CLI tiers.
+- Login explicite séparé : terminal Windows via start /wait ; tous les chemins passent par l'environnement Unicode natif et le batch reste ASCII. Test natif réussi avec profil-équipe-日本 & 50%! et espace neutre Unicode. Aucun vrai login.
+- Ancienne revue I1 Unicode corrigée par ce transport (la tentative chcp ne fonctionnait pas avec le starter sans console). I2 corrigé par RescanQueue et demande fresh après mutations de registre, régression de collecte en vol couverte. Action de remplacement CLI accessible après détection (ancien mineur M1).
+- Smoke Cypher empaqueté : 13 contrôles réussis, rapport C:/Users/Administrator/AppData/Local/hermes/cache/scratch/quota-glass-smoke-1792787656189/report.json. Login IPC complet synthétique empaqueté également réussi, répertoire qg-native-login-fixture-Tc9mG7.
+- Exécutable release/Cypher-0.2.0-win-x64.exe : 102433204 octets ; SHA256 acd097c006d409deb7f5278aac5a26c88121b69b963ec5c96df9b09957cf7d42. Non signé.
+- Les préférences et profils historiques restent sur place ; helper de sélection de dossier testé. Aucun quota serveur réel ni session humaine vérifié par automatisation. Claude/Gemini gardent les limites documentées.
+- Revue ciblée finale Cypher en cours ; rapport attendu dans le scratch cypher-final-review.md avant clôture.
+
+
 ## Mise à jour multi-profils et login terminal
 
 - 38 tests unitaires/subprocess réussis ; typecheck réussi ; 2 parcours UI Edge réussis ; audit npm zéro vulnérabilité signalée.

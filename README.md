@@ -1,12 +1,18 @@
-# Quota Glass
+# Cypher
 
 Widget Windows autonome FR / EN pour découvrir les outils IA locaux et lire les quotas réellement accessibles. Verre fumé sombre, fenêtre déplaçable, icône de notification, raccourci clavier et stockage local. Aucun compte payant n'est déduit de la simple installation.
 
 ## Lancer
 
-Double-cliquer `release/Quota-Glass-0.1.0-win-x64.exe`. Aucun droit administrateur nécessaire. Le lancement portable extrait temporairement Electron ; patienter au premier démarrage. Application non signée : Windows peut afficher un avertissement. L'application ne télécharge pas de modèles et n'envoie aucun message IA.
+Double-cliquer `release/Cypher-0.2.0-win-x64.exe`. Aucun droit administrateur nécessaire. Le lancement portable extrait temporairement Electron ; patienter au premier démarrage. Application non signée : Windows peut afficher un avertissement. L'application ne télécharge pas de modèles et n'envoie aucun message IA.
 
 L'icône près de l'horloge (parfois dans les icônes masquées) affiche/masque le widget au clic. Ctrl+Alt+Q fait de même. Le bouton œil barré masque ; la croix visible « Quitter » arrête le processus et la collecte. Une fermeture native de la fenêtre masque également le widget. Masquer conserve la collecte ; Pause la suspend. La position est conservée. Le mode compact réduit les cartes. La fenêtre peut rester au premier plan. Quitter l'ancienne version avant de remplacer son exécutable portable.
+
+## Apparence et rafraîchissement discret
+
+Réglages > Opacité ajuste immédiatement la fenêtre de 30 à 100 % et conserve la préférence. Le logo SVG fourni est utilisé dans l'interface et converti en icône Windows multi-résolution sans modifier le dessin. Les lectures de quota ne lancent pas de terminal : Codex utilise directement son binaire natif lorsque disponible ; les workers Node restants imposent windowsHide aux sous-processus. Seul un clic de connexion ouvre un terminal visible.
+
+Le renommage garde le dossier historique %APPDATA%/Quota Glass s'il existe, sans déplacer les profils ni copier leurs identifiants ; une nouvelle installation utilise %APPDATA%/Cypher. CYPHER_DATA_DIR ou l'ancien QG_DATA_DIR permettent un dossier isolé explicite.
 
 ## Connecter les données
 
@@ -40,7 +46,7 @@ Node 24 utilisé lors de la construction. Dans le dossier du projet :
     npm run test:ui
     npm run dist
 
-Le test navigateur utilise Microsoft Edge installé. `node scripts/smoke.cjs` exerce l'application Electron ; ajouter le chemin de `release/win-unpacked/Quota Glass.exe` pour la version empaquetée. `node scripts/test-native-login.cjs` teste le bouton, le terminal, l'isolation et les permissions avec un faux CLI explicitement synthétique ; aucun compte réel n'est connecté. Les répertoires de test sont isolés dans le scratch Hermes. Les réponses synthétiques n'existent que dans les tests. `QG_DATA_DIR` permet de choisir un dossier de préférences séparé (ne pas pointer vers une configuration d'un autre produit).
+Le test navigateur utilise Microsoft Edge installé. `node scripts/smoke.cjs` exerce l'application Electron ; ajouter le chemin de `release/win-unpacked/Cypher.exe` pour la version empaquetée. `node scripts/test-native-login.cjs` teste le bouton, le terminal, l'isolation et les permissions avec un faux CLI explicitement synthétique ; aucun compte réel n'est connecté. Les répertoires de test sont isolés dans le scratch Hermes. Les réponses synthétiques n'existent que dans les tests. `QG_DATA_DIR` permet de choisir un dossier de préférences séparé (ne pas pointer vers une configuration d'un autre produit).
 
 ## English quick start
 
