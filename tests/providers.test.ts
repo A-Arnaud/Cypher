@@ -1,0 +1,21 @@
+import {it,expect} from 'vitest';
+import {parseCodexLimits,maskAccount} from '../src/main/metrics';
+import {collectProvider} from '../src/main/providers';
+it('keeps unknown quota unknown',()=>{expect(parseCodexLimits({rateLimits:{primary:null}})).toEqual([])});
+it('normalizes provider percent and reset timestamp without inventing capacity',()=>{
+ const m=parseCodexLimits({rateLimits:{primary:{usedPercent:32,windowDurationMins:300,resetsAt:1800000000},secondary:{usedPercent:74,windowDurationMins:10080,resetsAt:null}}},123);
+ expect(m[0]).toMatchObject({id:'codex:primary',remainingPercent:68,resetAt:1800000000000,source:'provider',observedAt:123});expect(m[1].remainingPercent).toBe(26);
+});
+it('rejects malformed percent and duplicate legacy quota buckets',()=>{
+ expect(parseCodexLimits({rateLimits:{primary:{usedPercent:'20'}}})).toEqual([]);
+ expect(parseCodexLimits({rateLimits:{primary:{usedPercent:10}},rateLimitsByLimitId:{codex:{primary:{usedPercent:10}}}})).toHaveLength(1);
+ expect(parseCodexLimits({rateLimits:{primary:{usedPercent:NaN}}})).toHaveLength(0);
+});
+it('masks account identifiers',()=>{expect(maskAccount('alice@example.com')).toBe('a•••@example.com');expect(maskAccount(null)).toBeUndefined()});
+it('requires opt-in before authenticated collection and never infers premium',async()=>{
+ const s=await collectProvider('codex',{detections:[{id:'codex',installed:true,configPresent:true,evidence:[],executable:'unused'}],consents:[]},new AbortController().signal);
+ expect(s.state).toBe('consent');expect(s.auth).toBe('unknown');expect(s.plan).toBeUndefined();expect(s.metrics).toEqual([]);
+});
+it('does not double count agent consumption',async()=>{
+ const s=await collectProvider('aider',{detections:[],consents:[]},new AbortController().signal);expect(s.metrics).toEqual([]);expect(s.message).toBe('upstream');
+});
