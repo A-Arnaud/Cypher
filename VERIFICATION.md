@@ -12,7 +12,7 @@
 - Smoke Cypher empaqueté : 13 contrôles réussis, rapport C:/Users/Administrator/AppData/Local/hermes/cache/scratch/quota-glass-smoke-1792787656189/report.json. Login IPC complet synthétique empaqueté également réussi, répertoire qg-native-login-fixture-Tc9mG7.
 - Exécutable release/Cypher-0.2.0-win-x64.exe : 102433204 octets ; SHA256 acd097c006d409deb7f5278aac5a26c88121b69b963ec5c96df9b09957cf7d42. Non signé.
 - Les préférences et profils historiques restent sur place ; helper de sélection de dossier testé. Aucun quota serveur réel ni session humaine vérifié par automatisation. Claude/Gemini gardent les limites documentées.
-- Revue ciblée finale Cypher en cours ; rapport attendu dans le scratch cypher-final-review.md avant clôture.
+- Revue ciblée finale terminée : aucun problème critique ou important démontré. Le reviewer a refait 44 tests, 2 UI, typecheck/build et probes Unicode/concurrence avec succès, sans compte réel. Rapport : C:/Users/Administrator/AppData/Local/hermes/cache/scratch/cypher-final-review.md. Réserve M1 de ce rapport rejetée après vérification : Connections.tsx:18 propose bien Choisir / remplacer le CLI lorsque executable est présent ; le test UI le vérifie dans ce cas. Aucun changement de code nécessaire sur ce point. Les limites de vérification de quotas réels restent inchangées.
 
 
 ## Mise à jour multi-profils et login terminal
