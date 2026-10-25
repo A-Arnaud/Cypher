@@ -15,8 +15,8 @@
 - [x] Create centered README, original wordmark/feature art and English synthetic screenshots.
 - [x] Run typecheck, unit/UI tests, secret scans, dependency audit and Windows packaging.
 - [x] Verify production archive/fuses and run isolated packaged security checks.
-- [ ] Review requirements and code quality; commit and tag final source, upload intended artifacts and checksums.
-- [ ] Verify private visibility, remote commit/tag and release assets.
+- [x] Review requirements and code quality; commit and tag final source, upload intended artifacts and checksums.
+- [x] Verify private visibility, remote commit/tag and release assets.
 
 ## Decisions
 
@@ -24,3 +24,7 @@
 - Keep French as an optional localization to preserve a working saved preference.
 - Translation is parallelized by file ownership; release, branding and Git mutations remain with the primary agent.
 - Reference: https://github.com/trycua/cua/blob/main/README.md (layout inspiration only).
+
+## Publication result
+
+Published https://github.com/A-Arnaud/Cypher/releases/tag/v0.4.8 from source commit `70d09d87d4a1bed5a0beedb29b09cb5a4533d542`. Installer, portable executable and checksum manifest were downloaded from GitHub and matched the local SHA-256 hashes. Repository remains private. GitHub Actions runs for this source were still in progress at publication; the recorded local checks passed.

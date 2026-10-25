@@ -28,3 +28,11 @@ Only these three files under `release/github-v0.4.8` are intended for GitHub Rel
 Executables remain unsigned. Verified native target remains Windows 10 x64 with a horizontal primary taskbar. Tests with synthetic data do not certify live provider connectivity or every supported Windows configuration. Scans do not guarantee the absence of every secret or vulnerability. The private repository's access restrictions still apply to its release downloads.
 
 The release tag, remote source commit and uploaded asset checksums are verified as the final publication step; local build evidence above is not a claim about a future GitHub Actions run.
+
+## Remote publication verification
+
+- Published release: https://github.com/A-Arnaud/Cypher/releases/tag/v0.4.8 (not draft, not prerelease).
+- Release source tag `v0.4.8` points to `70d09d87d4a1bed5a0beedb29b09cb5a4533d542`. The subsequent publication-record commit changes documentation only.
+- Repository visibility was verified private and its default branch is `main`.
+- All three uploaded assets were downloaded through authenticated GitHub access and independently hashed; each SHA-256 matched its local source file. GitHub asset digests also match.
+- Latest-source GitHub Actions runs were in progress at publication; this report does not claim a completed CI result for them.
