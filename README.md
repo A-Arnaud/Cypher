@@ -123,7 +123,3 @@ npm run security:release
 ```
 
 `npm run build:test` creates a separate test package for isolated Electron checks, never a release artifact. Production executables disable the inspection facilities used by these tests. See [Contributing](CONTRIBUTING.md), [implementation notes](docs/IMPLEMENTATION-NOTES.md) and [verification](VERIFICATION.md).
-
-## Project notes
-
-Cypher is an independent project. Provider names and logos identify integrations and remain the property of their owners. The repository presentation takes layout inspiration from [Cua](https://github.com/trycua/cua); Cypher's artwork, product text and functionality are its own.
