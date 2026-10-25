@@ -1,41 +1,41 @@
-# Revue de sécurité locale — 24 octobre 2026
+﻿# Local security review — October 24, 2026
 
-Version examinée et construite : 0.4.6. Cible : Windows 10 x64 de cette machine. Cette revue de code et ces tests ne constituent pas un audit indépendant ni une certification d’absence de faille.
+Version reviewed and built: 0.4.6. Target: this machine's Windows 10 x64 installation. This code review and these tests do not constitute an independent audit or certification that vulnerabilities are absent.
 
-## Changements apportés
+## Changes made
 
-| Surface | Résultat |
+| Surface | Result |
 |---|---|
-| Interface Electron | Sandbox, isolation, absence de Node et de webview conservées ; session en mémoire ; permissions et navigation refusées |
-| Réseau du renderer | CSP de production connect-src none et form-action none ; contrôle séparé des requêtes dans la session ; aucun accès aux fichiers hors du renderer empaqueté |
-| Sous-processus CLI | Environnement filtré, sans clés/tokens ambiants, options Node ou overrides des autres profils ; dossier de travail neutre |
-| Exécution et débogage Electron | RunAsNode, NodeOptions et NodeCliInspect désactivés dans la distribution ; retrait des switches de débogage Chromium |
-| Intégrité de l’application | Intégrité ASAR et chargement ASAR uniquement activés ; liste de fichiers distribués explicite, sans node_modules et sans diagnostics |
-| Clés API | Chiffrement DPAPI sans backend faible de secours ; enveloppe chiffrée liée au fournisseur ; aucune valeur de clé dans l’état public |
-| Réponses fournisseur/serveur local | Taille limitée pendant le téléchargement ; redirections interdites ; délais et pagination bornés |
-| Documentation | Captures régénérées sans compte ni CLI ; SECURITY.md et PRIVACY.md ajoutés ; limites et destinations documentées |
-| GitHub | Workflow Windows, scans de secrets, audit npm, tests et vérification d’artefact ; actions épinglées par SHA, permissions contents:read ; suivi Dependabot |
+| Electron interface | Sandbox, isolation, and absence of Node and webviews retained; in-memory session; permissions and navigation denied |
+| Renderer network | Production CSP connect-src none and form-action none; separate request control in the session; no file access outside the packaged renderer |
+| CLI subprocesses | Filtered environment without ambient keys/tokens, Node options, or other profiles' overrides; neutral working folder |
+| Electron execution and debugging | RunAsNode, NodeOptions, and NodeCliInspect disabled in the distribution; Chromium debugging switches removed |
+| Application integrity | ASAR integrity and ASAR-only loading enabled; explicit distributed file list, without node_modules or diagnostics |
+| API keys | DPAPI encryption without a weak fallback backend; encrypted envelope bound to the provider; no key values in public state |
+| Provider/local server responses | Size limited during download; redirects prohibited; bounded timeouts and pagination |
+| Documentation | Screenshots regenerated without accounts or CLIs; SECURITY.md and PRIVACY.md added; limitations and destinations documented |
+| GitHub | Windows workflow, secret scans, npm audit, tests, and artifact verification; actions pinned by SHA, contents:read permissions; Dependabot tracking |
 
-## Vérifications exécutées
+## Checks performed
 
-- TypeScript : succès.
-- Tests unitaires : 92 succès, dont filtrage d’environnement, refus de ciphertext transféré entre fournisseurs, backend de chiffrement faible et interruption d’un corps HTTP trop volumineux.
-- Tests d’interface : 9 succès.
-- Exécutable de test séparé : premier lancement sans Node/CLI dans le PATH et sans compte ; vrai IPC, vrai DPAPI, sept API simulées ; aucune clé en clair dans le stockage ou l’état public ; déconnexion vérifiée.
-- Tentatives de sortie depuis le renderer : fetch et image vers un serveur témoin local refusés, zéro requête reçue.
-- Exécutable de production : démarrage avec profil vide ; tentatives via ELECTRON_RUN_AS_NODE et NODE_OPTIONS sans exécution du code injecté ; aucun port de débogage ouvert.
-- Fuses et CSP vérifiés dans l’exécutable et l’archive de production.
-- Audit npm : zéro vulnérabilité connue signalée à la date de la vérification.
-- Gitleaks 8.30.1 officiel, archive vérifiée par SHA-256 : aucun secret reconnu dans les fichiers publiables et les 16 commits de l’historique.
-- Scan complémentaire local : aucun motif de secret ou fichier de compte dans les sources, les 172 blobs historiques contrôlés et l’archive produite.
-- Inspection des captures de documentation : aucune identité de compte réelle affichée ; les nouvelles captures proviennent de l’aperçu sans compte.
+- TypeScript: passed.
+- Unit tests: 92 passed, including environment filtering, rejection of ciphertext transferred between providers, weak encryption backend, and interruption of an oversized HTTP body.
+- Interface tests: 9 passed.
+- Separate test executable: first launch without Node/CLIs in PATH and without an account; real IPC, real DPAPI, seven simulated APIs; no plaintext key in storage or public state; disconnection verified.
+- Renderer escape attempts: fetch and image requests to a local witness server denied, zero requests received.
+- Production executable: startup with an empty profile; attempts through ELECTRON_RUN_AS_NODE and NODE_OPTIONS did not execute injected code; no debugging port opened.
+- Fuses and CSP verified in the production executable and archive.
+- npm audit: zero known vulnerabilities reported at the time of verification.
+- Official Gitleaks 8.30.1, archive verified by SHA-256: no recognized secrets in publishable files or the 16 commits in history.
+- Additional local scan: no secret patterns or account files in sources, the 172 historical blobs checked, or the produced archive.
+- Documentation screenshot inspection: no real account identity displayed; new screenshots come from the preview without accounts.
 
-Les résultats Gitleaks bruts, même expurgés, et les artefacts de test restent dans des dossiers locaux exclus de Git. Les empreintes des deux exécutables de distribution sont dans release/SHA256SUMS-0.4.6.txt. Aucun dépôt GitHub n’a été créé, modifié ou publié pendant cette revue. La CI est préparée mais n’a pas encore été exécutée sur les serveurs GitHub.
+Raw Gitleaks results, even redacted, and test artifacts remain in local folders excluded from Git. Hashes of the two distribution executables are in release/SHA256SUMS-0.4.6.txt. No GitHub repository was created, modified, or published during this review. CI is prepared but has not yet run on GitHub servers.
 
-## Limites et suite
+## Limitations and follow-up
 
-DPAPI ne protège pas contre un processus malveillant exécuté sous le même utilisateur Windows. Les clés existent en mémoire pendant l’authentification. Les fournisseurs reçoivent nécessairement la clé qui leur est destinée et l’IP du client. Les CLI tiers et leurs configurations ne sont pas confinés par un pare-feu Cypher. Aucun cookie personnel n’est collecté et aucun navigateur de connexion intégré n’est livré.
+DPAPI does not protect against a malicious process running as the same Windows user. Keys exist in memory during authentication. Providers necessarily receive the key intended for them and the client's IP address. Third-party CLIs and their configurations are not confined by a Cypher firewall. No personal cookies are collected, and no embedded login browser is shipped.
 
-Les anciens enregistrements de clés non liés au fournisseur demandent une nouvelle saisie dans Connexions ; les identifiants des CLI ne sont pas réécrits. Les exécutables restent sans signature Authenticode. Une revue indépendante, des essais sur d’autres PC/versions de Windows et la validation des connecteurs avec leurs comptes réels restent à faire. Les scans automatiques ne détectent ni tous les secrets possibles ni toutes les vulnérabilités.
+Old key records that are not bound to the provider require re-entry in Connections; CLI credentials are not rewritten. Executables remain without Authenticode signatures. Independent review, testing on other PCs/Windows versions, and validation of connectors with their real accounts remain outstanding. Automated scans detect neither every possible secret nor every vulnerability.
 
-Références : [recommandations Electron](https://www.electronjs.org/docs/latest/tutorial/security), [safeStorage et frontière DPAPI](https://www.electronjs.org/docs/latest/api/safe-storage), [Gitleaks officiel](https://github.com/gitleaks/gitleaks/releases/tag/v8.30.1).
+References: [Electron recommendations](https://www.electronjs.org/docs/latest/tutorial/security), [safeStorage and the DPAPI boundary](https://www.electronjs.org/docs/latest/api/safe-storage), [official Gitleaks](https://github.com/gitleaks/gitleaks/releases/tag/v8.30.1).

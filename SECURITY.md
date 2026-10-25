@@ -1,31 +1,31 @@
-# Sécurité
+﻿# Security
 
-Cypher est une application Windows locale. Elle ne possède pas de serveur central, de télémétrie applicative ou de mécanisme de téléversement des comptes. « Local » ne signifie pas « hors ligne » : après autorisation, les lectures de quotas contactent le fournisseur concerné. Le navigateur externe peut aussi être ouvert à la demande pour une connexion ou un tableau de bord. Les destinations et les données conservées sont décrites dans [PRIVACY.md](PRIVACY.md).
+Cypher is a local Windows application. It has no central server, application telemetry, or account-upload mechanism. “Local” does not mean “offline”: after authorization, quota reads contact the relevant provider. The external browser can also be opened on demand for login or a dashboard. Destinations and stored data are described in [PRIVACY.md](PRIVACY.md).
 
-## Protections implémentées
+## Implemented protections
 
-- Renderer sandboxé, isolation de contexte et Node désactivé. Aucune API de fichiers, shell, déchiffrement ou IPC arbitraire n’est exposée à l’interface.
-- L’interface de production charge ses fichiers locaux. Sa CSP bloque les connexions réseau, formulaires, sous-cadres, workers et plugins. Une seconde règle dans la session Electron bloque les requêtes externes et l’accès aux fichiers hors de l’interface empaquetée. La session Chromium de l’interface est en mémoire.
-- Navigation, nouvelles fenêtres, webviews et permissions refusées. Chaque commande IPC contrôle l’expéditeur, sa fenêtre, sa frame et ses arguments. Les liens ouverts par le processus principal viennent de listes fixes.
-- Clés API saisies explicitement et chiffrées via Windows DPAPI. Aucun stockage en clair de secours. L’enveloppe chiffrée lie chaque clé à son fournisseur pour refuser la réutilisation d’un ciphertext déplacé vers un autre connecteur. Les clés ne sont jamais renvoyées dans l’état public ou la console.
-- Les collecteurs API font des GET vers des URL prédéfinies, sans suivre de redirection. Les lectures locales se limitent à des adresses loopback fixes. Les corps JSON sont bornés pendant leur réception et les requêtes ont un délai limite.
-- Les CLI utilisent des commandes fixes, sans prompt de génération. Leur environnement ne reprend pas les clés API, tokens, variables d’autres profils ou options d’injection Node du processus parent. Les lectures s’exécutent dans un dossier neutre ; les réglages de télémétrie documentés sont désactivés dans les lecteurs Codex et Claude sans modifier la configuration enregistrée de l’utilisateur.
-- La distribution désactive les fuses Electron RunAsNode, NodeOptions et NodeCliInspect, et active le chiffrement des cookies, l’intégrité ASAR et le chargement depuis ASAR uniquement. La version de test est séparée et n’est pas destinée à la distribution.
-- La liste des fichiers empaquetés est explicite. Les scans des sources, de l’historique Git et des archives ne doivent trouver aucun fichier de compte ou secret reconnu avant publication.
+- Sandboxed renderer, context isolation, and Node disabled. No file, shell, decryption, or arbitrary IPC API is exposed to the interface.
+- The production interface loads its local files. Its CSP blocks network connections, forms, subframes, workers, and plugins. A second rule in the Electron session blocks external requests and file access outside the packaged interface. The interface's Chromium session is held in memory.
+- Navigation, new windows, webviews, and permissions are denied. Every IPC command checks the sender, its window, its frame, and its arguments. Links opened by the main process come from fixed lists.
+- API keys are entered explicitly and encrypted using Windows DPAPI. No plaintext storage fallback. The encrypted envelope binds each key to its provider to reject reuse of ciphertext moved to another connector. Keys are never returned in public state or the console.
+- API collectors make GET requests to predefined URLs without following redirects. Local reads are limited to fixed loopback addresses. JSON bodies are bounded during receipt, and requests have a timeout.
+- CLIs use fixed commands without generation prompts. Their environment does not inherit API keys, tokens, other profiles' variables, or Node injection options from the parent process. Reads run in a neutral folder; documented telemetry settings are disabled in Codex and Claude readers without changing the user's saved configuration.
+- The distribution disables the Electron RunAsNode, NodeOptions, and NodeCliInspect fuses, and enables cookie encryption, ASAR integrity, and loading only from ASAR. The test build is separate and is not intended for distribution.
+- The list of packaged files is explicit. Source, Git history, and archive scans must find no recognized account files or secrets before publication.
 
-## Limites à connaître
+## Known limitations
 
-Ces mesures ne constituent pas une garantie d’absence de faille. DPAPI protège les données au repos contre d’autres comptes Windows ; il ne protège pas contre un malware ou un administrateur exécuté dans la même session, un Windows compromis, une capture d’écran ou une lecture de mémoire. La clé existe temporairement en mémoire pour être envoyée à son fournisseur. La saisie d’une clé administrateur donne accès aux données d’organisation que cette clé autorise : privilégier les permissions de lecture les plus limitées disponibles.
+These measures do not guarantee the absence of vulnerabilities. DPAPI protects data at rest against other Windows accounts; it does not protect against malware or an administrator running in the same session, a compromised Windows installation, screenshots, or memory reads. The key temporarily exists in memory to be sent to its provider. Entering an admin key grants access to the organization data that key authorizes: prefer the narrowest available read permissions.
 
-Les CLI et leurs configurations appartiennent à l’utilisateur. Ils peuvent effectuer leurs propres opérations réseau ; Cypher ne constitue pas un pare-feu pour un exécutable compromis ou une configuration tierce. Les proxys et autorités de certification fournis explicitement par l’environnement système restent une frontière de confiance. Cypher ne désactive pas la validation TLS.
+CLIs and their configurations belong to the user. They may perform their own network operations; Cypher is not a firewall for a compromised executable or third-party configuration. Proxies and certificate authorities explicitly supplied by the system environment remain a trust boundary. Cypher does not disable TLS validation.
 
-Les exécutables actuels ne sont pas signés Authenticode. L’intégrité ASAR n’équivaut pas à une signature de l’éditeur : elle ne prouve pas à elle seule l’origine d’un téléchargement. Comparer les SHA-256 publiés depuis un dépôt de confiance. Ne pas exécuter une compilation inconnue avec des droits administrateur.
+Current executables are not Authenticode-signed. ASAR integrity is not a publisher signature: it does not by itself prove the origin of a download. Compare the published SHA-256 hashes from a trusted repository. Do not run an unknown build with administrator privileges.
 
-Le durcissement peut demander de ressaisir les clés API enregistrées dans une ancienne version dont l’enveloppe n’était pas liée au fournisseur. Les profils CLI ne sont pas modifiés. Les modes de connexion navigateur intégrés ne sont pas implémentés ; les cookies du navigateur personnel ne sont pas collectés.
+Hardening may require re-entering API keys saved in an older version whose envelope was not bound to the provider. CLI profiles are not modified. Embedded browser login modes are not implemented; personal browser cookies are not collected.
 
-## Vérifications avant publication
+## Pre-publication checks
 
-Sur Windows x64 avec Node.js installé pour développer :
+On Windows x64 with Node.js installed for development:
 
 ```powershell
 npm ci
@@ -41,12 +41,16 @@ npm run dist
 npm run security:release
 ```
 
-Le test de premier lancement utilise uniquement des profils vides et des réponses API synthétiques. Ne pas publier `test-results`, `.local-builds`, `.security-tools`, les rapports de diagnostic, les préférences, le registre des profils ou un dossier de données utilisateur. Publier les sources vérifiées avec Git et, si souhaité, les installateurs/portables de `release` accompagnés de leurs empreintes. La CI Windows exécute ces contrôles avec un token GitHub en lecture seule et n’envoie aucun secret à l’application.
+The first-launch test uses only empty profiles and synthetic API responses. Do not publish `test-results`, `.local-builds`, `.security-tools`, diagnostic reports, preferences, the profile registry, or a user-data folder. Publish verified sources with Git and, if desired, the installers/portable executables from `release` with their hashes. Windows CI runs these checks with a read-only GitHub token and sends no secrets to the application.
 
-Un scan de motifs ou de dépendances ne couvre pas tous les types de secrets ni toutes les failles. Une revue indépendante et des essais sur d’autres machines restent nécessaires avant de revendiquer un audit externe ou une compatibilité générale.
+A pattern or dependency scan does not cover every type of secret or vulnerability. Independent review and testing on other machines remain necessary before claiming an external audit or general compatibility.
 
-## Signaler un problème
+## Reporting a problem
 
-Utiliser l’onglet Security du dépôt GitHub et « Report a vulnerability » si le signalement privé y est activé. Ne pas joindre de clé, token, code de connexion, fichier auth.json, cookie, dump mémoire ou capture contenant un compte. Si un secret a été publié, le révoquer chez son fournisseur ; l’effacer du dernier commit ne suffit pas à le retirer de l’historique et des copies existantes.
+Use the GitHub repository's Security tab and “Report a vulnerability” if private reporting is enabled there. Do not attach keys, tokens, login codes, auth.json files, cookies, memory dumps, or screenshots containing an account. If a secret has been published, revoke it at its provider; removing it from the latest commit is not enough to remove it from history and existing copies.
 
-Références : [sécurité Electron](https://www.electronjs.org/docs/latest/tutorial/security), [limites de safeStorage](https://www.electronjs.org/docs/latest/api/safe-storage).
+References: [Electron security](https://www.electronjs.org/docs/latest/tutorial/security), [safeStorage limitations](https://www.electronjs.org/docs/latest/api/safe-storage).
+
+### Checking a separate release output folder
+
+Set the PowerShell environment variable CYPHER_RELEASE_ROOT to the unpacked application folder (for example, release/github-v0.4.8/win-unpacked) before running the release-security and production-security checks. Without this variable, they check release/win-unpacked. This allows packaging without replacing a portable executable that is currently open.

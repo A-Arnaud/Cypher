@@ -1,49 +1,49 @@
-# Données et réseau
+﻿# Data and network
 
-Cypher conserve ses données sur le PC. Aucun backend Cypher, service d’analytics, envoi de logs ou crash reporter n’est configuré. Aucun cookie du navigateur personnel, conversation ou historique de messages n’est importé.
+Cypher keeps its data on the PC. No Cypher backend, analytics service, log upload, or crash reporter is configured. No cookies from the personal browser, conversations, or message history are imported.
 
-## Données locales
+## Local data
 
-Les préférences vivent dans le dossier utilisateur de l’application (`%APPDATA%/Quota Glass` pour les installations existantes, sinon `%APPDATA%/Cypher`). Un emplacement personnalisé peut être choisi au lancement pour les tests.
+Preferences live in the application's user-data folder (`%APPDATA%/Quota Glass` for existing installations, otherwise `%APPDATA%/Cypher`). A custom location can be selected at launch for testing.
 
-| Fichier/dossier | Contenu |
+| File/folder | Contents |
 |---|---|
-| settings.json | Langue, affichage, ordre, profils autorisés et réglages ; aucune clé API |
-| registry.json | Chemins des CLI et des profils ajoutés manuellement ; pas leur contenu d’authentification |
-| credentials.enc.json | Clés saisies dans Cypher, chiffrées avec Windows DPAPI et liées au fournisseur |
-| profiles/ | Profils créés à la demande ; les identifiants y sont gérés par le CLI officiel |
-| login-scripts/ | Commandes fixes temporaires de lancement, sans clé ni token |
-| login-workspaces/ | Dossiers neutres pour les connexions demandées |
+| settings.json | Language, display, order, authorized profiles, and settings; no API keys |
+| registry.json | Paths to manually added CLIs and profiles; not their authentication contents |
+| credentials.enc.json | Keys entered in Cypher, encrypted with Windows DPAPI and bound to the provider |
+| profiles/ | Profiles created on demand; credentials there are managed by the official CLI |
+| login-scripts/ | Temporary fixed launch commands, without keys or tokens |
+| login-workspaces/ | Neutral folders for requested logins |
 
-Les données de quota et les comptes masqués restent en mémoire et ne sont pas mis en cache dans les préférences. Les CLI officiels peuvent gérer leurs propres fichiers d’authentification, caches et journaux dans leurs profils. Les noms de profils et domaines d’email affichés localement peuvent constituer des informations personnelles : vérifier toute capture avant de la partager.
+Quota data and masked accounts remain in memory and are not cached in preferences. Official CLIs may manage their own authentication files, caches, and logs in their profiles. Profile names and email domains displayed locally may constitute personal information: check any screenshot before sharing it.
 
-« Déconnecter et supprimer la clé » efface la clé du stockage de Cypher et retire l’autorisation de lecture. Cela ne révoque pas la clé chez son fournisseur et ne garantit pas un effacement forensic des sauvegardes du disque. Retirer une autorisation de profil arrête sa collecte, sans déconnecter le CLI ni supprimer son compte. Pause arrête les collecteurs ; Quitter termine l’application et ses lecteurs.
+“Disconnect and delete key” deletes the key from Cypher storage and removes read permission. It does not revoke the key at its provider or guarantee forensic erasure from disk backups. Removing a profile's permission stops its collection without signing out the CLI or deleting its account. Pause stops collectors; Quit terminates the application and its readers.
 
-La désinstallation conserve le dossier de données utilisateur pour permettre une réinstallation sans perdre les profils. Supprimer les clés depuis Connexions avant de céder un PC, et gérer séparément la déconnexion des CLI. Ne pas copier ce dossier dans le dépôt GitHub ou dans une archive de distribution.
+Uninstallation preserves the user-data folder so that profiles survive reinstallation. Delete keys from Connections before handing over a PC, and manage CLI sign-out separately. Do not copy this folder into the GitHub repository or a distribution archive.
 
-## Destinations contactées après autorisation
+## Destinations contacted after authorization
 
-| Connecteur | Destination | Données transmises |
+| Connector | Destination | Data transmitted |
 |---|---|---|
-| OpenRouter | openrouter.ai/api/v1/key | Clé OpenRouter et lecture du budget de cette clé |
-| DeepSeek API | api.deepseek.com/user/balance | Clé DeepSeek et lecture du solde |
-| Poe | api.poe.com/usage/current_balance | Clé Poe et lecture des points |
-| OpenAI API | api.openai.com/v1/organization/costs | Clé admin et période de coût du mois UTC |
-| Anthropic API | api.anthropic.com/v1/organizations/cost_report | Clé admin et période de coût du mois UTC |
-| fal.ai | api.fal.ai/v1/account/billing | Clé avec permission billing:usage:read et demande de solde |
-| Together AI | api.together.ai/v1/billing/usage | Clé API, mois UTC, granularité et curseurs de pagination |
-| Codex | CLI officiel installé | Chemin du profil autorisé et requêtes de compte/quotas ; le CLI contacte son fournisseur |
-| Claude Code | CLI officiel installé | Chemin du profil autorisé et commande auth status ; le CLI applique son fonctionnement officiel |
-| Gemini | CLI officiel, seulement sur clic de connexion | Home du profil choisi ; pas de collecte automatique de quota implémentée |
-| Ollama | 127.0.0.1:11434/api/tags | Lecture de la liste de modèles, sans clé cloud |
-| LM Studio | 127.0.0.1:1234/v1/models | Lecture de la liste de modèles, sans clé cloud |
-| llama.cpp | 127.0.0.1:8080/v1/models | Lecture de la liste de modèles, sans clé cloud |
-| vLLM | 127.0.0.1:8000/v1/models | Lecture de la liste de modèles, sans clé cloud |
+| OpenRouter | openrouter.ai/api/v1/key | OpenRouter key and request to read that key's budget |
+| DeepSeek API | api.deepseek.com/user/balance | DeepSeek key and balance read |
+| Poe | api.poe.com/usage/current_balance | Poe key and points read |
+| OpenAI API | api.openai.com/v1/organization/costs | Admin key and cost period for the UTC month |
+| Anthropic API | api.anthropic.com/v1/organizations/cost_report | Admin key and cost period for the UTC month |
+| fal.ai | api.fal.ai/v1/account/billing | Key with billing:usage:read permission and balance request |
+| Together AI | api.together.ai/v1/billing/usage | API key, UTC month, granularity, and pagination cursors |
+| Codex | Installed official CLI | Authorized profile path and account/quota requests; the CLI contacts its provider |
+| Claude Code | Installed official CLI | Authorized profile path and auth status command; the CLI follows its official behavior |
+| Gemini | Official CLI, only when Connect is clicked | Selected profile home; no automatic quota collection implemented |
+| Ollama | 127.0.0.1:11434/api/tags | Model list read, without a cloud key |
+| LM Studio | 127.0.0.1:1234/v1/models | Model list read, without a cloud key |
+| llama.cpp | 127.0.0.1:8080/v1/models | Model list read, without a cloud key |
+| vLLM | 127.0.0.1:8000/v1/models | Model list read, without a cloud key |
 
-Les clés sont nécessairement envoyées à leur fournisseur pour s’authentifier, via HTTPS. Le fournisseur voit aussi les métadonnées normales d’une connexion, notamment l’adresse IP. Aucun prompt de génération n’est envoyé par les lecteurs. Les liens d’installation, de création de clé, de connexion et de tableau de bord s’ouvrent uniquement sur action utilisateur dans le navigateur externe.
+Keys must be sent to their provider for authentication, over HTTPS. The provider also sees normal connection metadata, including the IP address. Readers send no generation prompts. Installation, key-creation, login, and dashboard links open in the external browser only on user action.
 
-Le trafic des services configurés, des CLI tiers et du navigateur externe n’est pas rendu anonyme par Cypher. Les variables de proxy système et les certificats d’entreprise peuvent affecter ce trafic. Ne pas partager des diagnostics bruts de ces outils sans les vérifier.
+Cypher does not anonymize traffic from configured services, third-party CLIs, or the external browser. System proxy variables and enterprise certificates may affect this traffic. Do not share raw diagnostics from these tools without reviewing them.
 
-## Sources GitHub et captures
+## GitHub sources and screenshots
 
-Les captures fournies dans docs/screenshots sont générées depuis l’aperçu navigateur sans accès aux CLI ou aux comptes de la machine. Les données utilisateur, environnements privés, clés de signature, dumps et rapports de test sont exclus du dépôt. Les exécutables utilisent une liste de fichiers autorisés et un contrôle séparé de l’archive produite.
+Screenshots provided in docs/screenshots are generated from the browser preview without access to the machine's CLIs or accounts. User data, private environments, signing keys, dumps, and test reports are excluded from the repository. Executables use an explicit file allowlist and a separate check of the produced archive.

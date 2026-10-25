@@ -1,37 +1,37 @@
-# Capacités et limites — version initiale
+﻿# Capabilities and limitations — initial release
 
-## Distribution Windows — 0.4.5
+## Windows distribution — 0.4.5
 
-Les exécutables distribués ciblent Windows x64. Le runtime de l’application est inclus : Node.js n’est pas nécessaire pour ouvrir Cypher. Chaque utilisateur doit installer les CLI des services qu’il souhaite connecter, puis autoriser ses propres profils dans Connexions. Aucun compte du développeur n’est inclus dans la distribution.
+The distributed executables target Windows x64. The application runtime is included: Node.js is not required to open Cypher. Each user must install the CLIs for the services they want to connect, then authorize their own profiles in Connections. No developer account is included in the distribution.
 
-La détection ignore les lanceurs npm cassés et poursuit la recherche d’une installation valide. Claude Desktop n’est pas considéré comme le CLI Claude Code. Les serveurs Ollama et LM Studio peuvent être autorisés même sans CLI installé sur le PC, sur leurs adresses loopback prédéfinies.
+Detection skips broken npm launchers and continues searching for a valid installation. Claude Desktop is not treated as the Claude Code CLI. Ollama and LM Studio servers can be authorized even without a CLI installed on the PC, at their predefined loopback addresses.
 
-Le test `npm run test:clean-machine`, après construction, lance l’exécutable avec un profil utilisateur vide et un PATH sans Node ni CLI. Il vérifie le démarrage, l’absence de compte/consentement hérité, les liens d’installation et l’accès proposé aux serveurs locaux. Il simule un premier lancement sur ce Windows ; il ne certifie pas un autre PC, Windows 11, les proxys d’entreprise ou tous les antivirus.
+After building, `npm run test:clean-machine` launches the executable with an empty user profile and a PATH without Node or CLIs. It checks startup, the absence of inherited accounts/consent, installation links, and the offered access to local servers. It simulates a first launch on this Windows installation; it does not certify another PC, Windows 11, enterprise proxies, or every antivirus product.
 
-Les quotas Codex sont implémentés. Poe, DeepSeek API, OpenRouter et fal.ai disposent de lectures de points/solde/budget par clé API. Together AI lit les dépenses sur les jours finalisés du mois. OpenAI API et Anthropic API disposent de lectures de dépenses d’organisation par clé administrateur. Ces clés explicites sont chiffrées via Windows DPAPI. Les connecteurs API ont été testés avec des réponses simulées ; la validation sur leurs comptes réels reste à faire.
+Codex quotas are implemented. Poe, DeepSeek API, OpenRouter, and fal.ai support API-key reads of points/balance/budget. Together AI reads spending for finalized days of the month. OpenAI API and Anthropic API support organization spending reads with an admin key. These explicitly entered keys are encrypted using Windows DPAPI. The API connectors were tested with simulated responses; validation with their real accounts remains outstanding.
 
-Les quotas Claude et Gemini et les connexions des services marqués « Prévu » restent à développer. Une connexion disponible ne signifie pas que le quota du service est accessible. Voir la [matrice complète du catalogue](docs/catalog-coverage.md) pour les 36 services, leurs accès et les travaux restants.
+Claude and Gemini quotas and connections for services marked “Planned” remain to be developed. An available connection does not mean the service's quota is accessible. See the [full catalog matrix](docs/catalog-coverage.md) for the 36 services, their access requirements, and remaining work.
 
-Aucun fournisseur n'est présenté comme universellement connecté. Les sources ci-dessous sont implémentées ; les comptes de ce PC ne sont pas interrogés avant accord dans Connexions.
+No provider is presented as universally connected. The sources below are implemented; accounts on this PC are not queried before consent in Connections.
 
-| Service | Détection | Compte / formule | Quota |
+| Service | Detection | Account / plan | Quota |
 |---|---|---|---|
-| Codex CLI | PATH, npm, extension VS Code | `codex app-server`, `account/read`, après accord | `account/rateLimits/read`, fenêtres serveur si abonnement ChatGPT et réponse disponible |
-| Claude Code | PATH, npm, extension VS Code | `claude auth status --json`, après accord | Non accessible par API publique implémentée ; ouvrir Claude Usage |
-| Gemini CLI | PATH, npm ; profils via home/.gemini | Login terminal officiel, vérification serveur de compte non implémentée | Non implémenté ; ne pas confondre AI Studio et abonnement Gemini |
-| OpenCode / Aider / Continue | Installation/configuration selon outil | Fournisseur amont | Pas de quota propre ni double comptage |
-| Ollama / LM Studio | CLI et chemins connus | Sans compte cloud | Inventaire local via API loopback après accord ; pas de faux quota |
-| llama.cpp / vLLM | Serveur local sur port par défaut | Sans compte cloud | Inventaire local via API loopback après accord |
-| Poe / DeepSeek API / OpenRouter | Sans CLI requis | Clé API explicite | Points Poe, solde DeepSeek, budget de clé et dépense mensuelle OpenRouter |
-| OpenAI API / Anthropic API | Sans CLI requis | Clé administrateur explicite | Dépense d’organisation depuis le début du mois UTC, distincte d’un quota d’abonnement |
-| fal.ai / Together AI | Sans CLI requis | Clé API avec permissions de facturation adaptées | Solde fal ; coûts Together sur les jours finalisés du mois UTC |
-| Cursor / Windsurf / Copilot | CLI/app/extension selon produit | Non implémenté | Non implémenté |
-| Autres entrées du catalogue | Catalogue seulement | Prévu | Prévu |
+| Codex CLI | PATH, npm, VS Code extension | `codex app-server`, `account/read`, after consent | `account/rateLimits/read`, server windows when a ChatGPT subscription and response are available |
+| Claude Code | PATH, npm, VS Code extension | `claude auth status --json`, after consent | Not accessible through an implemented public API; open Claude Usage |
+| Gemini CLI | PATH, npm; profiles through home/.gemini | Official terminal login; server-side account verification not implemented | Not implemented; do not confuse AI Studio with a Gemini subscription |
+| OpenCode / Aider / Continue | Installation/configuration depends on the tool | Upstream provider | No separate quota or double counting |
+| Ollama / LM Studio | CLI and known paths | No cloud account | Local inventory through loopback API after consent; no fabricated quota |
+| llama.cpp / vLLM | Local server on default port | No cloud account | Local inventory through loopback API after consent |
+| Poe / DeepSeek API / OpenRouter | No CLI required | Explicit API key | Poe points, DeepSeek balance, OpenRouter key budget and monthly spending |
+| OpenAI API / Anthropic API | No CLI required | Explicit admin key | Organization spending since the start of the UTC month, separate from a subscription quota |
+| fal.ai / Together AI | No CLI required | API key with appropriate billing permissions | fal balance; Together costs for finalized days of the UTC month |
+| Cursor / Windsurf / Copilot | CLI/app/extension depending on the product | Not implemented | Not implemented |
+| Other catalog entries | Catalog only | Planned | Planned |
 
-Source protocole Codex vérifiée sur le CLI installé via `codex app-server generate-ts`, notamment RateLimitWindow, RateLimitSnapshot, GetAccountRateLimitsResponse et Account. Protocole expérimental : les évolutions peuvent demander une mise à jour. Aucune requête de génération n'est faite. Aucune utilisation de cookies ou endpoints privés cloud.
-Les lectures en arrière-plan lancent les points d'entrée Node connus, sans shell. La connexion à la demande ouvre un terminal Windows via un script à commandes fixes et chemins validés/échappés. Aucun texte de commande arbitraire reçu du renderer. Un launcher npm inconnu est refusé. Un fichier de configuration seul n'établit jamais une installation ni un abonnement.
-Les quotas ChatGPT conversationnels ne sont pas les quotas Codex. Les chiffres locaux d'activité ne remplacent pas le quota serveur. Les API facturées restent distinctes des abonnements chat.
+The Codex protocol source was checked against the installed CLI using `codex app-server generate-ts`, including RateLimitWindow, RateLimitSnapshot, GetAccountRateLimitsResponse, and Account. The protocol is experimental: changes may require an update. No generation request is made. No cloud cookies or private endpoints are used.
+Background reads launch known Node entry points without a shell. On-demand connection opens a Windows terminal through a script with fixed commands and validated/escaped paths. No arbitrary command text is accepted from the renderer. Unknown npm launchers are rejected. A configuration file alone never establishes an installation or subscription.
+Conversational ChatGPT quotas are not Codex quotas. Local activity figures do not replace server quotas. Billed APIs remain separate from chat subscriptions.
 
-FR/EN disponibles. Plusieurs profils Codex/Claude/Gemini sont gérés avec autorisations indépendantes. Détection bornée des répertoires Codex/Claude standards et suffixés, overrides d'environnement et registre manuel. Gemini utilise un home qui contient .gemini ; ses emplacements personnalisés peuvent être ajoutés manuellement. Les profils gérés par le widget sont retrouvés grâce à registry.json. Ajouter un compte crée un nouveau dossier, sans copie des identifiants d'un autre profil. Aucun login sans clic ; le parcours officiel reste sous contrôle humain. Les limites de quota Claude/Gemini ne changent pas du seul fait que leur login est accessible.
+FR/EN are available. Multiple Codex/Claude/Gemini profiles are supported with independent permissions. Discovery is bounded to standard and suffixed Codex/Claude directories, environment overrides, and the manual registry. Gemini uses a home containing .gemini; custom locations can be added manually. Profiles managed by the widget are rediscovered through registry.json. Adding an account creates a new folder without copying credentials from another profile. No login occurs without a click; the official flow remains under human control. Claude/Gemini quota limitations do not change merely because login is accessible.
 
-Vérification finale et limites de la machine : voir VERIFICATION.md généré lors de la livraison.
+For final verification and machine-specific limitations, see VERIFICATION.md generated at delivery.

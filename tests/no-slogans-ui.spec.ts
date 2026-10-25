@@ -1,5 +1,6 @@
 import {test,expect} from '@playwright/test';
 test('shows useful content directly without slogans or their empty hero blocks in either language',async({page})=>{
+ await page.addInitScript(()=>localStorage.setItem('qg-language','fr'));
  await page.goto('/');
  await expect(page.locator('.brand')).toContainText('Cypher');
  await expect(page.locator('.hero')).toHaveCount(0);

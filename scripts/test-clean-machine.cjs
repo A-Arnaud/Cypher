@@ -25,16 +25,17 @@ const assert=require('node:assert/strict');
   try{const target='http://127.0.0.1:'+witness.address().port+'/renderer-leak-test';assert.equal(await page.evaluate(async url=>{try{await fetch(url);return false}catch{return true}},target),true);assert.equal(await page.evaluate(url=>new Promise(resolve=>{const img=new Image();img.onload=()=>resolve(false);img.onerror=()=>resolve(true);img.src=url}),target),true);assert.equal(rendererRequests,0)}finally{await new Promise(resolve=>witness.close(resolve))}
   assert.equal(await page.evaluate(()=>typeof window.require),'undefined');
   assert.equal(state.desktop,true);
+  assert.equal(state.settings.language,'en');
   assert.equal(state.settings.consents.length,0);
   assert.equal(state.detections.some(d=>d.installed||d.configPresent),false);
   assert.equal(state.profiles.some(p=>p.configPresent||p.authFilePresent),false);
   assert.equal(state.providers.some(p=>p.metrics.length||p.auth==='connected'),false);
   await page.evaluate(()=>window.quota.updateSettings({shortcut:'Control+Alt+Shift+9'}));
-  await page.getByRole('navigation').getByRole('button',{name:'Connexions',exact:true}).click();
-  assert.equal(await page.getByRole('button',{name:'Installer le CLI',exact:true}).count(),3);
-  assert.equal(await page.getByRole('button',{name:'Se connecter',exact:true}).count(),0);
+  await page.getByRole('navigation').getByRole('button',{name:'Connections',exact:true}).click();
+  assert.equal(await page.getByRole('button',{name:'Install CLI',exact:true}).count(),3);
+  assert.equal(await page.getByRole('button',{name:'Sign in',exact:true}).count(),0);
   const local=page.locator('.connection').filter({has:page.getByRole('heading',{name:'Ollama',exact:true})});
-  assert.equal(await local.getByRole('button',{name:'Autoriser la lecture seule',exact:true}).count(),1);
+  assert.equal(await local.getByRole('button',{name:'Enable read-only access',exact:true}).count(),1);
   // Synthetic HTTP responses exercise real IPC, DPAPI and the packaged collectors.
   // No request leaves this process and no real API key is used.
   await app.evaluate(()=>{globalThis.fetch=async(url,options)=>{
@@ -49,13 +50,13 @@ const assert=require('node:assert/strict');
   assert(!JSON.stringify(apiState).includes('synthetic-test-key'));
   assert.equal(apiState.providers.find(p=>p.id==='poe').metrics[0].remaining,1500);
   await page.evaluate(()=>window.quota.updateSettings({pinned:['openrouter','poe','deepseek']}));
-  await page.getByRole('navigation').getByRole('button',{name:'Vue d’ensemble',exact:true}).click();
+  await page.getByRole('navigation').getByRole('button',{name:'Overview',exact:true}).click();
   const amounts=(await page.locator('.metric-line strong').allTextContents()).join(' ').normalize('NFKC');
-  for(const amount of ['74,50','25,50','1 500','17,50'])assert(amounts.includes(amount),'missing rendered amount '+amount);
+  for(const amount of ['74.50','25.50','1,500','17.50'])assert(amounts.includes(amount),'missing rendered amount '+amount);
   await page.screenshot({path:path.join(root,'api-details.png')});
-  await page.getByRole('button',{name:'Retour au widget',exact:true}).click();
+  await page.getByRole('button',{name:'Back to widget',exact:true}).click();
   await page.locator('.summary-row').first().waitFor();await page.screenshot({path:path.join(root,'api-widget.png')});
-  await page.getByRole('button',{name:'Réglages',exact:true}).click();
+  await page.getByRole('button',{name:'Settings',exact:true}).click();
   await page.locator('.settings-panel').waitFor();await page.screenshot({path:path.join(root,'api-settings.png')});
   // Replacing a key must never attribute the previous account's balance to it.
   await app.evaluate(()=>{const original=globalThis.fetch;globalThis.fetch=async(url,options)=>options?.headers?.Authorization==='Bearer synthetic-replacement-key'?new Response('{}',{status:429}):original(url,options)});

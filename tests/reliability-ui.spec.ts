@@ -5,12 +5,12 @@ test('failed initial loading can be retried without restarting the app',async({p
  await page.addInitScript(settings=>{
   let available=false;
   window.quota={getState:async()=>{if(!available)throw Error('unavailable');return {settings,detections:[],providers:[],refreshing:false,desktop:false}},subscribe:()=>()=>{},refresh:async()=>{available=true},updateSettings:async()=>{},hide:async()=>{},quit:async()=>{},openProvider:async()=>{}};
- },defaultSettings());
+ },{...defaultSettings(),language:'fr' as const});
  await page.goto('/');
- await expect(page.getByRole('alert')).toHaveText('Impossible de charger Cypher. Réessayez.');
+ await expect(page.getByRole('alert')).toHaveText('Could not load Cypher. Try again.');
  await expect(page.locator('.spin')).toHaveCount(0);
  await page.evaluate(()=>window.quota!.refresh());
- await page.getByRole('button',{name:'Réessayer',exact:true}).click();
+ await page.getByRole('button',{name:'Try again',exact:true}).click();
  await expect(page.getByRole('navigation')).toBeVisible();
  await expect(page.getByRole('alert')).toHaveCount(0);
 });
@@ -19,7 +19,7 @@ test('a late initial response cannot overwrite a newer subscription update',asyn
  await page.addInitScript(settings=>{
   const stale={settings,detections:[],providers:[],refreshing:false,desktop:false};
   window.quota={getState:async()=>new Promise(resolve=>setTimeout(()=>resolve(stale),200)),subscribe:listener=>{const timer=setTimeout(()=>listener({...stale,settings:{...settings,language:'en'}}),10);return()=>clearTimeout(timer)},refresh:async()=>{},updateSettings:async()=>{},hide:async()=>{},quit:async()=>{},openProvider:async()=>{}};
- },defaultSettings());
+ },{...defaultSettings(),language:'fr' as const});
  await page.goto('/');
  await expect(page.getByRole('button',{name:'Settings',exact:true})).toBeVisible();
  await page.evaluate(()=>window.quota!.getState());
@@ -63,7 +63,7 @@ test('shortcut editor prevents duplicate modifiers and submits valid changes wit
  await page.addInitScript(settings=>{
   let state:any={settings,detections:[],providers:[],refreshing:false,desktop:true};const listeners=new Set<(s:any)=>void>();
   window.quota={getState:async()=>state,subscribe:l=>{listeners.add(l);return()=>{listeners.delete(l)}},updateSettings:async patch=>{state={...state,settings:{...state.settings,...patch}};listeners.forEach(l=>l(state))},refresh:async()=>{},hide:async()=>{},quit:async()=>{},openProvider:async()=>{}};
- },defaultSettings());
+ },{...defaultSettings(),language:'fr' as const});
  await page.goto('/');await page.getByRole('button',{name:'Réglages',exact:true}).click();
  const editor=page.getByLabel('Raccourci afficher / masquer');const save=page.getByRole('button',{name:'Enregistrer',exact:true});
  await expect(save).toBeDisabled();await editor.fill('Ctrl+Control+Q');await expect(editor).toHaveAttribute('aria-invalid','true');await expect(save).toBeDisabled();

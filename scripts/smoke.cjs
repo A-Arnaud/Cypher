@@ -1,6 +1,6 @@
 const waitState=require('./wait-state.cjs');const {_electron:electron}=require('playwright');const fs=require('node:fs/promises');const path=require('node:path');const assert=require('node:assert/strict');
 (async()=>{
- const root=path.join(process.env.LOCALAPPDATA,'hermes','cache','scratch','quota-glass-smoke-'+Date.now());await fs.mkdir(root,{recursive:true});const testShortcut='Control+Alt+Shift+9';await fs.writeFile(path.join(root,'settings.json'),JSON.stringify({shortcut:testShortcut,summaryMode:true}));const env={...process.env,QG_DATA_DIR:root};delete env.ELECTRON_RUN_AS_NODE;const opts={env,timeout:30000};if(process.argv[2])opts.executablePath=path.resolve(process.argv[2]);else opts.args=['.'];
+ const root=path.join(process.env.LOCALAPPDATA,'hermes','cache','scratch','quota-glass-smoke-'+Date.now());await fs.mkdir(root,{recursive:true});const testShortcut='Control+Alt+Shift+9';await fs.writeFile(path.join(root,'settings.json'),JSON.stringify({shortcut:testShortcut,summaryMode:true,language:'fr'}));const env={...process.env,QG_DATA_DIR:root};delete env.ELECTRON_RUN_AS_NODE;const opts={env,timeout:30000};if(process.argv[2])opts.executablePath=path.resolve(process.argv[2]);else opts.args=['.'];
  const app=await electron.launch(opts);let page;const checks=[];const stderr=[];app.process().stderr?.on('data',d=>stderr.push(String(d)));
  try{
   page=await app.firstWindow();await page.waitForFunction(()=>window.quota&&document.querySelector('h1'));await waitState(page,s=>!s.refreshing&&s.providers.length>0);

@@ -1,7 +1,7 @@
 const fs=require('node:fs');const path=require('node:path');const assert=require('node:assert/strict');
 const {getCurrentFuseWire,FuseV1Options}=require('@electron/fuses');
 const {FuseState}=require('@electron/fuses/dist/constants');
-(async()=>{const root=path.resolve('release/win-unpacked');const wire=await getCurrentFuseWire(path.join(root,'Cypher.exe'));
+(async()=>{const root=path.resolve(process.env.CYPHER_RELEASE_ROOT??'release/win-unpacked');const wire=await getCurrentFuseWire(path.join(root,'Cypher.exe'));
 for(const name of ['RunAsNode','EnableNodeOptionsEnvironmentVariable','EnableNodeCliInspectArguments'])assert.equal(wire[FuseV1Options[name]],FuseState.DISABLE,name+' must be disabled');
 for(const name of ['EnableCookieEncryption','EnableEmbeddedAsarIntegrityValidation','OnlyLoadAppFromAsar'])assert.equal(wire[FuseV1Options[name]],FuseState.ENABLE,name+' must be enabled');
 const asar=require('@electron/asar'),archive=path.join(root,'resources/app.asar');const html=asar.extractFile(archive,path.join('dist','renderer','index.html')).toString();assert(html.includes("connect-src 'none'"));assert(html.includes("form-action 'none'"));

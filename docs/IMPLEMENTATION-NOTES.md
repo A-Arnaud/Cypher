@@ -5,7 +5,7 @@ Approved design is retained in the active Hermes knowledge directory; implementa
 - New standalone repository and feature branch, not a nested worktree: no existing product or main branch to protect.
 - Continuous inline execution chosen on user go. Verification uses tests plus a fresh final reviewer.
 - Initial scope is a usable desktop core with capability-honest adapters, not fully operational integrations for the whole roadmap catalog.
-- FR/EN selected in settings, French default.
+- English/French selected in Settings. Fresh profiles default to English as of the October 25, 2026 GitHub release; existing saved language preferences are preserved. The initial implementation defaulted to French.
 - No credentials stored in this release: installed CLI sessions are delegated after explicit UI consent. DPAPI key storage is unnecessary until direct API-key connectors exist.
 - Portable autostart is intentionally disabled to avoid registering transient extraction paths. Startup support remains an explicit limitation rather than a silent unsafe default.
 - One active identity per CLI; no account switching or browser login implemented.

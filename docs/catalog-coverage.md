@@ -1,63 +1,63 @@
-# Couverture du catalogue — 0.4.5
+﻿# Catalog coverage — 0.4.5
 
-Objectif : couvrir tous les services du catalogue. L’objectif n’est pas encore atteint.
+Goal: cover every service in the catalog. This goal has not yet been reached.
 
-« Implémenté » décrit le code et les essais effectués ; il ne garantit pas un compte réel chez chaque fournisseur. Les connecteurs API ont été vérifiés avec des réponses synthétiques, le vrai IPC Electron et le chiffrement Windows. Les quotas Codex ont aussi été lus sur les comptes autorisés de ce PC. Aucun autre compte réel n’a été connecté automatiquement.
+“Implemented” describes the code and tests performed; it does not guarantee a real account at every provider. API connectors were checked with synthetic responses, real Electron IPC, and Windows encryption. Codex quotas were also read from authorized accounts on this PC. No other real account was connected automatically.
 
-| Service | État de cette version | Travail ou accès restant |
+| Service | Status in this release | Remaining work or access |
 |---|---|---|
-| Codex | Compte, formule et quotas serveur | Autres versions du CLI, comptes et PC à valider |
-| Claude Code | Détection, connexion et état du compte | Connecteur de quotas d’abonnement à développer |
-| Gemini CLI | Détection, profils et connexion officielle | Vérification de compte et quotas à développer |
-| OpenCode | Détection, facturation signalée chez le fournisseur amont | Association au compte amont à développer |
-| Aider | Détection, facturation signalée chez le fournisseur amont | Association au compte amont à développer |
-| Continue | Détection d’extension, fournisseur amont | Association au compte amont à développer |
-| Ollama | Inventaire local après autorisation, port 11434 | Configurations personnalisées et authentifiées à ajouter |
-| LM Studio | Inventaire local après autorisation, port 1234 | Configurations personnalisées et authentifiées à ajouter |
-| llama.cpp | Inventaire local après autorisation, port 8080 | Configurations personnalisées et authentifiées à ajouter |
-| vLLM | Inventaire local après autorisation, port 8000 | Configurations personnalisées et authentifiées à ajouter |
-| Cursor | Détection | Compte et usage à développer ; distinguer compte individuel et accès administrateur d’équipe |
-| Windsurf | Détection | Compte et usage à développer |
-| GitHub Copilot | Détection d’extension | Authentification GitHub et usage selon compte individuel/organisation à développer |
-| ChatGPT | Lien fournisseur | Aucun connecteur de quotas conversationnels vérifié ; les quotas Codex ne les remplacent pas |
-| Perplexity | Lien fournisseur | Abonnement chat et usage API à étudier séparément |
-| Poe | Points disponibles via clé API | Validation avec un compte réel |
-| Le Chat | Lien fournisseur | Connecteur d’abonnement à développer |
-| DeepSeek Chat | Lien fournisseur | Connecteur chat à développer ; le solde DeepSeek API n’est pas un quota chat |
-| Grok | Lien fournisseur | Connecteur d’abonnement à développer ; distinguer la facturation xAI API |
-| OpenAI API | Dépense de l’organisation depuis le début du mois UTC, clé admin | Validation avec un compte réel ; pas un solde ni un quota ChatGPT |
-| Anthropic API | Dépense de l’organisation depuis le début du mois UTC, clé admin | Validation avec un compte réel ; pas un quota Claude Code |
-| Google AI Studio | Lien fournisseur | Authentification Google, projet et connecteur de consommation à développer |
-| OpenRouter | Budget de la clé et dépense API mensuelle | Validation avec un compte réel ; un budget de clé n’est pas le solde du compte |
-| Mistral API | Lien fournisseur | Admin API Enterprise, accès non libre-service ; connecteur à développer |
-| DeepSeek API | Solde et devise via clé API | Validation avec un compte réel |
-| Groq | Lien fournisseur | Connecteur de compte/limites à développer |
-| Together AI | Dépense mensuelle sur les jours finalisés, clé API | Validation avec un compte réel ; la journée en cours n’est pas incluse |
-| Fireworks AI | Lien fournisseur | Connecteur de compte/consommation à développer |
-| xAI API | Lien fournisseur | Clé de gestion, équipe et connecteur de facturation à développer |
-| Cohere | Lien fournisseur | Connecteur de compte/consommation à développer |
-| Hugging Face | Lien fournisseur | Connecteur de compte/consommation à développer |
-| Replicate | Lien fournisseur | Connecteur de compte/consommation à développer |
-| fal.ai | Solde et devise, clé avec permission billing:usage:read | Validation avec un compte réel |
-| Azure OpenAI | Lien fournisseur | Authentification Azure, souscription, ressources et rôles de lecture de facturation à intégrer |
-| AWS Bedrock | Lien fournisseur | Authentification AWS et accès à Cost Explorer/CloudWatch à intégrer |
-| Vertex AI | Lien fournisseur | Authentification Google Cloud, projet et rôles de lecture à intégrer |
+| Codex | Account, plan, and server quotas | Other CLI versions, accounts, and PCs need validation |
+| Claude Code | Detection, login, and account status | Subscription quota connector to develop |
+| Gemini CLI | Detection, profiles, and official login | Account verification and quotas to develop |
+| OpenCode | Detection; billing identified as belonging to the upstream provider | Upstream account association to develop |
+| Aider | Detection; billing identified as belonging to the upstream provider | Upstream account association to develop |
+| Continue | Extension detection, upstream provider | Upstream account association to develop |
+| Ollama | Local inventory after authorization, port 11434 | Custom and authenticated configurations to add |
+| LM Studio | Local inventory after authorization, port 1234 | Custom and authenticated configurations to add |
+| llama.cpp | Local inventory after authorization, port 8080 | Custom and authenticated configurations to add |
+| vLLM | Local inventory after authorization, port 8000 | Custom and authenticated configurations to add |
+| Cursor | Detection | Account and usage to develop; distinguish individual accounts from team admin access |
+| Windsurf | Detection | Account and usage to develop |
+| GitHub Copilot | Extension detection | GitHub authentication and usage for individual/organization accounts to develop |
+| ChatGPT | Provider link | No verified conversational quota connector; Codex quotas do not replace these |
+| Perplexity | Provider link | Chat subscription and API usage to study separately |
+| Poe | Available points through API key | Validation with a real account |
+| Le Chat | Provider link | Subscription connector to develop |
+| DeepSeek Chat | Provider link | Chat connector to develop; the DeepSeek API balance is not a chat quota |
+| Grok | Provider link | Subscription connector to develop; distinguish xAI API billing |
+| OpenAI API | Organization spending since the start of the UTC month, admin key | Validation with a real account; not a balance or ChatGPT quota |
+| Anthropic API | Organization spending since the start of the UTC month, admin key | Validation with a real account; not a Claude Code quota |
+| Google AI Studio | Provider link | Google authentication, project, and usage connector to develop |
+| OpenRouter | Key budget and monthly API spending | Validation with a real account; a key budget is not the account balance |
+| Mistral API | Provider link | Enterprise Admin API, access is not self-service; connector to develop |
+| DeepSeek API | Balance and currency through API key | Validation with a real account |
+| Groq | Provider link | Account/limits connector to develop |
+| Together AI | Monthly spending for finalized days, API key | Validation with a real account; the current day is not included |
+| Fireworks AI | Provider link | Account/usage connector to develop |
+| xAI API | Provider link | Management key, team, and billing connector to develop |
+| Cohere | Provider link | Account/usage connector to develop |
+| Hugging Face | Provider link | Account/usage connector to develop |
+| Replicate | Provider link | Account/usage connector to develop |
+| fal.ai | Balance and currency, key with billing:usage:read permission | Validation with a real account |
+| Azure OpenAI | Provider link | Azure authentication, subscription, resources, and billing read roles to integrate |
+| AWS Bedrock | Provider link | AWS authentication and Cost Explorer/CloudWatch access to integrate |
+| Vertex AI | Provider link | Google Cloud authentication, project, and read roles to integrate |
 
-## Sources des connecteurs et restrictions vérifiées
+## Connector sources and verified restrictions
 
-- [Codex App Server](https://learn.chatgpt.com/docs/app-server) : lecture de compte et limites ChatGPT utilisées par Codex.
-- [OpenRouter — clé courante](https://openrouter.ai/docs/api/api-reference/api-keys/get-current-api-key) : `limit`, `limit_remaining`, `usage_monthly`.
-- [DeepSeek — solde](https://api-docs.deepseek.com/api/get-user-balance/) : montants et devise du solde API.
-- [Poe — Usage API](https://creator.poe.com/docs/resources/usage-api) : points disponibles, y compris points de plan et points ajoutés.
-- [OpenAI — Costs](https://developers.openai.com/api/reference/resources/admin/subresources/organization/subresources/usage/methods/costs) : montants de coût en dollars.
-- [Anthropic — Usage and Cost API](https://platform.claude.com/docs/en/manage-claude/usage-cost-api) : accès admin et montants en cents, distincts des abonnements Claude.
-- [fal — Account Billing](https://fal.ai/docs/platform-apis/v1/account/billing) : solde, devise et permission billing:usage:read.
-- [Together — Billing usage](https://docs.together.ai/reference/billing-usage) : coûts des jours finalisés et pagination, aucun solde déduit de la dépense.
-- [Mistral — Admin API](https://docs.mistral.ai/admin/admin-api/overview) : Enterprise, accès à demander au fournisseur.
-- [xAI — Management API](https://docs.x.ai/developers/rest-api-reference/management) : clé de gestion distincte et accès d’équipe.
+- [Codex App Server](https://learn.chatgpt.com/docs/app-server): account reads and ChatGPT limits used by Codex.
+- [OpenRouter — current key](https://openrouter.ai/docs/api/api-reference/api-keys/get-current-api-key): `limit`, `limit_remaining`, `usage_monthly`.
+- [DeepSeek — balance](https://api-docs.deepseek.com/api/get-user-balance/): API balance amounts and currency.
+- [Poe — Usage API](https://creator.poe.com/docs/resources/usage-api): available points, including plan points and added points.
+- [OpenAI — Costs](https://developers.openai.com/api/reference/resources/admin/subresources/organization/subresources/usage/methods/costs): cost amounts in dollars.
+- [Anthropic — Usage and Cost API](https://platform.claude.com/docs/en/manage-claude/usage-cost-api): admin access and amounts in cents, separate from Claude subscriptions.
+- [fal — Account Billing](https://fal.ai/docs/platform-apis/v1/account/billing): balance, currency, and billing:usage:read permission.
+- [Together — Billing usage](https://docs.together.ai/reference/billing-usage): costs for finalized days and pagination; no balance inferred from spending.
+- [Mistral — Admin API](https://docs.mistral.ai/admin/admin-api/overview): Enterprise; access must be requested from the provider.
+- [xAI — Management API](https://docs.x.ai/developers/rest-api-reference/management): separate management key and team access.
 
-## Validation de distribution
+## Distribution validation
 
-Windows x64 est la cible livrée. Le test de premier lancement utilise un home vide avec espaces, un PATH sans Node/CLI et un répertoire de préférences isolé. Il vérifie l’absence d’héritage de compte ou de consentement, l’installation guidée, les sept API avec réponses simulées et le chiffrement DPAPI sans clé en clair dans les fichiers ou l’état public. Ce test ne remplace pas des essais sur une seconde machine, Windows 11, un proxy d’entreprise ou des versions différentes des CLI.
+Windows x64 is the delivered target. The first-launch test uses an empty home containing spaces, a PATH without Node/CLIs, and an isolated preferences directory. It checks the absence of inherited accounts or consent, guided installation, the seven APIs with simulated responses, and DPAPI encryption without plaintext keys in files or public state. This test does not replace tests on a second machine, Windows 11, an enterprise proxy, or different CLI versions.
 
-Les clés sont saisies explicitement dans Connexions. Elles sont stockées chiffrées via Electron safeStorage et Windows DPAPI, et ne sont jamais exposées par getState. Aucun cookie navigateur ou identifiant de CLI n’est importé. Déconnecter supprime la clé enregistrée et retire le consentement. Les requêtes de ces connecteurs sont des GET sur des hôtes prédéfinis, avec redirections interdites ; aucun contenu IA n’est généré pour mesurer un solde.
+Keys are entered explicitly in Connections. They are stored encrypted through Electron safeStorage and Windows DPAPI, and are never exposed by getState. No browser cookies or CLI credentials are imported. Disconnecting deletes the stored key and removes consent. Requests from these connectors are GETs to predefined hosts, with redirects prohibited; no AI content is generated to measure a balance.

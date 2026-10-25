@@ -1,22 +1,24 @@
-﻿# Verification avant publication GitHub - 25 octobre 2026
+﻿# Pre-publication GitHub verification — October 25, 2026
 
-Portee : sources du projet Cypher 0.4.8 et historique Git local. Publication demandee dans un depot GitHub prive ; aucun installateur ni fichier de donnees utilisateur n'est publie.
+Scope: Cypher 0.4.8 project sources and local Git history. Publication requested in a private GitHub repository; no installer or user-data file is published.
 
-## Controles executes
+## Checks performed
 
-- Scan local de publication : 191 fichiers publiables et 172 blobs historiques controles avant ajout de ce rapport ; aucune correspondance de secret reconnue.
-- Gitleaks officiel 8.30.1 : les 16 commits existants et les fichiers publiables passent sans secret reconnu. Rapports expurges conserves uniquement dans `.security-tools/`, exclu de Git.
-- Inspection visuelle des 14 images : neuf captures historiques et cinq captures actuelles. Aucun identifiant de compte reel visible ; les soldes des captures API sont synthetiques.
-- Verification de la liste des fichiers : configurations de comptes, profils CLI, cles, preferences, journaux, diagnostics, dependances et artefacts locaux exclus par `.gitignore`.
-- Historique existant : auteurs avec adresse locale generique. Le commit de publication utilise l'adresse GitHub noreply, sans exposer l'adresse email configuree localement.
-- `npm run typecheck` : succes.
-- `npm test` : 107 tests reussis, 22 fichiers.
-- `npm run build` : succes, y compris compilation de l'auxiliaire natif.
-- `npm run test:ui` : 14 tests reussis.
-- `npm audit --audit-level=moderate` : aucune vulnerabilite signalee.
+- Local publication scan: 191 publishable files and 172 historical blobs checked before adding this report; no recognized secret match.
+- Official Gitleaks 8.30.1: the 16 existing commits and publishable files pass without recognized secrets. Redacted reports retained only in `.security-tools/`, excluded from Git.
+- Visual inspection of the 14 images: nine historical screenshots and five current screenshots. No real account identifier visible; balances in API screenshots are synthetic.
+- File-list verification: account configurations, CLI profiles, keys, preferences, logs, diagnostics, dependencies, and local artifacts excluded by `.gitignore`.
+- Existing history: authors use a generic local address. The publication commit uses the GitHub noreply address without exposing the locally configured email address.
+- `npm run typecheck`: passed.
+- `npm test`: 107 tests passed, 22 files.
+- `npm run build`: passed, including native helper compilation.
+- `npm run test:ui`: 14 tests passed.
+- `npm audit --audit-level=moderate`: no vulnerabilities reported.
 
-## Limites
+## Limitations
 
-Ces controles ne garantissent pas l'absence de tout secret ou de toute faille. Le depot prive limite l'acces aux sources. Les donnees locales de comptes ne doivent jamais y etre ajoutees, meme chiffrees. Les valeurs de test et exemples ne sont pas des preuves de connexion a des comptes reels.
+These checks do not guarantee the absence of every secret or vulnerability. The private repository restricts source access. Local account data must never be added, even encrypted. Test and example values are not evidence of connection to real accounts.
 
-Cette verification concerne la publication des sources. Aucun nouvel installateur ni essai de connexion a un compte reel n'a ete produit pour cette publication. Les anciens rapports gardent leur date et leur portee ; ils ne constituent pas une nouvelle execution sur GitHub Actions.
+This verification covers source publication. No new installer or real-account connection test was produced for this publication. Older reports retain their dates and scope; they do not constitute a new run on GitHub Actions.
+
+For the subsequent English Windows release, see [release verification](release-verification-2026-10-25.md). This document describes the earlier source-only publication.
