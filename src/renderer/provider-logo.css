@@ -1,0 +1,5 @@
+.provider-image{display:block;width:22px;height:22px;object-fit:contain;flex-shrink:0}
+.provider-logo.small .provider-image{width:18px;height:18px}
+.summary-logo .provider-image{width:16px;height:16px}
+
+.api-connection{margin-top:10px}.api-connection label{display:flex;flex-direction:column;gap:6px;font-size:10px}.api-connection input{background:#0003;border:1px solid #ffffff25;border-radius:6px;padding:8px;color:inherit;width:100%;box-sizing:border-box}.api-connection .provider-link{margin-left:8px}

@@ -12,7 +12,7 @@ export class Accounts {
  async initialize(){this.registry=await readRegistry(path.join(this.host.userData,'registry.json'));return this.discover()}
  async discover():Promise<Detection[]>{
   this.detections=await discoverTools({home:this.host.home,path:process.env.PATH??'',appData:this.host.appData,localAppData:this.host.localAppData});
-  for(const d of this.detections){const executable=this.registry.executables[d.id];if(executable)try{if((await stat(executable)).isFile()){d.executable=executable;d.installed=true;d.evidence=[...new Set([...d.evidence,'user-selected-executable'])]}}catch{}}
+  for(const d of this.detections){const executable=this.registry.executables[d.id];if(executable)try{if((await stat(executable)).isFile()){await cliCommand(executable,this.provider(d.id));d.executable=executable;d.installed=true;d.evidence=[...new Set([...d.evidence,'user-selected-executable'])]}}catch{}}
   this.profiles=await discoverProfiles({home:this.host.home,env:process.env},this.registry.profiles);return this.detections;
  }
  publicProfiles(){return publicProfiles(this.profiles)}

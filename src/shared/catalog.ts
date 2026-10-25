@@ -143,7 +143,7 @@ export const catalog:CatalogEntry[]=[
     "id": "poe",
     "name": "Poe",
     "kind": "subscription",
-    "support": "planned",
+    "support": "partial",
     "color": "#a7adba",
     "glyph": "P",
     "usageUrl": "https://poe.com/settings"
@@ -179,7 +179,7 @@ export const catalog:CatalogEntry[]=[
     "id": "openai",
     "name": "OpenAI API",
     "kind": "api",
-    "support": "planned",
+    "support": "partial",
     "color": "#a7adba",
     "glyph": "O",
     "usageUrl": "https://platform.openai.com/usage"
@@ -188,7 +188,7 @@ export const catalog:CatalogEntry[]=[
     "id": "anthropic",
     "name": "Anthropic API",
     "kind": "api",
-    "support": "planned",
+    "support": "partial",
     "color": "#a7adba",
     "glyph": "A",
     "usageUrl": "https://console.anthropic.com/settings/usage"
@@ -206,7 +206,7 @@ export const catalog:CatalogEntry[]=[
     "id": "openrouter",
     "name": "OpenRouter",
     "kind": "api",
-    "support": "planned",
+    "support": "partial",
     "color": "#a7adba",
     "glyph": "O",
     "usageUrl": "https://openrouter.ai/activity"
@@ -224,7 +224,7 @@ export const catalog:CatalogEntry[]=[
     "id": "deepseek",
     "name": "DeepSeek API",
     "kind": "api",
-    "support": "planned",
+    "support": "partial",
     "color": "#a7adba",
     "glyph": "D",
     "usageUrl": "https://platform.deepseek.com/usage"
@@ -242,7 +242,7 @@ export const catalog:CatalogEntry[]=[
     "id": "together",
     "name": "Together AI",
     "kind": "api",
-    "support": "planned",
+    "support": "partial",
     "color": "#a7adba",
     "glyph": "T",
     "usageUrl": "https://api.together.ai"
@@ -296,7 +296,7 @@ export const catalog:CatalogEntry[]=[
     "id": "fal",
     "name": "fal.ai",
     "kind": "api",
-    "support": "planned",
+    "support": "partial",
     "color": "#a7adba",
     "glyph": "f",
     "usageUrl": "https://fal.ai/dashboard"
@@ -332,7 +332,7 @@ export const catalog:CatalogEntry[]=[
     "id": "llamacpp",
     "name": "llama.cpp",
     "kind": "local",
-    "support": "planned",
+    "support": "partial",
     "color": "#a7adba",
     "glyph": "l",
     "usageUrl": "https://github.com/ggml-org/llama.cpp"
@@ -341,7 +341,7 @@ export const catalog:CatalogEntry[]=[
     "id": "vllm",
     "name": "vLLM",
     "kind": "local",
-    "support": "planned",
+    "support": "partial",
     "color": "#a7adba",
     "glyph": "v",
     "usageUrl": "https://docs.vllm.ai"

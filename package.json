@@ -1,6 +1,6 @@
 {
   "name": "cypher-widget",
-  "version": "0.3.0",
+  "version": "0.4.8",
   "private": true,
   "type": "module",
   "description": "Local-first Windows AI quota monitor",
@@ -12,8 +12,14 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:ui": "playwright test",
-    "dist": "npm run build && electron-builder --win portable --x64",
-    "preview": "vite --host 127.0.0.1"
+    "test:clean-machine": "node scripts/test-clean-machine.cjs",
+    "dist": "npm run build && electron-builder --win nsis portable --x64",
+    "preview": "vite --host 127.0.0.1",
+    "build:test": "node scripts/build-test.cjs",
+    "security:scan": "node scripts/check-publication.cjs",
+    "security:release": "node scripts/check-release-security.cjs && node scripts/check-publication.cjs --artifacts",
+    "security:secrets": "node scripts/run-gitleaks.cjs",
+    "test:corners": "node scripts/test-window-corners.cjs"
   },
   "build": {
     "appId": "local.cypher.widget",
@@ -21,19 +27,47 @@
     "directories": {
       "output": "release"
     },
+    "asarUnpack": [
+      "dist/native/**",
+      "dist/main/hidden-child.cjs"
+    ],
     "files": [
-      "dist/**/*",
-      "package.json"
+      "dist/main/index.cjs",
+      "dist/main/hidden-child.cjs",
+      "dist/preload/index.cjs",
+      "dist/renderer/**/*",
+      "dist/assets/icon.png",
+      "dist/native/Cypher.Taskbar.exe",
+      "dist/native/LOGOS-LICENSE*.txt",
+      "package.json",
+      "!node_modules/**"
     ],
     "win": {
       "target": [
+        "nsis",
         "portable"
       ],
       "signExecutable": false,
       "icon": "assets/icon.ico"
     },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowElevation": false,
+      "runAfterFinish": false,
+      "include": "native/installer.nsh",
+      "artifactName": "Cypher-Setup-${version}-win-x64.exe"
+    },
     "portable": {
       "artifactName": "Cypher-${version}-win-x64.exe"
+    },
+    "electronFuses": {
+      "runAsNode": false,
+      "enableCookieEncryption": true,
+      "enableNodeOptionsEnvironmentVariable": false,
+      "enableNodeCliInspectArguments": false,
+      "enableEmbeddedAsarIntegrityValidation": true,
+      "onlyLoadAppFromAsar": true
     }
   },
   "dependencies": {

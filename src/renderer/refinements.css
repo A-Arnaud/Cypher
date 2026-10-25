@@ -1,0 +1,67 @@
+/* Flat surfaces keep the widget inexpensive to composite and easier to read. */
+.shell{background:#171b1e;border-color:#ffffff20;backdrop-filter:none}
+.shell:before,.provider-card:before{display:none}
+.topbar{height:68px;min-height:68px;padding:17px 21px}
+.brand{font-weight:650;letter-spacing:-.4px}
+.window-actions button{color:#a0aab2}
+.tabs{margin:0 18px 8px;background:#101417;border-color:#ffffff09}
+.tabs button{font-size:11px;color:#a0aab2;padding:10px 4px}
+.tabs button.selected{background:#2b3338;color:#f0f4f5;box-shadow:none}
+.scroll-area{padding:0 20px 12px;scrollbar-color:#ffffff25 transparent}
+.overview-bar{color:#b7c1c7}
+.overview-bar small{color:#94a2ac}
+.cards{gap:11px}
+.provider-card{background:#20262b;border:1px solid #ffffff12;border-radius:14px;padding:15px 16px 11px;box-shadow:none}
+.provider-identity h2{font-size:13px;font-weight:600;letter-spacing:0}
+.provider-identity span{font-size:10px;color:#a3afb8;margin-top:4px}
+.provider-logo{background:#ffffff06;border-radius:10px}
+.metric-line>span{font-size:11px;color:#b4bfc7}
+.metric-line strong{font-size:26px;font-weight:600;letter-spacing:-.7px;font-variant-numeric:tabular-nums}
+.metric-line small{font-size:10px;margin-left:4px;color:#a4b1bb;font-weight:400}
+.meter{height:5px;background:#ffffff0a}
+.metric-note{font-size:10px;color:#9aa7b1;margin-top:8px}
+.provider-explanation{font-size:10px;line-height:1.5;color:#a1aeb7}
+.quota-empty>span{font-size:11px;color:#acb7bf}
+.micro-badge{font-size:9px;color:#aab7c0}
+.card-bottom{margin-top:12px}
+.add-service{font-size:11px;color:#b6c4ce}
+.settings-panel{padding-top:8px}
+.settings-panel .settings-group{padding:14px 14px 5px;border:1px solid #ffffff12;border-radius:14px;background:#20262b;margin-bottom:12px}
+.settings-panel .startup-group{border-color:#9acdb738;background:#202c2b}
+.settings-heading{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:650;color:#d5e0e5;margin-bottom:5px}
+.settings-heading>svg{color:#99b5b1}
+.setting-status{font-size:9px;font-weight:500;color:#a7b3bd;border-radius:5px;padding:3px 6px;background:#ffffff08;margin-left:auto}
+.setting-status.enabled{color:#b7e3ce;background:#8ad5ad13}
+.settings-panel .setting-row{min-height:43px;color:#d0d9df;font-size:11px}
+.settings-panel .setting-row select{font-size:11px;color:#d5e1e9;max-width:130px;background:#11181c;border:1px solid #ffffff16;padding:6px 8px}
+.settings-panel .setting-hint{font-size:10px;color:#a4b5bd;line-height:1.55;margin:5px 0 11px}
+.settings-panel .opacity-control{padding-top:8px}
+.settings-panel .opacity-control>span{font-size:11px;color:#d0d9df}
+.settings-panel .field-label{font-size:10px;color:#b5c1c9;margin-top:12px}
+.settings-panel .shortcut-editor input{font-size:11px;color:#dce7ed;background:#151b1f}
+.settings-panel .shortcut-editor button{font-size:10px;color:#cce2d9}
+.setting-row .switch{flex-shrink:0;width:32px;height:19px}
+.setting-row .switch:before{width:11px;height:11px}
+.setting-row input[type=checkbox]{width:32px;height:23px}
+.setting-row input:disabled{cursor:default}
+.settings-panel .setting-row input:checked+.switch{background:#68b89c30;border-color:#8cd2b657}
+.settings-panel .setting-row input:checked+.switch:before{background:#a6dec6;transform:translateX(13px)}
+.summary-shell{background:#171b1e}
+.summary-row{background:#20262b;border-color:#ffffff10}
+.summary-name strong{font-size:11px;color:#e0e7ec}
+.summary-name small{font-size:8px;color:#a0aeb8}
+.summary-metric>span{font-size:7.5px;color:#a0aeb8}
+.summary-metric strong{font-size:12px;font-weight:600;font-variant-numeric:tabular-nums}
+.summary-tools button,.summary-detail,.summary-footer button,.summary-sync{color:#b0bfc8}
+.summary-grip{color:#8e9ca6}
+.summary-row.is-drop-target{border-color:#a6dec6;background:#a6dec60c}
+footer{border-top:1px solid #ffffff0c;color:#a5b3bd}
+.loading p{max-width:280px;text-align:center;font-size:12px;line-height:1.6;color:#b5c1c9}
+.retry-button{padding:9px 16px;border:1px solid #ffffff24;background:#ffffff0a;font-size:12px}
+.search:focus-within{outline:2px solid #b9d4ba;outline-offset:2px}
+.shortcut-editor input[aria-invalid=true]{border-color:#d4b07b}
+.provider-card:has(.micro-badge:not(.success)) .meter{opacity:.8}
+.metric-line{gap:12px;flex-wrap:wrap}
+.metric-line strong{overflow-wrap:anywhere}
+.connection p[role=alert]{color:#e8b49a}
+@media(max-width:360px){.topbar{padding:14px 12px}.scroll-area{padding:0 12px 12px}.tabs{margin-left:10px;margin-right:10px}.brand{font-size:15px;gap:6px}.brand-logo{width:26px;height:26px}.window-actions{gap:1px}.summary-metrics{gap:5px}.summary-metric{min-width:40px}}

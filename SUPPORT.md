@@ -1,5 +1,17 @@
 # Capacités et limites — version initiale
 
+## Distribution Windows — 0.4.5
+
+Les exécutables distribués ciblent Windows x64. Le runtime de l’application est inclus : Node.js n’est pas nécessaire pour ouvrir Cypher. Chaque utilisateur doit installer les CLI des services qu’il souhaite connecter, puis autoriser ses propres profils dans Connexions. Aucun compte du développeur n’est inclus dans la distribution.
+
+La détection ignore les lanceurs npm cassés et poursuit la recherche d’une installation valide. Claude Desktop n’est pas considéré comme le CLI Claude Code. Les serveurs Ollama et LM Studio peuvent être autorisés même sans CLI installé sur le PC, sur leurs adresses loopback prédéfinies.
+
+Le test `npm run test:clean-machine`, après construction, lance l’exécutable avec un profil utilisateur vide et un PATH sans Node ni CLI. Il vérifie le démarrage, l’absence de compte/consentement hérité, les liens d’installation et l’accès proposé aux serveurs locaux. Il simule un premier lancement sur ce Windows ; il ne certifie pas un autre PC, Windows 11, les proxys d’entreprise ou tous les antivirus.
+
+Les quotas Codex sont implémentés. Poe, DeepSeek API, OpenRouter et fal.ai disposent de lectures de points/solde/budget par clé API. Together AI lit les dépenses sur les jours finalisés du mois. OpenAI API et Anthropic API disposent de lectures de dépenses d’organisation par clé administrateur. Ces clés explicites sont chiffrées via Windows DPAPI. Les connecteurs API ont été testés avec des réponses simulées ; la validation sur leurs comptes réels reste à faire.
+
+Les quotas Claude et Gemini et les connexions des services marqués « Prévu » restent à développer. Une connexion disponible ne signifie pas que le quota du service est accessible. Voir la [matrice complète du catalogue](docs/catalog-coverage.md) pour les 36 services, leurs accès et les travaux restants.
+
 Aucun fournisseur n'est présenté comme universellement connecté. Les sources ci-dessous sont implémentées ; les comptes de ce PC ne sont pas interrogés avant accord dans Connexions.
 
 | Service | Détection | Compte / formule | Quota |
@@ -9,6 +21,10 @@ Aucun fournisseur n'est présenté comme universellement connecté. Les sources 
 | Gemini CLI | PATH, npm ; profils via home/.gemini | Login terminal officiel, vérification serveur de compte non implémentée | Non implémenté ; ne pas confondre AI Studio et abonnement Gemini |
 | OpenCode / Aider / Continue | Installation/configuration selon outil | Fournisseur amont | Pas de quota propre ni double comptage |
 | Ollama / LM Studio | CLI et chemins connus | Sans compte cloud | Inventaire local via API loopback après accord ; pas de faux quota |
+| llama.cpp / vLLM | Serveur local sur port par défaut | Sans compte cloud | Inventaire local via API loopback après accord |
+| Poe / DeepSeek API / OpenRouter | Sans CLI requis | Clé API explicite | Points Poe, solde DeepSeek, budget de clé et dépense mensuelle OpenRouter |
+| OpenAI API / Anthropic API | Sans CLI requis | Clé administrateur explicite | Dépense d’organisation depuis le début du mois UTC, distincte d’un quota d’abonnement |
+| fal.ai / Together AI | Sans CLI requis | Clé API avec permissions de facturation adaptées | Solde fal ; coûts Together sur les jours finalisés du mois UTC |
 | Cursor / Windsurf / Copilot | CLI/app/extension selon produit | Non implémenté | Non implémenté |
 | Autres entrées du catalogue | Catalogue seulement | Prévu | Prévu |
 

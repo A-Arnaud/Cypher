@@ -5,3 +5,25 @@ release/
 test-results/
 playwright-report/
 *.log
+
+# Local credentials, account profiles, diagnostic captures and signing material.
+.env
+.env.*
+!.env.example
+auth.json
+.credentials.json
+oauth_creds.json
+credentials.enc.json*
+registry.json
+settings.json
+profiles/
+login-workspaces/
+login-scripts/
+*.pem
+*.key
+*.p12
+*.pfx
+*.dmp
+security-scan-results.json
+.local-builds/
+.security-tools/

@@ -1,4 +1,4 @@
-import {it,expect} from 'vitest';
+import {it,expect,vi} from 'vitest';
 import {parseCodexLimits,maskAccount} from '../src/main/metrics';
 import {collectProvider,dedupeSnapshots} from '../src/main/providers';
 it('keeps unknown quota unknown',()=>{expect(parseCodexLimits({rateLimits:{primary:null}})).toEqual([])});
@@ -22,4 +22,8 @@ it('does not inherit the default consent into another discovered profile',async(
 it('only marks duplicates for a confirmed server identity, not a masked email',()=>{const base={auth:'connected' as const,metrics:[],state:'ready' as const,message:'providerData',observedAt:1,account:'a•••@example.com'};const rows=dedupeSnapshots([{...base,id:'codex',identityKey:'server-1'},{...base,id:'codex-profile-0000000000000001',identityKey:'server-1'},{...base,id:'codex-profile-0000000000000002'}]);expect(rows[1].duplicateOf).toBe('codex');expect(rows[2].duplicateOf).toBeUndefined()});
 it('does not double count agent consumption' ,async()=>{
  const s=await collectProvider('aider',{detections:[],consents:[]},new AbortController().signal);expect(s.metrics).toEqual([]);expect(s.message).toBe('upstream');
+});
+it('reads an approved local server even when no CLI is installed',async()=>{
+ const fetch=vi.fn().mockResolvedValue(new Response(JSON.stringify({models:[{name:'fixture-model'}]}),{status:200}));vi.stubGlobal('fetch',fetch);
+ try{const ctx={detections:[],consents:['ollama']};const s=await collectProvider('ollama',ctx,new AbortController().signal);expect(s.state).toBe('ready');expect(s.metrics[0]).toMatchObject({used:1,source:'local',unit:'models'});expect(fetch).toHaveBeenCalledWith('http://127.0.0.1:11434/api/tags',expect.anything());fetch.mockClear();const blocked=await collectProvider('ollama',{detections:[],consents:[]},new AbortController().signal);expect(blocked.state).toBe('consent');expect(fetch).not.toHaveBeenCalled()}finally{vi.unstubAllGlobals()}
 });

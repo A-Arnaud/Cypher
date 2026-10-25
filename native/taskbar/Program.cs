@@ -1,0 +1,155 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading;
+using System.Web.Script.Serialization;
+using System.Windows.Forms;
+
+static class Win {
+    [StructLayout(LayoutKind.Sequential)] public struct Rect { public int L,T,R,B; public int Width {get{return R-L;}} public int Height {get{return B-T;}} }
+    [DllImport("user32.dll",CharSet=CharSet.Unicode)] public static extern IntPtr FindWindow(string cls,string name);
+    [DllImport("user32.dll",CharSet=CharSet.Unicode)] public static extern IntPtr FindWindowEx(IntPtr parent,IntPtr after,string cls,string name);
+    [DllImport("user32.dll")] public static extern bool GetWindowRect(IntPtr h,out Rect r);
+    [DllImport("user32.dll")] public static extern bool IsWindow(IntPtr h);
+    [DllImport("user32.dll")] public static extern IntPtr GetParent(IntPtr h);
+    [DllImport("user32.dll",SetLastError=true)] public static extern IntPtr SetParent(IntPtr h,IntPtr p);
+    [DllImport("user32.dll",EntryPoint="GetWindowLongPtrW")] public static extern IntPtr GetStyle(IntPtr h,int n);
+    [DllImport("user32.dll",EntryPoint="SetWindowLongPtrW")] public static extern IntPtr SetStyle(IntPtr h,int n,IntPtr v);
+    [DllImport("user32.dll")] public static extern bool MoveWindow(IntPtr h,int x,int y,int w,int height,bool repaint);
+    [DllImport("user32.dll")] public static extern bool PostMessage(IntPtr h,uint m,IntPtr w,IntPtr l);
+    [DllImport("user32.dll")] public static extern uint GetDpiForWindow(IntPtr h);
+    [DllImport("user32.dll")] public static extern IntPtr GetWindowDpiAwarenessContext(IntPtr h);
+    [DllImport("user32.dll")] public static extern IntPtr SetThreadDpiAwarenessContext(IntPtr context);
+    [DllImport("user32.dll")] public static extern bool AreDpiAwarenessContextsEqual(IntPtr first,IntPtr second);
+    public static Rect Bounds(IntPtr h){Rect r;if(!GetWindowRect(h,out r))throw new Exception("taskbar-unavailable");return r;}
+    public static void Relayout(IntPtr shell){if(IsWindow(shell))PostMessage(shell,5,IntPtr.Zero,IntPtr.Zero);}
+}
+
+static class Program {
+    internal static readonly JavaScriptSerializer Json=new JavaScriptSerializer {MaxJsonLength=16384};
+    internal static void Emit(object o){lock(Json){Console.WriteLine(Json.Serialize(o));Console.Out.Flush();}}
+    [STAThread] static void Main(string[] args){
+        Console.InputEncoding=new UTF8Encoding(false);Console.OutputEncoding=new UTF8Encoding(false);
+        if(args.Length==1 && args[0]=="--startup-query"){
+            using(var key=Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run"))Program.Emit(new {command=key==null?null:key.GetValue("Cypher") as string});return;
+        }
+        if(args.Length==3 && args[0]=="--watch"){
+            try{Process.GetProcessById(int.Parse(args[1])).WaitForExit();}catch(ArgumentException){}
+            Win.Relayout(new IntPtr(long.Parse(args[2])));return;
+        }
+        bool owner;using(var mutex=new Mutex(true,"Local\\Cypher.Taskbar.Surface",out owner)){
+            if(!owner){Emit(new {type="error",code="taskbar-busy"});return;}
+            try{
+                var shell=Win.FindWindow("Shell_TrayWnd",null);
+                if(shell==IntPtr.Zero)throw new Exception("taskbar-unavailable");
+                Win.SetThreadDpiAwarenessContext(Win.GetWindowDpiAwarenessContext(shell));
+                Application.EnableVisualStyles();Application.SetCompatibleTextRenderingDefault(false);
+                using(var form=new Surface(shell))Application.Run(form);
+            }catch(Exception){Emit(new {type="error",code="taskbar-unavailable"});}
+        }
+    }
+}
+
+sealed class Surface:Form {
+    IntPtr shell,rebar,tasks;int reserve;bool attached,closing;Win.Rect original;readonly System.Windows.Forms.Timer timer=new System.Windows.Forms.Timer();
+    sealed class DisplayItem {public string Provider,Text;public bool Stale;}
+    readonly Dictionary<string,Image> logos=new Dictionary<string,Image>();
+    readonly ToolTip tip=new ToolTip();readonly List<DisplayItem> displayItems=new List<DisplayItem>();int extraCount;string language="fr";
+    public Surface(IntPtr h){
+        shell=h;Text="Cypher Taskbar";FormBorderStyle=FormBorderStyle.None;ShowInTaskbar=false;StartPosition=FormStartPosition.Manual;AutoScaleMode=AutoScaleMode.None;
+        BackColor=Color.FromArgb(30,30,30);ForeColor=Color.White;Cursor=Cursors.Hand;AccessibleName="Cypher quotas";DoubleBuffered=true;Font=new Font("Segoe UI",9f,FontStyle.Regular,GraphicsUnit.Point);
+        foreach(string resource in typeof(Surface).Assembly.GetManifestResourceNames()){if(!resource.StartsWith("Cypher.Logos.")||!resource.EndsWith(".png"))continue;string name=resource.Substring(13,resource.Length-17);using(var stream=typeof(Surface).Assembly.GetManifestResourceStream(resource))using(var image=Image.FromStream(stream))logos[name]=new Bitmap(image);}
+        foreach(var alias in new Dictionary<string,string>{{"chatgpt","openai"},{"lechat","mistral"},{"deepseek-chat","deepseek"},{"google-ai","googleai"}})if(logos.ContainsKey(alias.Value))logos[alias.Key]=new Bitmap(logos[alias.Value]);
+        timer.Interval=200;timer.Tick+=(s,e)=>{try{LayoutSurface();}catch{Fail("taskbar-unavailable");}};
+    }
+    protected override bool ShowWithoutActivation {get{return true;}}
+    protected override void OnLoad(EventArgs e){
+        base.OnLoad(e);
+        try{
+            rebar=Win.FindWindowEx(shell,IntPtr.Zero,"ReBarWindow32",null);tasks=Win.FindWindowEx(rebar,IntPtr.Zero,"MSTaskSwWClass",null);
+            if(rebar==IntPtr.Zero||tasks==IntPtr.Zero)throw new Exception();
+            original=Win.Bounds(rebar);var bar=Win.Bounds(shell);if(bar.Width<bar.Height)throw new Exception();
+            reserve=(int)Math.Round(216*Win.GetDpiForWindow(shell)/96.0);if(original.Width-reserve<300)throw new Exception();
+            // A separate watchdog survives an abrupt helper/Electron termination.
+            var watch=new ProcessStartInfo(Application.ExecutablePath,"--watch "+Process.GetCurrentProcess().Id+" "+shell.ToInt64()) {UseShellExecute=false,CreateNoWindow=true,WindowStyle=ProcessWindowStyle.Hidden};
+            using(var process=Process.Start(watch)){if(process==null)throw new Exception();}
+            Win.SetStyle(Handle,-16,new IntPtr((Win.GetStyle(Handle,-16).ToInt64()&~0x80000000L)|0x40000000L));
+            Win.SetParent(Handle,shell);if(Win.GetParent(Handle)!=shell)throw new Exception();
+            attached=true;LayoutSurface();timer.Start();
+            bool sameDpi=Win.AreDpiAwarenessContextsEqual(Win.GetWindowDpiAwarenessContext(Handle),Win.GetWindowDpiAwarenessContext(shell));if(!sameDpi)throw new Exception();
+            Program.Emit(new {type="ready",hwnd=Handle.ToInt64(),dpi=Win.GetDpiForWindow(Handle),dpiContextMatches=sameDpi});
+            var reader=new Thread(ReadInput){IsBackground=true};reader.Start();
+        }catch{Fail("taskbar-unavailable");}
+    }
+    void LayoutSurface(){
+        if(!Win.IsWindow(shell)||!Win.IsWindow(rebar)||!Win.IsWindow(tasks)||Win.GetParent(Handle)!=shell)throw new Exception();
+        var bar=Win.Bounds(shell);if(bar.Width<bar.Height)throw new Exception();
+        var current=Win.Bounds(rebar);int dpi=(int)Win.GetDpiForWindow(shell);reserve=(int)Math.Round(216*dpi/96.0);
+        // Explorer owns the natural right edge. Weather/notification children bound it.
+        int right=bar.R;
+        foreach(string cls in new[]{"DynamicContent2","TrayNotifyWnd"}){
+            var child=Win.FindWindowEx(shell,IntPtr.Zero,cls,null);
+            if(child!=IntPtr.Zero){var b=Win.Bounds(child);if(b.Width>0&&b.L>current.L)right=Math.Min(right,b.L);}
+        }
+        // The shell leaves a small gap before its weather control. Keep that gap.
+        right-=2;int width=right-current.L-reserve;
+        if(width<300||bar.Height>200*dpi/96)throw new Exception();
+        if(current.Width!=width)Win.MoveWindow(rebar,current.L-bar.L,current.T-bar.T,width,current.Height,true);
+        var after=Win.Bounds(rebar);var task=Win.Bounds(tasks);
+        if(after.R>right-reserve||task.R>right-reserve)throw new Exception();
+        // Poll Explorer geometry without forcing a move/repaint of an idle taskbar.
+        var surface=Win.Bounds(Handle);
+        if(surface.L!=right-reserve||surface.T!=bar.T||surface.Width!=reserve||surface.Height!=bar.Height)
+            Win.MoveWindow(Handle,right-reserve-bar.L,0,reserve,bar.Height,true);
+    }
+    void ReadInput(){
+        try{string line;while((line=Console.ReadLine())!=null){
+            if(line.Length>16384)break;
+            var msg=Program.Json.Deserialize<Dictionary<string,object>>(line);
+            if(msg==null||!msg.ContainsKey("type"))break;
+            if((string)msg["type"]=="quit")break;
+            if((string)msg["type"]!="render")break;
+            var captured=msg;BeginInvoke((Action)(()=>Render(captured)));
+        }}catch{}finally{if(!closing)try{BeginInvoke((Action)(()=>Close()));}catch{}}
+    }
+    void Render(Dictionary<string,object> msg){
+        try{
+            language=msg.ContainsKey("language")&& (string)msg["language"]=="en"?"en":"fr";
+            var values=msg["items"] as ArrayList;var labels=new List<string>();displayItems.Clear();
+            if(values!=null)foreach(Dictionary<string,object> item in values){
+                if(displayItems.Count==3)break;
+                string provider=Convert.ToString(item["providerId"]);
+                string text=Convert.ToString(item["text"]);if(text.Length>32)text="—";
+                bool old=item.ContainsKey("stale")&&item["stale"] is bool&&(bool)item["stale"];
+                displayItems.Add(new DisplayItem {Provider=provider,Text=text+(old?"!":""),Stale=old});labels.Add(Convert.ToString(item["label"])+" : "+text+(old?" (ancien / stale)":""));
+            }
+            extraCount=msg.ContainsKey("extraCount")?Math.Max(0,Convert.ToInt32(msg["extraCount"])):0;
+            string caption=language=="fr"?"Cypher — quota restant minimum connu\n":"Cypher — lowest known remaining quota\n";
+            string tooltip=caption+string.Join("\n",labels.ToArray())+"\n"+(language=="fr"?"Cliquer pour ouvrir Cypher":"Click to open Cypher");
+            tip.SetToolTip(this,tooltip.Length>1800?tooltip.Substring(0,1800):tooltip);Invalidate();
+        }catch{Fail("taskbar-protocol");}
+    }
+    protected override void OnPaint(PaintEventArgs e){
+        base.OnPaint(e);
+        if(displayItems.Count==0){TextRenderer.DrawText(e.Graphics,"Cypher  —",Font,ClientRectangle,ForeColor,TextFormatFlags.HorizontalCenter|TextFormatFlags.VerticalCenter);return;}
+        float scale=Win.GetDpiForWindow(Handle)/96f;int padding=(int)Math.Round(4*scale),iconSize=(int)Math.Round(16*scale),gap=(int)Math.Round(4*scale);
+        var flags=TextFormatFlags.VerticalCenter|TextFormatFlags.SingleLine|TextFormatFlags.EndEllipsis|TextFormatFlags.NoPrefix|TextFormatFlags.NoPadding;
+        string extra=extraCount>0?"+"+extraCount:"";int extraWidth=extra.Length>0?TextRenderer.MeasureText(e.Graphics,extra,Font,Size.Empty,flags).Width+gap:0;
+        int cell=(ClientSize.Width-2*padding-extraWidth)/displayItems.Count;
+        e.Graphics.InterpolationMode=System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;e.Graphics.PixelOffsetMode=System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+        for(int i=0;i<displayItems.Count;i++){
+            var item=displayItems[i];int x=padding+i*cell;Image logo;if(!logos.TryGetValue(item.Provider,out logo))logo=logos["default"];
+            e.Graphics.DrawImage(logo,new Rectangle(x,(ClientSize.Height-iconSize)/2,iconSize,iconSize));
+            TextRenderer.DrawText(e.Graphics,item.Text,Font,new Rectangle(x+iconSize+gap,0,Math.Max(1,cell-iconSize-2*gap),ClientSize.Height),item.Stale?Color.FromArgb(255,202,110):ForeColor,flags);
+        }
+        if(extraWidth>0)TextRenderer.DrawText(e.Graphics,extra,Font,new Rectangle(ClientSize.Width-padding-extraWidth,0,extraWidth,ClientSize.Height),ForeColor,flags);
+    }
+    protected override void OnMouseUp(MouseEventArgs e){base.OnMouseUp(e);if(e.Button==MouseButtons.Left)Program.Emit(new {type="open"});}
+    void Fail(string code){Program.Emit(new {type="error",code=code});Close();}
+    protected override void OnFormClosed(FormClosedEventArgs e){closing=true;timer.Stop();timer.Dispose();tip.Dispose();foreach(var logo in logos.Values)logo.Dispose();if(attached)Win.Relayout(shell);base.OnFormClosed(e);}
+}

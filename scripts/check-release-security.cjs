@@ -1,0 +1,10 @@
+const fs=require('node:fs');const path=require('node:path');const assert=require('node:assert/strict');
+const {getCurrentFuseWire,FuseV1Options}=require('@electron/fuses');
+const {FuseState}=require('@electron/fuses/dist/constants');
+(async()=>{const root=path.resolve('release/win-unpacked');const wire=await getCurrentFuseWire(path.join(root,'Cypher.exe'));
+for(const name of ['RunAsNode','EnableNodeOptionsEnvironmentVariable','EnableNodeCliInspectArguments'])assert.equal(wire[FuseV1Options[name]],FuseState.DISABLE,name+' must be disabled');
+for(const name of ['EnableCookieEncryption','EnableEmbeddedAsarIntegrityValidation','OnlyLoadAppFromAsar'])assert.equal(wire[FuseV1Options[name]],FuseState.ENABLE,name+' must be enabled');
+const asar=require('@electron/asar'),archive=path.join(root,'resources/app.asar');const html=asar.extractFile(archive,path.join('dist','renderer','index.html')).toString();assert(html.includes("connect-src 'none'"));assert(html.includes("form-action 'none'"));
+const files=asar.listPackage(archive);for(const file of files)assert(!/(?:auth\.json|credentials\.enc\.json|registry\.json|settings\.json|quota-diagnostic|\.env$|\.dmp$)/i.test(file),'private/diagnostic file in archive');
+assert(fs.existsSync(path.join(root,'resources/app.asar.unpacked/dist/main/hidden-child.cjs')),'external Node preload missing');
+console.log(JSON.stringify({passed:true,checks:['production Electron fuses','production CSP denies renderer connections and form submission','no private runtime files in archive','background CLI helper available outside ASAR']},null,2))})().catch(e=>{console.error(e.message);process.exitCode=1});
