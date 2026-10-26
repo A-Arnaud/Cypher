@@ -1,4 +1,12 @@
-﻿# Cypher 0.4.8 — verification on October 25, 2026
+﻿# Cypher 0.5.0 — Windows 10/11 verification on October 26, 2026
+
+Current evidence and exact limitations: [Windows 10/11 verification record](docs/windows-10-11-verification-2026-10-26.md).
+
+- Local Windows 10 x64: 131 unit tests / 26 files, 16 Edge UI scenarios, TypeScript and the real Electron notification-area smoke passed. Separate packaged first-run (12 checks), native-window corners (4 checks), production security, artifact/secret scans, executable icons and x64 packaging passed.
+- Windows 11 selects the native notification-area backend rather than legacy Explorer embedding. OS-selection and UI fixtures are tested; **a real Windows 11 device remains untested**. CI Windows Server is not Windows 11 desktop validation.
+- No real provider account, Windows restart, user-installation replacement or live-user taskbar manipulation was performed. Executables are unsigned. Historical records below retain their original dates and scope.
+
+# Cypher 0.4.8 — verification on October 25, 2026
 
 - `npm run typecheck`: passed. `npm test`: 107 tests passed across 22 files. `npm run test:ui`: 14 Edge flows passed, including recovery from a loading error, delayed initial response, amounts and currencies, actual quota durations, and keyboard shortcut editing.
 - `npm run build:test`: separate test executable built. `npm run test:clean-machine`: 12 checks passed through packaged Electron, with an empty home, real IPC, and Windows DPAPI encryption. Seven connectors use exclusively synthetic HTTP responses. Replacing a key with a 429 error retains no balance from the previous account. An occupied shortcut is rejected without losing the active combination or saved preference.
