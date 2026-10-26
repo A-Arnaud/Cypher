@@ -1,5 +1,6 @@
 import {spawn,execFile} from 'node:child_process';
-import {stat} from 'node:fs/promises';
+import {stat,access} from 'node:fs/promises';
+import {constants} from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
 import {localAbsolute} from './profiles';
@@ -12,6 +13,11 @@ async function nodeExecutable(){
  throw Error('node-runtime-required');
 }
 export async function cliCommand(executable:string,kind:'codex'|'claude'|'gemini'):Promise<{file:string;args:string[];env:NodeJS.ProcessEnv}>{
+ if(process.platform!=='win32'){
+  if(!localAbsolute(executable)||/\.(cmd|bat|ps1|exe)$/i.test(executable))throw Error('unsupported-launcher');
+  if(!(await stat(executable)).isFile())throw Error('unsupported-launcher');await access(executable,constants.X_OK);
+  return {file:executable,args:[],env:{...childEnvironment(process.env),PATH:[path.dirname(executable),process.env.PATH??'','/opt/homebrew/bin','/usr/local/bin','/usr/bin','/bin'].join(path.delimiter)}};
+ }
  if(/\.(cmd|bat)$/i.test(executable)){
   const packageRoot=path.join(path.dirname(executable),'node_modules','@openai','codex');
   if(kind==='claude'&&process.platform==='win32'){

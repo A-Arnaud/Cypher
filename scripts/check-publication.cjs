@@ -24,7 +24,7 @@ const details=execFileSync('git',['cat-file','--batch-check=%(objectname) %(obje
 const wanted=new Map(details.map((line,i)=>{const [id,type,size]=line.split(' ');return type==='blob'&&Number(size)<=5*1024*1024?[id,objects[i].name]:null}).filter(Boolean));
 if(wanted.size){const packed=execFileSync('git',['cat-file','--batch'],{input:[...wanted.keys()].join('\n')+'\n',maxBuffer:128*1024*1024,windowsHide:true});let offset=0;while(offset<packed.length){const newline=packed.indexOf(10,offset);if(newline<0)break;const [id,type,sizeText]=packed.subarray(offset,newline).toString().split(' ');const size=Number(sizeText);if(type!=='blob'||!Number.isInteger(size))throw Error('Unexpected Git object');offset=newline+1;scan(packed.subarray(offset,offset+size),'history/'+id.slice(0,10)+'/'+wanted.get(id));historyBlobs++;offset+=size+1;}}
 if(process.argv.includes('--artifacts')){
- const asar=require('@electron/asar');const archive=path.resolve(process.env.CYPHER_RELEASE_ROOT??'release/win-unpacked','resources/app.asar');
+ const asar=require('@electron/asar');const archive=path.resolve(process.env.CYPHER_RELEASE_ROOT??'release/win-unpacked',process.platform==='darwin'?'Resources/app.asar':'resources/app.asar');
  if(!fs.existsSync(archive))throw Error('Build the production archive before scanning artifacts');
  for(const name of asar.listPackage(archive)){const clean=name.replace(/^[/\\]/,'');const stat=asar.statFile(archive,clean);if(!('size' in stat))continue;
   if(/(?:^|[/\\])(?:auth\.json|credentials\.enc\.json|registry\.json|settings\.json|\.env|\.credentials\.json|oauth_creds\.json)(?:$|\.)/i.test(clean))findings.push({rule:'private-runtime-file-in-artifact',location:clean});

@@ -15,6 +15,8 @@
   <p><a href="https://cypher-os.me/">Website</a> &middot; <a href="#get-started">Get started</a> · <a href="#what-works-today">Provider status</a> · <a href="#screenshots">Screenshots</a> · <a href="SECURITY.md">Security</a> · <a href="PRIVACY.md">Privacy</a> · <a href="SUPPORT.md">Support</a> · <a href="CONTRIBUTING.md">Contribute</a> · <a href="https://github.com/A-Arnaud/Cypher/issues">Issues</a></p>
 </div>
 
+**macOS preview:** [Apple Silicon and Intel downloads](https://github.com/A-Arnaud/Cypher/releases/tag/v0.5.1-mac.1) · [Mac installation guide](MACOS.md). On Mac, Cypher uses the **menu bar at the top right**, with visible quota readings. This preview has an ad-hoc signature and is not Apple-notarized; see the guide for first-launch instructions and validation limits.
+
 One Windows x64 download, with a desktop widget for Windows 10 and 11. Windows 10 keeps the embedded taskbar indicator; Windows 11 uses the notification area instead. **Windows 11 device validation is still pending** — see the [compatibility matrix](#windows-compatibility) and [verification notes](VERIFICATION.md).
 
 <a href="https://github.com/A-Arnaud/Cypher/releases/latest"><img src="docs/brand/hero.png" alt="Cypher: your AI usage, always in view. Product preview with synthetic quota values." width="100%"></a>

@@ -3,7 +3,7 @@ import path from 'node:path';
 import {isApiProvider,type ApiProvider} from '../shared/connectors';
 import {serializeChanges} from './settings';
 export interface Encryption {isEncryptionAvailable():boolean;getSelectedStorageBackend?():string;encryptString(value:string):Buffer;decryptString(value:Buffer):string}
-// Encryption is provided by Electron safeStorage (Windows DPAPI). No plaintext fallback.
+// Encryption is provided by Electron safeStorage (Windows DPAPI / macOS Keychain). No plaintext fallback.
 export class Credentials {
  private values:Partial<Record<ApiProvider,string>>={};
  private write=serializeChanges(async(input:{id:ApiProvider;value:string|null})=>{

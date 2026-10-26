@@ -1,9 +1,9 @@
 {
   "name": "cypher-widget",
-  "version": "0.5.0",
+  "version": "0.5.1-mac.1",
   "private": true,
   "type": "module",
-  "description": "Local-first Windows AI quota monitor",
+  "description": "Local-first AI quota monitor for Windows and macOS",
   "author": "Cypher",
   "repository": {
     "type": "git",
@@ -27,7 +27,9 @@
     "security:scan": "node scripts/check-publication.cjs",
     "security:release": "node scripts/check-release-security.cjs && node scripts/check-publication.cjs --artifacts",
     "security:secrets": "node scripts/run-gitleaks.cjs",
-    "test:corners": "node scripts/test-window-corners.cjs"
+    "test:corners": "node scripts/test-window-corners.cjs",
+    "dist:mac": "npm run build && electron-builder --mac dmg zip --arm64 --x64",
+    "test:mac": "vitest run --config vitest.mac.config.ts"
   },
   "build": {
     "appId": "local.cypher.widget",
@@ -48,7 +50,8 @@
       "dist/native/Cypher.Taskbar.exe",
       "dist/native/LOGOS-LICENSE*.txt",
       "package.json",
-      "!node_modules/**"
+      "!node_modules/**",
+      "dist/assets/trayTemplate*.png"
     ],
     "win": {
       "target": [
@@ -76,6 +79,17 @@
       "enableNodeCliInspectArguments": false,
       "enableEmbeddedAsarIntegrityValidation": true,
       "onlyLoadAppFromAsar": true
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "category": "public.app-category.utilities",
+      "icon": "assets/logo-source.png",
+      "identity": "-",
+      "artifactName": "Cypher-${version}-mac-${arch}.${ext}",
+      "hardenedRuntime": false
     }
   },
   "dependencies": {
