@@ -1,13 +1,13 @@
 ﻿# Security
 
-Cypher is a local Windows application. It has no central server, application telemetry, or account-upload mechanism. “Local” does not mean “offline”: after authorization, quota reads contact the relevant provider. The external browser can also be opened on demand for login or a dashboard. Destinations and stored data are described in [PRIVACY.md](PRIVACY.md).
+Cypher is a local application for Windows, with a separate macOS preview. It has no central server, application telemetry, or account-upload mechanism. “Local” does not mean “offline”: after authorization, quota reads contact the relevant provider. The external browser can also be opened on demand for login or a dashboard. Destinations and stored data are described in [PRIVACY.md](PRIVACY.md).
 
 ## Implemented protections
 
 - Sandboxed renderer, context isolation, and Node disabled. No file, shell, decryption, or arbitrary IPC API is exposed to the interface.
 - The production interface loads its local files. Its CSP blocks network connections, forms, subframes, workers, and plugins. A second rule in the Electron session blocks external requests and file access outside the packaged interface. The interface's Chromium session is held in memory.
 - Navigation, new windows, webviews, and permissions are denied. Every IPC command checks the sender, its window, its frame, and its arguments. Links opened by the main process come from fixed lists.
-- API keys are entered explicitly and encrypted using Windows DPAPI. No plaintext storage fallback. The encrypted envelope binds each key to its provider to reject reuse of ciphertext moved to another connector. Keys are never returned in public state or the console.
+- API keys are entered explicitly and encrypted using Electron safeStorage: Windows DPAPI or the macOS Keychain. No plaintext storage fallback. The encrypted envelope binds each key to its provider to reject reuse of ciphertext moved to another connector. Keys are never returned in public state or the console.
 - API collectors make GET requests to predefined URLs without following redirects. Local reads are limited to fixed loopback addresses. JSON bodies are bounded during receipt, and requests have a timeout.
 - CLIs use fixed commands without generation prompts. Their environment does not inherit API keys, tokens, other profiles' variables, or Node injection options from the parent process. Reads run in a neutral folder; documented telemetry settings are disabled in Codex and Claude readers without changing the user's saved configuration.
 - The distribution disables the Electron RunAsNode, NodeOptions, and NodeCliInspect fuses, and enables cookie encryption, ASAR integrity, and loading only from ASAR. The test build is separate and is not intended for distribution.
@@ -21,9 +21,13 @@ CLIs and their configurations belong to the user. They may perform their own net
 
 Current executables are not Authenticode-signed. ASAR integrity is not a publisher signature: it does not by itself prove the origin of a download. Compare the published SHA-256 hashes from a trusted repository. Do not run an unknown build with administrator privileges.
 
+The separate macOS preview uses an ad-hoc signature without Apple Developer ID or notarization. Its hardened runtime is disabled for this preview; Gatekeeper may block the first launch. Keychain encryption is not a guarantee against malicious software in the same user session. See [the Mac guide](MACOS.md) for first-launch instructions and manual login items. Mac CI checks the final application signature and launch on both architectures; this is not Apple approval or physical-device certification.
+
 Hardening may require re-entering API keys saved in an older version whose envelope was not bound to the provider. CLI profiles are not modified. Embedded browser login modes are not implemented; personal browser cookies are not collected.
 
 ## Pre-publication checks
+
+For macOS, follow [Mac build and verification](MACOS.md#verification-and-builds) and the [macOS workflow](.github/workflows/macos.yml). Windows-specific packaging commands below do not build Mac downloads.
 
 On Windows x64 with Node.js installed for development:
 

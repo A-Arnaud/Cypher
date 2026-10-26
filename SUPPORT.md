@@ -2,7 +2,11 @@
 
 ## FAQ
 
-**Where do I download Cypher?** Use the [latest release](https://github.com/A-Arnaud/Cypher/releases/latest). Choose the installer for Windows startup or the portable executable for use without installation. See [Windows setup](README.md#get-started) and verify the supplied SHA-256 checksums. Executables are unsigned.
+**Where do I download Cypher?** Choose [Windows 0.5.0 stable](https://github.com/A-Arnaud/Cypher/releases/tag/v0.5.0) or the separate [macOS 0.5.1-mac.1 preview](https://github.com/A-Arnaud/Cypher/releases/tag/v0.5.1-mac.1). Windows offers an installer and portable executable; Mac offers Apple Silicon and Intel DMG/ZIP downloads. See [Windows setup](README.md#get-started) or [Mac setup](MACOS.md), and verify the supplied SHA-256 checksums. Windows executables lack Authenticode signatures; the Mac preview is ad-hoc signed without Apple notarization.
+
+**Where are the quotas on Mac?** Choose **Show quotas in menu bar**. The indicator appears in the macOS menu bar at the top right, with up to three pinned percentage readings. Its menu can show/hide the widget, refresh, pause or quit. A dash means unavailable percentage data; balances and model counts remain in the widget. On a display with a camera notch or many menu bar items, macOS may limit available space. See [the Mac guide](MACOS.md).
+
+**Why does macOS block the first launch?** This preview has no Apple Developer ID or notarization. Follow the [first-launch instructions](MACOS.md#first-launch) after checking the checksum. Automatic login registration is unavailable in this preview; add Cypher manually to macOS Login Items if desired.
 
 **Why is my quota missing although the tool is installed?** Detection does not establish a signed-in account, permission or a working quota connector. Check [provider status](README.md#what-works-today), then authorize the intended profile in Connections. Claude Code and Gemini quota reads are not implemented. Missing data is not zero usage.
 
@@ -12,7 +16,7 @@
 
 **Where are the quotas on Windows 11?** Look for the Cypher firefly in the notification area, possibly under the hidden-icons arrow. Hover over it for a compact quota summary or open its menu. **The notification-area summary currently shows only available remaining percentages**, just like the Windows 10 embedded indicator; API balances, spending, points and local model counts require the desktop widget or detailed view. A dash in the notification area means no percentage is available, even when another unit is known in the widget. This release does not add Claude/Gemini quota connectors.
 
-**Where can I get help or request a provider?** Check existing [issues](https://github.com/A-Arnaud/Cypher/issues), then use the [bug, feature or provider request form](https://github.com/A-Arnaud/Cypher/issues/new/choose). Include the version shown in Cypher, Windows build (`winver`), install type and minimal reproduction steps. Logs and screenshots are optional and must be sanitized. Never attach API keys, CLI credentials, cookies or private account data. Use [the security policy](SECURITY.md#reporting-a-vulnerability) for vulnerability reports.
+**Where can I get help or request a provider?** Check existing [issues](https://github.com/A-Arnaud/Cypher/issues), then use the [bug, feature or provider request form](https://github.com/A-Arnaud/Cypher/issues/new/choose). Include the Cypher version, Windows build (`winver`) or macOS version, processor architecture, install type and minimal reproduction steps. Logs and screenshots are optional and must be sanitized. Never attach API keys, CLI credentials, cookies or private account data. Use [the security policy](SECURITY.md#reporting-a-vulnerability) for vulnerability reports.
 
 ## Windows distribution — connector scope introduced in 0.4.5
 

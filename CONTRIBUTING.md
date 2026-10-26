@@ -4,6 +4,8 @@ Start with [README.md](README.md) for product behavior and [implementation notes
 
 ## Set up a checkout
 
+For **macOS**, use Node.js 24, npm and Git, then follow the [Mac development commands](MACOS.md#verification-and-builds). Use `npm run test:mac` for the portable core and Mac subprocess tests, and `npm run dist:mac` on a Mac for DMG/ZIP builds. The native Windows helper is skipped on macOS. The Windows fixture suite uses Windows paths and launchers and should run on Windows.
+
 Use Windows x64, Node.js 24 with npm, Git, and Microsoft Edge for browser tests. Building the native taskbar helper requires the Windows .NET Framework 4.x C# compiler at `%WINDIR%\Microsoft.NET\Framework64\v4.0.30319\csc.exe`. The build invokes it automatically.
 
 To run a checkout in PowerShell:

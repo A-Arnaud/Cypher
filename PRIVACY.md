@@ -1,16 +1,18 @@
 ﻿# Data and network
 
-Cypher keeps its data on the PC. No Cypher backend, analytics service, log upload, or crash reporter is configured. No cookies from the personal browser, conversations, or message history are imported.
+Cypher keeps its data on your computer. No Cypher backend, analytics service, log upload, or crash reporter is configured. No cookies from the personal browser, conversations, or message history are imported.
 
 ## Local data
 
 Preferences live in the application's user-data folder (`%APPDATA%/Quota Glass` for existing installations, otherwise `%APPDATA%/Cypher`). A custom location can be selected at launch for testing.
 
+On macOS, the default location is `~/Library/Application Support/Cypher`; an existing `Quota Glass` or `quota-glass` folder in Application Support is retained for compatibility. API keys use Electron safeStorage backed by the macOS Keychain, while Windows uses DPAPI. Encrypted Windows keys cannot be migrated by copying their file to a Mac; enter the keys again in Connections.
+
 | File/folder | Contents |
 |---|---|
 | settings.json | Language, display, order, authorized profiles, and settings; no API keys |
 | registry.json | Paths to manually added CLIs and profiles; not their authentication contents |
-| credentials.enc.json | Keys entered in Cypher, encrypted with Windows DPAPI and bound to the provider |
+| credentials.enc.json | Keys entered in Cypher, encrypted with Windows DPAPI or macOS Keychain-backed safeStorage and bound to the provider |
 | profiles/ | Profiles created on demand; credentials there are managed by the official CLI |
 | login-scripts/ | Temporary fixed launch commands, without keys or tokens |
 | login-workspaces/ | Neutral folders for requested logins |

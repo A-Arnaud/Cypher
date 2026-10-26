@@ -2,20 +2,27 @@
   <a href="https://cypher-os.me/"><img src="docs/brand/wordmark.png" alt="Cypher" width="230"></a>
   <p><strong>Your AI usage, always in view.</strong><br>
   Monitor provider-reported quotas, API balances and local model availability<br>
-  from a compact Windows widget or your taskbar.</p>
+  from a desktop widget, the Windows taskbar or the macOS menu bar.</p>
   <p><a href="https://cypher-os.me/"><img src="docs/brand/website.png" alt="Visit the Cypher website at cypher-os.me" width="340"></a></p>
-  <p><strong><a href="https://github.com/A-Arnaud/Cypher/releases/latest">Download Cypher for Windows</a></strong></p>
+  <p><strong><a href="https://github.com/A-Arnaud/Cypher/releases/tag/v0.5.0">Download for Windows</a> · <a href="https://github.com/A-Arnaud/Cypher/releases/tag/v0.5.1-mac.1">Download for macOS (preview)</a></strong></p>
   <p><a href="https://github.com/A-Arnaud/Cypher/releases/download/v0.5.0/Cypher-Setup-0.5.0-win-x64.exe">Installer · 0.5.0</a> · <a href="https://github.com/A-Arnaud/Cypher/releases/download/v0.5.0/Cypher-0.5.0-win-x64.exe">Portable</a> · <a href="https://github.com/A-Arnaud/Cypher/releases/download/v0.5.0/SHA256SUMS-0.5.0.txt">SHA-256</a></p>
   <p>
     <a href="https://github.com/A-Arnaud/Cypher/releases/latest"><img src="https://img.shields.io/badge/release-v0.5.0-ed8fae" alt="Release 0.5.0"></a>
     <img src="https://img.shields.io/badge/Windows_10_%2F_11-x64-292d35?logo=windows&amp;logoColor=white" alt="Windows 10 / 11 x64">
     <a href="PRIVACY.md"><img src="https://img.shields.io/badge/local-first-91cbb2" alt="Local first"></a>
     <a href="https://github.com/A-Arnaud/Cypher/actions/workflows/security.yml"><img src="https://github.com/A-Arnaud/Cypher/actions/workflows/security.yml/badge.svg?branch=main" alt="Security and Windows Server validation on main (not Windows 11 device certification)"></a>
+    <a href="https://github.com/A-Arnaud/Cypher/actions/workflows/macos.yml"><img src="https://github.com/A-Arnaud/Cypher/actions/workflows/macos.yml/badge.svg?branch=main" alt="macOS Apple Silicon and Intel validation on main"></a>
   </p>
   <p><a href="https://cypher-os.me/">Website</a> &middot; <a href="#get-started">Get started</a> · <a href="#what-works-today">Provider status</a> · <a href="#screenshots">Screenshots</a> · <a href="SECURITY.md">Security</a> · <a href="PRIVACY.md">Privacy</a> · <a href="SUPPORT.md">Support</a> · <a href="CONTRIBUTING.md">Contribute</a> · <a href="https://github.com/A-Arnaud/Cypher/issues">Issues</a></p>
 </div>
 
-**macOS preview:** [Apple Silicon and Intel downloads](https://github.com/A-Arnaud/Cypher/releases/tag/v0.5.1-mac.1) · [Mac installation guide](MACOS.md). On Mac, Cypher uses the **menu bar at the top right**, with visible quota readings. This preview has an ad-hoc signature and is not Apple-notarized; see the guide for first-launch instructions and validation limits.
+| Platform | Download | System indicator |
+| --- | --- | --- |
+| Windows 10 / 11 x64 · **0.5.0 stable** | [Installer](https://github.com/A-Arnaud/Cypher/releases/download/v0.5.0/Cypher-Setup-0.5.0-win-x64.exe) · [Portable](https://github.com/A-Arnaud/Cypher/releases/download/v0.5.0/Cypher-0.5.0-win-x64.exe) · [SHA-256](https://github.com/A-Arnaud/Cypher/releases/download/v0.5.0/SHA256SUMS-0.5.0.txt) | Windows taskbar / notification area |
+| Mac Apple Silicon · **0.5.1-mac.1 preview** | [DMG](https://github.com/A-Arnaud/Cypher/releases/download/v0.5.1-mac.1/Cypher-0.5.1-mac.1-mac-arm64.dmg) · [ZIP](https://github.com/A-Arnaud/Cypher/releases/download/v0.5.1-mac.1/Cypher-0.5.1-mac.1-mac-arm64.zip) · [SHA-256](https://github.com/A-Arnaud/Cypher/releases/download/v0.5.1-mac.1/SHA256SUMS-mac-arm64.txt) | macOS menu bar, **top right** |
+| Mac Intel · **0.5.1-mac.1 preview** | [DMG](https://github.com/A-Arnaud/Cypher/releases/download/v0.5.1-mac.1/Cypher-0.5.1-mac.1-mac-x64.dmg) · [ZIP](https://github.com/A-Arnaud/Cypher/releases/download/v0.5.1-mac.1/Cypher-0.5.1-mac.1-mac-x64.zip) · [SHA-256](https://github.com/A-Arnaud/Cypher/releases/download/v0.5.1-mac.1/SHA256SUMS-mac-x64.txt) | macOS menu bar, **top right** |
+
+The [macOS installation guide](MACOS.md) covers choosing your processor, first launch and Terminal connections. The Mac preview has an ad-hoc signature and is not Apple-notarized. macOS 15 Apple Silicon and Intel automation passed; hands-on device and live-account validation remain outstanding. Windows remains the stable release.
 
 One Windows x64 download, with a desktop widget for Windows 10 and 11. Windows 10 keeps the embedded taskbar indicator; Windows 11 uses the notification area instead. **Windows 11 device validation is still pending** — see the [compatibility matrix](#windows-compatibility) and [verification notes](VERIFICATION.md).
 
@@ -29,7 +36,7 @@ One Windows x64 download, with a desktop widget for Windows 10 and 11. Windows 1
 
 ## Choose your path
 
-**Try it:** [Windows setup](#get-started) · **Check compatibility:** [provider status](#what-works-today) · **Need help:** [FAQ](SUPPORT.md#faq) or [report an issue](https://github.com/A-Arnaud/Cypher/issues/new/choose) · **Build with us:** [contributor guide](CONTRIBUTING.md).
+**Try it:** [Windows setup](#get-started) · [Mac setup](MACOS.md) · **Check compatibility:** [provider status](#what-works-today) · **Need help:** [FAQ](SUPPORT.md#faq) or [report an issue](https://github.com/A-Arnaud/Cypher/issues/new/choose) · **Build with us:** [contributor guide](CONTRIBUTING.md).
 
 <table>
   <tr>
@@ -46,6 +53,8 @@ One Windows x64 download, with a desktop widget for Windows 10 and 11. Windows 1
 ---
 
 ## Get started
+
+For **macOS**, use the separate [Mac downloads and installation guide](MACOS.md). The steps below cover **Windows**.
 
 1. Open the [latest release](https://github.com/A-Arnaud/Cypher/releases/latest).
 2. Download **`Cypher-Setup-0.5.0-win-x64.exe`** for installation and Windows startup, or **`Cypher-0.5.0-win-x64.exe`** for portable use.
@@ -124,13 +133,15 @@ Screenshots use account-free previews and synthetic values. They do not display 
 
 - No telemetry, browser-cookie collection or AI messages.
 - CLI account reads require permission for the selected profile.
-- API keys entered in Connections are encrypted locally with Windows DPAPI and removable in the app.
+- API keys entered in Connections are encrypted locally with Windows DPAPI or the macOS Keychain and removable in the app.
 - The renderer is sandboxed with context isolation, validated IPC and a restrictive production content security policy.
 - Profiles, keys, preferences, diagnostics and build outputs are excluded from Git. Publication checks scan sources, Git history and the packaged archive.
 
-DPAPI does not protect against malicious software running as your Windows user. Provider requests still reach the selected provider. These safeguards and scans are not an independent security certification. Read [Security](SECURITY.md) and [Privacy](PRIVACY.md) before connecting an account.
+Local encryption does not protect against malicious software running as your user. Provider requests still reach the selected provider. These safeguards and scans are not an independent security certification. Read [Security](SECURITY.md) and [Privacy](PRIVACY.md) before connecting an account.
 
 ## Development
+
+Mac contributors: use the [macOS build and test commands](MACOS.md#verification-and-builds). The following commands and native helper requirements cover Windows.
 
 Use **Node.js 24** and npm on Windows. The native taskbar helper also uses the Windows .NET Framework 4.x C# compiler. Browser tests use Microsoft Edge.
 

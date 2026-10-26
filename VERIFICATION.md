@@ -1,4 +1,13 @@
-﻿# Cypher 0.5.0 — Windows 10/11 verification on October 26, 2026
+# Cypher 0.5.1-mac.1 - macOS preview verification on October 27, 2026
+
+- [Separate Mac release](https://github.com/A-Arnaud/Cypher/releases/tag/v0.5.1-mac.1): DMG and ZIP downloads for Apple Silicon and Intel, plus a SHA-256 manifest per architecture. Windows 0.5.0 remains the stable release.
+- [Validated Mac build](https://github.com/A-Arnaud/Cypher/actions/runs/40421949738), source d8e7161: macOS 15 Apple Silicon and Intel each passed TypeScript, 65 unit/subprocess tests (one Windows-only test skipped), source/history publication scans, native Electron menu bar docking/hide/restore in English and French, final packaged-app signature/launch checks and archive scans.
+- [Windows regression build for the same application source](https://github.com/A-Arnaud/Cypher/actions/runs/40421949785): full Windows CI passed, including UI, native notification-area checks, clean-machine startup, corners, executable icons, packaging and production security checks. This is Windows Server automation, not Windows 11 device certification.
+- Downloaded Mac artifacts were checked against their CI SHA-256 manifests before publication. Both releases retain their own files and checksums; the Windows executables were not rebuilt or replaced for the Mac release.
+- The Mac preview is ad-hoc signed without Apple Developer ID, notarization or hardened runtime. Physical-device, notch/full-screen, live-account and manual login-item behavior remain unverified. See [MACOS.md](MACOS.md).
+- Subsequent integration changes adjust PR ad-hoc signing and wait for native macOS activation in the smoke test. Application source and published binaries remain those of the validated release commit above.
+
+# Cypher 0.5.0 — Windows 10/11 verification on October 26, 2026
 
 Current evidence and exact limitations: [Windows 10/11 verification record](docs/windows-10-11-verification-2026-10-26.md).
 
