@@ -34,6 +34,8 @@ jobs:
       - run: npm run typecheck
       - run: npm test
       - run: npm run test:ui
+      - name: Verify native notification-area backend without legacy taskbar manipulation
+        run: node scripts/test-tray-native.cjs
       - run: npm run build:test
       - run: npm run test:clean-machine
       - run: npm run test:corners
