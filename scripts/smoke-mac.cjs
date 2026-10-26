@@ -10,9 +10,12 @@ const fs=require('node:fs/promises');const os=require('node:os');const path=requ
   await page.waitForFunction(()=>!!window.quota);const state=await page.evaluate(()=>window.quota.getState());
   expect(state.platform).toBe('darwin');expect(state.taskbarBackend).toBe('tray');
   await expect(page.getByRole('button',{name:'Show quotas in menu bar',exact:true})).toBeVisible();
+  // Wait for macOS to complete initial activation before requesting a hide.
+  // Renderer readiness can precede the native window's activation callback.
+  await expect.poll(()=>app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].isFocused()),{timeout:15000}).toBe(true);
   await page.evaluate(()=>window.quota.setTaskbarMode(true));
   expect((await page.evaluate(()=>window.quota.getState())).taskbarStatus).toBe('ready');
-  expect(await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].isVisible())).toBe(false);
+  await expect.poll(()=>app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].isVisible()),{timeout:5000}).toBe(false);
   await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].show());
   await page.evaluate(()=>window.quota.setTaskbarMode(false));
   expect((await page.evaluate(()=>window.quota.getState())).taskbarStatus).toBe('off');
