@@ -1,4 +1,13 @@
-# Cypher 0.4.9 ? October 26, 2026
+# Cypher 0.5.0 — October 26, 2026
+
+- Added an OS-selected native notification-area backend for Windows 11 and unknown Windows shells. Pinned quota summaries are exposed through the tray tooltip and menu; the desktop widget remains available. This is not an embedded Windows 11 taskbar text indicator.
+- Preserved the existing Windows 10 horizontal-primary-taskbar integration. Legacy Explorer manipulation is blocked on unsupported Windows versions, without blocking the independent startup registry query.
+- Adapted the dock controls and explanations in English and French while preserving the graphite firefly identity, saved preferences and provider permissions.
+- Updated electron-builder to 26.18.0 and pinned checkout/setup-node Actions to verified v7 revisions. CI records its actual Windows Server host, builds without publishing and retains validated executables plus checksums.
+- One Windows x64 installer and one portable build serve both Windows 10/11. Windows 11 physical-device acceptance remains pending; test evidence and limitations are recorded separately in [VERIFICATION.md](VERIFICATION.md).
+- Provider coverage is unchanged. No real account or quota verification is implied by synthetic tests.
+
+# Cypher 0.4.9 — October 26, 2026
 
 - Replaced the Cypher identity with the supplied graphite firefly logo in the application, tray, Windows executable/installer and native helper, plus current README wordmark, presentation art and screenshots. Provider logos remain unchanged.
 - Icon generation now uses the checked-in logo source instead of a developer-machine path. Windows icon resources are verified against the generated ICO, including in CI.
