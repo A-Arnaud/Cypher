@@ -1,3 +1,10 @@
+# 0.5.1-mac.1 — macOS preview
+
+- Add a native top-right macOS menu bar indicator, visible quota title and template icon, while preserving Windows backends.
+- Support macOS executable CLI discovery/selection, profile-isolated Terminal sign-in, and Keychain-backed API key storage.
+- Add Apple Silicon/Intel DMG and ZIP builds, macOS CI tests, native Electron and packaged-app launch checks.
+- Document ad-hoc signing, Gatekeeper, manual login items and remaining physical-device validation in `MACOS.md`.
+
 # Cypher 0.5.0 — October 26, 2026
 
 - Added an OS-selected native notification-area backend for Windows 11 and unknown Windows shells. Pinned quota summaries are exposed through the tray tooltip and menu; the desktop widget remains available. This is not an embedded Windows 11 taskbar text indicator.
@@ -29,10 +36,3 @@
 - Browser tests choose an available port on Windows. The displayed version and test installer follow the project version.
 
 Provider capabilities and limitations remain detailed in [SUPPORT.md](SUPPORT.md). Validation for this release is recorded in [VERIFICATION.md](VERIFICATION.md).
-# 0.5.1-mac.1 — macOS preview
-
-- Add a native top-right macOS menu bar indicator, visible quota title and template icon, while preserving Windows backends.
-- Support macOS executable CLI discovery/selection, profile-isolated Terminal sign-in, and Keychain-backed API key storage.
-- Add Apple Silicon/Intel DMG and ZIP builds, macOS CI tests, native Electron and packaged-app launch checks.
-- Document ad-hoc signing, Gatekeeper, manual login items and remaining physical-device validation in `MACOS.md`.
-

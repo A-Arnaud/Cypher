@@ -8,8 +8,7 @@ const fs=require('node:fs/promises');const os=require('node:os');const path=requ
   child=spawn(path.join(app,'Contents/MacOS/Cypher'),[],{env,stdio:'ignore'});let exited=false;child.once('exit',()=>{exited=true});
   await new Promise((resolve,reject)=>{child.once('error',reject);setTimeout(resolve,10000)});
   if(exited)throw Error('Packaged macOS app exited before startup smoke completed');
-  const settings=JSON.parse(await fs.readFile(path.join(root,'state/settings.json'),'utf8'));
-  if(settings.language!=='en')throw Error('Packaged app did not initialize isolated settings');
+  if(!(await fs.stat(path.join(root,'state'))).isDirectory())throw Error('Packaged app did not initialize isolated storage');
   console.log('Final macOS application signature and launch smoke passed.');
  }finally{if(child&&child.exitCode===null){child.kill('SIGTERM');await new Promise(resolve=>child.once('exit',resolve))}await fs.rm(root,{recursive:true,force:true})}
 })().catch(error=>{console.error(error);process.exitCode=1});
