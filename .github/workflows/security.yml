@@ -30,7 +30,7 @@ jobs:
       - run: npm run build:test
       - run: npm run test:clean-machine
       - run: npm run test:corners
-      - run: npm run dist
+      - run: npm run dist -- --publish=never
       - run: node scripts/check-release-security.cjs
       - run: node scripts/smoke-production-security.cjs
       - run: node scripts/check-publication.cjs --artifacts
