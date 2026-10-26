@@ -29,3 +29,10 @@
 - Browser tests choose an available port on Windows. The displayed version and test installer follow the project version.
 
 Provider capabilities and limitations remain detailed in [SUPPORT.md](SUPPORT.md). Validation for this release is recorded in [VERIFICATION.md](VERIFICATION.md).
+# 0.5.1-mac.1 — macOS preview
+
+- Add a native top-right macOS menu bar indicator, visible quota title and template icon, while preserving Windows backends.
+- Support macOS executable CLI discovery/selection, profile-isolated Terminal sign-in, and Keychain-backed API key storage.
+- Add Apple Silicon/Intel DMG and ZIP builds, macOS CI tests, native Electron and packaged-app launch checks.
+- Document ad-hoc signing, Gatekeeper, manual login items and remaining physical-device validation in `MACOS.md`.
+

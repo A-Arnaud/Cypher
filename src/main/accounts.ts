@@ -39,7 +39,7 @@ export class Accounts {
   await this.serialize(async()=>{this.registry.profiles.push({providerId,root:result.filePaths[0]});await this.persist();await this.host.refresh()});
  }
  async locateExecutable(id:unknown){const providerId=this.provider(id);const window=this.host.window();if(!window)return;
-  const result=await dialog.showOpenDialog(window,{title:'Select '+providerId+' CLI executable',properties:['openFile'],filters:[{name:'CLI executable',extensions:['exe','cmd']}]});if(result.canceled||!result.filePaths[0])return;
+  const result=await dialog.showOpenDialog(window,{title:'Select '+providerId+' CLI executable',properties:['openFile'],...(process.platform==='win32'?{filters:[{name:'CLI executable',extensions:['exe','cmd']}]}:{})});if(result.canceled||!result.filePaths[0])return;
   const executable=result.filePaths[0];await cliCommand(executable,providerId);
   await this.serialize(async()=>{this.registry.executables[providerId]=executable;await this.persist();await this.host.refresh()});
  }
