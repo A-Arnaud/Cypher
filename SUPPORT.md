@@ -1,4 +1,4 @@
-# Capabilities and limitations — initial release
+# Capabilities and limitations
 
 ## FAQ
 
@@ -8,7 +8,9 @@
 
 **Does Cypher need my chat password or browser cookies?** No. Use the official CLI login flow for CLI profiles or enter a supported API key in Connections. Do not share that key or any CLI credentials in an issue. See [Privacy](PRIVACY.md).
 
-**Is Windows 11 supported?** The verified native taskbar target is Windows 10 x64 with a horizontal primary taskbar. Windows 11 and other taskbar/DPI arrangements are not certified. Include your exact Windows build when reporting a problem.
+**Is Windows 11 supported?** Cypher 0.5.0 adds an OS-selected notification-area mode for Windows 11 while retaining the desktop widget. It does not modify the Windows 11 taskbar or embed text inside it. The same x64 installer/portable build serves Windows 10 and 11. Runtime behavior on a real Windows 11 device remains unverified; OS-selection, tray lifecycle and UI fixture tests are not device certification. Windows 10 retains its existing embedded indicator on a horizontal primary taskbar. Include the exact Windows build (`winver`) and chosen mode when reporting a problem.
+
+**Where are the quotas on Windows 11?** Look for the Cypher firefly in the notification area, possibly under the hidden-icons arrow. Hover over it for a compact quota summary or open its menu. **The notification-area summary currently shows only available remaining percentages**, just like the Windows 10 embedded indicator; API balances, spending, points and local model counts require the desktop widget or detailed view. A dash in the notification area means no percentage is available, even when another unit is known in the widget. This release does not add Claude/Gemini quota connectors.
 
 **Where can I get help or request a provider?** Check existing [issues](https://github.com/A-Arnaud/Cypher/issues), then use the [bug, feature or provider request form](https://github.com/A-Arnaud/Cypher/issues/new/choose). Include the version shown in Cypher, Windows build (`winver`), install type and minimal reproduction steps. Logs and screenshots are optional and must be sanitized. Never attach API keys, CLI credentials, cookies or private account data. Use [the security policy](SECURITY.md#reporting-a-vulnerability) for vulnerability reports.
 

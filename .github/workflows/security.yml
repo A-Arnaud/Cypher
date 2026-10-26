@@ -7,14 +7,21 @@ permissions:
   contents: read
 jobs:
   windows:
-    runs-on: windows-latest
+    # Hosted Windows Server is build/automation coverage, not a Windows 11 desktop test.
+    runs-on: windows-2025
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Record the actual Windows test host
+        shell: pwsh
+        run: |
+          Get-CimInstance Win32_OperatingSystem |
+            Select-Object Caption, Version, BuildNumber, ProductType |
+            Format-List
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
           persist-credentials: false
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 24
           cache: npm
@@ -27,6 +34,8 @@ jobs:
       - run: npm run typecheck
       - run: npm test
       - run: npm run test:ui
+      - name: Verify native notification-area backend without legacy taskbar manipulation
+        run: node scripts/test-tray-native.cjs
       - run: npm run build:test
       - run: npm run test:clean-machine
       - run: npm run test:corners
@@ -44,3 +53,22 @@ jobs:
       - run: node scripts/check-release-security.cjs
       - run: node scripts/smoke-production-security.cjs
       - run: node scripts/check-publication.cjs --artifacts
+      - name: Hash the validated Windows executables
+        shell: pwsh
+        run: |
+          $version = (Get-Content package.json -Raw | ConvertFrom-Json).version
+          $names = @("Cypher-Setup-$version-win-x64.exe", "Cypher-$version-win-x64.exe")
+          $lines = foreach ($name in $names) {
+            $hash = (Get-FileHash "release/$name" -Algorithm SHA256).Hash.ToLowerInvariant()
+            "$hash  $name"
+          }
+          $lines | Set-Content "release/SHA256SUMS-$version.txt" -Encoding utf8NoBOM
+      - name: Upload validated builds (not a GitHub release)
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: cypher-windows-x64-${{ github.sha }}
+          path: |
+            release/Cypher-*-win-x64.exe
+            release/SHA256SUMS-*.txt
+          if-no-files-found: error
+          retention-days: 7

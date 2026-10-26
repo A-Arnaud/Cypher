@@ -30,6 +30,19 @@ static class Win {
     public static void Relayout(IntPtr shell){if(IsWindow(shell))PostMessage(shell,5,IntPtr.Zero,IntPtr.Zero);}
 }
 
+// RtlGetVersion is independent of compatibility manifests. Unknown versions fail closed.
+static class WindowsShell {
+    [StructLayout(LayoutKind.Sequential,CharSet=CharSet.Unicode)] struct VersionInfo {
+        public uint Size,Major,Minor,Build,Platform;
+        [MarshalAs(UnmanagedType.ByValTStr,SizeConst=128)] public string ServicePack;
+    }
+    [DllImport("ntdll.dll",CharSet=CharSet.Unicode)] static extern int RtlGetVersion(ref VersionInfo version);
+    internal static bool SupportsVersion(uint major,uint minor,uint build){return major==10&&minor==0&&build>=10240&&build<22000;}
+    internal static bool IsSupported(){
+        try{var version=new VersionInfo();version.Size=(uint)Marshal.SizeOf(typeof(VersionInfo));return RtlGetVersion(ref version)==0&&SupportsVersion(version.Major,version.Minor,version.Build);}catch{return false;}
+    }
+}
+
 static class Program {
     internal static readonly JavaScriptSerializer Json=new JavaScriptSerializer {MaxJsonLength=16384};
     internal static void Emit(object o){lock(Json){Console.WriteLine(Json.Serialize(o));Console.Out.Flush();}}
@@ -38,6 +51,7 @@ static class Program {
         if(args.Length==1 && args[0]=="--startup-query"){
             using(var key=Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run"))Program.Emit(new {command=key==null?null:key.GetValue("Cypher") as string});return;
         }
+        if(!WindowsShell.IsSupported()){Emit(new {type="error",code="taskbar-unsupported-os"});return;}
         if(args.Length==3 && args[0]=="--watch"){
             try{Process.GetProcessById(int.Parse(args[1])).WaitForExit();}catch(ArgumentException){}
             Win.Relayout(new IntPtr(long.Parse(args[2])));return;

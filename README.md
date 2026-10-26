@@ -5,17 +5,17 @@
   from a compact Windows widget or your taskbar.</p>
   <p><a href="https://cypher-os.me/"><img src="docs/brand/website.png" alt="Visit the Cypher website at cypher-os.me" width="340"></a></p>
   <p><strong><a href="https://github.com/A-Arnaud/Cypher/releases/latest">Download Cypher for Windows</a></strong></p>
-  <p><a href="https://github.com/A-Arnaud/Cypher/releases/download/v0.4.9/Cypher-Setup-0.4.9-win-x64.exe">Installer · 0.4.9</a> · <a href="https://github.com/A-Arnaud/Cypher/releases/download/v0.4.9/Cypher-0.4.9-win-x64.exe">Portable</a> · <a href="https://github.com/A-Arnaud/Cypher/releases/download/v0.4.9/SHA256SUMS-0.4.9.txt">SHA-256</a></p>
+  <p><a href="https://github.com/A-Arnaud/Cypher/releases/download/v0.5.0/Cypher-Setup-0.5.0-win-x64.exe">Installer · 0.5.0</a> · <a href="https://github.com/A-Arnaud/Cypher/releases/download/v0.5.0/Cypher-0.5.0-win-x64.exe">Portable</a> · <a href="https://github.com/A-Arnaud/Cypher/releases/download/v0.5.0/SHA256SUMS-0.5.0.txt">SHA-256</a></p>
   <p>
-    <a href="https://github.com/A-Arnaud/Cypher/releases/latest"><img src="https://img.shields.io/badge/release-v0.4.9-ed8fae" alt="Release 0.4.9"></a>
-    <img src="https://img.shields.io/badge/Windows_10-x64-292d35?logo=windows&amp;logoColor=white" alt="Windows 10 x64">
+    <a href="https://github.com/A-Arnaud/Cypher/releases/latest"><img src="https://img.shields.io/badge/release-v0.5.0-ed8fae" alt="Release 0.5.0"></a>
+    <img src="https://img.shields.io/badge/Windows_10_%2F_11-x64-292d35?logo=windows&amp;logoColor=white" alt="Windows 10 / 11 x64">
     <a href="PRIVACY.md"><img src="https://img.shields.io/badge/local-first-91cbb2" alt="Local first"></a>
-    <a href="https://github.com/A-Arnaud/Cypher/actions/workflows/security.yml"><img src="https://img.shields.io/badge/validation-Windows-91cbb2?logo=githubactions&amp;logoColor=white" alt="Windows validation workflow (link, not a live result)"></a>
+    <a href="https://github.com/A-Arnaud/Cypher/actions/workflows/security.yml"><img src="https://github.com/A-Arnaud/Cypher/actions/workflows/security.yml/badge.svg?branch=main" alt="Security and Windows Server validation on main (not Windows 11 device certification)"></a>
   </p>
   <p><a href="https://cypher-os.me/">Website</a> &middot; <a href="#get-started">Get started</a> · <a href="#what-works-today">Provider status</a> · <a href="#screenshots">Screenshots</a> · <a href="SECURITY.md">Security</a> · <a href="PRIVACY.md">Privacy</a> · <a href="SUPPORT.md">Support</a> · <a href="CONTRIBUTING.md">Contribute</a> · <a href="https://github.com/A-Arnaud/Cypher/issues">Issues</a></p>
 </div>
 
-Windows 10 x64 is the verified native target. See the [launch checklist](docs/launch-checklist.md) for release, discovery and first-user feedback guidance.
+One Windows x64 download, with a desktop widget for Windows 10 and 11. Windows 10 keeps the embedded taskbar indicator; Windows 11 uses the notification area instead. **Windows 11 device validation is still pending** — see the [compatibility matrix](#windows-compatibility) and [verification notes](VERIFICATION.md).
 
 <a href="https://github.com/A-Arnaud/Cypher/releases/latest"><img src="docs/brand/hero.png" alt="Cypher: your AI usage, always in view. Product preview with synthetic quota values." width="100%"></a>
 
@@ -46,11 +46,11 @@ Windows 10 x64 is the verified native target. See the [launch checklist](docs/la
 ## Get started
 
 1. Open the [latest release](https://github.com/A-Arnaud/Cypher/releases/latest).
-2. Download **`Cypher-Setup-0.4.9-win-x64.exe`** for installation and Windows startup, or **`Cypher-0.4.9-win-x64.exe`** for portable use.
+2. Download **`Cypher-Setup-0.5.0-win-x64.exe`** for installation and Windows startup, or **`Cypher-0.5.0-win-x64.exe`** for portable use.
 3. Open **Connections** and choose a supported provider. Existing CLI profiles require your permission before account reads; API connections require a key you enter explicitly.
 4. Pin your profiles. Use **Widget** for compact rows or **Put in taskbar** for the Windows indicator.
 
-**Requirements:** Windows 10 x64. End users do not need Node.js. CLI connections need the relevant official CLI; API and local-server connections do not. Fresh installs open in English; French remains available in Settings.
+**Requirements:** Windows 10 or Windows 11 x64. End users do not need Node.js. CLI connections need the relevant official CLI; API and local-server connections do not. Fresh installs open in English; French remains available in Settings.
 
 The executables are **not Authenticode-signed**, so Windows may display a warning. Check the release's SHA-256 file before running a download. No administrator rights are required. The portable app extracts Electron at launch and does not support automatic Windows startup.
 
@@ -64,11 +64,21 @@ Change opacity, always-on-top behavior, the keyboard shortcut and refresh interv
 
 ## Windows taskbar
 
-Use **Put in taskbar** to reserve a small area next to your existing taskbar content. It shows up to three pinned profiles and a `+N` count. Click the indicator to open the full window.
+On Windows 10, use **Put in taskbar** to reserve a small area next to your existing taskbar content. It shows up to three pinned profiles and a `+N` count. Click the indicator to open the full window.
+
+On Windows 11, Cypher uses the native **notification area (system tray)** instead of modifying Explorer. Quotas are available in the icon tooltip and menu; open the desktop widget when you want the numbers permanently visible. Windows may put the icon under the hidden-icons arrow. This is not an embedded text indicator in the Windows 11 taskbar. Both compact indicators show available remaining percentages only; balances, spending, points and model counts remain available in the widget/details, not in the indicator.
 
 The installed or extracted app can launch with Windows. Startup is independently configurable in Settings. Leaving taskbar mode keeps your startup preference.
 
-**Verified target:** Windows 10 x64 with a horizontal primary taskbar. Windows 11, vertical or secondary taskbars and untested DPI configurations are not certified. See [verification notes](VERIFICATION.md) for the actual test scope.
+### Windows compatibility
+
+| Environment | Presentation | Verification boundary |
+| --- | --- | --- |
+| Windows 10 x64 | Desktop widget + embedded indicator on a horizontal primary taskbar | Local native checks; other taskbar/DPI configurations remain unverified |
+| Windows 11 x64 | Desktop widget + native notification-area quota tooltip/menu | OS-selection and fixture tests; real Windows 11 device validation pending |
+| Unknown/newer Windows shell | Conservative notification-area path; no legacy Explorer manipulation | Not certified |
+
+The installer and portable executable are shared across Windows 10/11 x64; ARM64 is not a native target. Hosted GitHub Windows Server checks are build/automation coverage, not Windows 11 desktop certification. See [verification notes](VERIFICATION.md) for exact evidence and remaining checks.
 
 ## Connections
 

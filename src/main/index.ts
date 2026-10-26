@@ -1,3 +1,5 @@
+import {trayMenuTemplate} from './tray-menu';
+import {taskbarBackend} from './windows-platform';import {createTaskbarHost,type TaskbarHostAdapter,type TrayPresentation} from './tray-host';
 import {ShortcutBinding} from './shortcut';
 import {roundedWindowShape} from './window-shape';
 import {StatePublisher} from './state-publisher';
@@ -12,7 +14,8 @@ app.setName('Cypher');app.setAppUserModelId('local.cypher.widget');
 app.setPath('userData',stateLocation(app.getPath('appData'),process.env.CYPHER_DATA_DIR??process.env.QG_DATA_DIR));
 const ownsLock=app.requestSingleInstanceLock();if(!ownsLock)app.quit();
 let window:BrowserWindow|undefined,tray:Tray|undefined,poller:Poller|undefined,quitting=false;
-let taskbar:TaskbarHost|undefined,docking:Docking|undefined;
+const backend=taskbarBackend(process.platform,os.release());
+let trayPresentation:TrayPresentation|undefined;let taskbar:TaskbarHostAdapter|undefined,docking:Docking|undefined;
 const startupAvailable=startupSupported({platform:process.platform,packaged:app.isPackaged,portable:!!process.env.PORTABLE_EXECUTABLE_FILE,executable:process.execPath,temp:app.getPath('temp')});
 const helperExecutable=app.isPackaged?path.join(process.resourcesPath,'app.asar.unpacked/dist/native/Cypher.Taskbar.exe'):path.join(__dirname,'../native/Cypher.Taskbar.exe');
 const startup=createStartup(app,process.execPath,startupAvailable,()=>readStartupCommand(helperExecutable));
@@ -23,7 +26,7 @@ const renderer=path.join(__dirname,'../renderer/index.html');const devUrl=app.is
 const updates=new StatePublisher(()=>{if(state)taskbar?.render({...taskbarSummary(state),language:state.settings.language})},()=>{if(state)window?.webContents.send('qg:update',state)},()=>!!window&&!window.isDestroyed()&&window.isVisible()&&!window.isMinimized());
 function publish(){if(!state)return;if(credentials)state.configuredApiProviders=credentials.configured();if(accounts){state.profiles=accounts.publicProfiles();state.loginProfileIds=[...accounts.active]}updates.request()}
 function toggle(){if(!window)return;window.isVisible()?window.hide():(window.show(),window.focus())}
-function trayMenu(){if(!tray||!state)return;const t=(k:string)=>copy(state.settings.language,k);tray.setContextMenu(Menu.buildFromTemplate([{label:'Cypher',enabled:false},{type:'separator'},{label:state.settings.language==='fr'?'Afficher / Masquer':'Show / Hide',click:toggle},{label:t('refresh'),click:()=>{void refresh()}},{label:t(state.settings.paused?'resume':'pause'),click:()=>{void changeSettings({paused:!state.settings.paused})}},{type:'separator'},{label:t('quit'),click:()=>app.quit()}]));tray.setToolTip('Cypher — '+t(state.settings.paused?'paused':'active'))}
+function trayMenu(){if(!tray||!state||quitting)return;const t=(k:string)=>copy(state.settings.language,k);tray.setContextMenu(Menu.buildFromTemplate(trayMenuTemplate(state.settings.language,state.settings.paused,trayPresentation?.lines??[],{toggle,refresh:()=>{void refresh()},pause:()=>{void changeSettings({paused:!state.settings.paused})},quit:()=>app.quit()})));tray.setToolTip(trayPresentation?.tooltip??('Cypher — '+t(state.settings.paused?'paused':'active')))}
 const shortcutBinding=new ShortcutBinding(globalShortcut,toggle);
 function bindShortcut(value:string){const success=shortcutBinding.replace(value);if(!success)state.error='shortcutError';else if(state.error==='shortcutError')state.error=undefined;return success}
 function newPoller(){
@@ -45,7 +48,7 @@ if(ownsLock){app.whenReady().then(async()=>{
  credentials=new Credentials(path.join(app.getPath('userData'),'credentials.enc.json'),safeStorage);await credentials.initialize();
  settingsFile=path.join(app.getPath('userData'),'settings.json');const settings=await readSettings(settingsFile);settings.startAtLogin=startup.startupStatus();
  accounts=new Accounts({userData:app.getPath('userData'),home:os.homedir(),appData:app.getPath('appData'),localAppData:process.env.LOCALAPPDATA??app.getPath('appData'),window:()=>window,language:()=>state?.settings.language??'en',grant:(id,allowed,pin)=>queueSettings({input:{},consent:{id,allowed},pin}),refresh:()=>refresh(true),publish});detections=await accounts.initialize();
- state={taskbarStatus:'off',startupAvailable,settings,detections:detections.map(({executable,...d})=>({...d,executable:executable?'detected':undefined})),providers:[],refreshing:false,desktop:true};
+ state={taskbarBackend:backend,taskbarStatus:'off',startupAvailable,settings,detections:detections.map(({executable,...d})=>({...d,executable:executable?'detected':undefined})),providers:[],refreshing:false,desktop:true};
  const area=settings.bounds?screen.getDisplayMatching(settings.bounds).workArea:screen.getPrimaryDisplay().workArea;const bounds=widgetBounds(settings,area);
  window=new BrowserWindow({...bounds,title:'Cypher',icon:path.join(__dirname,'../assets/icon.png'),opacity:settings.opacity/100,frame:false,transparent:true,backgroundColor:'#00000000',resizable:false,maximizable:false,fullscreenable:false,show:false,hasShadow:true,alwaysOnTop:settings.alwaysOnTop,skipTaskbar:false,autoHideMenuBar:true,webPreferences:{partition:'cypher-ui',webviewTag:false,allowRunningInsecureContent:false,preload:path.join(__dirname,'../preload/index.cjs'),nodeIntegration:false,contextIsolation:true,sandbox:true,webSecurity:true,devTools:!app.isPackaged}});
  if(process.platform==='win32'){
@@ -57,11 +60,11 @@ if(ownsLock){app.whenReady().then(async()=>{
  window.on('close',e=>{if(!quitting){e.preventDefault();window?.hide()}});
  let moveTimer:ReturnType<typeof setTimeout>|undefined;window.on('moved',()=>{clearTimeout(moveTimer);moveTimer=setTimeout(()=>{if(window&&!window.isDestroyed()){void queueSettings({input:{},bounds:window.getBounds()}).catch(()=>{})}},300)});
  window.once('ready-to-show',()=>{if(!loginLaunch||!settings.taskbarMode)window?.show()});window.on('show',()=>updates.flush());window.on('restore',()=>updates.flush());window.on('focus',()=>{void poller?.refreshDue().catch(()=>{})});
- taskbar=new TaskbarHost({executable:helperExecutable,onOpen:()=>{void showDetails().catch(()=>{})},onError:()=>{if(quitting)return;state.taskbarStatus='error';state.error='taskbarError';publish();void showDetails().catch(()=>{});void docking?.recover()}});
+ taskbar=createTaskbarHost(backend,()=>new TaskbarHost({executable:helperExecutable,onOpen:()=>{void showDetails().catch(()=>{})},onError:()=>{if(quitting)return;state.taskbarStatus='error';state.error='taskbarError';publish();void showDetails().catch(()=>{});void docking?.recover()}}),value=>{trayPresentation=value;trayMenu()});
  docking=new Docking({settings:()=>state.settings,start:()=>taskbar!.start(),ready:()=>taskbar!.isReady(),stop:()=>taskbar!.stop(),save:input=>queueSettings({input}),startupAvailable,startupStatus:startup.startupStatus,configureStartup:startup.configureStartup,status:value=>{state.taskbarStatus=value;if(value==='error')state.error='taskbarError';else if(state.error==='taskbarError')state.error=undefined;publish()},show:()=>{void showDetails().catch(()=>{})},hide:()=>window?.hide()});
  tray=new Tray(nativeImage.createFromPath(path.join(__dirname,'../assets/icon.png')).resize({width:20,height:20}));tray.on('click',toggle);tray.on('double-click',()=>window?.show());trayMenu();handlers();bindShortcut(settings.shortcut);
  newPoller();
  if(devUrl)await window.loadURL(devUrl);else await window.loadFile(renderer);if(settings.taskbarMode)await docking.restore().catch(()=>{});publish();
 }).catch(()=>{app.exit(1)});
- app.on('second-instance',()=>{void showDetails().catch(()=>{})});app.on('activate',()=>{void showDetails().catch(()=>{})});app.on('before-quit',e=>{if(quitting)return;e.preventDefault();quitting=true;updates.stop();poller?.stop();accounts?.dispose();globalShortcut.unregisterAll();tray?.destroy();void (docking?.shutdown()??taskbar?.stop()??Promise.resolve()).finally(()=>app.quit())});app.on('window-all-closed',()=>{if(quitting)app.quit()});
+ app.on('second-instance',()=>{void showDetails().catch(()=>{})});app.on('activate',()=>{void showDetails().catch(()=>{})});app.on('before-quit',e=>{if(quitting)return;e.preventDefault();quitting=true;updates.stop();poller?.stop();accounts?.dispose();globalShortcut.unregisterAll();void (docking?.shutdown()??taskbar?.stop()??Promise.resolve()).finally(()=>{tray?.destroy();app.quit()})});app.on('window-all-closed',()=>{if(quitting)app.quit()});
 }

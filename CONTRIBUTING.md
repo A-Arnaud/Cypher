@@ -32,7 +32,13 @@ npm run security:scan
 npm run security:secrets
 ```
 
-`test:ui` uses installed Microsoft Edge. `security:secrets` downloads a pinned Gitleaks scanner on first use and scans Git history and publishable files; its reports stay local. Changes to packaging or security also require the packaged checks in [SECURITY.md](SECURITY.md), including `npm run build:test`, `npm run test:clean-machine`, `npm run dist` and `npm run security:release`. The test build is not a release artifact. Native taskbar tests must run sequentially because they change the same Explorer surface.
+`test:ui` uses installed Microsoft Edge. `security:secrets` downloads a pinned Gitleaks scanner on first use and scans Git history and publishable files; its reports stay local. Changes to packaging or security also require the packaged checks in [SECURITY.md](SECURITY.md), including `npm run build:test`, `npm run test:clean-machine`, `npm run dist -- --publish never` and `npm run security:release`. The test build is not a release artifact. Native taskbar tests must run sequentially because they change the same Explorer surface. Never run them against a user session without coordinating first. Do not terminate a running user instance to make a test pass.
+
+### Windows 10 / Windows 11 verification
+
+The release has one x64 package and selects an embedded Windows 10 taskbar backend or a Windows 11 notification-area backend at runtime. Test the platform policy with injected release strings, the notification-area host lifecycle with synthetic summaries and the FR/EN controls in both widget views. Also test restoring saved taskbar mode after an upgrade. Keep the startup registry-query helper available even when legacy taskbar embedding is unsupported.
+
+GitHub Actions uses `windows-2025` (Windows Server), records the actual host version and retains validated executables/checksums as short-lived artifacts. Those checks are not Windows 11 Explorer testing. Device acceptance on Windows 11 must separately verify launch, minimize/restore, tray tooltip/menu, display scaling, startup and cleanup; record build numbers and untested cases. Never relabel mocked Windows versions as real device validation.
 
 ## Provider changes
 
