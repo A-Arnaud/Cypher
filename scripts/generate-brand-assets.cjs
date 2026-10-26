@@ -8,6 +8,13 @@ const widget=png('docs/screenshots/api-widget-synthetic.png');
 const head=(w,h)=>`<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><defs><radialGradient id="glow"><stop stop-color="#c35b80" stop-opacity=".22"/><stop offset="1" stop-color="#0b0c10" stop-opacity="0"/></radialGradient><linearGradient id="edge" x2="1" y2="1"><stop stop-color="#ed93af" stop-opacity=".5"/><stop offset="1" stop-color="#727c92" stop-opacity=".1"/></linearGradient><pattern id="grid" width="44" height="44" patternUnits="userSpaceOnUse"><path d="M44 0H0V44" fill="none" stroke="#ffffff" stroke-opacity=".035"/></pattern><filter id="shadow" x="-30%" y="-30%" width="170%" height="180%"><feDropShadow dx="0" dy="18" stdDeviation="20" flood-color="#000" flood-opacity=".5"/></filter></defs><rect width="100%" height="100%" rx="24" fill="#0b0c10"/><rect width="100%" height="100%" rx="24" fill="url(#grid)"/><ellipse cx="${w*.82}" cy="${h*.35}" rx="${w*.6}" ry="${h*.8}" fill="url(#glow)"/><rect x="1" y="1" width="${w-2}" height="${h-2}" rx="23" fill="none" stroke="url(#edge)"/><g font-family="Segoe UI,Arial,sans-serif">`;
 const write=(name,svg)=>{fs.writeFileSync(`${out}/${name}.svg`,svg);fs.writeFileSync(`${out}/${name}.png`,new Resvg(svg,{font:{loadSystemFonts:true}}).render().asPng())};
 write('wordmark',`<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="112" viewBox="0 0 400 112" role="img" aria-label="Cypher"><image x="0" y="6" width="100" height="100" xlink:href="${icon}"/><text x="122" y="79" font-family="Segoe UI,Arial,sans-serif" font-size="66" font-weight="600" letter-spacing="-3" fill="#d47294">Cypher</text></svg>`);
+write('website',head(720,160)+`
+ <image x="26" y="30" width="100" height="100" xlink:href="${icon}"/>
+ <text x="153" y="71" fill="#f4f2f5" font-size="31" font-weight="600" letter-spacing="-1">Visit Cypher</text>
+ <text x="154" y="109" fill="#ed93af" font-size="23">cypher-os.me</text>
+ <circle cx="651" cy="80" r="29" fill="#ed93af" fill-opacity=".12" stroke="#ed93af" stroke-opacity=".35"/>
+ <path d="M641 90l20-20m-17 0h17v17" fill="none" stroke="#ed93af" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+ </g></svg>`);
 write('hero',head(1600,720)+`
  <image x="80" y="66" width="64" height="64" xlink:href="${icon}"/>
  <text x="163" y="110" fill="#faf7fa" font-size="39" font-weight="600" letter-spacing="-1">Cypher</text>
@@ -53,4 +60,4 @@ write('card-connections',head(600,470)+`
  <image x="266" y="275" width="68" height="68" xlink:href="${icon}"/>
  <rect x="228" y="378" width="144" height="54" rx="15" fill="#191a22" stroke="#3a3a47"/><text x="250" y="411" fill="#dddce4" font-size="18">Local models</text>
  </g></svg>`);
-console.log('Generated original Cypher wordmark, hero and three feature cards.');
+console.log('Generated Cypher wordmark, website card, hero and three feature cards.');

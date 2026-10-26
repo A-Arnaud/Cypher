@@ -1,8 +1,9 @@
 ﻿<div align="center">
-  <img src="docs/brand/wordmark.png" alt="Cypher" width="230">
+  <a href="https://cypher-os.me/"><img src="docs/brand/wordmark.png" alt="Cypher" width="230"></a>
   <p><strong>Your AI usage, always in view.</strong><br>
   Monitor provider-reported quotas, API balances and local model availability<br>
   from a compact Windows widget or your taskbar.</p>
+  <p><a href="https://cypher-os.me/"><img src="docs/brand/website.png" alt="Visit the Cypher website at cypher-os.me" width="340"></a></p>
   <p><strong><a href="https://github.com/A-Arnaud/Cypher/releases/latest">Download Cypher for Windows</a></strong></p>
   <p><a href="https://github.com/A-Arnaud/Cypher/releases/download/v0.4.9/Cypher-Setup-0.4.9-win-x64.exe">Installer · 0.4.9</a> · <a href="https://github.com/A-Arnaud/Cypher/releases/download/v0.4.9/Cypher-0.4.9-win-x64.exe">Portable</a> · <a href="https://github.com/A-Arnaud/Cypher/releases/download/v0.4.9/SHA256SUMS-0.4.9.txt">SHA-256</a></p>
   <p>
