@@ -13,7 +13,7 @@ The Windows 11 path is NOT embedded quota text inside Explorer. Windows may put 
 | Check | Actual result |
 | --- | --- |
 | `npm run typecheck` | Passed |
-| `npm test` | 131 passed, 26 test files |
+| `npm test` | 132 passed, 26 test files |
 | `npm run test:ui` | 16 Edge scenarios passed, including FR/EN notification-area controls in both views |
 | `node scripts/test-tray-native.cjs` | Passed with real Electron Tray/Menu and an isolated temporary BrowserWindow on Windows 10 |
 | `npm run build:test` | Separate test package created with Electron 45.0.0 / electron-builder 26.18.0 |
@@ -45,6 +45,10 @@ README, support, contribution guidance, bug-report environment fields and change
 | `Cypher-0.5.0-win-x64.exe` | 111259520 | `e26bb9f2808ed25c86d1d5f3094e8323dd5662a24928359876ce85ae26eae511` |
 
 Computed from the final local production executables using Python `hashlib.file_digest`. Both entries are in `SHA256SUMS-0.5.0.txt`. Downloaded GitHub assets must be compared with this manifest after upload.
+
+## Independent review
+
+A fresh read-only whole-diff review found no critical security or lifecycle issue and identified one documentation mismatch: the tray was described as preserving balance/model-count units although it inherits the percentage-only compact summary. README and support now explicitly restrict the compact indicator to available percentages and direct other units to the widget/details. A regression verifies that known balances and model counts remain intact in application state and never become fabricated percentages. The full suite was rerun after this clarification: 132 unit tests, 16 UI scenarios, types, native tray smoke and release/secret scans passed. This was a documentation correction, not an expansion of provider coverage.
 
 ## Explicit limits
 

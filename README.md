@@ -66,7 +66,7 @@ Change opacity, always-on-top behavior, the keyboard shortcut and refresh interv
 
 On Windows 10, use **Put in taskbar** to reserve a small area next to your existing taskbar content. It shows up to three pinned profiles and a `+N` count. Click the indicator to open the full window.
 
-On Windows 11, Cypher uses the native **notification area (system tray)** instead of modifying Explorer. Quotas are available in the icon tooltip and menu; open the desktop widget when you want the numbers permanently visible. Windows may put the icon under the hidden-icons arrow. This is not an embedded text indicator in the Windows 11 taskbar.
+On Windows 11, Cypher uses the native **notification area (system tray)** instead of modifying Explorer. Quotas are available in the icon tooltip and menu; open the desktop widget when you want the numbers permanently visible. Windows may put the icon under the hidden-icons arrow. This is not an embedded text indicator in the Windows 11 taskbar. Both compact indicators show available remaining percentages only; balances, spending, points and model counts remain available in the widget/details, not in the indicator.
 
 The installed or extracted app can launch with Windows. Startup is independently configurable in Settings. Leaving taskbar mode keeps your startup preference.
 

@@ -2,7 +2,7 @@
 
 Current evidence and exact limitations: [Windows 10/11 verification record](docs/windows-10-11-verification-2026-10-26.md).
 
-- Local Windows 10 x64: 131 unit tests / 26 files, 16 Edge UI scenarios, TypeScript and the real Electron notification-area smoke passed. Separate packaged first-run (12 checks), native-window corners (4 checks), production security, artifact/secret scans, executable icons and x64 packaging passed.
+- Local Windows 10 x64: 132 unit tests / 26 files, 16 Edge UI scenarios, TypeScript and the real Electron notification-area smoke passed. Separate packaged first-run (12 checks), native-window corners (4 checks), production security, artifact/secret scans, executable icons and x64 packaging passed.
 - Windows 11 selects the native notification-area backend rather than legacy Explorer embedding. OS-selection and UI fixtures are tested; **a real Windows 11 device remains untested**. CI Windows Server is not Windows 11 desktop validation.
 - No real provider account, Windows restart, user-installation replacement or live-user taskbar manipulation was performed. Executables are unsigned. Historical records below retain their original dates and scope.
 
