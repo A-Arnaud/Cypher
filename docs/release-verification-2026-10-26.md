@@ -1,0 +1,37 @@
+# Cypher 0.4.9 verification — October 26, 2026
+
+Scope: current repository presentation/contributor onboarding and propagation of the supplied graphite firefly logo into the Windows release. Historical release assets and dated reports are preserved.
+
+## Identity and documentation
+
+- `assets/logo-source.png` is byte-identical to the supplied 1024×1024 PNG. SHA-256: `fd86d2d3a8f90ca2e2e40a6c7b856c5e7c1b9b57a8dc0c0ca62170b3a85b7c2b`. No image synthesis, redraw, background removal or artwork replacement was performed.
+- The icon generator derives the SVG raster wrapper, application PNG and seven-resolution Windows ICO from the checked-in source. Current wordmark, hero/cards and five screenshots were regenerated and visually inspected. They use English and synthetic/account-free views. Provider logos retain their meaning and licensing.
+- README includes concise product/download navigation, Why Cypher, explicit implemented/partial/planned/discovery-only statuses and contribution/support links. Contributor guide, three issue forms, issue chooser, PR template, support FAQ, security reporting and launch checklist complete the focused onboarding pass.
+- Three issue forms and the chooser parse with the installed YAML parser. Required Windows/Cypher context, distinct form IDs and privacy confirmation checkboxes were checked. All checked local documentation targets/anchors and npm script references resolve. No community address, social proof, provider support or license grant was invented.
+- GitHub was observed public before this update; this work did not change visibility. Private vulnerability reporting was enabled and reread as enabled. Topics were expanded with React, TypeScript and local-first. This is separate from the unchecked, reusable launch guidance document.
+
+## Executed checks
+
+- `npm run typecheck`: passed.
+- `npm test`: 108 tests passed, 22 files.
+- `npm run test:ui`: 15 passed.
+- `npm run build:test`, `npm run test:clean-machine`, `npm run test:corners`: passed. Real Electron IPC/DPAPI checks use isolated profiles and synthetic provider responses, not real account authorization.
+- `npm run build`, followed by `electron-builder --win nsis portable --x64 --config.directories.output=release/github-v0.4.9`: passed.
+- `scripts/check-windows-icons.ps1` extracted the actual 32px Windows icons from the main executable, native helper, portable launcher and installer; each matched the intended ICO pixel-for-pixel. The checker uses the Windows loader for PNG-backed ICOs rather than .NET's faulty direct ICO conversion.
+- The production ASAR's frontend SVG and tray/fallback PNG match the current source assets by SHA-256.
+- With `CYPHER_RELEASE_ROOT=release/github-v0.4.9/win-unpacked`, `npm run security:release` and `node scripts/smoke-production-security.cjs` passed. These checked fuses, CSP, archive contents, normal isolated startup, rejected injected Node code and absent remote debugging.
+- Gitleaks history/current-file scans and the complementary publication scan reported no recognized secrets. `npm audit --audit-level=moderate` reported no known vulnerabilities. These are automated checks, not an independent security audit.
+
+## Intended release assets
+
+Only these files in `release/github-v0.4.9` are intended for release publication. Local user data, test packages, raw reports and signing material are excluded.
+
+| Asset | Bytes | SHA-256 |
+| --- | ---: | --- |
+| `Cypher-Setup-0.4.9-win-x64.exe` | 113248854 | `5eab63d8df0f431b0d01ae84befc172d6e1dbad965c023af5ef2f49e6988e910` |
+| `Cypher-0.4.9-win-x64.exe` | 112991838 | `2c877c24fe7e62ba8067b305cc4f4796147a905edf4d98a9859c8f2c23b4fd3e` |
+| `SHA256SUMS-0.4.9.txt` | 190 | Contains both executable hashes above |
+
+## Boundaries
+
+Unsigned executables; verified native target Windows 10 x64 with a horizontal primary taskbar. Existing provider limitations, consent boundaries and saved-profile compatibility remain. Automated fixtures do not certify every real account or Windows environment. Public release/download verification is recorded separately after publication.

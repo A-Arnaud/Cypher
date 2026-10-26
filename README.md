@@ -1,21 +1,32 @@
 ﻿<div align="center">
-  <img src="docs/brand/wordmark.svg" alt="Cypher" width="230">
+  <img src="docs/brand/wordmark.png" alt="Cypher" width="230">
   <p><strong>Your AI usage, always in view.</strong><br>
-  A small Windows companion for AI quotas, API balances and local models.<br>
-  On your desktop. In your taskbar. Under your control.</p>
+  Monitor provider-reported quotas, API balances and local model availability<br>
+  from a compact Windows widget or your taskbar.</p>
   <p><strong><a href="https://github.com/A-Arnaud/Cypher/releases/latest">Download Cypher for Windows</a></strong></p>
+  <p><a href="https://github.com/A-Arnaud/Cypher/releases/download/v0.4.9/Cypher-Setup-0.4.9-win-x64.exe">Installer · 0.4.9</a> · <a href="https://github.com/A-Arnaud/Cypher/releases/download/v0.4.9/Cypher-0.4.9-win-x64.exe">Portable</a> · <a href="https://github.com/A-Arnaud/Cypher/releases/download/v0.4.9/SHA256SUMS-0.4.9.txt">SHA-256</a></p>
   <p>
-    <a href="https://github.com/A-Arnaud/Cypher/releases/latest"><img src="https://img.shields.io/badge/release-v0.4.8-ed8fae" alt="Release 0.4.8"></a>
+    <a href="https://github.com/A-Arnaud/Cypher/releases/latest"><img src="https://img.shields.io/badge/release-v0.4.9-ed8fae" alt="Release 0.4.9"></a>
     <img src="https://img.shields.io/badge/Windows_10-x64-292d35?logo=windows&amp;logoColor=white" alt="Windows 10 x64">
     <a href="PRIVACY.md"><img src="https://img.shields.io/badge/local-first-91cbb2" alt="Local first"></a>
-    <a href="https://github.com/A-Arnaud/Cypher/actions/workflows/security.yml"><img src="https://img.shields.io/badge/validation-Windows-91cbb2?logo=githubactions&amp;logoColor=white" alt="Security and Windows validation"></a>
+    <a href="https://github.com/A-Arnaud/Cypher/actions/workflows/security.yml"><img src="https://img.shields.io/badge/validation-Windows-91cbb2?logo=githubactions&amp;logoColor=white" alt="Windows validation workflow (link, not a live result)"></a>
   </p>
-  <p><a href="#get-started">Get started</a> · <a href="#what-works-today">Supported providers</a> · <a href="SECURITY.md">Security</a> · <a href="CHANGELOG.md">Changelog</a> · <a href="SUPPORT.md">Help</a></p>
+  <p><a href="#get-started">Get started</a> · <a href="#what-works-today">Provider status</a> · <a href="#screenshots">Screenshots</a> · <a href="SECURITY.md">Security</a> · <a href="PRIVACY.md">Privacy</a> · <a href="SUPPORT.md">Support</a> · <a href="CONTRIBUTING.md">Contribute</a> · <a href="https://github.com/A-Arnaud/Cypher/issues">Issues</a></p>
 </div>
+
+Windows 10 x64 is the verified native target. See the [launch checklist](docs/launch-checklist.md) for release, discovery and first-user feedback guidance.
 
 <a href="https://github.com/A-Arnaud/Cypher/releases/latest"><img src="docs/brand/hero.png" alt="Cypher: your AI usage, always in view. Product preview with synthetic quota values." width="100%"></a>
 
-## Choose your view
+## Why Cypher
+
+- **Keep usage beside your work.** Switch between compact rows, detailed cards and a native taskbar indicator.
+- **Read only what you authorize.** Grant access per CLI profile or enter a supported API key explicitly. No telemetry or browser-cookie collection.
+- **See the limits of the data.** Missing and stale readings are marked. API spending, balances and subscription quotas keep their own meaning.
+
+## Choose your path
+
+**Try it:** [Windows setup](#get-started) · **Check compatibility:** [provider status](#what-works-today) · **Need help:** [FAQ](SUPPORT.md#faq) or [report an issue](https://github.com/A-Arnaud/Cypher/issues/new/choose) · **Build with us:** [contributor guide](CONTRIBUTING.md).
 
 <table>
   <tr>
@@ -34,7 +45,7 @@
 ## Get started
 
 1. Open the [latest release](https://github.com/A-Arnaud/Cypher/releases/latest).
-2. Download **`Cypher-Setup-0.4.8-win-x64.exe`** for installation and Windows startup, or **`Cypher-0.4.8-win-x64.exe`** for portable use.
+2. Download **`Cypher-Setup-0.4.9-win-x64.exe`** for installation and Windows startup, or **`Cypher-0.4.9-win-x64.exe`** for portable use.
 3. Open **Connections** and choose a supported provider. Existing CLI profiles require your permission before account reads; API connections require a key you enter explicitly.
 4. Pin your profiles. Use **Widget** for compact rows or **Put in taskbar** for the Windows indicator.
 
@@ -66,18 +77,21 @@ Unknown data stays unknown. A dash is unavailable data, never a fabricated zero.
 
 ### What works today
 
-| Connection | Available today | Boundary |
+| Status | Connection | Available today / boundary |
 | --- | --- | --- |
-| **Codex** | Account and provider quota windows through the installed CLI | Requires a signed-in, authorized profile; fields depend on the provider |
-| **Claude Code** | Account status through the installed CLI | Quota collection is not implemented |
-| **Gemini CLI** | Tool detection and profile sign-in flow | Account plan and quota collection are not implemented |
-| **OpenRouter, DeepSeek, Poe** | Key budget/usage, available balance or points exposed by each provider | Values and units are provider-specific |
-| **fal.ai** | Available credit balance and currency | Requires billing usage read permission; not a chat subscription quota |
-| **OpenAI, Anthropic, Together AI APIs** | Supported organization usage/cost endpoints | Key permissions vary; Together reports finalized days through yesterday; organization usage is not a chat subscription quota or guaranteed prepaid balance |
-| **Ollama, LM Studio, llama.cpp, vLLM** | Model lists from fixed loopback endpoints | Local models have no cloud quota |
-| **Other catalog entries** | Discovery, upstream-provider guidance or planned status | Being listed or installed does not imply a working quota connector |
+| Implemented | **Codex** | Account and provider quota windows through an authorized, signed-in CLI profile; fields depend on the provider |
+| Partial | **Claude Code** | CLI login and account status; subscription quotas are not implemented |
+| Partial | **Gemini CLI** | Detection and profile sign-in flow; account plan and quota reads are not implemented |
+| Implemented | **OpenRouter, DeepSeek, Poe** | Key budget/monthly spending, available API balance or points respectively; provider-specific units and permissions |
+| Implemented | **fal.ai** | Available credit balance/currency with billing usage read permission; not a chat subscription quota |
+| Implemented | **OpenAI, Anthropic, Together AI APIs** | Organization spending; key permissions vary and Together excludes the current day. Not a remaining quota or guaranteed prepaid balance |
+| Implemented | **Ollama, LM Studio, llama.cpp, vLLM** | Model lists from fixed loopback endpoints after authorization; no cloud quota |
+| Discovery only | **Cursor, Windsurf, Copilot, OpenCode, Aider, Continue** | Installation/configuration discovery or upstream billing guidance; no account/quota connector |
+| Planned | **ChatGPT, Perplexity and other planned catalog entries** | Provider links only; no implemented account/quota read |
 
-See the [full coverage matrix](docs/catalog-coverage.md) and [privacy policy](PRIVACY.md).
+**Implemented** means connector code exists, not universal live-account validation. API collectors have synthetic-response test coverage; real-account validation remains outstanding. **Partial**, **discovery only** and **planned** do not imply quota support. See the [full coverage matrix](docs/catalog-coverage.md), [verification evidence](VERIFICATION.md) and [privacy policy](PRIVACY.md).
+
+## Screenshots
 
 <details>
 <summary><strong>See the interface</strong></summary>
@@ -123,3 +137,9 @@ npm run security:release
 ```
 
 `npm run build:test` creates a separate test package for isolated Electron checks, never a release artifact. Production executables disable the inspection facilities used by these tests. See [Contributing](CONTRIBUTING.md), [implementation notes](docs/IMPLEMENTATION-NOTES.md) and [verification](VERIFICATION.md).
+
+## Help improve Cypher
+
+[Report a bug, suggest a feature or request a provider](https://github.com/A-Arnaud/Cypher/issues/new/choose). Small documentation improvements, reproducible Windows reports and synthetic provider fixtures are useful starting points; see [Contributing](CONTRIBUTING.md) before changing code. Read [Security](SECURITY.md#reporting-a-vulnerability) for vulnerability reports instead of opening a normal issue.
+
+No API keys, CLI credentials, cookies or private account data belong in an issue, pull request, log or screenshot. See the [changelog](CHANGELOG.md) for shipped changes and the [launch checklist](docs/launch-checklist.md) for release and discovery preparation.

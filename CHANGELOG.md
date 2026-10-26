@@ -1,4 +1,11 @@
-﻿# Cypher 0.4.8 — October 25, 2026
+# Cypher 0.4.9 ? October 26, 2026
+
+- Replaced the Cypher identity with the supplied graphite firefly logo in the application, tray, Windows executable/installer and native helper, plus current README wordmark, presentation art and screenshots. Provider logos remain unchanged.
+- Icon generation now uses the checked-in logo source instead of a developer-machine path. Windows icon resources are verified against the generated ICO, including in CI.
+- Added a concise product/status/navigation flow, contributor onboarding, bug/feature/provider issue forms, a support FAQ, security-reporting entry point and a practical launch checklist. No provider capabilities have been added.
+- English remains the fresh-profile default; saved language preferences, account profiles and permissions remain compatible.
+
+# Cypher 0.4.8 — October 25, 2026
 
 - GitHub presentation and documentation are now in English, with original Cypher artwork and account-free English screenshots. The repository is now `A-Arnaud/Cypher`.
 - Fresh installations and browser previews start in English. Saved language preferences remain unchanged; French is still available in Settings.

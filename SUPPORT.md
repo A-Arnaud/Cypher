@@ -1,8 +1,20 @@
-﻿# Capabilities and limitations — initial release
+# Capabilities and limitations — initial release
 
-## Windows distribution — 0.4.5
+## FAQ
 
-The distributed executables target Windows x64. The application runtime is included: Node.js is not required to open Cypher. Each user must install the CLIs for the services they want to connect, then authorize their own profiles in Connections. No developer account is included in the distribution.
+**Where do I download Cypher?** Use the [latest release](https://github.com/A-Arnaud/Cypher/releases/latest). Choose the installer for Windows startup or the portable executable for use without installation. See [Windows setup](README.md#get-started) and verify the supplied SHA-256 checksums. Executables are unsigned.
+
+**Why is my quota missing although the tool is installed?** Detection does not establish a signed-in account, permission or a working quota connector. Check [provider status](README.md#what-works-today), then authorize the intended profile in Connections. Claude Code and Gemini quota reads are not implemented. Missing data is not zero usage.
+
+**Does Cypher need my chat password or browser cookies?** No. Use the official CLI login flow for CLI profiles or enter a supported API key in Connections. Do not share that key or any CLI credentials in an issue. See [Privacy](PRIVACY.md).
+
+**Is Windows 11 supported?** The verified native taskbar target is Windows 10 x64 with a horizontal primary taskbar. Windows 11 and other taskbar/DPI arrangements are not certified. Include your exact Windows build when reporting a problem.
+
+**Where can I get help or request a provider?** Check existing [issues](https://github.com/A-Arnaud/Cypher/issues), then use the [bug, feature or provider request form](https://github.com/A-Arnaud/Cypher/issues/new/choose). Include the version shown in Cypher, Windows build (`winver`), install type and minimal reproduction steps. Logs and screenshots are optional and must be sanitized. Never attach API keys, CLI credentials, cookies or private account data. Use [the security policy](SECURITY.md#reporting-a-vulnerability) for vulnerability reports.
+
+## Windows distribution — connector scope introduced in 0.4.5
+
+The distributed executables target Windows x64. The application runtime is included: Node.js is not required to open Cypher. CLI connections require the relevant installed CLI and permission for the intended profile in Connections; API and local-server connections do not require a CLI. No developer account is included in the distribution.
 
 Detection skips broken npm launchers and continues searching for a valid installation. Claude Desktop is not treated as the Claude Code CLI. Ollama and LM Studio servers can be authorized even without a CLI installed on the PC, at their predefined loopback addresses.
 

@@ -31,6 +31,15 @@ jobs:
       - run: npm run test:clean-machine
       - run: npm run test:corners
       - run: npm run dist
+      - shell: powershell
+        run: |
+          $version = (Get-Content package.json -Raw | ConvertFrom-Json).version
+          & .\scripts\check-windows-icons.ps1 -ExecutablePaths @(
+            'release/win-unpacked/Cypher.exe',
+            'release/win-unpacked/resources/app.asar.unpacked/dist/native/Cypher.Taskbar.exe',
+            "release/Cypher-$version-win-x64.exe",
+            "release/Cypher-Setup-$version-win-x64.exe"
+          )
       - run: node scripts/check-release-security.cjs
       - run: node scripts/smoke-production-security.cjs
       - run: node scripts/check-publication.cjs --artifacts

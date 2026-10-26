@@ -45,9 +45,13 @@ The first-launch test uses only empty profiles and synthetic API responses. Do n
 
 A pattern or dependency scan does not cover every type of secret or vulnerability. Independent review and testing on other machines remain necessary before claiming an external audit or general compatibility.
 
-## Reporting a problem
+## Reporting a vulnerability
 
-Use the GitHub repository's Security tab and “Report a vulnerability” if private reporting is enabled there. Do not attach keys, tokens, login codes, auth.json files, cookies, memory dumps, or screenshots containing an account. If a secret has been published, revoke it at its provider; removing it from the latest commit is not enough to remove it from history and existing copies.
+Open [Cypher's security policy](https://github.com/A-Arnaud/Cypher/security/policy), then use **Security → Advisories → Report a vulnerability** when GitHub private reporting is enabled. Submit a minimal description, affected version, impact and reproduction using synthetic data. Do not disclose vulnerability details in ordinary issues or pull requests. No reporting email address or response-time guarantee is advertised.
+
+If the private-reporting button is unavailable, ask the maintainer to enable GitHub private vulnerability reporting without posting exploit details or account data. GitHub provides this feature for public repositories; changing visibility is a separate owner decision.
+
+Do not attach keys, tokens, login codes, auth.json files, CLI credentials, cookies, memory dumps, or screenshots containing an account, even to a private report. If a secret has been published, revoke it at its provider; removing it from the latest commit is not enough to remove it from history and existing copies.
 
 References: [Electron security](https://www.electronjs.org/docs/latest/tutorial/security), [safeStorage limitations](https://www.electronjs.org/docs/latest/api/safe-storage).
 

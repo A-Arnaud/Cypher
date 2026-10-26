@@ -1,13 +1,29 @@
 ﻿# Contributing to Cypher
 
-Start with [README.md](README.md) for setup and [implementation notes](docs/IMPLEMENTATION-NOTES.md) for architecture. Keep changes focused and describe what a person can actually do after the change.
+Start with [README.md](README.md) for product behavior and [implementation notes](docs/IMPLEMENTATION-NOTES.md) for architecture. Keep changes focused and describe what a person can actually do after the change. Use English for issues and pull requests where possible.
 
-## Local checks
+## Set up a checkout
 
-Use Node.js 24 on Windows and Microsoft Edge for browser tests.
+Use Windows x64, Node.js 24 with npm, Git, and Microsoft Edge for browser tests. Building the native taskbar helper requires the Windows .NET Framework 4.x C# compiler at `%WINDIR%\Microsoft.NET\Framework64\v4.0.30319\csc.exe`. The build invokes it automatically.
+
+To run a checkout in PowerShell:
 
 ```powershell
+git clone https://github.com/A-Arnaud/Cypher.git
+cd Cypher
 npm ci
+npm run dev
+```
+
+Stop the development process with Ctrl+C. Use synthetic profiles and responses while developing; real provider access is not needed for the fixture-based tests.
+
+For a contribution, fork the repository and clone your fork instead. Create a branch with `git switch -c describe-your-change`, make one focused change, then open a pull request against `A-Arnaud/Cypher`'s `main` branch. Documentation fixes, reproducible Windows reports and synthetic provider fixtures are useful starting points. A provider request is a request for research, not a support commitment.
+
+## Check your change
+
+Run these from the repository root:
+
+```powershell
 npm run typecheck
 npm test
 npm run test:ui
@@ -16,7 +32,7 @@ npm run security:scan
 npm run security:secrets
 ```
 
-Changes to packaging or security also require the packaged checks in [SECURITY.md](SECURITY.md). Native taskbar tests must run sequentially because they change the same Explorer surface.
+`test:ui` uses installed Microsoft Edge. `security:secrets` downloads a pinned Gitleaks scanner on first use and scans Git history and publishable files; its reports stay local. Changes to packaging or security also require the packaged checks in [SECURITY.md](SECURITY.md), including `npm run build:test`, `npm run test:clean-machine`, `npm run dist` and `npm run security:release`. The test build is not a release artifact. Native taskbar tests must run sequentially because they change the same Explorer surface.
 
 ## Provider changes
 
@@ -26,4 +42,8 @@ Preserve saved language and legacy data-location compatibility. English is the d
 
 ## Reviews and reports
 
-Explain the behavior change and include the checks actually run. Keep historical verification notes dated and scoped. Report security concerns as described in [SECURITY.md](SECURITY.md); do not include secrets in issues or pull requests.
+Check existing issues before opening a bug, feature or provider request through the [issue chooser](https://github.com/A-Arnaud/Cypher/issues/new/choose). See [SUPPORT.md](SUPPORT.md) for help and [SECURITY.md](SECURITY.md) for security concerns.
+
+For a pull request, explain the problem, the resulting behavior, and the checks actually run (with any skipped checks and their reason). Include sanitized before/after screenshots for visible changes when useful. Keep historical verification notes dated and scoped. A provider catalog entry is not proof of working quota support: distinguish implemented, partial, planned and discovery-only behavior using the [coverage matrix](docs/catalog-coverage.md).
+
+**Never attach API keys, CLI credentials, cookies or private account data** to issues or pull requests. Review logs and screenshots before sharing them; do not upload account files, personal settings or raw diagnostic captures. Report security concerns as described in [SECURITY.md](SECURITY.md).
