@@ -11,7 +11,7 @@
     <a href="PRIVACY.md"><img src="https://img.shields.io/badge/local-first-91cbb2" alt="Local first"></a>
     <a href="https://github.com/A-Arnaud/Cypher/actions/workflows/security.yml"><img src="https://img.shields.io/badge/validation-Windows-91cbb2?logo=githubactions&amp;logoColor=white" alt="Windows validation workflow (link, not a live result)"></a>
   </p>
-  <p><a href="https://cypher-os.me/">Website</a> ? <a href="#get-started">Get started</a> · <a href="#what-works-today">Provider status</a> · <a href="#screenshots">Screenshots</a> · <a href="SECURITY.md">Security</a> · <a href="PRIVACY.md">Privacy</a> · <a href="SUPPORT.md">Support</a> · <a href="CONTRIBUTING.md">Contribute</a> · <a href="https://github.com/A-Arnaud/Cypher/issues">Issues</a></p>
+  <p><a href="https://cypher-os.me/">Website</a> &middot; <a href="#get-started">Get started</a> · <a href="#what-works-today">Provider status</a> · <a href="#screenshots">Screenshots</a> · <a href="SECURITY.md">Security</a> · <a href="PRIVACY.md">Privacy</a> · <a href="SUPPORT.md">Support</a> · <a href="CONTRIBUTING.md">Contribute</a> · <a href="https://github.com/A-Arnaud/Cypher/issues">Issues</a></p>
 </div>
 
 Windows 10 x64 is the verified native target. See the [launch checklist](docs/launch-checklist.md) for release, discovery and first-user feedback guidance.
