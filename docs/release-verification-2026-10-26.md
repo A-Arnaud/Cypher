@@ -35,3 +35,11 @@ Only these files in `release/github-v0.4.9` are intended for release publication
 ## Boundaries
 
 Unsigned executables; verified native target Windows 10 x64 with a horizontal primary taskbar. Existing provider limitations, consent boundaries and saved-profile compatibility remain. Automated fixtures do not certify every real account or Windows environment. Public release/download verification is recorded separately after publication.
+
+## Publication and local update
+
+- Published https://github.com/A-Arnaud/Cypher/releases/tag/v0.4.9 (not draft or prerelease), from source tag `v0.4.9` at `72e75fd13a6fdc9d2eb89fa18a746cbfefc074d1`.
+- Installer, portable executable and SHA-256 manifest were downloaded from GitHub and each matched its local original. GitHub asset digests match as well.
+- GitHub's current hero image blob matches the local regenerated hero. Issue forms, PR template, topics and enabled private vulnerability reporting were reread from GitHub.
+- Updated the existing extracted local copy and its desktop shortcut, then replaced the running old portable process with the extracted 0.4.9 application. Executable hashes match the verified production package; runtime remained running. Saved consent/profile order, refresh interval and language were compared before/after and preserved. Account data was not copied into the application or repository.
+- The tag-triggered CI built the Windows artifacts but failed because electron-builder implicitly tried to publish without a GitHub token. The follow-up workflow correction explicitly passes `--publish never`, preserving read-only validation and separate release publication. The failed tag job is not represented as a successful CI result.

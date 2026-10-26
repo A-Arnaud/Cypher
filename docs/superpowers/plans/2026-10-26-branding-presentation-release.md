@@ -12,4 +12,6 @@
 - [x] Regenerate and inspect current presentation art/screenshots.
 - [x] Validate links/forms, logo rendering and actual Windows icon resources; run release tests/scans.
 - [x] Build isolated test and production packages, verify security and checksum intended artifacts.
-- [ ] Commit/tag/publish 0.4.9, verify downloads and record publication evidence.
+- [x] Commit/tag/publish 0.4.9, verify downloads and record publication evidence.
+
+Publication and local-update evidence is recorded in ../../release-verification-2026-10-26.md. A follow-up CI-only correction disables electron-builder implicit publishing on tag validation.

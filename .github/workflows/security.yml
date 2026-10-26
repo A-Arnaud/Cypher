@@ -30,7 +30,8 @@ jobs:
       - run: npm run build:test
       - run: npm run test:clean-machine
       - run: npm run test:corners
-      - run: npm run dist
+      # Validation is read-only, including on tag pushes; releases are published separately.
+      - run: npm run dist -- --publish never
       - shell: powershell
         run: |
           $version = (Get-Content package.json -Raw | ConvertFrom-Json).version
