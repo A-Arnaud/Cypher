@@ -13,6 +13,8 @@ The macOS preview is a separate release from Windows: [download v0.5.1-mac.1](ht
 
 ## First launch
 
+To remove this warning in a future release, the maintainer must configure [Developer ID signing and Apple notarization](docs/macos-signing.md). The prepared workflow requires an active Apple Developer membership and credentials; it has not notarized the current preview.
+
 This preview has an **ad-hoc signature**, without an Apple Developer ID certificate or notarization. macOS Gatekeeper may block the first launch. After checking the release SHA-256 checksum, use **System Settings → Privacy & Security → Open Anyway** if macOS offers it. Do not disable Gatekeeper globally.
 
 Automatic login registration is unavailable in this preview. If desired, add the installed app manually in **System Settings → General → Login Items**. API keys use Electron safeStorage backed by the macOS Keychain. Windows credentials cannot be copied over and decrypted on a Mac.

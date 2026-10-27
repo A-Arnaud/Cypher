@@ -1,0 +1,77 @@
+name: macOS Developer ID signing and notarization
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: macos-developer-id
+  cancel-in-progress: false
+jobs:
+  signed:
+    # Signing credentials are never available to PR or fork builds.
+    if: github.ref == 'refs/heads/main'
+    environment: macos-signing
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-15
+            arch: arm64
+          - runner: macos-15-intel
+            arch: x64
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: npm
+      - name: Check required Apple access without printing credentials
+        run: node scripts/mac-signing.cjs
+        env:
+          CSC_LINK: ${{ secrets.MAC_CSC_LINK }}
+          CSC_KEY_PASSWORD: ${{ secrets.MAC_CSC_KEY_PASSWORD }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run test:mac
+      - run: npm run security:scan
+      - run: npm run build
+      - run: node scripts/smoke-mac.cjs
+      - name: Sign, notarize and verify both distributed formats
+        run: |
+          npx electron-builder --config electron-builder.mac-signed.cjs --mac dmg zip --${{ matrix.arch }} --publish never
+          node scripts/finalize-mac-signed.cjs
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+          CSC_LINK: ${{ secrets.MAC_CSC_LINK }}
+          CSC_KEY_PASSWORD: ${{ secrets.MAC_CSC_KEY_PASSWORD }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          CYPHER_MAC_ARCH: ${{ matrix.arch }}
+      - name: Smoke test final Developer ID application
+        run: node scripts/smoke-mac-package.cjs
+        env:
+          CYPHER_MAC_APP: release/mac${{ matrix.arch == 'arm64' && '-arm64' || '' }}/Cypher.app
+      - name: Scan the signed application archive
+        run: npm run security:scan -- --artifacts
+        env:
+          CYPHER_RELEASE_ROOT: release/mac${{ matrix.arch == 'arm64' && '-arm64' || '' }}/Cypher.app/Contents
+      - name: Hash final notarized downloads
+        run: cd release && shasum -a 256 Cypher-*-mac-${{ matrix.arch }}.dmg Cypher-*-mac-${{ matrix.arch }}.zip > SHA256SUMS-mac-${{ matrix.arch }}.txt
+      - name: Retain only verified signed builds for release
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: cypher-developer-id-${{ matrix.arch }}-${{ github.sha }}
+          path: |
+            release/Cypher-*-mac-*.dmg
+            release/Cypher-*-mac-*.zip
+            release/SHA256SUMS-mac-*.txt
+          if-no-files-found: error
+          retention-days: 14

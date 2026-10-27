@@ -23,6 +23,7 @@ login-scripts/
 *.key
 *.p12
 *.pfx
+*.p8
 *.dmp
 security-scan-results.json
 .local-builds/

@@ -23,6 +23,8 @@ Current executables are not Authenticode-signed. ASAR integrity is not a publish
 
 The separate macOS preview uses an ad-hoc signature without Apple Developer ID or notarization. Its hardened runtime is disabled for this preview; Gatekeeper may block the first launch. Keychain encryption is not a guarantee against malicious software in the same user session. See [the Mac guide](MACOS.md) for first-launch instructions and manual login items. Mac CI checks the final application signature and launch on both architectures; this is not Apple approval or physical-device certification.
 
+A separate manual [Developer ID/notarization workflow](docs/macos-signing.md) is prepared for future releases. It requires Apple credentials, enables hardened runtime and fails if signature, notarization-ticket or Gatekeeper checks fail. These checks have not been exercised with real Apple credentials and do not change the status of the current preview.
+
 Hardening may require re-entering API keys saved in an older version whose envelope was not bound to the provider. CLI profiles are not modified. Embedded browser login modes are not implemented; personal browser cookies are not collected.
 
 ## Pre-publication checks
