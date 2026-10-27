@@ -21,7 +21,7 @@ winget upgrade --id AArnaud.Cypher --exact --source winget
 
 ## Maintainer procedure
 
-The 0.8.0 manifests validate locally. The isolated hosted installation check and update to the existing Microsoft submission are being completed for this version. Microsoft catalog publication remains pending.
+The submission now targets **0.8.0**. Its [hosted installation check](https://github.com/A-Arnaud/Cypher/actions/runs/40480561109) passed, including the exact published installer hash, native registration/executable version and WinGet uninstall. Microsoft catalog publication remains pending.
 
 The proposed manifest set is in [distribution/winget](../distribution/winget/manifests/a/AArnaud/Cypher/0.8.0). It contains version, installer and English/French locale files using Microsoft's recommended 1.12 schema. The installer publisher/name/version must match the actual Add/Remove Programs entry, not just a marketing title.
 

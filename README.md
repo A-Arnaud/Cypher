@@ -118,6 +118,10 @@ Captured from the current Cypher interface at 2× resolution, with demonstration
 <summary>Explore the widget, quotas, Claude connection and updates</summary>
 
 <p align="center">
+  <img src="docs/screenshots/onboarding.png" alt="Guided first launch with a simple choice of services" width="350">
+  <img src="docs/screenshots/connect-codex.png" alt="Codex browser sign-in with alternative methods kept below" width="350">
+</p>
+<p align="center">
   <img src="docs/screenshots/widget-windows.png" alt="Compact Cypher widget showing three demonstration Codex profiles and session/weekly quotas" width="350">
   <img src="docs/screenshots/widget.png" alt="Current detailed view with demonstration quotas, reset times and profile health" width="350">
 </p>
