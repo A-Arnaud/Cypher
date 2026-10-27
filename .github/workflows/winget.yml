@@ -47,3 +47,11 @@ jobs:
       - name: Validate, install and uninstall the public release on a clean runner
         shell: pwsh
         run: ./scripts/test-winget.ps1
+      - name: Preserve isolated installer diagnostics on failure
+        if: failure()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: winget-installer-diagnostics-${{ github.sha }}
+          path: ${{ runner.temp }}/cypher-winget-diagnostics
+          if-no-files-found: ignore
+          retention-days: 3
