@@ -6,6 +6,8 @@
 
 **Where are the quotas on Mac?** Choose **Show quotas in menu bar**. The indicator appears in the macOS menu bar at the top right, with up to three pinned percentage readings. Its menu can show/hide the widget, refresh, pause or quit. A dash means unavailable percentage data; balances and model counts remain in the widget. On a display with a camera notch or many menu bar items, macOS may limit available space. See [the Mac guide](MACOS.md).
 
+**Why is the Mac application grayed out or marked incompatible?** First check your macOS version and downloaded architecture. This release requires **macOS 13 Ventura or later**. Intel Macs need the `mac-x64` download; `mac-arm64` is for Apple Silicon. A security exception does not make an unsupported OS or architecture compatible. If both requirements are met, report the exact Finder message and filename so the failure can be diagnosed.
+
 **Why does macOS block the first launch?** This preview has no Apple Developer ID or notarization. Follow the [first-launch instructions](MACOS.md#first-launch) after checking the checksum. Automatic login registration is unavailable in this preview; add Cypher manually to macOS Login Items if desired.
 
 **Why is my quota missing although the tool is installed?** Detection does not establish a signed-in account, permission or a working quota connector. Check [provider status](README.md#what-works-today), then authorize the intended profile in Connections. Claude Code and Gemini quota reads are not implemented. Missing data is not zero usage.

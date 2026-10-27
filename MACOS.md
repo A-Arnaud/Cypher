@@ -2,6 +2,8 @@
 
 The macOS preview is a separate release from Windows: [download v0.5.1-mac.1](https://github.com/A-Arnaud/Cypher/releases/tag/v0.5.1-mac.1).
 
+**Requires macOS 13 Ventura or later**, on either processor. This is the minimum declared by the packaged application and its Electron runtime; the automated tests run on macOS 15. macOS 12 Monterey and earlier cannot run this release. On Intel, download the file ending in **`mac-x64.dmg`** or **`mac-x64.zip`**, never `arm64`.
+
 - **Apple Silicon:** choose the `mac-arm64.dmg` or `mac-arm64.zip` download.
 - **Intel:** choose `mac-x64.dmg` or `mac-x64.zip`.
 - Open the DMG and drag **Cypher.app** to **Applications**, or extract the ZIP and move the app to Applications.
