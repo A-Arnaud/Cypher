@@ -21,14 +21,14 @@ winget upgrade --id AArnaud.Cypher --exact --source winget
 
 ## Maintainer procedure
 
-The submission now targets **0.8.0**. Its [hosted installation check](https://github.com/A-Arnaud/Cypher/actions/runs/40480561109) passed, including the exact published installer hash, native registration/executable version and WinGet uninstall. Microsoft catalog publication remains pending.
+The submission now targets **0.9.0**. Its [hosted installation check](https://github.com/A-Arnaud/Cypher/actions/runs/40514841644) passed, including the exact published installer hash, native registration/executable version and WinGet uninstall. Microsoft catalog publication remains pending.
 
-The proposed manifest set is in [distribution/winget](../distribution/winget/manifests/a/AArnaud/Cypher/0.8.0). It contains version, installer and English/French locale files using Microsoft's recommended 1.12 schema. The installer publisher/name/version must match the actual Add/Remove Programs entry, not just a marketing title.
+The proposed manifest set is in [distribution/winget](../distribution/winget/manifests/a/AArnaud/Cypher/0.9.0). It contains version, installer and English/French locale files using Microsoft's recommended 1.12 schema. The installer publisher/name/version must match the actual Add/Remove Programs entry, not just a marketing title.
 
 Run the schema check locally without installing the application:
 
 ```powershell
-winget validate --manifest distribution/winget/manifests/a/AArnaud/Cypher/0.8.0
+winget validate --manifest distribution/winget/manifests/a/AArnaud/Cypher/0.9.0
 ```
 
 The [dedicated workflow](../.github/workflows/winget.yml) prepares Microsoft's WinGet client, validates the manifests, verifies the published installer SHA-256, runs that NSIS installer silently, checks its registration/executable version and uninstalls through WinGet by product code. The script refuses to run outside disposable GitHub-hosted runners or over an existing Cypher installation. Application binaries are neither rebuilt nor replaced by a catalog submission.
