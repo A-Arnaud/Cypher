@@ -3,8 +3,8 @@ const fs=require('node:fs');const {Resvg}=require('@resvg/resvg-js');
 const out='docs/brand';fs.mkdirSync(out,{recursive:true});
 const png=name=>'data:image/png;base64,'+fs.readFileSync(name).toString('base64');
 const icon=png('assets/icon.png');
-const details=png('docs/screenshots/api-details-synthetic.png');
-const widget=png('docs/screenshots/api-widget-synthetic.png');
+const details=png('docs/screenshots/widget.png');
+const widget=png('docs/screenshots/widget-windows.png');
 const head=(w,h)=>`<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><defs><radialGradient id="glow"><stop stop-color="#c35b80" stop-opacity=".22"/><stop offset="1" stop-color="#0b0c10" stop-opacity="0"/></radialGradient><linearGradient id="edge" x2="1" y2="1"><stop stop-color="#ed93af" stop-opacity=".5"/><stop offset="1" stop-color="#727c92" stop-opacity=".1"/></linearGradient><pattern id="grid" width="44" height="44" patternUnits="userSpaceOnUse"><path d="M44 0H0V44" fill="none" stroke="#ffffff" stroke-opacity=".035"/></pattern><filter id="shadow" x="-30%" y="-30%" width="170%" height="180%"><feDropShadow dx="0" dy="18" stdDeviation="20" flood-color="#000" flood-opacity=".5"/></filter></defs><rect width="100%" height="100%" rx="24" fill="#0b0c10"/><rect width="100%" height="100%" rx="24" fill="url(#grid)"/><ellipse cx="${w*.82}" cy="${h*.35}" rx="${w*.6}" ry="${h*.8}" fill="url(#glow)"/><rect x="1" y="1" width="${w-2}" height="${h-2}" rx="23" fill="none" stroke="url(#edge)"/><g font-family="Segoe UI,Arial,sans-serif">`;
 const write=(name,svg)=>{fs.writeFileSync(`${out}/${name}.svg`,svg);fs.writeFileSync(`${out}/${name}.png`,new Resvg(svg,{font:{loadSystemFonts:true}}).render().asPng())};
 write('wordmark',`<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="112" viewBox="0 0 400 112" role="img" aria-label="Cypher"><image x="0" y="6" width="100" height="100" xlink:href="${icon}"/><text x="122" y="79" font-family="Segoe UI,Arial,sans-serif" font-size="66" font-weight="600" letter-spacing="-3" fill="#d47294">Cypher</text></svg>`);
@@ -22,8 +22,8 @@ write('hero',head(1600,720)+`
  <circle cx="100" cy="201" r="4" fill="#a9d7bd"/><text x="116" y="207" font-size="13" fill="#edb4c8" letter-spacing="2">WINDOWS + MAC · LOCAL FIRST</text>
  <text x="76" y="316" fill="#f4f2f5" font-size="82" font-weight="600" letter-spacing="-4">Your AI usage.</text>
  <text x="76" y="410" fill="#ed93af" font-size="82" font-weight="600" letter-spacing="-4">Always in view.</text>
- <text x="81" y="477" fill="#a7a6b1" font-size="25">Quotas, balances and local models.</text>
- <text x="81" y="515" fill="#a7a6b1" font-size="25">A little clarity beside your work.</text>
+ <text x="81" y="477" fill="#a7a6b1" font-size="25">In the bar, from the first launch.</text>
+ <text x="81" y="515" fill="#a7a6b1" font-size="25">Quotas, profiles and quick actions.</text>
  <rect x="80" y="567" width="280" height="48" rx="13" fill="#ed93af"/>
  <text x="108" y="598" fill="#24151c" font-size="18" font-weight="600">Windows &amp; Mac downloads</text>
  <text x="80" y="671" fill="#666673" font-size="13">Windows + macOS · synthetic example values</text>

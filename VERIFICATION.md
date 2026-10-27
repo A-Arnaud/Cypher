@@ -1,3 +1,9 @@
+# Public screenshots and local Windows installation (2026-10-27)
+
+Regenerated twelve 2x renderer screenshots using deterministic demonstration data, including English/French widgets, Windows/macOS indicator settings, Claude CLI connection status, reading ages, quick actions, API readings and update settings. External browser requests are blocked and the native bridge is never loaded. Rebuilt the hero and added a feature panel; macOS images are labelled layout previews. Image review, documentation link checks, GitHub Markdown rendering and publication/secret scans passed.
+
+The local Windows installation was upgraded from 0.4.9 to the published 0.7.1 installer after checking its official SHA-256. NSIS exited with 0; the installed executable reports ProductVersion 0.7.1.0 and Apps and Features reports 0.7.1. The app was launched from its normal installation folder; the visible UI and ready taskbar indicator were confirmed. Public screenshots contain no data from that installation. This check does not establish live validation of every provider account.
+
 # Cypher 0.7.1 indicator launch verification (2026-10-27)
 
 Local checks: typecheck; 201 unit tests passed, 2 skipped; 29 browser UI tests passed. Real Electron isolated-profile launch tests passed for first run, untouched legacy preferences, enabled/disabled preferences, manual/login modes, no login window flash, explicit reopening, Settings disable/enable without hiding, invalid IPC rejection and no startup-registration side effects. Native closing-choice check passed. [Windows CI](https://github.com/A-Arnaud/Cypher/actions/runs/40457174756) passed all validation and packaging checks (201 unit tests, 2 skipped; 29 UI tests). [Mac CI](https://github.com/A-Arnaud/Cypher/actions/runs/40457174882) passed on Intel and Apple Silicon (131 unit tests, 1 skipped on each), including real menu-only/close/launch/IPC behavior, final bundle launch and ad-hoc signature checks.

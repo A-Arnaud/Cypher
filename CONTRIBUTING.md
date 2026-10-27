@@ -44,7 +44,7 @@ GitHub Actions uses `windows-2025` (Windows Server), records the actual host ver
 
 ### Mac verification
 
-For quick-action/diagnostic changes, run `node scripts/test-diagnostics.cjs` after building on either platform. It uses isolated data, intercepts clipboard writes and checks that a different window cannot read the report. `node scripts/capture-navigation.cjs` regenerates the account-free navigation/status screenshots.
+For quick-action/diagnostic changes, run `node scripts/test-diagnostics.cjs` after building on either platform. It uses isolated data, intercepts clipboard writes and checks that a different window cannot read the report. `node scripts/capture-github.cjs` regenerates the current public screenshots at 2× resolution, including navigation/status, settings, Claude connections and French views. Its browser fixture blocks external requests and never loads the native bridge. Use `node scripts/generate-brand-assets.cjs` and `node scripts/generate-github-panels.cjs` afterward to refresh the presentation art.
 
 After `npm run build`, run `node scripts/smoke-mac.cjs`, `node scripts/test-mac-menu-only.cjs`, `node scripts/test-window-close.cjs` and `node scripts/test-startup-launch.cjs` on a Mac. These use isolated data, check the actual Dock/menu/window lifecycle and forbid startup registration in the launch scenarios. Browser UI tests use installed Microsoft Edge; `test:mac` does not require it.
 

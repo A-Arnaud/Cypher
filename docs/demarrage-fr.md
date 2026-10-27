@@ -49,6 +49,13 @@ Raccourci par défaut : **Ctrl+Alt+Q** sur Windows, **Control+Option+Q** sur Mac
 
 ## Démarrer automatiquement
 
+<p align="center">
+  <img src="screenshots/widget-fr.png" alt="Widget Cypher en français avec trois profils et des quotas de démonstration" width="320">
+  <img src="screenshots/settings-fr.png" alt="Nouveaux réglages en français : indicateur de quotas activé et démarrage automatique facultatif" width="320">
+</p>
+
+Captures de l’interface actuelle en haute résolution, avec des profils et valeurs de démonstration. Aucun compte personnel n’est présenté.
+
 Dans **Réglages**, activez **Démarrer avec Windows** ou **Ouvrir à la connexion** sur Mac. Cypher démarrera directement dans la barre, sans afficher sa grande fenêtre. Ce choix reste facultatif et peut être désactivé au même endroit ; mettre Cypher dans la barre ne l'active pas tout seul.
 
 Sur Mac, l'application doit être dans **Applications**. Si macOS demande une autorisation, Cypher affiche cet état et indique où approuver l'élément dans les réglages système. Un échec d'enregistrement est signalé. La version Windows portable ne propose pas le démarrage automatique.

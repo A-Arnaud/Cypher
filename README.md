@@ -109,12 +109,24 @@ Existing profiles come first. Additional methods depend on the provider and down
 
 ## Screenshots
 
+<img src="docs/brand/whats-new.png" alt="Cypher 0.7.1: automatic indicator settings on Windows and macOS, plus searchable quick actions" width="100%">
+
+Captured from the current Cypher interface at 2× resolution, with demonstration profiles and readings. macOS images preview the Mac layout. No personal account data is shown.
+
 <details>
-<summary>Compact widget and detailed cards</summary>
+<summary>Explore the widget, quotas, Claude connection and updates</summary>
 
 <p align="center">
-  <img src="docs/screenshots/api-widget-synthetic.png" alt="Compact widget with synthetic balances and points" width="350">
-  <img src="docs/screenshots/api-details-synthetic.png" alt="Detailed provider cards with synthetic values" width="350">
+  <img src="docs/screenshots/widget-windows.png" alt="Compact Cypher widget showing three demonstration Codex profiles and session/weekly quotas" width="350">
+  <img src="docs/screenshots/widget.png" alt="Current detailed view with demonstration quotas, reset times and profile health" width="350">
+</p>
+<p align="center">
+  <img src="docs/screenshots/connections.png" alt="Claude Code connected through its CLI, with account status and subscription quota limitations clearly shown" width="350">
+  <img src="docs/screenshots/updates.png" alt="Update settings in Cypher 0.7.1, showing automatic checks and the requirement for approval before installation" width="350">
+</p>
+<p align="center">
+  <img src="docs/screenshots/api-widget-synthetic.png" alt="Compact widget with demonstration API balances and points" width="350">
+  <img src="docs/screenshots/api-details-synthetic.png" alt="Detailed API cards with demonstration values" width="350">
 </p>
 
 Screenshots use synthetic data, not a developer's account.
@@ -128,6 +140,14 @@ Use **Node.js 24** and npm. [Contributing](CONTRIBUTING.md) covers Windows setup
 ```sh
 npm ci
 npm run dev
+```
+
+To refresh the public screenshots and presentation panels using isolated demonstration data:
+
+```sh
+node scripts/capture-github.cjs
+node scripts/generate-brand-assets.cjs
+node scripts/generate-github-panels.cjs
 ```
 
 [Windows checks](https://github.com/A-Arnaud/Cypher/actions/workflows/security.yml) · [Mac checks](https://github.com/A-Arnaud/Cypher/actions/workflows/macos.yml) · [Changelog](CHANGELOG.md)
