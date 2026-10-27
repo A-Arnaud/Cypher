@@ -48,7 +48,8 @@ jobs:
           npx electron-builder --config electron-builder.mac-signed.cjs --mac dmg zip --${{ matrix.arch }} --publish never
           node scripts/finalize-mac-signed.cjs
         env:
-          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+          # Select the Developer ID certificate imported from MAC_CSC_LINK.
+          CSC_IDENTITY_AUTO_DISCOVERY: 'true'
           CSC_LINK: ${{ secrets.MAC_CSC_LINK }}
           CSC_KEY_PASSWORD: ${{ secrets.MAC_CSC_KEY_PASSWORD }}
           APPLE_ID: ${{ secrets.APPLE_ID }}
