@@ -110,7 +110,7 @@ Existing profiles come first. Additional methods depend on the provider and down
 
 ## Screenshots
 
-<img src="docs/brand/whats-new.png" alt="Cypher 0.8.0: automatic indicator settings on Windows and macOS, plus searchable quick actions" width="100%">
+<img src="docs/brand/whats-new.png" alt="Cypher 0.8.0: clearer quotas, direct browser sign-in and light/dark appearance" width="100%">
 
 Captured from the current Cypher interface at 2× resolution, with demonstration profiles and readings. macOS images preview the Mac layout. No personal account data is shown.
 

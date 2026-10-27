@@ -1,8 +1,10 @@
-# Cypher 0.8.0 interface verification (2026-10-27)
+# Cypher 0.8.0 interface and release verification (2026-10-27)
 
-Local typecheck/build and 206 unit tests passed (2 platform skips). All 32 UI scenarios passed, including the new explicit-permission/zero-quota flow and saved theme behavior. Native isolated first-run, browser availability without an external CLI, profile permissions, encrypted API collectors and launch behavior passed. Full Windows/Mac release CI and final artifact verification are required before publication.
+[Windows CI](https://github.com/A-Arnaud/Cypher/actions/runs/40478491648) passed: typecheck/build, 206 unit tests (2 platform skips), 33 browser UI scenarios, isolated native launch/close/diagnostics and packaged clean-machine/credential checks. [Mac CI](https://github.com/A-Arnaud/Cypher/actions/runs/40478491636) passed on Intel and Apple Silicon, including 136 unit tests (1 skip) per architecture, real native menu/launch/close checks, packaged app launch and ad-hoc signature checks. Publication/secret scans and npm audit passed.
 
-The interface study and resulting interaction choices are recorded in [the 0.8 interface guide](docs/interface-0.8.md). The reference project remains in ignored local research files. Public UI examples use demonstration data.
+Final tested source 054d67c6508524254ce364a9644b2c479ac34d62 and release target ac16c53083831d82305b4613aa69d4b1692762d9 share tree 4bb6bcb2227b7f3d776561467dff499a3377a205 exactly. [v0.8.0](https://github.com/A-Arnaud/Cypher/releases/tag/v0.8.0) is public Latest with ten Windows/Mac assets. All ten uploaded digests/sizes match downloaded CI artifacts; seven binary/metadata hashes match their three manifests. Nineteen versioned/latest URLs and four public metadata/checksum files verified. The production updater selects 0.8.0 from 0.7.1 on Windows x64, Mac Intel and Apple Silicon with the correct update mode. All previous 0.7.1 asset IDs/digests are preserved.
+
+Regenerated fifteen 2x public renderer screenshots with isolated demonstration data, blocked external requests and no native bridge. The hero and feature board show the revised interface. The [interface study](docs/interface-0.8.md) records the adopted interaction principles and actual connector scope; research files remain ignored. Claude account reads remain supported, while Claude/Gemini subscription percentages remain unimplemented. Existing signing, physical-device and live-provider limitations below still apply.
 
 # Public screenshots and local Windows installation (2026-10-27)
 
