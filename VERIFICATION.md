@@ -4,6 +4,8 @@ Expanded the current renderer capture set to 25 deterministic 2x screenshots and
 
 All twelve guides were visually reviewed. PNG dimensions/signatures and the guide manifest match; SVG text bounds have no canvas overflow. GitHub Markdown rendering passed for the README, gallery, Mac/French/download guides and release notes, including collapsible sections and explicitly sized table thumbnails. All 275 checked local references across 34 documents resolve. The publication scan found no secret patterns or private runtime files.
 
+All 30 newly published PNGs from photo commit a95182486d24e75d01414368dbc611a72202408c were fetched from GitHub and match their local originals byte-for-byte. The 0.9.0 release description now includes the visual guide, with image/gallery links pinned to that photo commit. Read-back matches the versioned release notes. Latest remains 0.9.0 with all ten original release asset IDs, sizes and digests preserved.
+
 # Cypher 0.9.0 dual-quota indicators and release verification (2026-10-27)
 
 [Windows CI](https://github.com/A-Arnaud/Cypher/actions/runs/40512910853) passed: typecheck/build, 211 unit tests (2 platform skips), 35 UI scenarios, real Electron dual-row image/Tray lifecycle checks, native close/startup/diagnostic checks, clean-machine/credential tests and final package/security validation. [Mac CI](https://github.com/A-Arnaud/Cypher/actions/runs/40512910750) passed on Intel and Apple Silicon: 140 unit tests (1 skip) each, real dual-row compositor/Tray checks, menu-only/launch/close tests, final package launch, accessory policy and ad-hoc signature checks. Publication/secret scans and npm audit passed.
