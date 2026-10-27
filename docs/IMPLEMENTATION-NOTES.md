@@ -1,8 +1,12 @@
-# Implementation notes — Cypher 0.6.0
+# Implementation notes — Cypher 0.7.0
 
 Current behavior is described in the [user guide](user-guide.md), [connection methods](connection-methods.md) and [provider matrix](catalog-coverage.md). Dated plans and verification records describe the version tested at that time; they are not the current feature specification.
 
 ## Processes and data
+
+Quick actions are renderer-local navigation over fixed callbacks; search never executes an arbitrary command or launches a login. The shared `health.ts` model derives actionable status from successful metric times, actual auth/consent/errors, connector support and configured quota thresholds. A visible-window clock ages readings without network polling; paused, missing and limited readings stay distinct. The same model feeds the overview filter and diagnostics.
+
+`diagnosticReport` uses an explicit field allowlist and the `cypher.diagnostics/v1` schema. Trusted-sender IPC returns a local report or generates/copies a fresh one only on request. It never exports raw state, profile/account identifiers, paths, keys, quota amounts, errors or logs. Native IPC tests intercept the clipboard and reject a second window. [User guide](navigation-and-diagnostics.md).
 
 | Area | Responsibility |
 | --- | --- |

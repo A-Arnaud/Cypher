@@ -1,4 +1,4 @@
-# Catalog coverage — Cypher 0.6.0
+# Catalog coverage — Cypher 0.7.0
 
 Goal: cover every service in the catalog. This goal has not yet been reached.
 

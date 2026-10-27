@@ -2,22 +2,22 @@
   <img src="docs/brand/wordmark.png" alt="Cypher" width="230">
   <p><strong>Your AI usage, always in view.</strong><br>AI quotas, API balances and local models — on Windows and Mac.</p>
   <p>
-    <a href="https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-Setup-0.6.0-win-x64.exe"><img src="https://img.shields.io/badge/Download-Windows_10_%2F_11-2f6feb?style=for-the-badge" alt="Download Cypher for Windows 10 or Windows 11"></a>
-    <a href="https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.6.0-mac-x64.dmg"><img src="https://img.shields.io/badge/Download-Mac_Intel-414956?style=for-the-badge" alt="Download Cypher for Mac Intel"></a>
-    <a href="https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.6.0-mac-arm64.dmg"><img src="https://img.shields.io/badge/Download-Mac_Apple_Silicon-c06b8d?style=for-the-badge" alt="Download Cypher for Mac Apple Silicon"></a>
+    <a href="https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-Setup-0.7.0-win-x64.exe"><img src="https://img.shields.io/badge/Download-Windows_10_%2F_11-2f6feb?style=for-the-badge" alt="Download Cypher for Windows 10 or Windows 11"></a>
+    <a href="https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.0-mac-x64.dmg"><img src="https://img.shields.io/badge/Download-Mac_Intel-414956?style=for-the-badge" alt="Download Cypher for Mac Intel"></a>
+    <a href="https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.0-mac-arm64.dmg"><img src="https://img.shields.io/badge/Download-Mac_Apple_Silicon-c06b8d?style=for-the-badge" alt="Download Cypher for Mac Apple Silicon"></a>
   </p>
   <p><a href="#download">Downloads</a> · <a href="#get-started">Quick start</a> · <a href="#what-works-today">Supported services</a> · <a href="SUPPORT.md">Help</a> · <a href="docs/demarrage-fr.md">Français</a></p>
 </div>
 
 ## Download
 
-**Current release: 0.6.0 for Windows and Mac. Choose your computer to download the app directly.**
+**Current release: 0.7.0 for Windows and Mac. Choose your computer to download the app directly.**
 
 | Your computer | Download | Requirements |
 | --- | --- | --- |
-| **Windows 10 or Windows 11** | **[Download for Windows](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-Setup-0.6.0-win-x64.exe)** | Windows x64 · same installer for both versions |
-| **Mac with an Intel processor** | **[Download for Mac Intel](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.6.0-mac-x64.dmg)** | macOS 13 Ventura or later |
-| **Mac with an Apple chip (M1, M2, M3…)** | **[Download for Mac Apple Silicon](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.6.0-mac-arm64.dmg)** | macOS 13 Ventura or later |
+| **Windows 10 or Windows 11** | **[Download for Windows](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-Setup-0.7.0-win-x64.exe)** | Windows x64 · same installer for both versions |
+| **Mac with an Intel processor** | **[Download for Mac Intel](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.0-mac-x64.dmg)** | macOS 13 Ventura or later |
+| **Mac with an Apple chip (M1, M2, M3…)** | **[Download for Mac Apple Silicon](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.0-mac-arm64.dmg)** | macOS 13 Ventura or later |
 
 **Which Mac do I have?** Open **Apple menu → About This Mac**. If it says **Intel**, choose Mac Intel. If it says **Chip: Apple M…**, choose Apple Silicon.
 
@@ -65,7 +65,7 @@ Closing the window asks you to **minimize into the bar**, **quit Cypher**, or **
 
 ## Discreet update proposals
 
-**Install 0.6.0 once** to enable update checking. Cypher then checks GitHub's stable releases after startup and every six hours, showing a small footer/menu action. It asks before downloading; **Later** hides the notice for 24 hours. Controls are in **Settings → Updates**.
+**On 0.5.x? Install the current version once** to enable update checking. Cypher 0.6.0 and later already contain the checker. Cypher then checks GitHub's stable releases after startup and every six hours, showing a small footer/menu action. It asks before downloading; **Later** hides the notice for 24 hours. Controls are in **Settings → Updates**.
 
 On **installed Windows**, approval downloads, verifies, installs and restarts Cypher in the bar. **Current Mac builds and Windows portable/extracted copies** open the official download for manual replacement. Mac native automatic installation still requires the Apple signing setup. [Update behavior and limits](docs/updates.md).
 
@@ -73,14 +73,17 @@ On **installed Windows**, approval downloads, verifies, installs and restarts Cy
 
 | Version | Included changes |
 | --- | --- |
-| **0.6.0 — current** | Discreet update proposals, opt-in download/install, automatic Windows installer updates and explicit Mac/portable download guidance |
+| **0.7.0 — current** | Quick actions with Ctrl+K / ⌘K, actionable profile status, reading ages and private diagnostic reports |
+| **0.6.0** | Discreet update proposals, approved Windows installer updates and Mac/portable download guidance |
 | **0.5.4** | Discreet Mac menu bar app: no running-app icon in the Dock or Command-Tab, including after reopening Settings |
 | **0.5.3** | Optional startup from Cypher Settings; login launches go directly into the bar without opening the window |
 | **0.5.2** | Visible bar-placement button, Minimize / Quit / Cancel closing choices, and Codex browser sign-in on both Windows and Mac |
 
-[Current release notes](docs/releases/0.6.0.md) · [Release history](docs/releases/README.md) · [Full changelog](CHANGELOG.md)
+[Current release notes](docs/releases/0.7.0.md) · [Release history](docs/releases/README.md) · [Full changelog](CHANGELOG.md)
 
 ## Connections
+
+**Find anything quickly.** Click **Quick actions**, or press **Ctrl+K** on Windows / **⌘K** on Mac, to find a pinned profile, connection or action. **Needs attention** filters profiles requiring action; each card shows the age/source of its last reading. **Settings → Diagnostics** offers a private JSON report for troubleshooting. [Navigation and status guide](docs/navigation-and-diagnostics.md).
 
 Existing profiles come first. Additional methods depend on the provider and downloaded version: [connection options](docs/connection-methods.md).
 

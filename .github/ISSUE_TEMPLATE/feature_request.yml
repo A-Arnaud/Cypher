@@ -17,7 +17,7 @@ body:
     id: cypher-version
     attributes:
       label: Cypher version
-      placeholder: 0.6.0, source commit, or N/A if not yet using Cypher
+      placeholder: 0.7.0, source commit, or N/A if not yet using Cypher
     validations:
       required: true
   - type: textarea

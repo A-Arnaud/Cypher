@@ -1,14 +1,14 @@
 # Cypher — démarrage rapide en français
 
-**Version actuelle : 0.6.0**, pour Windows et Mac. [Toutes les releases](https://github.com/A-Arnaud/Cypher/releases/latest) · [README en anglais](../README.md)
+**Version actuelle : 0.7.0**, pour Windows et Mac. [Toutes les releases](https://github.com/A-Arnaud/Cypher/releases/latest) · [README en anglais](../README.md)
 
 ## Télécharger le bon fichier
 
 | Votre ordinateur | Téléchargement recommandé |
 | --- | --- |
-| **Windows 10 ou 11, x64** | **[Installateur Windows](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-Setup-0.6.0-win-x64.exe)** |
-| **Mac Intel** | **[Installateur Mac Intel](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.6.0-mac-x64.dmg)** |
-| **Mac Apple Silicon, puce M1, M2, M3…** | **[Installateur Mac Apple Silicon](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.6.0-mac-arm64.dmg)** |
+| **Windows 10 ou 11, x64** | **[Installateur Windows](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-Setup-0.7.0-win-x64.exe)** |
+| **Mac Intel** | **[Installateur Mac Intel](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.0-mac-x64.dmg)** |
+| **Mac Apple Silicon, puce M1, M2, M3…** | **[Installateur Mac Apple Silicon](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.0-mac-arm64.dmg)** |
 
 Mac nécessite **macOS 13 Ventura ou plus récent**. Dans le menu Apple, ouvrez **À propos de ce Mac** : un processeur Intel correspond au fichier `mac-x64`, une puce Apple M au fichier `mac-arm64`.
 
@@ -49,9 +49,13 @@ Dans **Réglages**, activez **Démarrer avec Windows** ou **Ouvrir à la connexi
 
 Sur Mac, l'application doit être dans **Applications**. Si macOS demande une autorisation, Cypher affiche cet état et indique où approuver l'élément dans les réglages système. Un échec d'enregistrement est signalé. La version Windows portable ne propose pas le démarrage automatique.
 
+## Actions rapides et diagnostic
+
+**Nouveau en 0.7.0 :** cliquez sur **Actions rapides**, ou utilisez **Ctrl+K** sur Windows / **⌘K** sur Mac, pour trouver un profil, un service ou une action. Flèches pour naviguer, Entrée pour ouvrir, Échap pour fermer. **À vérifier** filtre les profils nécessitant une action ; les cartes indiquent l’âge/source des lectures. **Réglages → Diagnostic** propose un JSON local à consulter/copier explicitement, sans noms de comptes, e-mails, chemins, clés, montants de quota ni journaux bruts. [Guide détaillé](navigation-and-diagnostics.md).
+
 ## Être averti des nouvelles versions
 
-Installez **0.6.0 une première fois** : les anciennes versions 0.5.x ne possèdent pas le contrôle des mises à jour. Ensuite, Cypher vérifie les releases stables GitHub après l'ouverture puis toutes les six heures. Une petite action **Mise à jour** apparaît dans le widget et le menu, sans ouvrir de fenêtre automatiquement.
+Si vous utilisez encore **0.5.x**, installez **0.7.0 une première fois** pour obtenir le contrôle des mises à jour. Les versions 0.6.0 et suivantes le possèdent déjà. Cypher vérifie les releases stables GitHub après l'ouverture puis toutes les six heures. Une petite action **Mise à jour** apparaît dans le widget et le menu, sans ouvrir de fenêtre automatiquement.
 
 Après votre accord, la **version Windows installée** télécharge et vérifie la mise à jour, puis l'installe et redémarre dans la barre. Sur **Mac actuellement**, Cypher ouvre le bon téléchargement dans votre navigateur ; le remplacement dans Applications reste manuel tant que le mécanisme Mac signé n'est pas disponible. Les versions Windows portables ou simplement décompressées restent également manuelles.
 
@@ -63,4 +67,4 @@ La fermeture de la fenêtre propose **Réduire dans la barre**, **Quitter Cypher
 
 Sur Mac, **Quitter** reste disponible dans le menu de l'icône en haut, même sans icône dans le Dock.
 
-[Aide et dépannage](../SUPPORT.md) · [Notes de version](releases/0.6.0.md) · [Vérifications et limites](../VERIFICATION.md) · [Signaler un problème](https://github.com/A-Arnaud/Cypher/issues/new/choose).
+[Aide et dépannage](../SUPPORT.md) · [Notes de version](releases/0.7.0.md) · [Vérifications et limites](../VERIFICATION.md) · [Signaler un problème](https://github.com/A-Arnaud/Cypher/issues/new/choose).

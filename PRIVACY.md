@@ -55,6 +55,12 @@ Keys must be sent to their provider for authentication, over HTTPS. The provider
 
 Cypher does not anonymize traffic from configured services, third-party CLIs, or the external browser. System proxy variables and enterprise certificates may affect this traffic. Do not share raw diagnostics from these tools without reviewing them.
 
+## Optional diagnostics and clipboard
+
+Settings → Diagnostics offers an explicit local `cypher.diagnostics/v1` JSON report. It contains application/OS/architecture, collection counts/settings, indicator/startup/update states and anonymous connector/profile health reasons/reading ages. It excludes account/profile names, emails, filesystem paths, keys, quota amounts, raw errors and logs. Viewing or copying uses current in-memory state; it does not run another reader or make a network request.
+
+Copy writes a fresh report to the system clipboard only after that action. Clipboard managers and other applications may access it. No diagnostic file is saved or uploaded automatically. Review the report before sharing it. Quick-action searches remain in renderer memory and are not logged, persisted or sent to a service.
+
 ## GitHub sources and screenshots
 
 Screenshots provided in docs/screenshots are generated from the browser preview without access to the machine's CLIs or accounts. User data, private environments, signing keys, dumps, and test reports are excluded from the repository. Executables use an explicit file allowlist and a separate check of the produced archive.
