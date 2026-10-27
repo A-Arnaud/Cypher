@@ -18,15 +18,15 @@ write('website',head(720,160)+`
 write('hero',head(1600,720)+`
  <image x="80" y="66" width="64" height="64" xlink:href="${icon}"/>
  <text x="163" y="110" fill="#faf7fa" font-size="39" font-weight="600" letter-spacing="-1">Cypher</text>
- <rect x="80" y="184" width="244" height="34" rx="17" fill="#ed93af" fill-opacity=".09" stroke="#ed93af" stroke-opacity=".2"/>
- <circle cx="100" cy="201" r="4" fill="#a9d7bd"/><text x="116" y="207" font-size="13" fill="#edb4c8" letter-spacing="2">WINDOWS · LOCAL FIRST</text>
+ <rect x="80" y="184" width="328" height="34" rx="17" fill="#ed93af" fill-opacity=".09" stroke="#ed93af" stroke-opacity=".2"/>
+ <circle cx="100" cy="201" r="4" fill="#a9d7bd"/><text x="116" y="207" font-size="13" fill="#edb4c8" letter-spacing="2">WINDOWS + MAC · LOCAL FIRST</text>
  <text x="76" y="316" fill="#f4f2f5" font-size="82" font-weight="600" letter-spacing="-4">Your AI usage.</text>
  <text x="76" y="410" fill="#ed93af" font-size="82" font-weight="600" letter-spacing="-4">Always in view.</text>
  <text x="81" y="477" fill="#a7a6b1" font-size="25">Quotas, balances and local models.</text>
  <text x="81" y="515" fill="#a7a6b1" font-size="25">A little clarity beside your work.</text>
- <rect x="80" y="567" width="231" height="48" rx="13" fill="#ed93af"/>
- <text x="108" y="598" fill="#24151c" font-size="18" font-weight="600">Download for Windows</text>
- <text x="80" y="671" fill="#666673" font-size="13">Product preview · synthetic values · Windows 10 x64</text>
+ <rect x="80" y="567" width="280" height="48" rx="13" fill="#ed93af"/>
+ <text x="108" y="598" fill="#24151c" font-size="18" font-weight="600">Windows &amp; Mac downloads</text>
+ <text x="80" y="671" fill="#666673" font-size="13">Windows + macOS · synthetic example values</text>
  <g filter="url(#shadow)"><image x="1125" y="75" width="354" height="580" xlink:href="${details}"/><image x="830" y="320" width="445" height="349" xlink:href="${widget}"/></g>
  </g></svg>`);
 write('card-widget',head(600,470)+`

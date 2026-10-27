@@ -24,7 +24,11 @@ const {_electron:electron,expect}=require('@playwright/test');const fs=require('
   await expect.poll(()=>app.evaluate(()=>globalThis.closeOptions.length)).toBe(3);
   expect(await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].isVisible())).toBe(true);
   const french=await app.evaluate(()=>globalThis.closeOptions[2]);expect(french.buttons[1]).toBe('Quitter Cypher');expect(french.buttons[2]).toBe('Annuler');
-  await app.evaluate(()=>globalThis.closeAnswers.push(1));const exit=app.waitForEvent('close',{timeout:15000});await page.getByRole('button',{name:'Fermer la fenêtre',exact:true}).click();await exit;closed=true;
+  await app.evaluate(()=>globalThis.closeAnswers.push(1));const exit=app.waitForEvent('close',{timeout:15000});
+  // Windows can terminate Electron before Playwright acknowledges the successful click.
+  // Only accept the expected closed-target race, and still require the real exit event.
+  const quitClick=page.getByRole('button',{name:'Fermer la fenêtre',exact:true}).click().catch(error=>{if(!error.message.includes('Target page, context or browser has been closed'))throw error});
+  await Promise.all([quitClick,exit]);closed=true;
   console.log('Native close choices passed: cancel stays visible, keep enables the bar before hiding, native window close asks too, explicit quit exits. EN/FR dialog options checked.');
  }finally{if(app&&!closed)await app.close();await fs.rm(root,{recursive:true,force:true,maxRetries:5,retryDelay:100})}
 })().catch(error=>{console.error(error.message);process.exitCode=1});
