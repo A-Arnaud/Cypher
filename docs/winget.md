@@ -21,12 +21,12 @@ winget upgrade --id AArnaud.Cypher --exact --source winget
 
 ## Maintainer procedure
 
-The proposed manifest set is in [distribution/winget](../distribution/winget/manifests/a/AArnaud/Cypher/0.7.0). It contains version, installer and English/French locale files using Microsoft's recommended 1.12 schema. The installer publisher/name/version must match the actual Add/Remove Programs entry, not just a marketing title.
+The proposed manifest set is in [distribution/winget](../distribution/winget/manifests/a/AArnaud/Cypher/0.7.1). It contains version, installer and English/French locale files using Microsoft's recommended 1.12 schema. The installer publisher/name/version must match the actual Add/Remove Programs entry, not just a marketing title.
 
 Run the schema check locally without installing the application:
 
 ```powershell
-winget validate --manifest distribution/winget/manifests/a/AArnaud/Cypher/0.7.0
+winget validate --manifest distribution/winget/manifests/a/AArnaud/Cypher/0.7.1
 ```
 
 The [dedicated workflow](../.github/workflows/winget.yml) prepares Microsoft's WinGet client, validates the manifests, verifies the published installer SHA-256, runs that NSIS installer silently, checks its registration/executable version and uninstalls through WinGet by product code. The script refuses to run outside disposable GitHub-hosted runners or over an existing Cypher installation. Application binaries are neither rebuilt nor replaced by a catalog submission.
