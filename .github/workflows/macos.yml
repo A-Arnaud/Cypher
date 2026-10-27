@@ -1,7 +1,7 @@
 name: macOS validation and builds
 on:
   push:
-    branches: [main, feat/macos-menu-bar]
+    branches: [main, feat/macos-menu-bar, feat/connection-options]
   pull_request:
   workflow_dispatch:
 permissions:
@@ -38,6 +38,8 @@ jobs:
       - run: npm run test:mac
       - run: npm run security:scan
       - run: npm run build
+      - name: Verify bundled authentication component with an empty profile
+        run: node scripts/test-codex-runtime.cjs
       - run: node scripts/smoke-mac.cjs
       - name: Package macOS preview with an ad-hoc signature (no Apple certificate)
         run: npx electron-builder --mac dmg zip --${{ matrix.arch }} --publish never

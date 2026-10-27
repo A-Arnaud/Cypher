@@ -9,6 +9,7 @@ const fs=require('node:fs/promises');const os=require('node:os');const path=requ
   app=await electron.launch({args:['.'],env,timeout:60000});const page=await app.firstWindow();
   await page.waitForFunction(()=>!!window.quota);const state=await page.evaluate(()=>window.quota.getState());
   expect(state.platform).toBe('darwin');expect(state.taskbarBackend).toBe('tray');
+  expect(state.directLoginProviders).toEqual(['codex']);
   await expect(page.getByRole('button',{name:'Show quotas in menu bar',exact:true})).toBeVisible();
   // Wait for macOS to complete initial activation before requesting a hide.
   // Renderer readiness can precede the native window's activation callback.

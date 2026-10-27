@@ -32,8 +32,15 @@ const assert=require('node:assert/strict');
   assert.equal(state.providers.some(p=>p.metrics.length||p.auth==='connected'),false);
   await page.evaluate(()=>window.quota.updateSettings({shortcut:'Control+Alt+Shift+9'}));
   await page.getByRole('navigation').getByRole('button',{name:'Connections',exact:true}).click();
+  for(const option of await page.getByText('More ways to connect',{exact:true}).all())await option.click();
   assert.equal(await page.getByRole('button',{name:'Install CLI',exact:true}).count(),3);
   assert.equal(await page.getByRole('button',{name:'Sign in',exact:true}).count(),0);
+  assert.deepEqual(state.directLoginProviders,['codex']);
+  assert.equal(state.detections.find(d=>d.id==='codex').builtIn,true);
+  assert.equal(await page.getByRole('button',{name:'Sign in with your browser',exact:true}).count(),1);
+  const connector=path.join(path.dirname(path.resolve(process.argv[2]??'.local-builds/electron-test/win-unpacked/Cypher.exe')),'resources/app.asar.unpacked/dist/native/codex/bin/codex.exe');
+  const connectorVersion=require('node:child_process').execFileSync(connector,['--version'],{env,encoding:'utf8',windowsHide:true,timeout:15000});
+  assert.equal(connectorVersion.trim(),'codex-cli '+require('@openai/codex/package.json').version);
   const local=page.locator('.connection').filter({has:page.getByRole('heading',{name:'Ollama',exact:true})});
   assert.equal(await local.getByRole('button',{name:'Enable read-only access',exact:true}).count(),1);
   // Synthetic HTTP responses exercise real IPC, DPAPI and the packaged collectors.

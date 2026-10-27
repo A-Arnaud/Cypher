@@ -1,3 +1,11 @@
+import type {Settings,PublicProfile} from './model';
+export function pinConnectedProfile(settings:Settings,profiles:PublicProfile[],id:string):string[]{
+ const profile=profiles.find(p=>p.id===id);
+ if(profile?.connectionMethod==='browser'&&settings.pinned.includes(profile.providerId)&&!settings.consents.includes(profile.providerId)&&!profiles.find(p=>p.id===profile.providerId)?.authFilePresent){
+  return [...new Set(settings.pinned.map(p=>p===profile.providerId?id:p))];
+ }
+ return [...new Set([...settings.pinned,id])];
+}
 export interface WorkArea{x:number;y:number;width:number;height:number}
 export interface WidgetOptions{summaryMode?:boolean;pinned:string[];bounds?:{x:number;y:number;width:number;height:number}}
 export function moveProfileOrder(ids:string[],from:string,to:string):string[]{const result=[...ids],source=result.indexOf(from),target=result.indexOf(to);if(source<0||target<0||source===target)return result;result.splice(source,1);result.splice(target,0,from);return result}

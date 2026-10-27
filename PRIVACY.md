@@ -8,6 +8,8 @@ Preferences live in the application's user-data folder (`%APPDATA%/Quota Glass` 
 
 On macOS, the default location is `~/Library/Application Support/Cypher`; an existing `Quota Glass` or `quota-glass` folder in Application Support is retained for compatibility. API keys use Electron safeStorage backed by the macOS Keychain, while Windows uses DPAPI. Encrypted Windows keys cannot be migrated by copying their file to a Mac; enter the keys again in Connections.
 
+Codex browser connections use an official authentication component included in Cypher. It stores the new session in an independent, app-managed CLI profile after opening the provider's sign-in page in your normal browser. These session credentials are managed by Codex, not stored in Cypher's API-key envelope. Signing in successfully authorizes read access to that profile; merely detecting it does not. See [connection methods](docs/connection-methods.md).
+
 | File/folder | Contents |
 |---|---|
 | settings.json | Language, display, order, authorized profiles, and settings; no API keys |

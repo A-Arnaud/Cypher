@@ -1,3 +1,10 @@
+# 0.5.1-mac.2 - connection options
+
+- Keep automatic profile detection first and group browser, installed CLI, profile import and API-key alternatives under More ways to connect.
+- Include the pinned official Codex authentication/account executable for browser sign-in without a separately installed CLI, app or Node runtime.
+- Isolate new accounts, grant read access only on successful login, validate authorization URLs and support cancellation/timeouts without exposing tokens.
+- Keep Claude/Gemini CLI methods and provider quota limitations explicit. Preserve Windows 0.5.0 as the stable download and the existing Mac menu bar behavior.
+
 # 0.5.1-mac.1 — macOS preview
 
 - Add a native top-right macOS menu bar indicator, visible quota title and template icon, while preserving Windows backends.

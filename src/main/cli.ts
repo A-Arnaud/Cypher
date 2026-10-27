@@ -33,7 +33,7 @@ export async function cliCommand(executable:string,kind:'codex'|'claude'|'gemini
  return {file:executable,args:[],env:{...process.env}};
 }
 export async function backgroundCliCommand(executable:string,kind:'codex'|'claude'|'gemini'){const command=await cliCommand(executable,kind);const preload=path.join(__dirname,'hidden-child.cjs').replace(/app\.asar([\\/])/,'app.asar.unpacked$1');return command.args.length?{...command,args:['--require',preload,...command.args]}:command}
-function terminate(pid:number|undefined){if(!pid)return;if(process.platform==='win32')execFile('taskkill.exe',['/pid',String(pid),'/t','/f'],{windowsHide:true},()=>{});else try{process.kill(pid)}catch{}}
+export function terminate(pid:number|undefined){if(!pid)return;if(process.platform==='win32')execFile('taskkill.exe',['/pid',String(pid),'/t','/f'],{windowsHide:true},()=>{});else try{process.kill(pid)}catch{}}
 export function scopedEnvironment(kind:'codex'|'claude'|'gemini',base:NodeJS.ProcessEnv,values:Record<string,string>={}):NodeJS.ProcessEnv{const allowed={codex:'CODEX_HOME',claude:'CLAUDE_CONFIG_DIR',gemini:'GEMINI_CLI_HOME'}[kind];for(const [key,value] of Object.entries(values))if(key!==allowed||!localAbsolute(value))throw Error('invalid-profile-env');return {...childEnvironment(base),...values}}
 export async function codexStatus(executable:string,signal:AbortSignal,profileEnv:Record<string,string>={}):Promise<{account:any;limits:any;limitsError?:string}>{
  const cmd=await backgroundCliCommand(executable,'codex');if(signal.aborted)throw Error('aborted');

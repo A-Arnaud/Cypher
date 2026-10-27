@@ -37,6 +37,8 @@ jobs:
       - name: Verify native notification-area backend without legacy taskbar manipulation
         run: node scripts/test-tray-native.cjs
       - run: npm run build:test
+      - name: Verify bundled authentication component with an empty profile
+        run: node scripts/test-codex-runtime.cjs
       - run: npm run test:clean-machine
       - run: npm run test:corners
       # Validation is read-only, including on tag pushes; releases are published separately.

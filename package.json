@@ -1,6 +1,6 @@
 {
   "name": "cypher-widget",
-  "version": "0.5.1-mac.1",
+  "version": "0.5.1-mac.2",
   "private": true,
   "type": "module",
   "description": "Local-first AI quota monitor for Windows and macOS",
@@ -28,7 +28,7 @@
     "security:release": "node scripts/check-release-security.cjs && node scripts/check-publication.cjs --artifacts",
     "security:secrets": "node scripts/run-gitleaks.cjs",
     "test:corners": "node scripts/test-window-corners.cjs",
-    "dist:mac": "npm run build && electron-builder --mac dmg zip --arm64 --x64",
+    "dist:mac": "npm run build && electron-builder --mac dmg zip",
     "test:mac": "vitest run --config vitest.mac.config.ts"
   },
   "build": {
@@ -51,7 +51,8 @@
       "dist/native/LOGOS-LICENSE*.txt",
       "package.json",
       "!node_modules/**",
-      "dist/assets/trayTemplate*.png"
+      "dist/assets/trayTemplate*.png",
+      "dist/native/codex/**"
     ],
     "win": {
       "target": [
@@ -90,7 +91,8 @@
       "identity": "-",
       "artifactName": "Cypher-${version}-mac-${arch}.${ext}",
       "hardenedRuntime": false
-    }
+    },
+    "beforePack": "scripts/check-codex-target.cjs"
   },
   "dependencies": {
     "lucide-react": "^1.61.0",
@@ -98,6 +100,7 @@
     "react-dom": "^19.3.1"
   },
   "devDependencies": {
+    "@openai/codex": "0.164.0",
     "@playwright/test": "^1.64.1",
     "@resvg/resvg-js": "^2.6.2",
     "@types/node": "^26.6.5",
