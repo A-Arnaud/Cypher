@@ -1,3 +1,11 @@
+# Public documentation and release catalog audit — October 27, 2026
+
+- Updated README, current download/update instructions, FAQ, provider coverage, privacy/security wording, contributor/implementation notes and release checklist to match Cypher 0.5.4. Added [French quick start](docs/demarrage-fr.md), [current cumulative release notes](docs/releases/0.5.4.md) and a complete [release index](docs/releases/README.md). Corrected stale Windows-only and Mac-only browser-login statements and old single-profile/no-API implementation notes.
+- All eight public release pages were reread after their metadata updates. Seven older pages now link prominently to Latest; the former ambiguous common Mac/Windows page explicitly names its actual historical Windows 0.5.0 and Mac 0.5.1-mac.2 packages. Latest remains the stable 0.5.4 release with nine Windows/Mac assets and cumulative connection/bar/close/startup/Mac-agent instructions.
+- All 51 asset IDs, names, sizes and GitHub digests across the eight releases are unchanged. All 51 versioned asset URLs plus nine distinct current `/latest/download/` URLs returned HTTP 200 with matching sizes. The three current public checksum files match their GitHub digests; current GitHub release notes match their repository copy.
+- Validated 124 local file/anchor references across 23 current/history documents, parsed the three issue forms and issue chooser, and checked platform/version examples. Six key documents were rendered through GitHub's Markdown API with their expected tables/headings/links. Publication scan and pinned Gitleaks history/current-file scans reported no recognized secrets.
+- GitHub `main` blobs for README, French/current-release guides, main application code, package configuration and Mac CI match the checkout. Application code, scripts, dependency files and workflows remain identical to the validated 0.5.4 release target; this documentation/metadata pass does not represent a new application build or new runtime test results. Existing test evidence remains below.
+
 # Cypher 0.5.4 — discreet Mac menu bar app, October 27, 2026
 
 - Published [Cypher 0.5.4](https://github.com/A-Arnaud/Cypher/releases/tag/v0.5.4) as the common **Latest** release, with nine Windows 10/11, Mac Intel and Apple Silicon downloads/checksum assets. Historical releases remain available.
