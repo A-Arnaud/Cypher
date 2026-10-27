@@ -41,6 +41,8 @@ jobs:
       - name: Verify bundled authentication component with an empty profile
         run: node scripts/test-codex-runtime.cjs
       - run: node scripts/smoke-mac.cjs
+      - name: Verify menu-bar access without a Dock icon
+        run: node scripts/test-mac-menu-only.cjs
       - name: Verify close, minimize and quit choices in native Electron
         run: node scripts/test-window-close.cjs
       - name: Verify automatic startup stays in the bar and manual opening stays visible
