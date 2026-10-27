@@ -13,9 +13,9 @@ export function SettingsPanel({state,bridge,update,shortcut,setShortcut}:Props){
  const saveShortcut=async()=>{setSavingShortcut(true);try{await update({shortcut})}finally{setSavingShortcut(false)}};
  return <div className="settings-panel">
   <section className="settings-group startup-group" aria-labelledby="startup-heading">
-   <h2 id="startup-heading" className="settings-heading"><Power size={14}/>{state.platform==='darwin'?'macOS':'Windows'}<span className={'setting-status '+(state.settings.startAtLogin?'enabled':'')}>{t(savingStartup?'saving':state.settings.startAtLogin?'enabled':'disabled')}</span></h2>
+   <h2 id="startup-heading" className="settings-heading"><Power size={14}/>{state.platform==='darwin'?'macOS':'Windows'}<span className={'setting-status '+(state.settings.startAtLogin&&!state.startupNeedsApproval?'enabled':'')}>{t(savingStartup?'saving':state.startupNeedsApproval?'startupApproval':state.settings.startAtLogin?'enabled':'disabled')}</span></h2>
    <label className="setting-row"><span>{t('startup')}</span><input type="checkbox" role="switch" aria-label={t('startup')} checked={state.settings.startAtLogin} disabled={!state.desktop||!state.startupAvailable||savingStartup} onChange={e=>void setStartup(e.target.checked)}/><i className="switch"/></label>
-   <p className="setting-hint">{t(state.startupAvailable?'startupEnabledHint':'startupHint')}</p>
+   <p className="setting-hint">{t(state.startupNeedsApproval?'startupApprovalHint':state.startupAvailable?'startupEnabledHint':'startupHint')}</p>
   </section>
   <section className="settings-group" aria-labelledby="collection-heading">
    <h2 id="collection-heading" className="settings-heading"><Activity size={14}/>{t('collectionSettings')}</h2>

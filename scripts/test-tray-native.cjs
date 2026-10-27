@@ -36,7 +36,7 @@ app.whenReady().then(async()=>{
  function updateMenu(){menu=Menu.buildFromTemplate(trayMenuTemplate(settings.language,settings.paused,presentation?.lines??[],actions));tray.setContextMenu(menu);tooltip=presentation?.tooltip??'Cypher';tray.setToolTip(tooltip);}
  tray=new Tray(nativeImage.createFromPath(${JSON.stringify(path.resolve('assets/icon.png'))}).resize({width:20,height:20}));
  host=createTaskbarHost('tray',()=>{nativeCalls++;throw Error('native helper forbidden')},value=>{presentation=value;updateMenu()});
- const docking=new Docking({settings:()=>settings,start:()=>host.start(),ready:()=>host.isReady(),stop:()=>host.stop(),save:async patch=>{settings={...settings,...patch}},startupAvailable:false,startupStatus:()=>false,configureStartup:async()=>{throw Error('registry forbidden')},status:()=>{},show:()=>window.show(),hide:()=>window.hide()});
+ const docking=new Docking({settings:()=>settings,start:()=>host.start(),ready:()=>host.isReady(),stop:()=>host.stop(),save:async patch=>{settings={...settings,...patch}},status:()=>{},show:()=>window.show(),hide:()=>window.hide()});
  await docking.restore();host.render({...taskbarSummary(state),language:settings.language});
  assert(host.isReady());assert.equal(nativeCalls,0);assert(tooltip.length<=127);assert(tooltip.includes('23%'));assert(tooltip.includes('stale'));assert(tooltip.includes('—'));assert(tooltip.includes('+1'));
  assert(!JSON.stringify(presentation).match(/private@|never-display-this/));

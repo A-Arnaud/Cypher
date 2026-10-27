@@ -1,6 +1,6 @@
 # Connection methods
 
-These choices are available in **Cypher 0.5.2 for Windows and macOS**. Earlier Windows 0.5.0 packages retain their earlier CLI/API connection interface.
+These choices are available in **Cypher 0.5.3 for Windows and macOS**. Earlier Windows 0.5.0 packages retain their earlier CLI/API connection interface.
 
 Connections starts with **Automatic detection**. Existing profiles remain separate and require explicit permission before Cypher reads them. Detecting a profile does not authorize it, sign it in or prove its subscription.
 
