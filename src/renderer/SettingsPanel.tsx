@@ -1,4 +1,5 @@
 import {UpdateSettings} from './UpdateNotice';
+import {DiagnosticsPanel} from './DiagnosticsPanel';
 import {useState} from 'react';
 import {Power,Activity,Palette,Command} from 'lucide-react';
 import type {AppState,QuotaBridge,SettingsPatch} from '../shared/model';
@@ -36,5 +37,6 @@ export function SettingsPanel({state,bridge,update,shortcut,setShortcut}:Props){
    <p id="shortcut-hint" className="setting-hint">{t(validShortcut(shortcut)?'shortcutHint':'invalidShortcut')}</p>
   </section>
   <UpdateSettings state={state} bridge={bridge} update={update}/>
+  <DiagnosticsPanel state={state} bridge={bridge}/>
  </div>;
 }

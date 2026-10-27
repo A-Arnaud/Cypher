@@ -2,9 +2,15 @@
 
 ## FAQ
 
-**Will Cypher offer updates?** Install **0.6.0 once** first. It checks stable GitHub releases after startup and every six hours, with a small footer/menu action. Installed Windows copies download/verify/install after approval. Current Mac and Windows portable/extracted copies open the official browser download for manual replacement. **Later** defers the notice for a day; automatic checking is optional in **Settings → Updates**. Earlier 0.5.x binaries do not have the checker. [Update guide](docs/updates.md).
+### How do I find an action or understand a profile problem?
 
-**Why is Cypher absent from the Mac Dock? How do I reopen or quit it?** Cypher 0.6.0 stays in the **top menu bar**, like other discreet Mac utilities. Click its icon and choose **Show / Hide** to open the window or **Quit** to stop it. **Control+Option+Q** and reopening Cypher from Applications also restore its window. If you pinned an older version to the Dock, remove that favorite once using **Options → Remove from Dock**. [Mac guide](MACOS.md#a-discreet-menu-bar-app).
+Click **Quick actions**, or press **Ctrl+K** on Windows / **Command+K** on Mac. Search a pinned profile, connection or action. Use **Needs attention** in Overview to find profiles requiring sign-in, permission or a retry. Cards show the last successful reading's age/source; installation or a successful account check alone never becomes a quota reading. [Navigation/status guide](docs/navigation-and-diagnostics.md).
+
+For a support report, **Settings → Diagnostics → View report / Copy report** prepares local versioned JSON without account/profile names, emails, paths, keys, quota amounts or raw logs. Review it before sharing; nothing is sent automatically.
+
+**Will Cypher offer updates?** Install **0.7.0 once** first. It checks stable GitHub releases after startup and every six hours, with a small footer/menu action. Installed Windows copies download/verify/install after approval. Current Mac and Windows portable/extracted copies open the official browser download for manual replacement. **Later** defers the notice for a day; automatic checking is optional in **Settings → Updates**. Earlier 0.5.x binaries do not have the checker. [Update guide](docs/updates.md).
+
+**Why is Cypher absent from the Mac Dock? How do I reopen or quit it?** Cypher 0.7.0 stays in the **top menu bar**, like other discreet Mac utilities. Click its icon and choose **Show / Hide** to open the window or **Quit** to stop it. **Control+Option+Q** and reopening Cypher from Applications also restore its window. If you pinned an older version to the Dock, remove that favorite once using **Options → Remove from Dock**. [Mac guide](MACOS.md#a-discreet-menu-bar-app).
 
 **How do I keep Cypher in the bar or close it?** Use the labelled **Move to taskbar** button on Windows (bottom of the screen) or **Move to menu bar** on Mac (top right). Closing the window offers **Minimize**, **Quit Cypher** and **Cancel**. Minimize keeps collection running; Quit stops Cypher. If the indicator cannot start, the window stays open. [Widget guide](docs/user-guide.md).
 
@@ -22,7 +28,7 @@
 
 **Does Cypher need my chat password or browser cookies?** No. Use Codex browser sign-in through the included official component, the official CLI flow for CLI profiles, or a supported API key in Connections. Cypher does not import your personal browser cookies. Do not share keys or account credentials in an issue. See [Privacy](PRIVACY.md).
 
-**Do I have to install a CLI to connect?** For Codex browser sign-in in 0.6.0, no. Expand **More ways to connect** and choose **Sign in with your browser**. The official authentication component is included and keeps the account separate in Cypher. Existing profiles still appear under Automatic detection. Claude and Gemini currently require their CLI for subscription-account sign-in; API-key connections do not require a CLI and read separate API billing data. See [connection methods](docs/connection-methods.md).
+**Do I have to install a CLI to connect?** For Codex browser sign-in in 0.7.0, no. Expand **More ways to connect** and choose **Sign in with your browser**. The official authentication component is included and keeps the account separate in Cypher. Existing profiles still appear under Automatic detection. Claude and Gemini currently require their CLI for subscription-account sign-in; API-key connections do not require a CLI and read separate API billing data. See [connection methods](docs/connection-methods.md).
 
 **Is Windows 11 supported?** Cypher 0.5.0 adds an OS-selected notification-area mode for Windows 11 while retaining the desktop widget. It does not modify the Windows 11 taskbar or embed text inside it. The same x64 installer/portable build serves Windows 10 and 11. Runtime behavior on a real Windows 11 device remains unverified; OS-selection, tray lifecycle and UI fixture tests are not device certification. Windows 10 retains its existing embedded indicator on a horizontal primary taskbar. Include the exact Windows build (`winver`) and chosen mode when reporting a problem.
 
@@ -32,7 +38,7 @@
 
 ## Distribution and connector coverage
 
-The common 0.6.0 release contains Windows x64, Mac Intel and Mac Apple Silicon packages. The runtime is included: Node.js is not required to run Cypher. Codex browser sign-in uses its included official component; other CLI methods require the selected CLI. API and local-server connections do not require a CLI. Every profile requires explicit read permission; no developer account is included.
+The common 0.7.0 release contains Windows x64, Mac Intel and Mac Apple Silicon packages. The runtime is included: Node.js is not required to run Cypher. Codex browser sign-in uses its included official component; other CLI methods require the selected CLI. API and local-server connections do not require a CLI. Every profile requires explicit read permission; no developer account is included.
 
 Detection skips broken npm launchers and continues searching for a valid installation. Claude Desktop is not treated as the Claude Code CLI. Ollama and LM Studio servers can be authorized even without a CLI installed on the PC, at their predefined loopback addresses.
 

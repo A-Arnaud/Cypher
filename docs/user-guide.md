@@ -4,6 +4,8 @@
 
 ## Desktop widget
 
+**Quick actions** beside the window controls opens a searchable action/profile picker: **Ctrl+K** on Windows, **Command+K** on Mac. Use arrows/Enter/Escape or the mouse. The detailed **Needs attention** filter and reading ages distinguish current, stale and unavailable data. **Settings → Diagnostics** provides an explicit local report/copy action. [Full navigation/status/diagnostic guide](navigation-and-diagnostics.md).
+
 Pin the profiles you need, reorder them by dragging a handle or using the keyboard, and switch between compact rows and detailed cards. **Details** shows quota windows, API balances, points and reset times when the provider exposes them.
 
 Settings controls opacity, always-on-top behavior, language, keyboard shortcut and refresh interval. The default interval is **60 seconds after a collection completes**; errors use exponential backoff up to 15 minutes. **Pause** suspends collection, **Refresh** starts a read immediately, and **Quit** stops the application.

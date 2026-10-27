@@ -2,7 +2,7 @@
 
 Cypher is available for **Mac Intel and Apple Silicon**, with a native menu bar indicator at the top right. Working Mac use has been confirmed by the maintainer.
 
-**[Download for Mac Intel](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.6.0-mac-x64.dmg)** · **[Download for Apple Silicon](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.6.0-mac-arm64.dmg)** · [All Windows and Mac downloads](https://github.com/A-Arnaud/Cypher/releases/latest)
+**[Download for Mac Intel](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.0-mac-x64.dmg)** · **[Download for Apple Silicon](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.0-mac-arm64.dmg)** · [All Windows and Mac downloads](https://github.com/A-Arnaud/Cypher/releases/latest)
 
 **Requires macOS 13 Ventura or later**, on either processor. This is the minimum declared by the packaged application and its Electron runtime; the automated tests run on macOS 15. macOS 12 Monterey and earlier cannot run this release. On Intel, download the file ending in **`mac-x64.dmg`** or **`mac-x64.zip`**, never `arm64`.
 

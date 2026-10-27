@@ -1,3 +1,10 @@
+# 0.7.0 — quick actions, actionable status and private diagnostics
+
+- Add a searchable mouse/keyboard action picker in both views: Ctrl+K on Windows, Command+K on Mac, arrows/Enter/Escape, focus restoration and explicit disabled actions. Find pinned profiles and connection options without starting logins from search.
+- Show a compact All / Needs attention filter, last successful reading age/source, and distinct current/waiting/limited/paused/duplicate states. Age old readings without requiring a new provider event; preserve real zeros and provider-specific support limits.
+- Add local versioned diagnostics built from an explicit allowlist. View/copy only on request; no account/profile names, emails, paths, keys, quota amounts, raw errors/logs or automatic uploads. Trusted-window IPC controls report generation and clipboard writes.
+- Verify the shared health model, privacy boundaries, keyboard/focus/compact layout and real Electron IPC on Windows and both Mac architectures. Retain existing connections, startup, menu-only Mac behavior and approved update flow.
+
 # 0.6.0 — discreet release proposals and approved Windows updates
 
 - Check stable GitHub releases after startup and every six hours, with small footer/native-menu indicators. No unsolicited window, Dock bounce or OS notification. Automatic checks can be disabled; Later defers an offer for 24 hours.

@@ -44,6 +44,8 @@ GitHub Actions uses `windows-2025` (Windows Server), records the actual host ver
 
 ### Mac verification
 
+For quick-action/diagnostic changes, run `node scripts/test-diagnostics.cjs` after building on either platform. It uses isolated data, intercepts clipboard writes and checks that a different window cannot read the report. `node scripts/capture-navigation.cjs` regenerates the account-free navigation/status screenshots.
+
 After `npm run build`, run `node scripts/smoke-mac.cjs`, `node scripts/test-mac-menu-only.cjs`, `node scripts/test-window-close.cjs` and `node scripts/test-startup-launch.cjs` on a Mac. These use isolated data, check the actual Dock/menu/window lifecycle and forbid startup registration in the launch scenarios. Browser UI tests use installed Microsoft Edge; `test:mac` does not require it.
 
 The Mac workflow builds on separate Intel and Apple Silicon runners. It checks the final signed bundle's `LSUIElement` flag and native accessory activation policy as well as launch, connector architecture and publication scans. Keep startup optional in Settings, surface native approval/readback failures, and never restore regular Dock activation merely to reopen a window. Mac notarization and live login-session validation remain separate checks.
