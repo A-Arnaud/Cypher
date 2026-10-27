@@ -4,6 +4,7 @@ This is guidance for a release or public launch, not a record of completed check
 
 ## Repository and discovery
 
+- [ ] Follow the [public positioning and website handoff](discoverability.md): explain Codex quotas, reset countdowns, Windows taskbar/system tray and Mac menu bar immediately. Keep Claude account support distinct from unimplemented subscription quota percentages.
 - [ ] Confirm that public visibility is intentional and review the complete source tree and Git history for credentials, personal data and diagnostic captures before changing visibility. A private release is not publicly discoverable.
 - [ ] Review the license decision before describing Cypher as open source; do not assume a public repository grants reuse rights. Retain provider-logo license notices.
 - [ ] Check the About description, release link and topics. Suggested topics: `windows`, `electron`, `react`, `typescript`, `desktop-widget`, `quota-monitor`, `ai`, `codex`, `local-first`. In GitHub, use the About gear to edit them; documentation alone does not change repository settings.

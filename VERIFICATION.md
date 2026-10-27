@@ -1,3 +1,7 @@
+# Public description follow-up (2026-10-27)
+
+Reviewed the live homepage and repeated generic/branded discovery queries. The homepage returned HTTP 200 with a generic title and Windows-only description; the tested branded queries did not surface the project. Updated and read back GitHub About to name Codex quotas, reset countdowns, Windows 10/11, macOS and system tray/menu bar behavior. Retained existing topics and added system-tray and claude-code (20 total). Updated the English/French README introduction and recorded the observations, accurate provider promise and proposed future website copy in [the discovery handoff](docs/discoverability.md). The website remains deferred. These wording changes do not establish improved ranking or indexing; app source, version and published 0.8.0 assets are unchanged.
+
 # Cypher 0.8.0 interface and release verification (2026-10-27)
 
 [Windows CI](https://github.com/A-Arnaud/Cypher/actions/runs/40478491648) passed: typecheck/build, 206 unit tests (2 platform skips), 33 browser UI scenarios, isolated native launch/close/diagnostics and packaged clean-machine/credential checks. [Mac CI](https://github.com/A-Arnaud/Cypher/actions/runs/40478491636) passed on Intel and Apple Silicon, including 136 unit tests (1 skip) per architecture, real native menu/launch/close checks, packaged app launch and ad-hoc signature checks. Publication/secret scans and npm audit passed.

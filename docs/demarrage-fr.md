@@ -1,5 +1,7 @@
 # Cypher — démarrage rapide en français
 
+**Suivez vos quotas Codex dans la barre des tâches Windows ou la barre de menus Mac.** Cypher affiche les quotas restants et leur prochaine réinitialisation. Il permet aussi de connecter Claude Code et de consulter les soldes des API prises en charge ; les pourcentages de quota Claude ne sont pas encore collectés.
+
 **Version actuelle : 0.8.0**, pour Windows et Mac. [Toutes les releases](https://github.com/A-Arnaud/Cypher/releases/latest) · [README en anglais](../README.md)
 
 ## Télécharger le bon fichier
