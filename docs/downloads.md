@@ -17,6 +17,8 @@ Mac requires **macOS 13 Ventura or later**. To choose the correct Mac file, open
 
 ### Windows 10 / 11
 
+WinGet registration for `AArnaud.Cypher` has been [submitted to Microsoft](https://github.com/microsoft/winget-pkgs/pull/462651). The public command is pending catalog publication; use the installer below in the meantime. [Command and status](winget.md).
+
 1. Download and run the installer above. No administrator rights or Node.js installation are required.
 2. Open **Cypher**, then **Connections** to authorize an existing profile or add a supported API key.
 3. Pin your profiles. Click **Move to taskbar** to minimize into the bottom bar: the embedded indicator on Windows 10, or the notification area near the clock on Windows 11.
