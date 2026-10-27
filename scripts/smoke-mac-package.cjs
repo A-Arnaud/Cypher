@@ -4,6 +4,9 @@ const fs=require('node:fs/promises');const os=require('node:os');const path=requ
  const root=await fs.mkdtemp(path.join(os.tmpdir(),'cypher-package-'));let child;
  try{
   const app=path.resolve(process.env.CYPHER_MAC_APP);execFileSync('/usr/bin/codesign',['--verify','--deep','--strict',app],{stdio:'inherit'});
+  const connector=path.join(app,'Contents/Resources/app.asar.unpacked/dist/native/codex/bin/codex');
+  const connectorVersion=execFileSync(connector,['--version'],{encoding:'utf8',timeout:15000});
+  if(connectorVersion.trim()!=='codex-cli '+require('@openai/codex/package.json').version)throw Error('Bundled Codex connector version mismatch');
   const env={...process.env,CYPHER_DATA_DIR:path.join(root,'state'),HOME:root};delete env.ELECTRON_RUN_AS_NODE;
   child=spawn(path.join(app,'Contents/MacOS/Cypher'),[],{env,stdio:'ignore'});let exited=false;child.once('exit',()=>{exited=true});
   await new Promise((resolve,reject)=>{child.once('error',reject);setTimeout(resolve,10000)});

@@ -1,0 +1,11 @@
+export const connectionCopy={fr:{
+ automaticConnections:'Détection automatique',automaticConnectionsHint:'Vos profils existants restent prioritaires. Autorisez leur lecture pour retrouver vos comptes.',noAutomaticSession:'Aucune session existante détectée. Choisissez une méthode ci-dessous.',moreConnections:'Autres façons de se connecter',
+ directSignIn:'Se connecter dans le navigateur',directSignInHint:'Connectez un nouveau compte Codex dans votre navigateur, sans installer le CLI. La connexion reste propre à Cypher.',browserLoginOpen:'Connexion ouverte dans le navigateur',cancelLogin:'Annuler la connexion',directLoginFailed:'La connexion n’a pas abouti. Réessayez ou choisissez une autre méthode.',
+ cliConnection:'Avec le CLI installé',cliConnectionHint:'Ouvre la connexion officielle dans un terminal, avec un nouveau profil indépendant.',cliRequired:'Cette méthode nécessite le CLI du fournisseur.',browserUnsupported:'La connexion directe dans le navigateur n’est pas disponible pour ce fournisseur dans Cypher.',
+ apiAlternative:'Utiliser une clé API',apiAlternativeHint:'Cette connexion lit la facturation API, séparée des quotas de votre abonnement.',readyToConnect:'Prêt à connecter'
+},en:{
+ automaticConnections:'Automatic detection',automaticConnectionsHint:'Existing profiles come first. Allow read access to recover your accounts.',noAutomaticSession:'No existing session found. Choose a method below.',moreConnections:'More ways to connect',
+ directSignIn:'Sign in with your browser',directSignInHint:'Connect a new Codex account in your browser, without installing the CLI. The connection stays separate in Cypher.',browserLoginOpen:'Browser sign-in in progress',cancelLogin:'Cancel sign-in',directLoginFailed:'Sign-in did not complete. Try again or choose another method.',
+ cliConnection:'With the installed CLI',cliConnectionHint:'Opens official sign-in in a terminal, using a new independent profile.',cliRequired:'This method requires the provider CLI.',browserUnsupported:'Direct browser sign-in is not available for this provider in Cypher.',
+ apiAlternative:'Use an API key',apiAlternativeHint:'This connection reads API billing, separately from your subscription quotas.',readyToConnect:'Ready to connect'
+}};

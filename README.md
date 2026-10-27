@@ -4,7 +4,7 @@
   Monitor provider-reported quotas, API balances and local model availability<br>
   from a desktop widget, the Windows taskbar or the macOS menu bar.</p>
   <p><a href="https://cypher-os.me/"><img src="docs/brand/website.png" alt="Visit the Cypher website at cypher-os.me" width="340"></a></p>
-  <p><strong><a href="https://github.com/A-Arnaud/Cypher/releases/tag/v0.5.0">Download for Windows</a> · <a href="https://github.com/A-Arnaud/Cypher/releases/tag/v0.5.1-mac.1">Download for macOS (preview)</a></strong></p>
+  <p><strong><a href="https://github.com/A-Arnaud/Cypher/releases/tag/v0.5.0">Download for Windows</a> · <a href="https://github.com/A-Arnaud/Cypher/releases/tag/v0.5.1-mac.2">Download for macOS (preview)</a></strong></p>
   <p><a href="https://github.com/A-Arnaud/Cypher/releases/download/v0.5.0/Cypher-Setup-0.5.0-win-x64.exe">Installer · 0.5.0</a> · <a href="https://github.com/A-Arnaud/Cypher/releases/download/v0.5.0/Cypher-0.5.0-win-x64.exe">Portable</a> · <a href="https://github.com/A-Arnaud/Cypher/releases/download/v0.5.0/SHA256SUMS-0.5.0.txt">SHA-256</a></p>
   <p>
     <a href="https://github.com/A-Arnaud/Cypher/releases/latest"><img src="https://img.shields.io/badge/release-v0.5.0-ed8fae" alt="Release 0.5.0"></a>
@@ -19,8 +19,8 @@
 | Platform | Download | System indicator |
 | --- | --- | --- |
 | Windows 10 / 11 x64 · **0.5.0 stable** | [Installer](https://github.com/A-Arnaud/Cypher/releases/download/v0.5.0/Cypher-Setup-0.5.0-win-x64.exe) · [Portable](https://github.com/A-Arnaud/Cypher/releases/download/v0.5.0/Cypher-0.5.0-win-x64.exe) · [SHA-256](https://github.com/A-Arnaud/Cypher/releases/download/v0.5.0/SHA256SUMS-0.5.0.txt) | Windows taskbar / notification area |
-| Mac Apple Silicon · **0.5.1-mac.1 preview** | [DMG](https://github.com/A-Arnaud/Cypher/releases/download/v0.5.1-mac.1/Cypher-0.5.1-mac.1-mac-arm64.dmg) · [ZIP](https://github.com/A-Arnaud/Cypher/releases/download/v0.5.1-mac.1/Cypher-0.5.1-mac.1-mac-arm64.zip) · [SHA-256](https://github.com/A-Arnaud/Cypher/releases/download/v0.5.1-mac.1/SHA256SUMS-mac-arm64.txt) | macOS menu bar, **top right** |
-| Mac Intel · **0.5.1-mac.1 preview** | [DMG](https://github.com/A-Arnaud/Cypher/releases/download/v0.5.1-mac.1/Cypher-0.5.1-mac.1-mac-x64.dmg) · [ZIP](https://github.com/A-Arnaud/Cypher/releases/download/v0.5.1-mac.1/Cypher-0.5.1-mac.1-mac-x64.zip) · [SHA-256](https://github.com/A-Arnaud/Cypher/releases/download/v0.5.1-mac.1/SHA256SUMS-mac-x64.txt) | macOS menu bar, **top right** |
+| Mac Apple Silicon · **0.5.1-mac.2 preview** | [DMG](https://github.com/A-Arnaud/Cypher/releases/download/v0.5.1-mac.2/Cypher-0.5.1-mac.2-mac-arm64.dmg) · [ZIP](https://github.com/A-Arnaud/Cypher/releases/download/v0.5.1-mac.2/Cypher-0.5.1-mac.2-mac-arm64.zip) · [SHA-256](https://github.com/A-Arnaud/Cypher/releases/download/v0.5.1-mac.2/SHA256SUMS-mac-arm64.txt) | macOS menu bar, **top right** |
+| Mac Intel · **0.5.1-mac.2 preview** | [DMG](https://github.com/A-Arnaud/Cypher/releases/download/v0.5.1-mac.2/Cypher-0.5.1-mac.2-mac-x64.dmg) · [ZIP](https://github.com/A-Arnaud/Cypher/releases/download/v0.5.1-mac.2/Cypher-0.5.1-mac.2-mac-x64.zip) · [SHA-256](https://github.com/A-Arnaud/Cypher/releases/download/v0.5.1-mac.2/SHA256SUMS-mac-x64.txt) | macOS menu bar, **top right** |
 
 The [macOS installation guide](MACOS.md) covers choosing your processor, first launch and Terminal connections. **Both Mac downloads require macOS 13 Ventura or later**; Intel uses `x64`, Apple Silicon uses `arm64`. The Mac preview has an ad-hoc signature and is not Apple-notarized. macOS 15 Apple Silicon and Intel automation passed; hands-on device and live-account validation remain outstanding. Windows remains the stable release.
 

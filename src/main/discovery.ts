@@ -3,7 +3,7 @@ import path from 'node:path';
 import {catalog} from '../shared/catalog';
 import {cliCommand} from './cli';
 import {profileProviders,type ProfileProvider} from './profiles';
-export interface Detection {id:string;installed:boolean;configPresent:boolean;executable?:string;evidence:string[]}
+export interface Detection {id:string;installed:boolean;configPresent:boolean;executable?:string;builtIn?:boolean;evidence:string[]}
 export interface DiscoveryEnv {home:string;path:string;appData:string;localAppData:string}
 async function isFile(p:string){try{return (await stat(p)).isFile()}catch{return false}}
 async function isDirectory(p:string){try{return (await stat(p)).isDirectory()}catch{return false}}

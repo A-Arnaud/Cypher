@@ -1,6 +1,6 @@
 # Cypher for macOS
 
-The macOS preview is a separate release from Windows: [download v0.5.1-mac.1](https://github.com/A-Arnaud/Cypher/releases/tag/v0.5.1-mac.1).
+The macOS preview is a separate release from Windows: [download v0.5.1-mac.2](https://github.com/A-Arnaud/Cypher/releases/tag/v0.5.1-mac.2).
 
 **Requires macOS 13 Ventura or later**, on either processor. This is the minimum declared by the packaged application and its Electron runtime; the automated tests run on macOS 15. macOS 12 Monterey and earlier cannot run this release. On Intel, download the file ending in **`mac-x64.dmg`** or **`mac-x64.zip`**, never `arm64`.
 
@@ -19,7 +19,13 @@ This preview has an **ad-hoc signature**, without an Apple Developer ID certific
 
 Automatic login registration is unavailable in this preview. If desired, add the installed app manually in **System Settings → General → Login Items**. API keys use Electron safeStorage backed by the macOS Keychain. Windows credentials cannot be copied over and decrypted on a Mac.
 
-## CLI connections
+## Connection methods
+
+Connections keeps **Automatic detection** first. Expand **More ways to connect** for browser sign-in, an installed CLI, profile-folder import or the supported API-key alternative. See [connection methods and provider limits](docs/connection-methods.md).
+
+**Codex browser sign-in** uses an official component included in Cypher: no separate Codex CLI, Codex app or Node installation is required. A new browser connection creates its own Cypher profile and does not replace an existing account. Claude and Gemini currently retain their CLI sign-in methods.
+
+### Existing CLI connections
 
 Cypher discovers executable CLI commands on `PATH`, in `~/.local/bin`, `/opt/homebrew/bin`, `/usr/local/bin` and `~/.npm-global/bin`. Use **Already installed?** to choose a CLI manually if your Node version manager puts it elsewhere. Node-based launchers need Node available alongside the launcher or on `PATH`.
 
@@ -37,6 +43,6 @@ npm run test:mac
 npm run dist:mac
 ```
 
-Build on macOS using Node.js 24. The Windows C# taskbar helper is built only on Windows; it is never launched by the Mac backend. Windows retains its existing taskbar/notification-area behavior.
+Build on macOS using Node.js 24. Local `dist:mac` builds for the host architecture; GitHub's separate Intel and Apple Silicon runners build each target with its matching Codex component. Cross-architecture packaging is rejected rather than silently shipping the wrong executable. The Windows C# taskbar helper is built only on Windows; it is never launched by the Mac backend. Windows retains its existing taskbar/notification-area behavior.
 
 References: [Apple menu bar](https://support.apple.com/en-gb/guide/mac-help/mchlp1446/mac), [Electron Tray](https://www.electronjs.org/docs/latest/api/tray), [Electron login items](https://www.electronjs.org/docs/latest/api/app#appsetloginitemsettingssettings).
