@@ -34,7 +34,7 @@ npm run security:scan
 npm run security:secrets
 ```
 
-`test:ui` uses installed Microsoft Edge. `security:secrets` downloads a pinned Gitleaks scanner on first use and scans Git history and publishable files; its reports stay local. Changes to packaging or security also require the packaged checks in [SECURITY.md](SECURITY.md), including `npm run build:test`, `npm run test:clean-machine`, `npm run dist -- --publish never` and `npm run security:release`. The test build is not a release artifact. Native taskbar tests must run sequentially because they change the same Explorer surface. Never run them against a user session without coordinating first. Do not terminate a running user instance to make a test pass.
+`test:ui` uses installed Microsoft Edge. `security:secrets` downloads a pinned Gitleaks scanner on first use and scans Git history and publishable files; its reports stay local. Changes to packaging or security also require the packaged checks in [SECURITY.md](SECURITY.md), including `npm run build:test`, `npm run test:clean-machine`, `npm run dist -- --publish never` and `npm run security:release`. For updater changes, also run `node scripts/test-update-download.cjs` (isolated synthetic HTTP downloads; never executes an installer) and `node scripts/check-update-metadata.cjs` after building the Windows installer. Keep the limitations in [the update guide](docs/updates.md) accurate. The test build is not a release artifact. Native taskbar tests must run sequentially because they change the same Explorer surface. Never run them against a user session without coordinating first. Do not terminate a running user instance to make a test pass.
 
 ### Windows 10 / Windows 11 verification
 

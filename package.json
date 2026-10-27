@@ -1,6 +1,6 @@
 {
   "name": "cypher-widget",
-  "version": "0.5.4",
+  "version": "0.6.0",
   "private": true,
   "type": "module",
   "description": "Local-first AI quota monitor for Windows and macOS",
@@ -52,7 +52,8 @@
       "package.json",
       "!node_modules/**",
       "dist/assets/trayTemplate*.png",
-      "dist/native/codex/**"
+      "dist/native/codex/**",
+      "dist/assets/THIRD-PARTY-UPDATES.txt"
     ],
     "win": {
       "target": [
@@ -60,7 +61,14 @@
         "portable"
       ],
       "signExecutable": false,
-      "icon": "assets/icon.ico"
+      "icon": "assets/icon.ico",
+      "publish": [
+        {
+          "provider": "github",
+          "owner": "A-Arnaud",
+          "repo": "Cypher"
+        }
+      ]
     },
     "nsis": {
       "oneClick": true,
@@ -98,6 +106,7 @@
     "beforePack": "scripts/check-codex-target.cjs"
   },
   "dependencies": {
+    "electron-updater": "6.8.12",
     "lucide-react": "^1.61.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"

@@ -16,6 +16,7 @@ oauth_creds.json
 credentials.enc.json*
 registry.json
 settings.json
+app-update-state.json
 profiles/
 login-workspaces/
 login-scripts/

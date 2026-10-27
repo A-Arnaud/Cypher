@@ -1,3 +1,4 @@
+import {UpdateSettings} from './UpdateNotice';
 import {useState} from 'react';
 import {Power,Activity,Palette,Command} from 'lucide-react';
 import type {AppState,QuotaBridge,SettingsPatch} from '../shared/model';
@@ -34,5 +35,6 @@ export function SettingsPanel({state,bridge,update,shortcut,setShortcut}:Props){
    <label className="field-label" htmlFor="shortcut">{t('shortcut')}</label><form className="shortcut-editor" onSubmit={e=>{e.preventDefault();if(state.desktop&&validShortcut(shortcut)&&!savingShortcut&&shortcut!==state.settings.shortcut)void saveShortcut()}}><input id="shortcut" value={shortcut} onChange={e=>setShortcut(e.target.value)} spellCheck={false} maxLength={40} aria-invalid={!validShortcut(shortcut)} aria-describedby="shortcut-hint" disabled={savingShortcut}/><button type="submit" disabled={!state.desktop||!validShortcut(shortcut)||savingShortcut||shortcut===state.settings.shortcut}>{t(savingShortcut?'saving':'save')}</button></form>
    <p id="shortcut-hint" className="setting-hint">{t(validShortcut(shortcut)?'shortcutHint':'invalidShortcut')}</p>
   </section>
+  <UpdateSettings state={state} bridge={bridge} update={update}/>
  </div>;
 }

@@ -15,6 +15,8 @@ Cypher is a local application for Windows and macOS. It has no central server, a
 
 ## Known limitations
 
+Installed-Windows updates use a version-pinned public GitHub asset and a bounded, hash-verified `latest.yml`. The download engine checks SHA-512 and Cypher independently checks the GitHub SHA-256 before explicit installation handoff. Automatic download and install-on-ordinary-quit are disabled; user approval is required. Updates trust GitHub HTTPS and repository publishing access, not an Authenticode identity for the current unsigned Windows build. Current ad-hoc Mac builds use a manual browser-download path; Gatekeeper is not disabled or bypassed. [Update protocol and limits](docs/updates.md).
+
 These measures do not guarantee the absence of vulnerabilities. DPAPI protects data at rest against other Windows accounts; it does not protect against malware or an administrator running in the same session, a compromised Windows installation, screenshots, or memory reads. The key temporarily exists in memory to be sent to its provider. Entering an admin key grants access to the organization data that key authorizes: prefer the narrowest available read permissions.
 
 CLIs and their configurations belong to the user. They may perform their own network operations; Cypher is not a firewall for a compromised executable or third-party configuration. Proxies and certificate authorities explicitly supplied by the system environment remain a trust boundary. Cypher does not disable TLS validation.

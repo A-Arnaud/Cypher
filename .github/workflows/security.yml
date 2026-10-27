@@ -41,12 +41,16 @@ jobs:
         run: node scripts/test-window-close.cjs
       - name: Verify automatic startup stays in the bar and manual opening stays visible
         run: node scripts/test-startup-launch.cjs
+      - name: Verify update downloads and checksum rejection without executing an installer
+        run: node scripts/test-update-download.cjs
       - name: Verify bundled authentication component with an empty profile
         run: node scripts/test-codex-runtime.cjs
       - run: npm run test:clean-machine
       - run: npm run test:corners
       # Validation is read-only, including on tag pushes; releases are published separately.
       - run: npm run dist -- --publish never
+      - name: Verify automatic-update metadata against the actual installer
+        run: node scripts/check-update-metadata.cjs
       - shell: powershell
         run: |
           $version = (Get-Content package.json -Raw | ConvertFrom-Json).version
@@ -63,7 +67,7 @@ jobs:
         shell: pwsh
         run: |
           $version = (Get-Content package.json -Raw | ConvertFrom-Json).version
-          $names = @("Cypher-Setup-$version-win-x64.exe", "Cypher-$version-win-x64.exe")
+          $names = @("Cypher-Setup-$version-win-x64.exe", "Cypher-$version-win-x64.exe", 'latest.yml')
           $lines = foreach ($name in $names) {
             $hash = (Get-FileHash "release/$name" -Algorithm SHA256).Hash.ToLowerInvariant()
             "$hash  $name"
@@ -76,5 +80,6 @@ jobs:
           path: |
             release/Cypher-*-win-x64.exe
             release/SHA256SUMS-*.txt
+            release/latest.yml
           if-no-files-found: error
           retention-days: 7

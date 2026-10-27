@@ -1,3 +1,4 @@
+import {UpdateNotice} from './UpdateNotice';
 import {BarPlacement} from './BarPlacement';import {windowCopy} from '../shared/window-copy';
 import {SettingsPanel} from './SettingsPanel';
 import {ProviderCard} from './ProviderCard';
@@ -44,6 +45,6 @@ export function App(){
    <Connections state={state} entries={filtered} bridge={bridge} busy={busy} action={action} pin={id=>void pin(id)} consent={consent}/></>}
   {tab==='settings'&&<SettingsPanel state={state} bridge={bridge} update={update} shortcut={shortcut} setShortcut={setShortcut}/>}
   </section>
-  <footer><span title={t(state.settings.paused?'paused':'updated')}><span className={'pulse '+(state.settings.paused?'off':'')}/>{latest?time(latest):'—'} <small> / {state.settings.pollSeconds}s</small></span><button aria-label={t(state.settings.paused?'resume':'pause')} title={t(state.settings.paused?'resume':'pause')} onClick={()=>void update({paused:!state.settings.paused})}>{state.settings.paused?<Play size={12}/>:<Pause size={12}/>}</button><span className="footer-copy">v{version}</span></footer>
+  <footer><span title={t(state.settings.paused?'paused':'updated')}><span className={'pulse '+(state.settings.paused?'off':'')}/>{latest?time(latest):'—'} <small> / {state.settings.pollSeconds}s</small></span><button aria-label={t(state.settings.paused?'resume':'pause')} title={t(state.settings.paused?'resume':'pause')} onClick={()=>void update({paused:!state.settings.paused})}>{state.settings.paused?<Play size={12}/>:<Pause size={12}/>}</button><UpdateNotice state={state} bridge={bridge}/><span className="footer-copy">v{version}</span></footer>
  </main>
 }
