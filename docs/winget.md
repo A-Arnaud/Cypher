@@ -21,6 +21,8 @@ winget upgrade --id AArnaud.Cypher --exact --source winget
 
 ## Maintainer procedure
 
+The submission now targets **0.7.1**. Its [hosted installation check](https://github.com/A-Arnaud/Cypher/actions/runs/40458346718) passed, including the exact published installer hash, native registration and uninstall. Microsoft catalog publication remains pending.
+
 The proposed manifest set is in [distribution/winget](../distribution/winget/manifests/a/AArnaud/Cypher/0.7.1). It contains version, installer and English/French locale files using Microsoft's recommended 1.12 schema. The installer publisher/name/version must match the actual Add/Remove Programs entry, not just a marketing title.
 
 Run the schema check locally without installing the application:
