@@ -1,3 +1,12 @@
+# Cypher 0.5.1-mac.2 - connection options verification on October 27, 2026
+
+- Published [Mac preview 0.5.1-mac.2](https://github.com/A-Arnaud/Cypher/releases/tag/v0.5.1-mac.2), with DMG/ZIP downloads and SHA-256 manifests for Intel and Apple Silicon. Existing Windows 0.5.0 binaries remain the stable release.
+- Source 0febe05: [Mac CI](https://github.com/A-Arnaud/Cypher/actions/runs/40430285400) passed on both architectures, with 79 unit/subprocess tests each (one Windows-only test skipped), an actual native Codex app-server probe in an empty file-only auth profile, Electron docking/restore, final application and connector version launches, signature and archive scans.
+- [Windows CI](https://github.com/A-Arnaud/Cypher/actions/runs/40430285361) passed 149 unit/subprocess tests, 17 browser UI scenarios, packaged first-run checks without external CLI/Node, native-window checks, production security, executable icons, packaging and artifact scans.
+- Browser authentication tests use real subprocesses with synthetic responses. They cover exact trusted URL hosts, profile isolation and canonical paths/junctions, success-only read authorization, cancellation, rejected/mismatched completion, secret filtering and first-account indicator placement. No real account login or quota result is claimed.
+- All four Mac downloads matched the CI checksum manifests after download; GitHub's digests for all six uploaded files also matched local SHA-256. The packaged Codex Mach-O deployment targets are macOS 10.12 on Intel and 11 on ARM, below the application's overall macOS 13 minimum.
+- Existing Intel launch was confirmed by the user for the previous preview; the new browser login still needs user-account validation. The new preview remains ad-hoc signed without Apple notarization; the prepared Developer ID workflow has no configured Apple credentials.
+
 # Cypher 0.5.1-mac.1 - macOS preview verification on October 27, 2026
 
 - [Separate Mac release](https://github.com/A-Arnaud/Cypher/releases/tag/v0.5.1-mac.1): DMG and ZIP downloads for Apple Silicon and Intel, plus a SHA-256 manifest per architecture. Windows 0.5.0 remains the stable release.

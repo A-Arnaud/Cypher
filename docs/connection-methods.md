@@ -1,5 +1,7 @@
 # Connection methods
 
+These choices are available in **macOS preview 0.5.1-mac.2** and current source builds. The published **Windows 0.5.0 stable** package retains its earlier CLI/API connection interface.
+
 Connections starts with **Automatic detection**. Existing profiles remain separate and require explicit permission before Cypher reads them. Detecting a profile does not authorize it, sign it in or prove its subscription.
 
 **More ways to connect** offers methods supported by the selected provider:
