@@ -1,5 +1,5 @@
 import {dialog,type BrowserWindow} from 'electron';
-import path from 'node:path';import {stat,mkdir} from 'node:fs/promises';import {randomUUID} from 'node:crypto';
+import path from 'node:path';import {stat,mkdir,realpath} from 'node:fs/promises';import {randomUUID} from 'node:crypto';
 import {startCodexBrowserLogin} from './codex-browser-login';
 import {discoverTools,type Detection} from './discovery';
 import {discoverProfiles,publicProfiles,profileProviders,type ProfileProvider,type ProfileRecord} from './profiles';
@@ -40,7 +40,7 @@ export class Accounts {
   return this.serialize(async()=>{
    if(this.disposed)throw Error('direct-login-unavailable');if(this.directSessions.size)throw Error('login-already-open');let profile:ProfileRecord;
    if(profileId!==undefined){profile=this.profile(profileId);if(profile.providerId!=='codex')throw Error('invalid-profile');if(this.active.has(profile.id))return}
-   else{const token=randomUUID(),root=path.join(this.host.userData,'profiles','codex',token);await mkdir(root,{recursive:true});this.registry.profiles.push({connectionMethod:'browser',providerId:'codex',root,label:'Cypher '+token.slice(0,8)});await this.persist();await this.host.refresh();profile=this.profiles.find(p=>p.providerId==='codex'&&p.root===root)!;if(!profile)throw Error('invalid-profile')}
+   else{const token=randomUUID(),candidate=path.join(this.host.userData,'profiles','codex',token);await mkdir(candidate,{recursive:true});const root=await realpath(candidate);this.registry.profiles.push({connectionMethod:'browser',providerId:'codex',root,label:'Cypher '+token.slice(0,8)});await this.persist();await this.host.refresh();profile=this.profiles.find(p=>p.providerId==='codex'&&p.root===root)!;if(!profile)throw Error('invalid-profile')}
    await mkdir(profile.root,{recursive:true});if(this.disposed)throw Error('direct-login-unavailable');delete this.loginErrors[profile.id];const controller=new AbortController();this.directSessions.set(profile.id,controller);this.active.add(profile.id);this.host.publish();
    try{
     const cmd=await cliCommand(this.host.directExecutable!,'codex');if(controller.signal.aborted)throw Error('cancelled');
