@@ -1,6 +1,7 @@
 <div align="center">
   <img src="docs/brand/wordmark.png" alt="Cypher" width="230">
-  <p><strong>Your AI usage, always in view.</strong><br>AI quotas, API balances and local models — on Windows and Mac.</p>
+  <h1>Cypher — AI Quota Monitor</h1>
+  <p><strong>Track your AI quotas on Windows and macOS.</strong><br>Codex subscription quotas, supported API balances and local model availability.</p>
   <p>
     <a href="https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-Setup-0.7.0-win-x64.exe"><img src="https://img.shields.io/badge/Download-Windows_10_%2F_11-2f6feb?style=for-the-badge" alt="Download Cypher for Windows 10 or Windows 11"></a>
     <a href="https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.0-mac-x64.dmg"><img src="https://img.shields.io/badge/Download-Mac_Intel-414956?style=for-the-badge" alt="Download Cypher for Mac Intel"></a>

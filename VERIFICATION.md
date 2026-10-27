@@ -1,3 +1,8 @@
+# Public product description and search audit — October 27, 2026
+
+- Added the explicit visible heading **Cypher — AI Quota Monitor** to README and clarified GitHub About/release descriptions with actual Windows/macOS and Codex/API scope. Added four relevant repository topics. Validated 151 local documentation references and six rendered Markdown documents. This changes public descriptions only; application source, package version, release tag and all ten 0.7.0 asset IDs/sizes/digests remain unchanged. Latest remains 0.7.0.
+- Searches tested during this audit did not return this project prominently; this is an observation of those queries, not a universal ranking or indexing determination. The public website returned HTTP 200 and advertised an allowed crawl plus sitemap, but its title remained generic and descriptions still referred to Windows only. Website content was not changed. The launch checklist records the pending website title/heading/platform alignment and links to Google's guidance; metadata changes alone do not establish improved rankings.
+
 # Cypher 0.7.0 — quick actions, profile health and private diagnostics, October 27, 2026
 
 - Published [Cypher 0.7.0](https://github.com/A-Arnaud/Cypher/releases/tag/v0.7.0) as the common stable **Latest**, with ten Windows 10/11, Mac Intel and Apple Silicon assets. [PR #13](https://github.com/A-Arnaud/Cypher/pull/13) merged at `4df5401ddc8c061879ff7540c1716c0cd1d068c3`, the release tag target. Tested branch `5fa81dc8f64822abfb95ae2d0d2d9abc4a1a3f4e`, the PR merge and final source share tree `d101ddaf24cd4644585ba853fe3f0629d6d02a9d` exactly.
