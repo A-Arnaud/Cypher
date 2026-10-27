@@ -1,0 +1,15 @@
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),{spawnSync}=require('node:child_process'),{buildSync}=require('esbuild');
+if(process.platform!=='win32')throw Error('Native Windows showcase capture requires Windows. Existing public images can be composed on other systems.');
+const out=path.resolve('docs/screenshots'),scratch=path.resolve('.local-builds/windows-showcase');fs.mkdirSync(scratch,{recursive:true});
+const taskbar=path.join(scratch,'taskbar.cjs');buildSync({entryPoints:['src/shared/taskbar.ts'],bundle:true,platform:'node',format:'cjs',outfile:taskbar});
+const {fixture}=require('./capture-github.cjs'),{taskbarSummary}=require(taskbar);const state=fixture();
+const input={...taskbarSummary(state),language:'en'};assert.equal(input.items.length,2);assert.deepEqual(input.items[0].quotas,[{label:'5h',text:'75%'},{label:'7d',text:'62%'}]);
+const data=path.join(scratch,'demo.json');fs.writeFileSync(data,JSON.stringify(input));
+const compiler=path.join(process.env.WINDIR,'Microsoft.NET/Framework64/v4.0.30319/csc.exe'),exe=path.join(scratch,'WindowsShowcase.exe');
+const build=spawnSync(compiler,['/nologo','/target:exe','/main:SceneMain','/out:'+exe,'/r:System.Windows.Forms.dll','/r:System.Drawing.dll','/r:System.Web.Extensions.dll','/resource:'+path.resolve('assets/icon.png')+',Cypher.Logos.default.png','/resource:'+path.resolve('dist/assets/indicator/codex.png')+',Cypher.Logos.codex.png',path.resolve('native/taskbar/Program.cs'),path.resolve('scripts/showcase/WindowsScene.cs')],{stdio:'inherit',windowsHide:true});assert.equal(build.status,0,'compile native showcase');
+const run=spawnSync(exe,[data,path.resolve('assets/icon.png'),out],{stdio:'inherit',windowsHide:true,timeout:30000});assert.equal(run.status,0,'capture native showcase');
+const compositor=path.join(scratch,'compositor.cjs');
+buildSync({stdin:{contents:`import {app} from 'electron';import fs from 'node:fs';import {indicatorImage} from './src/main/indicator-image';app.setPath('userData',${JSON.stringify(path.join(scratch,'profile'))});app.whenReady().then(()=>{try{const items=${JSON.stringify(input.items)};fs.writeFileSync(${JSON.stringify(path.join(out,'showcase-macos-indicator.png'))},indicatorImage(items,true).toPNG());items.forEach((item,index)=>fs.writeFileSync(${JSON.stringify(out)}+'/showcase-windows-tray-'+(index+1)+'.png',indicatorImage([item],false).toPNG()));app.exit(0)}catch(e){console.error(e);app.exit(1)}});`,resolveDir:process.cwd(),sourcefile:'showcase-compositor.ts',loader:'ts'},bundle:true,platform:'node',format:'cjs',external:['electron'],define:{__dirname:JSON.stringify(path.resolve('dist/main'))},outfile:compositor});
+const env={...process.env};delete env.ELECTRON_RUN_AS_NODE;delete env.NODE_OPTIONS;
+assert.equal(spawnSync(require('electron'),[compositor],{env,stdio:'inherit',windowsHide:true,timeout:15000}).status,0,'capture native compositor examples');
+fs.writeFileSync(path.join(scratch,'geometry.json'),JSON.stringify({canvas:{width:1600,height:1000},panel:{x:1090,y:172,width:430,height:704},indicator:{x:1268,y:956,width:152,height:40},clock:{x:1484,y:958,width:100,height:40}}));

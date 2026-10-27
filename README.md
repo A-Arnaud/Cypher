@@ -40,7 +40,9 @@ You do not need Node.js to run Cypher. English and French are available in Setti
 
 **First-launch security prompts:** Windows may show a SmartScreen warning; Mac may require **Privacy & Security → Open Anyway**. These builds are not publisher-signed/notarized. [Installation help](docs/downloads.md#first-launch).
 
-<a href="#download"><img src="docs/brand/hero.png" alt="Cypher desktop widget and detailed view, using synthetic example values" width="100%"></a>
+<a href="docs/showcase/windows-location.png"><img src="docs/showcase/windows-location.png" alt="Cypher in a staged Windows 10 desktop, with its real quota indicator highlighted beside the bottom-right clock" width="100%"></a>
+
+Windows 10 demonstration scene, using the actual Cypher panel and native indicator. [Windows 11 notification area](docs/showcase/windows11-notification-guide.png) and [Mac top menu bar](docs/showcase/macos-location.png) have their own visual guides.
 
 ## Why Cypher
 
@@ -113,33 +115,49 @@ Existing profiles come first. Additional methods depend on the provider and down
 
 ## Screenshots
 
-<img src="docs/brand/whats-new.png" alt="Cypher 0.9.0: two quota windows in the bar and a simpler quota panel" width="100%">
+**[Explore the full visual guide: 25 interface captures and 12 annotated guides](docs/screenshots/README.md).** [Guide Windows en français](docs/showcase/windows-location-fr.png).
 
-Captured from the current Cypher interface at 2× resolution, with demonstration profiles and readings. macOS images preview the Mac layout. No personal account data is shown.
+**Two quotas beside the clock.** The upper row shows the short/session limit; the lower row shows the week. Values are remaining percentages.
+
+<a href="docs/showcase/read-the-bar.png"><img src="docs/showcase/read-the-bar.png" alt="Windows 10 clock-area zoom explaining Cypher's 5h and 7d remaining quotas" width="100%"></a>
+
+The Windows 10 desktop is staged in a native WinForms harness with the actual Cypher panel and C# indicator painter. All accounts and readings are demonstrations. Windows 11 and Mac context images below are labelled layout previews.
 
 <details>
-<summary>Explore the widget, quotas, Claude connection and updates</summary>
+<summary><strong>Connect an account in three steps</strong></summary>
 
-<p align="center">
-  <img src="docs/screenshots/onboarding.png" alt="Guided first launch with a simple choice of services" width="350">
-  <img src="docs/screenshots/connect-codex.png" alt="Codex browser sign-in with alternative methods kept below" width="350">
-</p>
-<p align="center">
-  <img src="docs/screenshots/widget-windows.png" alt="Compact Cypher widget showing three demonstration Codex profiles and session/weekly quotas" width="350">
-  <img src="docs/screenshots/widget.png" alt="Current detailed view with demonstration quotas, reset times and profile health" width="350">
-</p>
-<p align="center">
-  <img src="docs/screenshots/connections.png" alt="Claude Code connected through its CLI, with account status and subscription quota limitations clearly shown" width="350">
-  <img src="docs/screenshots/updates.png" alt="Update settings in Cypher 0.9.0, showing automatic checks and the requirement for approval before installation" width="350">
-</p>
-<p align="center">
-  <img src="docs/screenshots/api-widget-synthetic.png" alt="Compact widget with demonstration API balances and points" width="350">
-  <img src="docs/screenshots/api-details-synthetic.png" alt="Detailed API cards with demonstration values" width="350">
-</p>
+Choose Codex, sign in in your browser, then choose which accounts appear. [Existing-account permission guide](docs/showcase/existing-accounts.png).
 
-Screenshots use demonstration data. [New interface and connection guide](docs/interface-0.9.md).
+<a href="docs/showcase/connect-guide.png"><img src="docs/showcase/connect-guide.png" alt="Actual Cypher screens showing service choice, Codex browser sign-in and account visibility" width="100%"></a>
 
 </details>
+
+<details>
+<summary><strong>Minimize, reopen, personalize and start with Windows</strong></summary>
+
+| Keep it in the bar | Choose your appearance |
+| --- | --- |
+| <a href="docs/showcase/minimize-guide.png"><img src="docs/showcase/minimize-guide.png" alt="The real minimize button and the native quota indicator" width="400"></a> | <a href="docs/showcase/appearance.png"><img src="docs/showcase/appearance.png" alt="The same quota accounts in light and dark mode" width="400"></a> |
+
+<a href="docs/showcase/startup-and-updates.png"><img src="docs/showcase/startup-and-updates.png" alt="Optional bar-only Windows startup and approval-based update settings in Cypher" width="100%"></a>
+
+[Window hidden, indicator visible](docs/showcase/windows-background.png) · [Service filters and reading details](docs/showcase/navigate-and-details.png).
+
+</details>
+
+<details>
+<summary><strong>Where it appears on Windows 11 and Mac</strong></summary>
+
+**Windows 11:** small two-row numeric icons in the notification area. Windows may put them under hidden icons; hover for service names and durations. [Windows 11 layout guide](docs/showcase/windows11-notification-guide.png).
+
+<a href="docs/showcase/windows11-notification-guide.png"><img src="docs/showcase/windows11-notification-guide.png" alt="Windows 11 layout preview with Cypher's real numeric notification icons near the clock" width="100%"></a>
+
+**Mac:** one compact native image in the **top menu bar**, with no running-app Dock icon. Intel and Apple Silicon downloads are available.
+
+<a href="docs/showcase/macos-location.png"><img src="docs/showcase/macos-location.png" alt="Mac layout preview showing Cypher's actual native indicator at the top right and its current panel" width="100%"></a>
+
+</details>
+
 
 ## Development
 
@@ -153,8 +171,11 @@ npm run dev
 To refresh the public screenshots and presentation panels using isolated demonstration data:
 
 ```sh
+npm run build
 node scripts/capture-github.cjs
 node scripts/capture-indicators.cjs
+node scripts/capture-windows-showcase.cjs
+node scripts/generate-screenshot-guides.cjs
 node scripts/generate-brand-assets.cjs
 node scripts/generate-github-panels.cjs
 ```

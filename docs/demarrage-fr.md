@@ -47,6 +47,10 @@ L’indicateur apparaît automatiquement dès l’ouverture de Cypher. Le bouton
 | **Windows 11** | Automatiquement en bas à droite près de l'horloge ; l'icône peut être sous la flèche des icônes masquées |
 | **Mac** | Automatiquement en haut à droite ; Cypher reste absent du Dock et de ⌘Tab |
 
+[![Cypher près de l’horloge Windows : le panneau et les deux lignes de quotas dans la barre du bas](showcase/windows-location-fr.png)](showcase/windows-location-fr.png)
+
+Bureau Windows 10 de démonstration, avec la véritable interface Cypher et le rendu natif de son indicateur. Les valeurs sont fictives. **Session en haut, semaine en bas** ; les pourcentages indiquent ce qu’il reste. [Galerie complète](screenshots/README.md) · [Guide Windows 11](showcase/windows11-notification-guide.png) · [Emplacement sur Mac](showcase/macos-location.png).
+
 Sur Mac, cliquez sur l'icône du haut puis **Afficher / Masquer** pour ouvrir ou cacher la fenêtre. Cela fonctionne aussi après l'ouverture des réglages. Si vous aviez épinglé l'ancienne icône au Dock, retirez ce favori une fois depuis son menu d'options.
 
 Raccourci par défaut : **Ctrl+Alt+Q** sur Windows, **Control+Option+Q** sur Mac.

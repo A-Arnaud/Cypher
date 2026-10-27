@@ -39,8 +39,15 @@ async function open(context,url,state,viewport={width:430,height:704}){
  },state);
  await page.goto(url);await expect(page.locator('.shell')).toBeVisible();await page.evaluate(async()=>{await document.fonts.ready;await Promise.all([...document.images].map(img=>img.decode()))});return page;
 }
-async function shot(page,name){await page.screenshot({path:path.join(out,name),omitBackground:true,animations:'disabled'});await page.close()}
-(async()=>{
+async function shot(page,name){
+ const controls={};for(const [key,selector] of Object.entries({minimize:'.bar-place-button',quotas:'.account-readings',accounts:'.service-choices',browser:'.recommended-signin .primary-action',appearance:'#personalization-heading',startup:'.startup-group',updates:'.update-settings'})){
+  const target=page.locator(selector).first();if(await target.count()&&await target.isVisible())controls[key]=await target.boundingBox();
+ }
+ await fs.mkdir('.local-builds/capture-geometry',{recursive:true});await fs.writeFile('.local-builds/capture-geometry/'+name+'.json',JSON.stringify({viewport:page.viewportSize(),controls}));
+ await page.screenshot({path:path.join(out,name),omitBackground:true,animations:'disabled'});await page.close();
+}
+module.exports={fixture,open,shot,now};
+if(require.main===module)(async()=>{
  const {createServer}=await import('vite');const server=await createServer({server:{host:'127.0.0.1',port:0}});let browser;
  try{
   await server.listen();const url='http://127.0.0.1:'+server.httpServer.address().port;browser=await chromium.launch({channel:'msedge'});
@@ -63,11 +70,20 @@ async function shot(page,name){await page.screenshot({path:path.join(out,name),o
   page=await open(context,url,state);await shot(page,'profile-status-synthetic.png');
   page=await open(context,url,fixture('darwin'));await page.getByRole('button',{name:'Quick actions',exact:true}).click();await page.getByRole('combobox').fill('codex');await shot(page,'quick-actions-synthetic.png');
   page=await open(context,url,fixture());await page.getByRole('button',{name:'Settings',exact:true}).click();await page.locator('.scroll-area').evaluate(el=>{el.scrollTop=el.scrollHeight});await expect(page.locator('.update-settings')).toContainText('Cypher is up to date');await expect(page.locator('.topbar')).toBeInViewport();await shot(page,'updates.png');
-  state=fixture();state.settings.language='fr';page=await open(context,url,state);await page.getByRole('button',{name:'Réglages',exact:true}).click();await shot(page,'settings-fr.png');
+  state=fixture();state.settings.language='fr';page=await open(context,url,state);await shot(page,'quotas-fr.png');page=await open(context,url,state);await page.getByRole('button',{name:'Réglages',exact:true}).click();await shot(page,'settings-fr.png');
   state.settings.summaryMode=true;state.settings.pinned=['codex',work,team];page=await open(context,url,state,{width:380,height:340});await shot(page,'widget-fr.png');
   state=fixture();state.profiles=[];state.providers=[];state.detections=[];state.configuredApiProviders=[];state.settings.consents=[];state.settings.pinned=['codex','claude','gemini'];page=await open(context,url,state);await expect(page.getByRole('heading',{name:'Add your first account',exact:true})).toBeVisible();await shot(page,'onboarding.png');
   page=await open(context,url,state);await page.getByRole('button',{name:'Connect Codex',exact:true}).click();await expect(page.getByRole('button',{name:'Sign in with your browser',exact:true})).toBeVisible();await shot(page,'connect-codex.png');
   state=fixture();state.settings.theme='dark';page=await open(context,url,state);await page.getByRole('button',{name:'Settings',exact:true}).click();await shot(page,'settings-dark.png');
-  await context.close();console.log('Captured fifteen 2x screenshots of the actual renderer. Demonstration accounts/readings only; all external requests blocked.');
+  state=fixture();state.settings.theme='dark';page=await open(context,url,state);await shot(page,'quotas-dark.png');
+  state.settings.summaryMode=true;page=await open(context,url,state,{width:380,height:340});await shot(page,'summary-dark.png');
+  state=fixture();state.providers=[];state.profiles=[];state.detections=[];state.configuredApiProviders=[];state.settings.consents=[];state.settings.pinned=['codex','claude','gemini'];page=await open(context,url,state);await page.getByRole('navigation').getByRole('button',{name:'Accounts',exact:true}).click();await shot(page,'services-picker.png');
+  state=fixture();state.providers=[];state.settings.consents=[];state.configuredApiProviders=[];page=await open(context,url,state);await page.getByRole('navigation').getByRole('button',{name:'Accounts',exact:true}).click();await page.locator('.service-choice').filter({hasText:'Codex'}).click();await expect(page.getByRole('button',{name:'Check and add',exact:true}).first()).toBeVisible();await shot(page,'existing-permission.png');
+  page=await open(context,url,fixture());await page.getByRole('navigation').getByRole('button',{name:'Accounts',exact:true}).click();await page.locator('.service-choice').filter({hasText:'Codex'}).click();await expect(page.getByRole('switch',{name:'Show in my quotas Personal',exact:true})).toBeChecked();await shot(page,'accounts-connected.png');
+  state=fixture();state.settings.pinned=['codex','openrouter','poe'];page=await open(context,url,state);await page.getByRole('button',{name:'Show Codex',exact:true}).click();await expect(page.locator('.provider-card')).toHaveCount(1);await shot(page,'service-filter.png');
+  page=await open(context,url,fixture());await page.locator('.reading-details summary').first().click();await expect(page.locator('.reading-detail-content').first()).toBeVisible();await shot(page,'quota-details.png');
+  state=fixture();state.settings.startAtLogin=true;page=await open(context,url,state);await page.getByRole('button',{name:'Settings',exact:true}).click();await page.locator('.startup-group').evaluate(el=>{const pane=el.closest('.scroll-area');pane.scrollTop+=el.getBoundingClientRect().top-pane.getBoundingClientRect().top-15});await expect(page.getByRole('switch',{name:'Start with Windows',exact:true})).toBeChecked();await shot(page,'startup-enabled.png');
+  state=fixture('darwin');state.settings.theme='dark';page=await open(context,url,state);await shot(page,'macos-panel-dark.png');
+  await context.close();console.log('Captured twenty-five 2x screenshots of the actual renderer. Demonstration accounts/readings only; all external requests blocked.');
  }finally{if(browser)await browser.close();await server.close()}
 })().catch(error=>{console.error(error);process.exitCode=1});

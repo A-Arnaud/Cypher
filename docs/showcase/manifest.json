@@ -1,0 +1,55 @@
+{
+  "version": "0.9.0",
+  "rendererCaptureCount": 25,
+  "windowsContext": "native WinForms staged desktop; no Explorer attachment or user desktop capture",
+  "guides": [
+    {
+      "file": "appearance.png",
+      "bytes": 135452
+    },
+    {
+      "file": "connect-guide.png",
+      "bytes": 143571
+    },
+    {
+      "file": "existing-accounts.png",
+      "bytes": 127709
+    },
+    {
+      "file": "macos-location.png",
+      "bytes": 99493
+    },
+    {
+      "file": "minimize-guide.png",
+      "bytes": 120757
+    },
+    {
+      "file": "navigate-and-details.png",
+      "bytes": 99169
+    },
+    {
+      "file": "read-the-bar.png",
+      "bytes": 146227
+    },
+    {
+      "file": "startup-and-updates.png",
+      "bytes": 110424
+    },
+    {
+      "file": "windows-background.png",
+      "bytes": 246203
+    },
+    {
+      "file": "windows-location-fr.png",
+      "bytes": 288476
+    },
+    {
+      "file": "windows-location.png",
+      "bytes": 283350
+    },
+    {
+      "file": "windows11-notification-guide.png",
+      "bytes": 60846
+    }
+  ]
+}

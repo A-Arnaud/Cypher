@@ -18,6 +18,10 @@ Cypher is available for **Mac Intel and Apple Silicon**, with a native menu bar 
 
 Cypher runs as a native Mac agent: its running-app icon stays out of the **Dock** and **Command-Tab**, including after opening its window, Settings or a connection form. Its icon in the **top menu bar** remains the entry point.
 
+[![Mac layout illustration using Cypher's actual panel and native menu bar indicator at the top right](docs/showcase/macos-location.png)](docs/showcase/macos-location.png)
+
+Layout preview with demonstration readings, using the actual Cypher panel and indicator compositor. [Complete visual guide](docs/screenshots/README.md).
+
 - Click the Cypher icon at the top and choose **Show / Hide** (**Afficher / Masquer**) to open or hide its window.
 - **Control+Option+Q** also shows or hides it. Opening Cypher again from Applications restores its window.
 - **Quit** (**Quitter**) in the Cypher menu stops the application. Closing the window still offers Minimize, Quit and Cancel.

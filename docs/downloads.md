@@ -13,6 +13,8 @@
 
 Mac requires **macOS 13 Ventura or later**. To choose the correct Mac file, open **Apple menu → About This Mac**: **Intel** means Mac Intel; **Apple M…** means Apple Silicon. Windows downloads target x64, not Windows ARM64.
 
+[See Cypher beside the Windows clock](showcase/windows-location.png) · [Windows 11 notification area](showcase/windows11-notification-guide.png) · [Mac top menu bar](showcase/macos-location.png) · [Full visual guide](screenshots/README.md).
+
 ## Install
 
 ### Windows 10 / 11
