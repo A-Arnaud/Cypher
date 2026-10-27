@@ -11,7 +11,7 @@
 | Mac Intel | [Mac Intel DMG](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.5.1-mac.2-mac-x64.dmg) |
 | Mac with Apple Silicon | [Mac Apple Silicon DMG](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.5.1-mac.2-mac-arm64.dmg) |
 
-Mac requires **macOS 13 Ventura or later**. To choose the correct Mac file, open ** → About This Mac**: **Intel** means Mac Intel; **Apple M…** means Apple Silicon. Windows downloads target x64, not Windows ARM64.
+Mac requires **macOS 13 Ventura or later**. To choose the correct Mac file, open **Apple menu → About This Mac**: **Intel** means Mac Intel; **Apple M…** means Apple Silicon. Windows downloads target x64, not Windows ARM64.
 
 ## Install
 
