@@ -8,7 +8,7 @@ Cypher is available for **Mac Intel and Apple Silicon**, with a native menu bar 
 
 - **Apple Silicon:** choose the `mac-arm64.dmg` or `mac-arm64.zip` download.
 - **Intel:** choose `mac-x64.dmg` or `mac-x64.zip`.
-- Open the DMG and drag **Cypher.app** to **Applications**, or extract the ZIP and move the app to Applications.
+- When updating, choose **Quit** in the old Cypher menu first. Open the DMG and replace **Cypher.app** in **Applications**, or extract the ZIP and move the app there, then reopen it. An older process keeps its previous Dock behavior until you quit it.
 - Open Cypher, authorize the profiles or API connections you want, then choose **Move to menu bar**. The indicator appears **at the top right of the screen**. Its menu opens or hides the widget, refreshes data, pauses collection or quits.
 - Up to three pinned profiles show their remaining percentages alongside the menu bar icon. A dash means unavailable; balances and model counts remain in the widget. macOS controls available menu bar space, including on displays with a camera notch.
 - The default show/hide shortcut remains **Control+Option+Q** (the Mac name for `Control+Alt+Q`).

@@ -13,4 +13,4 @@ Before promoting a release to Latest:
 
 Platform availability and signing are separate. Mac is supported and confirmed working; do not label it uncertain merely because Apple notarization is absent. Continue to describe the actual signature/notarization status in first-launch guidance. Only claim Apple notarization after the real [Developer ID checks](macos-signing.md) pass.
 
-The current common release contains **Cypher 0.5.4 for Windows and macOS**, with the labelled bar placement button and close/minimize/quit choices on both platforms.
+The current common release contains **Cypher 0.5.4 for Windows and macOS**, including discreet Mac agent behavior without a Dock entry, optional login startup, and the labelled bar placement/closing choices. Mac update instructions must tell users to quit the old process before replacing and reopening the application.
