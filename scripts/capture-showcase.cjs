@@ -7,11 +7,11 @@ try{await server.listen();browser=await chromium.launch({channel:'msedge'});cons
    {id:'openrouter',state:'ready',auth:'connected',message:'keyBudgetInfo',observedAt:now,metrics:[{id:'budget',label:'keyBudgetRemaining',remaining:74.5,remainingPercent:75,unit:'currency',currency:'USD',source:'provider',observedAt:now},{id:'cost',label:'monthlyApiSpend',used:25.5,unit:'currency',currency:'USD',source:'provider',observedAt:now}]},
    {id:'poe',state:'ready',auth:'connected',message:'apiBalanceInfo',observedAt:now,metrics:[{id:'points',label:'pointsRemaining',remaining:1500,unit:'points',source:'provider',observedAt:now}]},
    {id:'deepseek',state:'ready',auth:'connected',message:'apiBalanceInfo',observedAt:now,metrics:[{id:'balance',label:'apiBalance',remaining:17.5,unit:'currency',currency:'CNY',source:'provider',observedAt:now}]}
-  ],refreshing:false,desktop:true};const listeners=new Set();
-  window.quota={getState:async()=>state,refresh:async()=>{},updateSettings:async patch=>{state={...state,settings:{...state.settings,...patch}};for(const l of listeners)l(state)},openProvider:async()=>{},hide:async()=>{},quit:async()=>{},subscribe:l=>{listeners.add(l);return()=>listeners.delete(l)}};
+  ],refreshing:false,desktop:true,platform:'win32',taskbarBackend:'tray',taskbarStatus:'off'};const listeners=new Set();
+  window.quota={getState:async()=>state,refresh:async()=>{},updateSettings:async patch=>{state={...state,settings:{...state.settings,...patch}};for(const l of listeners)l(state)},setTaskbarMode:async()=>{},requestClose:async()=>{},openProvider:async()=>{},hide:async()=>{},quit:async()=>{},subscribe:l=>{listeners.add(l);return()=>listeners.delete(l)}};
  });
  await page.goto('http://127.0.0.1:'+server.httpServer.address().port);await page.locator('.cards').waitFor();await fs.mkdir('docs/screenshots',{recursive:true});
  await page.screenshot({path:'docs/screenshots/api-details-synthetic.png',omitBackground:true});
- await page.getByRole('button',{name:'Back to widget',exact:true}).click();await page.locator('.summary-row').first().waitFor();await page.setViewportSize({width:430,height:278});await page.screenshot({path:'docs/screenshots/api-widget-synthetic.png',omitBackground:true});
+ await page.getByRole('button',{name:'Back to widget',exact:true}).click();await page.locator('.summary-row').first().waitFor();await page.setViewportSize({width:430,height:354});await page.screenshot({path:'docs/screenshots/api-widget-synthetic.png',omitBackground:true});
  console.log('English synthetic showcase captured; no account data was accessed.');
 }finally{if(browser)await browser.close();await server.close()}})().catch(e=>{console.error(e);process.exitCode=1});

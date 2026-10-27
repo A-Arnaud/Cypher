@@ -41,6 +41,8 @@ jobs:
       - name: Verify bundled authentication component with an empty profile
         run: node scripts/test-codex-runtime.cjs
       - run: node scripts/smoke-mac.cjs
+      - name: Verify close, minimize and quit choices in native Electron
+        run: node scripts/test-window-close.cjs
       - name: Package macOS preview with an ad-hoc signature (no Apple certificate)
         run: npx electron-builder --mac dmg zip --${{ matrix.arch }} --publish never
       - name: Verify final application signature and launch

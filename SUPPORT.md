@@ -2,9 +2,11 @@
 
 ## FAQ
 
+**How do I keep Cypher in the bar or close it?** Use the labelled **Move to taskbar** button on Windows (bottom of the screen) or **Move to menu bar** on Mac (top right). Closing the window offers **Minimize**, **Quit Cypher** and **Cancel**. Minimize keeps collection running; Quit stops Cypher. If the indicator cannot start, the window stays open. [Widget guide](docs/user-guide.md).
+
 **Where do I download Cypher?** Open [the latest download page](https://github.com/A-Arnaud/Cypher/releases/latest). It contains Windows 10/11, Mac Intel and Mac Apple Silicon on one page. Use the [download guide](docs/downloads.md) if you are unsure which file to choose.
 
-**Where are the quotas on Mac?** Choose **Show quotas in menu bar**. The indicator appears in the macOS menu bar at the top right, with up to three pinned percentage readings. Its menu can show/hide the widget, refresh, pause or quit. A dash means unavailable percentage data; balances and model counts remain in the widget. On a display with a camera notch or many menu bar items, macOS may limit available space. See [the Mac guide](MACOS.md).
+**Where are the quotas on Mac?** Choose **Move to menu bar**. The indicator appears in the macOS menu bar at the top right, with up to three pinned percentage readings. Its menu can show/hide the widget, refresh, pause or quit. A dash means unavailable percentage data; balances and model counts remain in the widget. On a display with a camera notch or many menu bar items, macOS may limit available space. See [the Mac guide](MACOS.md).
 
 **Why is the Mac application grayed out or marked incompatible?** First check your macOS version and downloaded architecture. This release requires **macOS 13 Ventura or later**. Intel Macs need the `mac-x64` download; `mac-arm64` is for Apple Silicon. A security exception does not make an unsupported OS or architecture compatible. If both requirements are met, report the exact Finder message and filename so the failure can be diagnosed.
 
@@ -14,7 +16,7 @@
 
 **Does Cypher need my chat password or browser cookies?** No. Use the official CLI login flow for CLI profiles or enter a supported API key in Connections. Do not share that key or any CLI credentials in an issue. See [Privacy](PRIVACY.md).
 
-**Do I have to install a CLI to connect?** For Codex browser sign-in in 0.5.1-mac.2, no. Expand **More ways to connect** and choose **Sign in with your browser**. The official authentication component is included and keeps the account separate in Cypher. Existing profiles still appear under Automatic detection. Claude and Gemini currently require their CLI for subscription-account sign-in; API-key connections do not require a CLI and read separate API billing data. See [connection methods](docs/connection-methods.md).
+**Do I have to install a CLI to connect?** For Codex browser sign-in in 0.5.2, no. Expand **More ways to connect** and choose **Sign in with your browser**. The official authentication component is included and keeps the account separate in Cypher. Existing profiles still appear under Automatic detection. Claude and Gemini currently require their CLI for subscription-account sign-in; API-key connections do not require a CLI and read separate API billing data. See [connection methods](docs/connection-methods.md).
 
 **Is Windows 11 supported?** Cypher 0.5.0 adds an OS-selected notification-area mode for Windows 11 while retaining the desktop widget. It does not modify the Windows 11 taskbar or embed text inside it. The same x64 installer/portable build serves Windows 10 and 11. Runtime behavior on a real Windows 11 device remains unverified; OS-selection, tray lifecycle and UI fixture tests are not device certification. Windows 10 retains its existing embedded indicator on a horizontal primary taskbar. Include the exact Windows build (`winver`) and chosen mode when reporting a problem.
 

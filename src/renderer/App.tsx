@@ -1,7 +1,8 @@
+import {BarPlacement} from './BarPlacement';import {windowCopy} from '../shared/window-copy';
 import {SettingsPanel} from './SettingsPanel';
 import {ProviderCard} from './ProviderCard';
 import {useEffect,useMemo,useState} from 'react';
-import {ArrowUpRight,ChevronLeft,PanelBottom,PanelTop,EyeOff,Layers3,Link2,LoaderCircle,Pause,Play,Plus,RefreshCw,Search,Settings2,Sparkles,X} from 'lucide-react';
+import {ArrowUpRight,ChevronLeft,Layers3,Link2,LoaderCircle,Pause,Play,Plus,RefreshCw,Search,Settings2,Sparkles,X} from 'lucide-react';
 import {latestObservation} from '../shared/observation';
 import {version} from '../../package.json';
 import type {AppState,SettingsPatch} from '../shared/model';
@@ -14,7 +15,7 @@ export function App(){
  useEffect(()=>{if(state)setShortcut(state.settings.shortcut)},[state?.settings.shortcut]);
  const lang=state?.settings.language??'en';const t=(key:string)=>copy(lang,key==='taskbarError'&&state?.taskbarBackend==='tray'?'trayError':key,state?.platform);useEffect(()=>{document.documentElement.lang=lang;document.body.classList.toggle('desktop',!!state?.desktop);document.documentElement.classList.toggle('desktop',!!state?.desktop)},[lang,state?.desktop]);
  const update=async(p:SettingsPatch)=>{try{setError('');await bridge.updateSettings(p)}catch{setError(p.shortcut!==undefined?'shortcutError':'settingsError')}};
- const dock=async()=>{setBusy(true);try{setError('');await bridge.setTaskbarMode?.(state?.taskbarStatus!=='ready')}catch{setError('taskbarError')}finally{setBusy(false)}};
+ const dock=async(enabled:boolean)=>{setBusy(true);try{setError('');await bridge.setTaskbarMode?.(enabled)}catch{setError('taskbarError')}finally{setBusy(false)}};
  const refresh=async()=>{setBusy(true);setError('');try{await bridge.refresh()}catch{setError('collectionFailed')}finally{setBusy(false)}};
  const action=async(fn:()=>Promise<void>|undefined)=>{setBusy(true);setError('');try{await fn()}catch{setError('actionFailed')}finally{setBusy(false)}};
  const consent=(id:string,allowed:boolean)=>{void action(()=>bridge.setConsent?bridge.setConsent(id,allowed):update({consents:allowed?[...(state?.settings.consents??[]),id]:(state?.settings.consents??[]).filter(x=>x!==id)}))};
@@ -26,9 +27,10 @@ export function App(){
  const detected=state.detections.filter(d=>d.installed).length;const live=state.providers.filter(s=>s.state==='ready'&&!s.duplicateOf).length;
  const latest=latestObservation(state);
  const details=(id?:string,target:'overview'|'settings'|'connections'='overview')=>{setFocusProfile(id??'');setTab(target);void update({summaryMode:false})};
- if(state.settings.summaryMode!==false)return <SummaryWidget dock={()=>void dock()} state={state} bridge={bridge} busy={busy} error={error||state.error||''} details={id=>details(id)} settings={()=>details(undefined,'settings')} connections={()=>details(undefined,'connections')} move={(from,to)=>void action(()=>bridge.moveProfile?bridge.moveProfile(from,to):update({pinned:moveProfileOrder(state.settings.pinned,from,to)}))} refresh={()=>void refresh()} pause={()=>void update({paused:!state.settings.paused})}/>;
+ if(state.settings.summaryMode!==false)return <SummaryWidget dock={enabled=>void dock(enabled)} close={()=>void action(()=>bridge.requestClose?.())} state={state} bridge={bridge} busy={busy} error={error||state.error||''} details={id=>details(id)} settings={()=>details(undefined,'settings')} connections={()=>details(undefined,'connections')} move={(from,to)=>void action(()=>bridge.moveProfile?bridge.moveProfile(from,to):update({pinned:moveProfileOrder(state.settings.pinned,from,to)}))} refresh={()=>void refresh()} pause={()=>void update({paused:!state.settings.paused})}/>;
  return <main className={'shell '+(tab!=='overview'?'expanded':'')}>
-  <header className="topbar"><div className="brand"><img className="brand-logo" src={logo} alt="Cypher"/><span>Cypher</span></div><div className="window-actions"><button aria-label={t(state.taskbarBackend==='tray'?(state.taskbarStatus==='ready'?'trayUndock':'trayDock'):(state.taskbarStatus==='ready'?'undock':'dock'))} title={t(state.taskbarBackend==='tray'?(state.taskbarStatus==='ready'?'trayUndock':'trayDock'):(state.taskbarStatus==='ready'?'undock':'dock'))} disabled={!state.desktop||!bridge.setTaskbarMode||busy||state.taskbarStatus==='starting'} onClick={()=>void dock()}>{state.platform==='darwin'?<PanelTop size={15}/>:<PanelBottom size={15}/>}</button><button className="back-widget" aria-label={t('backWidget')} title={t('backWidget')} onClick={()=>void update({summaryMode:true})}><ChevronLeft size={13}/><span>Widget</span></button><button aria-label={t('hide')} title={t('hide')} onClick={()=>void bridge.hide()} disabled={!state.desktop}><EyeOff size={15}/></button><button aria-label={t('quit')} title={t('quit')} onClick={()=>void bridge.quit()} disabled={!state.desktop}><X size={15}/></button></div></header>
+  <header className="topbar"><div className="brand"><img className="brand-logo" src={logo} alt="Cypher"/><span>Cypher</span></div><div className="window-actions"><button className="back-widget" aria-label={t('backWidget')} title={t('backWidget')} onClick={()=>void update({summaryMode:true})}><ChevronLeft size={13}/><span>Widget</span></button><button aria-label={windowCopy(lang,state.platform,state.taskbarBackend).close} title={windowCopy(lang,state.platform,state.taskbarBackend).close} onClick={()=>void action(()=>bridge.requestClose?.())} disabled={!state.desktop||!bridge.requestClose}><X size={15}/></button></div></header>
+  <BarPlacement state={state} available={!!bridge.setTaskbarMode} busy={busy} place={enabled=>void dock(enabled)}/>
   <nav className="tabs" aria-label="Navigation">{(['overview','connections','settings'] as const).map(k=><button key={k} className={tab===k?'selected':''} aria-current={tab===k?'page':undefined} onClick={()=>setTab(k)}>{k==='overview'?<Layers3 size={13}/>:k==='connections'?<Link2 size={13}/>:<Settings2 size={13}/>}<span>{t(k)}</span></button>)}</nav>
   <section className="scroll-area">
   {!state.desktop&&<aside className="preview-notice"><span>{t('preview')}</span><p>{t('previewInfo')}</p></aside>}

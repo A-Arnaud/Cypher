@@ -6,21 +6,25 @@
 
 Pin the profiles you need, reorder them by dragging a handle or using the keyboard, and switch between compact rows and detailed cards. **Details** shows quota windows, API balances, points and reset times when the provider exposes them.
 
-Settings controls opacity, always-on-top behavior, language, keyboard shortcut and refresh interval. The default interval is **60 seconds after a collection completes**; errors use exponential backoff up to 15 minutes. **Pause** suspends collection, **Refresh** starts a read immediately, and **Quit** stops the application. Closing or hiding the window keeps collection running.
+Settings controls opacity, always-on-top behavior, language, keyboard shortcut and refresh interval. The default interval is **60 seconds after a collection completes**; errors use exponential backoff up to 15 minutes. **Pause** suspends collection, **Refresh** starts a read immediately, and **Quit** stops the application.
+
+The labelled button below the header places Cypher in the Windows taskbar or Mac menu bar and minimizes the window. Its hint explains where to find the indicator. Once placed, the button reads **Minimize to taskbar/menu bar**; **Remove** brings Cypher back to the desktop and removes its indicator.
+
+Clicking the close button or closing the native window asks whether to **minimize into the bar**, **quit Cypher**, or **cancel**. Minimizing keeps collection running; quitting stops the app. Cancel or Escape leaves the window open. If the indicator cannot start, Cypher remains visible with an error. Explicit **Quit** from the indicator menu exits directly.
 
 The default show/hide shortcut is **Ctrl+Alt+Q** on Windows, **Control+Option+Q** on Mac.
 
 ## Windows taskbar
 
-**Windows 10:** **Put in taskbar** reserves a small area on the horizontal primary taskbar. It shows up to three pinned profiles and a `+N` count. Click the indicator to open the full window.
+**Windows 10:** **Move to taskbar** reserves a small area on the horizontal primary taskbar, at the bottom of the screen. It shows up to three pinned profiles and a `+N` count. Click the indicator to open the full window.
 
-**Windows 11:** Cypher uses the native **notification area**. Quotas appear in its tooltip and menu; Windows may put the icon under the hidden-icons arrow. Open the desktop widget for permanently visible numbers. It does not embed text into the Windows 11 taskbar or modify Explorer.
+**Windows 11:** **Move to taskbar** uses the native **notification area** at the bottom right, near the clock. Quotas appear in its tooltip and menu; Windows may put the icon under the hidden-icons arrow. Open the desktop widget for permanently visible numbers. It does not embed text into the Windows 11 taskbar or modify Explorer.
 
 The installed or extracted Windows app can launch at login. Leaving taskbar mode keeps your startup preference. The portable executable does not support automatic Windows startup.
 
 ## Mac menu bar
 
-On **Intel and Apple Silicon**, **Show quotas in menu bar** places the native indicator **at the top right**. It shows up to three pinned profile readings and an additional-profile count. Open its menu to show/hide the widget, refresh, pause or quit.
+On **Intel and Apple Silicon**, **Move to menu bar** places the native indicator **at the top right**. It shows up to three pinned profile readings and an additional-profile count. Open its menu to show/hide the widget, refresh, pause or quit.
 
 macOS controls available menu bar space, including around camera notches and in full-screen apps. If needed, add Cypher manually to **System Settings → General → Login Items**.
 
