@@ -36,7 +36,7 @@ Uninstallation preserves the user-data folder so that profiles survive reinstall
 | Anthropic API | api.anthropic.com/v1/organizations/cost_report | Admin key and cost period for the UTC month |
 | fal.ai | api.fal.ai/v1/account/billing | Key with billing:usage:read permission and balance request |
 | Together AI | api.together.ai/v1/billing/usage | API key, UTC month, granularity, and pagination cursors |
-| Codex | Installed official CLI | Authorized profile path and account/quota requests; the CLI contacts its provider |
+| Codex | Included official authentication/account component or explicitly selected CLI | Authorized profile path and account/quota requests; the component contacts its provider. Browser sign-in opens the official external page on request |
 | Claude Code | Installed official CLI | Authorized profile path and auth status command; the CLI follows its official behavior |
 | Gemini | Official CLI, only when Connect is clicked | Selected profile home; no automatic quota collection implemented |
 | Ollama | 127.0.0.1:11434/api/tags | Model list read, without a cloud key |

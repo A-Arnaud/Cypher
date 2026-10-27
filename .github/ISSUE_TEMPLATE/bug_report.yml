@@ -17,7 +17,7 @@ body:
     id: cypher-version
     attributes:
       label: Cypher version and install type
-      placeholder: Windows 0.5.0 installed/portable, Mac 0.5.1-mac.2 DMG/ZIP, or source checkout with commit
+      placeholder: Cypher 0.5.4; Windows installer/portable or Mac Intel/Apple Silicon DMG/ZIP; source checkout with commit
     validations:
       required: true
   - type: dropdown

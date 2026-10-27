@@ -1,12 +1,12 @@
-﻿# Catalog coverage — 0.4.5
+# Catalog coverage — Cypher 0.5.4
 
 Goal: cover every service in the catalog. This goal has not yet been reached.
 
-“Implemented” describes the code and tests performed; it does not guarantee a real account at every provider. API connectors were checked with synthetic responses, real Electron IPC, and Windows encryption. Codex quotas were also read from authorized accounts on this PC. No other real account was connected automatically.
+“Implemented” describes the code and tests performed; it does not guarantee a real account at every provider. Current distributions cover Windows 10/11 x64 and macOS Intel/Apple Silicon. API connector checks use synthetic responses and real Electron IPC. Earlier authorized Codex readings are recorded in [verification history](../VERIFICATION.md); they do not establish live validation for every current account or platform.
 
 | Service | Status in this release | Remaining work or access |
 |---|---|---|
-| Codex | Account, plan, and server quotas | Other CLI versions, accounts, and PCs need validation |
+| Codex | Account, plan, server quotas and browser sign-in with the included component on Windows/Mac | Live browser completion, other CLI versions and accounts need validation |
 | Claude Code | Detection, login, and account status | Subscription quota connector to develop |
 | Gemini CLI | Detection, profiles, and official login | Account verification and quotas to develop |
 | OpenCode | Detection; billing identified as belonging to the upstream provider | Upstream account association to develop |
@@ -58,6 +58,6 @@ Goal: cover every service in the catalog. This goal has not yet been reached.
 
 ## Distribution validation
 
-Windows x64 is the delivered target. The first-launch test uses an empty home containing spaces, a PATH without Node/CLIs, and an isolated preferences directory. It checks the absence of inherited accounts or consent, guided installation, the seven APIs with simulated responses, and DPAPI encryption without plaintext keys in files or public state. This test does not replace tests on a second machine, Windows 11, an enterprise proxy, or different CLI versions.
+Windows x64, Mac Intel and Mac Apple Silicon are delivered together. Windows first-launch tests use an empty home containing spaces, a PATH without Node/CLIs, and isolated preferences. They check consent isolation, seven APIs with synthetic responses and DPAPI storage. Both Mac architectures have separate native, bundled-component and final-package checks. These checks do not certify every live provider account, Windows 11 physical device, proxy or display configuration. [Exact release evidence](../VERIFICATION.md).
 
-Keys are entered explicitly in Connections. They are stored encrypted through Electron safeStorage and Windows DPAPI, and are never exposed by getState. No browser cookies or CLI credentials are imported. Disconnecting deletes the stored key and removes consent. Requests from these connectors are GETs to predefined hosts, with redirects prohibited; no AI content is generated to measure a balance.
+Keys are entered explicitly in Connections. They are stored through Electron safeStorage using Windows DPAPI or macOS Keychain protection, and are never exposed by getState. Personal browser cookies are not imported; browser-created sessions stay in independent app-managed CLI profiles. Disconnecting an API key deletes the stored key and removes consent. Requests from API collectors are GETs to predefined hosts, with redirects prohibited; no AI content is generated to measure a balance.

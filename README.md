@@ -6,12 +6,12 @@
     <a href="https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.5.4-mac-x64.dmg"><img src="https://img.shields.io/badge/Download-Mac_Intel-414956?style=for-the-badge" alt="Download Cypher for Mac Intel"></a>
     <a href="https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.5.4-mac-arm64.dmg"><img src="https://img.shields.io/badge/Download-Mac_Apple_Silicon-c06b8d?style=for-the-badge" alt="Download Cypher for Mac Apple Silicon"></a>
   </p>
-  <p><a href="#download">Downloads</a> · <a href="#get-started">Quick start</a> · <a href="#what-works-today">Supported services</a> · <a href="SUPPORT.md">Help</a></p>
+  <p><a href="#download">Downloads</a> · <a href="#get-started">Quick start</a> · <a href="#what-works-today">Supported services</a> · <a href="SUPPORT.md">Help</a> · <a href="docs/demarrage-fr.md">Français</a></p>
 </div>
 
 ## Download
 
-**Choose your computer. The links below download the app directly.**
+**Current release: 0.5.4 for Windows and Mac. Choose your computer to download the app directly.**
 
 | Your computer | Download | Requirements |
 | --- | --- | --- |
@@ -30,6 +30,8 @@
 3. **Keep it visible.** Pin your accounts, then click **Move to taskbar** on Windows (bottom of the screen) or **Move to menu bar** on Mac (top right). The button is labelled in both the widget and detailed view.
 
 You do not need Node.js to run Cypher. English and French are available in Settings.
+
+**Updating an existing installation?** Quit Cypher completely, replace or update the app, then reopen it. On Mac, this stops the previous version's Dock behavior. [Update instructions](docs/downloads.md#update-cypher).
 
 **Start automatically, stay in the bar.** In **Settings**, enable **Start with Windows** or **Open at login** on Mac. At sign-in, Cypher opens directly in the bottom Windows taskbar or top Mac menu bar without showing its window, even if you previously removed the indicator. This is optional; moving Cypher into the bar never enables automatic startup by itself. On Mac, move the app into Applications first and approve it in Login Items if macOS requests it.
 
@@ -61,6 +63,16 @@ You do not need Node.js to run Cypher. English and French are available in Setti
 
 Closing the window asks you to **minimize into the bar**, **quit Cypher**, or **cancel**. Minimizing keeps collection running and checks that the indicator is available before hiding the window. The default show/hide shortcut is **Ctrl+Alt+Q** on Windows and **Control+Option+Q** on Mac. [Widget and indicator guide](docs/user-guide.md).
 
+## Recent updates
+
+| Version | Included changes |
+| --- | --- |
+| **0.5.4 — current** | Discreet Mac menu bar app: no running-app icon in the Dock or Command-Tab, including after reopening Settings |
+| **0.5.3** | Optional startup from Cypher Settings; login launches go directly into the bar without opening the window |
+| **0.5.2** | Visible bar-placement button, Minimize / Quit / Cancel closing choices, and Codex browser sign-in on both Windows and Mac |
+
+[Current release notes](docs/releases/0.5.4.md) · [Release history](docs/releases/README.md) · [Full changelog](CHANGELOG.md)
+
 ## Connections
 
 Existing profiles come first. Additional methods depend on the provider and downloaded version: [connection options](docs/connection-methods.md).
@@ -69,7 +81,7 @@ Existing profiles come first. Additional methods depend on the provider and down
 
 | Connection | What Cypher can show |
 | --- | --- |
-| **Codex** | Account and provider-reported quota windows; Mac also includes browser sign-in without a separate CLI |
+| **Codex** | Account and provider-reported quota windows; browser sign-in without a separate CLI on **Windows and Mac** |
 | **Claude Code / Gemini CLI** | CLI detection and sign-in; Claude account status. Subscription quota reads are not implemented |
 | **OpenRouter, DeepSeek, Poe, fal.ai** | Supported key budgets, API balances or points |
 | **OpenAI, Anthropic, Together AI APIs** | Organization spending, with provider-specific key permissions; separate from chat subscriptions |

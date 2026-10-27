@@ -26,17 +26,17 @@ body:
     validations:
       required: true
   - type: input
-    id: windows-version
+    id: operating-system
     attributes:
-      label: Windows version
-      placeholder: Windows 10 22H2 x64, or N/A if not applicable
+      label: Operating system and processor
+      placeholder: Windows 10/11 x64 or macOS version + Intel/Apple Silicon; N/A if not applicable
     validations:
       required: true
   - type: input
     id: cypher-version
     attributes:
       label: Cypher version
-      placeholder: 0.4.9, source commit, or N/A if not yet using Cypher
+      placeholder: 0.5.4, source commit, or N/A if not yet using Cypher
     validations:
       required: true
   - type: textarea

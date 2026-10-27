@@ -31,6 +31,15 @@ Windows may put the notification icon under the hidden-icons arrow. The portable
 
 No separate Node.js, Codex CLI or Codex desktop app is needed for Codex browser sign-in on Windows or Mac. API billing and subscription quotas remain distinct. [Mac guide](../MACOS.md) · [Connection methods](connection-methods.md).
 
+## Update Cypher
+
+1. **Quit the running version completely.** Choose **Quit / Quitter** from the Cypher bar menu, or **Quit Cypher / Quitter Cypher** in the closing dialog. Minimizing leaves the old process running.
+2. **Windows:** run the current installer. For the portable version, close the old executable, replace it with the new download and reopen it.
+3. **Mac:** open the correct Intel or Apple Silicon DMG, replace **Cypher.app** in **Applications**, then reopen it. The previous process keeps its old Dock behavior until it is quit. If you had pinned its icon to the Dock, remove that favorite once through **Options → Remove from Dock**.
+4. Open **Settings / Réglages** to choose language and optional startup. At sign-in, startup opens directly in the bar. On Mac, approve the login item in system settings if requested.
+
+Preferences and profiles live separately from the application files. Replace the application without deleting its user-data folder. Existing account permissions and provider limitations still apply.
+
 ## First launch
 
 **Windows:** these executables are not Authenticode-signed, so SmartScreen may show a warning. Verify the checksum and that the download came from this repository before deciding to run it.

@@ -42,6 +42,12 @@ The release has one x64 package and selects an embedded Windows 10 taskbar backe
 
 GitHub Actions uses `windows-2025` (Windows Server), records the actual host version and retains validated executables/checksums as short-lived artifacts. Those checks are not Windows 11 Explorer testing. Device acceptance on Windows 11 must separately verify launch, minimize/restore, tray tooltip/menu, display scaling, startup and cleanup; record build numbers and untested cases. Never relabel mocked Windows versions as real device validation.
 
+### Mac verification
+
+After `npm run build`, run `node scripts/smoke-mac.cjs`, `node scripts/test-mac-menu-only.cjs`, `node scripts/test-window-close.cjs` and `node scripts/test-startup-launch.cjs` on a Mac. These use isolated data, check the actual Dock/menu/window lifecycle and forbid startup registration in the launch scenarios. Browser UI tests use installed Microsoft Edge; `test:mac` does not require it.
+
+The Mac workflow builds on separate Intel and Apple Silicon runners. It checks the final signed bundle's `LSUIElement` flag and native accessory activation policy as well as launch, connector architecture and publication scans. Keep startup optional in Settings, surface native approval/readback failures, and never restore regular Dock activation merely to reopen a window. Mac notarization and live login-session validation remain separate checks.
+
 ## Provider changes
 
 Use synthetic fixtures. Never commit real credentials, account profiles, browser cookies, diagnostic captures or personal settings. Keep missing, stale and zero-valued data distinct. Do not infer a paid plan from tool installation or present simulated responses as live-provider verification.

@@ -6,6 +6,9 @@ contact_links:
   - name: Help and troubleshooting
     url: https://github.com/A-Arnaud/Cypher/blob/main/SUPPORT.md
     about: Read setup guidance and troubleshooting before opening an issue.
+  - name: Guide de démarrage en français
+    url: https://github.com/A-Arnaud/Cypher/blob/main/docs/demarrage-fr.md
+    about: Téléchargements Windows/Mac, connexion, démarrage automatique et mode barre.
   - name: Security policy
     url: https://github.com/A-Arnaud/Cypher/security/policy
     about: Read the repository SECURITY.md policy for security concerns; never post credentials or sensitive evidence in an issue.
