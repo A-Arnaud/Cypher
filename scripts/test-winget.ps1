@@ -89,6 +89,11 @@ if ($LASTEXITCODE -ne 0) { throw 'Manifest validation failed' }
   if ($actualVersion -notin @($manifestVersion, "$manifestVersion.0")) { throw "Wrong installed application version: $actualVersion" }
   Write-Output "Cypher $manifestVersion installed silently; publisher, version, executable and per-user registration match."
   Invoke-TestProcess -Arguments @('uninstall', '--product-code', $productCode, '--silent', '--accept-source-agreements', '--disable-interactivity')
+  # NSIS can hand off to a temporary uninstaller after WinGet's launcher exits.
+  $cleanupWait = [Diagnostics.Stopwatch]::StartNew()
+  while ($cleanupWait.Elapsed.TotalSeconds -lt 30 -and ((Test-Path -LiteralPath $uninstallKey) -or (Test-Path -LiteralPath $installedExe))) {
+    Start-Sleep -Milliseconds 250
+  }
   if (Test-Path -LiteralPath $uninstallKey) { throw 'Uninstall registration remains' }
   if (Test-Path -LiteralPath $installedExe) { throw 'Application executable remains after uninstall' }
   Write-Output 'WinGet uninstall passed; test performed only on a disposable runner.'
