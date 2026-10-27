@@ -2,9 +2,9 @@
   <img src="docs/brand/wordmark.png" alt="Cypher" width="230">
   <p><strong>Your AI usage, always in view.</strong><br>AI quotas, API balances and local models — on Windows and Mac.</p>
   <p>
-    <a href="https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-Setup-0.5.0-win-x64.exe"><img src="https://img.shields.io/badge/Download-Windows_10_%2F_11-2f6feb?style=for-the-badge" alt="Download Cypher for Windows 10 or Windows 11"></a>
-    <a href="https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.5.1-mac.2-mac-x64.dmg"><img src="https://img.shields.io/badge/Download-Mac_Intel-414956?style=for-the-badge" alt="Download Cypher for Mac Intel"></a>
-    <a href="https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.5.1-mac.2-mac-arm64.dmg"><img src="https://img.shields.io/badge/Download-Mac_Apple_Silicon-c06b8d?style=for-the-badge" alt="Download Cypher for Mac Apple Silicon"></a>
+    <a href="https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-Setup-0.5.2-win-x64.exe"><img src="https://img.shields.io/badge/Download-Windows_10_%2F_11-2f6feb?style=for-the-badge" alt="Download Cypher for Windows 10 or Windows 11"></a>
+    <a href="https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.5.2-mac-x64.dmg"><img src="https://img.shields.io/badge/Download-Mac_Intel-414956?style=for-the-badge" alt="Download Cypher for Mac Intel"></a>
+    <a href="https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.5.2-mac-arm64.dmg"><img src="https://img.shields.io/badge/Download-Mac_Apple_Silicon-c06b8d?style=for-the-badge" alt="Download Cypher for Mac Apple Silicon"></a>
   </p>
   <p><a href="#download">Downloads</a> · <a href="#get-started">Quick start</a> · <a href="#what-works-today">Supported services</a> · <a href="SUPPORT.md">Help</a></p>
 </div>
@@ -15,9 +15,9 @@
 
 | Your computer | Download | Requirements |
 | --- | --- | --- |
-| **Windows 10 or Windows 11** | **[Download for Windows](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-Setup-0.5.0-win-x64.exe)** | Windows x64 · same installer for both versions |
-| **Mac with an Intel processor** | **[Download for Mac Intel](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.5.1-mac.2-mac-x64.dmg)** | macOS 13 Ventura or later |
-| **Mac with an Apple chip (M1, M2, M3…)** | **[Download for Mac Apple Silicon](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.5.1-mac.2-mac-arm64.dmg)** | macOS 13 Ventura or later |
+| **Windows 10 or Windows 11** | **[Download for Windows](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-Setup-0.5.2-win-x64.exe)** | Windows x64 · same installer for both versions |
+| **Mac with an Intel processor** | **[Download for Mac Intel](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.5.2-mac-x64.dmg)** | macOS 13 Ventura or later |
+| **Mac with an Apple chip (M1, M2, M3…)** | **[Download for Mac Apple Silicon](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.5.2-mac-arm64.dmg)** | macOS 13 Ventura or later |
 
 **Which Mac do I have?** Open **Apple menu → About This Mac**. If it says **Intel**, choose Mac Intel. If it says **Chip: Apple M…**, choose Apple Silicon.
 
@@ -26,8 +26,8 @@
 ## Get started
 
 1. **Install.** On Windows, run the installer. On Mac, open the DMG and drag **Cypher.app** into **Applications**.
-2. **Connect.** Open **Connections**. Cypher detects existing profiles first; authorize the ones you want to read. On Mac, **More ways to connect** also offers Codex browser sign-in without installing a CLI, plus CLI and API-key alternatives.
-3. **Keep it visible.** Pin your accounts, choose the desktop widget, or enable the Windows indicator / Mac menu bar.
+2. **Connect.** Open **Connections**. Cypher detects existing profiles first; authorize the ones you want to read. **More ways to connect** also offers Codex browser sign-in without installing a CLI, plus CLI and API-key alternatives.
+3. **Keep it visible.** Pin your accounts, then click **Move to taskbar** on Windows (bottom of the screen) or **Move to menu bar** on Mac (top right). The button is labelled in both the widget and detailed view.
 
 You do not need Node.js to run Cypher. English and French are available in Settings.
 
@@ -55,7 +55,7 @@ You do not need Node.js to run Cypher. English and French are available in Setti
 
 **Mac works:** Intel use has been confirmed by the maintainer, and Intel / Apple Silicon builds pass automated checks. See the [Mac guide](MACOS.md) for setup and [verification record](VERIFICATION.md) for tested environments.
 
-Closing the window keeps collection running. **Quit** stops Cypher. The default show/hide shortcut is **Ctrl+Alt+Q** on Windows and **Control+Option+Q** on Mac. [Widget and indicator guide](docs/user-guide.md).
+Closing the window asks you to **minimize into the bar**, **quit Cypher**, or **cancel**. Minimizing keeps collection running and checks that the indicator is available before hiding the window. The default show/hide shortcut is **Ctrl+Alt+Q** on Windows and **Control+Option+Q** on Mac. [Widget and indicator guide](docs/user-guide.md).
 
 ## Connections
 

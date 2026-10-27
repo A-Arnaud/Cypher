@@ -1,3 +1,11 @@
+# 0.5.2 — clear bar controls and closing choices
+
+- Replace the ambiguous header icons with a labelled **Move to taskbar** button on Windows and **Move to menu bar** on Mac. Explain the indicator's position directly below it in English and French.
+- Keep the same visible action in compact and detailed views. Once enabled, it minimizes directly; a separate **Remove** action disables the indicator.
+- Closing the window now offers **Minimize**, **Quit Cypher**, and **Cancel**, with the destination and effect explained. A failed indicator startup keeps the window visible; repeated close requests share one dialog.
+- Publish one 0.5.2 release for Windows 10/11, Mac Intel and Mac Apple Silicon. Windows also receives the previously Mac-published browser connection options and bundled Codex authentication component.
+- Add native Electron close/IPC checks on Windows and both Mac architectures, plus localized UI and cancellation/failure tests.
+
 # 0.5.1-mac.2 - connection options
 
 - Keep automatic profile detection first and group browser, installed CLI, profile import and API-key alternatives under More ways to connect.
