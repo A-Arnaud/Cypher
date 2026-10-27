@@ -1,4 +1,5 @@
 import {test,expect} from '@playwright/test';
+import {advancedOptions} from './ui-helpers';
 import {defaultSettings} from '../src/shared/defaults';
 
 test('failed initial loading can be retried without restarting the app',async({page})=>{
@@ -46,17 +47,17 @@ test('balances, points, quota windows and last observation remain accurate in bo
  await expect(page.locator('#profile-card-codex .metric-line').last()).toContainText('7 days');
  const expectedTime=await page.evaluate(()=>new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit'}).format(1000));
  await expect(page.locator('footer')).toContainText(expectedTime);
- await page.getByRole('button',{name:'Back to widget',exact:true}).click();
+ await page.getByRole('button',{name:'Compact view',exact:true}).click();
  const codex=page.locator('.summary-row[data-profile-id="codex"]');
  await expect(codex).toContainText('30 min');await expect(codex).toContainText('7 days');
  await expect(codex.locator('.stale')).toHaveCount(2);
  await page.getByRole('button',{name:'Details',exact:true}).click();
- await page.getByRole('navigation').getByRole('button',{name:'Connections',exact:true}).click();
- await page.getByRole('searchbox').fill('  DEEPSEEK  ');
- await expect(page.locator('.connection')).toHaveCount(2);
- await expect(page.getByRole('heading',{name:'DeepSeek API',exact:true})).toBeVisible();
- await expect(page.getByRole('heading',{name:'DeepSeek Chat',exact:true})).toBeVisible();
- await expect(page.getByRole('navigation').getByRole('button',{name:'Connections',exact:true})).toHaveAttribute('aria-current','page');
+ await page.getByRole('navigation').getByRole('button',{name:'Accounts',exact:true}).click();
+ await page.getByRole('button',{name:'More services',exact:true}).click();await page.getByRole('searchbox').fill('  DEEPSEEK  ');
+ await expect(page.locator('.other-service-list button')).toHaveCount(2);
+ await expect(page.getByRole('button',{name:'DeepSeek API',exact:true})).toBeVisible();
+ await expect(page.getByRole('button',{name:'DeepSeek Chat Planned',exact:true})).toBeVisible();
+ await expect(page.getByRole('navigation').getByRole('button',{name:'Accounts',exact:true})).toHaveAttribute('aria-current','page');
 });
 
 test('shortcut editor prevents duplicate modifiers and submits valid changes with Enter',async({page})=>{
@@ -65,7 +66,7 @@ test('shortcut editor prevents duplicate modifiers and submits valid changes wit
   window.quota={getState:async()=>state,subscribe:l=>{listeners.add(l);return()=>{listeners.delete(l)}},updateSettings:async patch=>{state={...state,settings:{...state.settings,...patch}};listeners.forEach(l=>l(state))},refresh:async()=>{},hide:async()=>{},quit:async()=>{},openProvider:async()=>{}};
  },{...defaultSettings(),language:'fr' as const});
  await page.goto('/');await page.getByRole('button',{name:'Réglages',exact:true}).click();
- const editor=page.getByLabel('Raccourci afficher / masquer');const save=page.getByRole('button',{name:'Enregistrer',exact:true});
+ await advancedOptions(page);const editor=page.getByLabel('Raccourci afficher / masquer');const save=page.getByRole('button',{name:'Enregistrer',exact:true});
  await expect(save).toBeDisabled();await editor.fill('Ctrl+Control+Q');await expect(editor).toHaveAttribute('aria-invalid','true');await expect(save).toBeDisabled();
  await editor.fill('Control+Alt+W');await expect(editor).toHaveAttribute('aria-invalid','false');await expect(save).toBeEnabled();await editor.press('Enter');await expect(save).toBeDisabled();
  await expect.poll(()=>page.evaluate(async()=>(await window.quota!.getState()).settings.shortcut)).toBe('Control+Alt+W');

@@ -1,0 +1,5 @@
+import {ArrowRight,Plus,ShieldCheck} from 'lucide-react';import type {AppState} from '../shared/model';import {experienceCopy} from '../shared/experience-copy';import {ProviderLogo} from './ProviderLogo';
+export function Welcome({state,open,empty=false}:{state:AppState;open:(provider?:string)=>void;empty?:boolean}){
+ const w=experienceCopy(state.settings.language);
+ return <section className="welcome-state"><div className="welcome-symbol"><Plus size={25}/></div><h1>{empty?w.nothingShown:w.welcome}</h1><p>{empty?w.nothingShownHint:w.welcomeHint}</p><div className="welcome-services">{['codex','claude','gemini'].map(id=><button key={id} aria-label={(state.settings.language==='fr'?'Connecter ':'Connect ')+(id==='codex'?'Codex':id==='claude'?'Claude':'Gemini')} onClick={()=>open(id)}><ProviderLogo providerId={id}/><span>{id==='codex'?'Codex':id==='claude'?'Claude':'Gemini'}</span><ArrowRight size={14}/></button>)}</div><button className="welcome-add" onClick={()=>open()}>{w.moreServices}<ArrowRight size={14}/></button><p className="welcome-privacy"><ShieldCheck size={14}/>{w.localHint}</p></section>;
+}

@@ -10,6 +10,7 @@ export function validatePatch(current:Settings,input:unknown):Settings{
  const p=input as Record<string,unknown>;const next={...current};
  for(const [k,v] of Object.entries(p)){
   if(['autoUpdateCheck','alwaysOnTop','startAtLogin','paused','compact','summaryMode','taskbarMode','taskbarOnboarded'].includes(k)){if(typeof v!=='boolean')throw Error('invalid-settings');(next as any)[k]=v}
+  else if(k==='theme'){if(v!=='system'&&v!=='light'&&v!=='dark')throw Error('invalid-theme');next.theme=v as Settings['theme']}
   else if(k==='language'){if(v!=='fr'&&v!=='en')throw Error('invalid-language');next.language=v}
   else if(k==='opacity'){if(!Number.isInteger(v)||Number(v)<30||Number(v)>100)throw Error('invalid-opacity');next.opacity=Number(v)}
   else if(k==='pollSeconds'){if(!Number.isInteger(v)||Number(v)<30||Number(v)>900)throw Error('invalid-interval');next.pollSeconds=Number(v)}

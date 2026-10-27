@@ -20,10 +20,10 @@ write('hero',head(1600,720)+`
  <text x="163" y="110" fill="#faf7fa" font-size="39" font-weight="600" letter-spacing="-1">Cypher</text>
  <rect x="80" y="184" width="328" height="34" rx="17" fill="#ed93af" fill-opacity=".09" stroke="#ed93af" stroke-opacity=".2"/>
  <circle cx="100" cy="201" r="4" fill="#a9d7bd"/><text x="116" y="207" font-size="13" fill="#edb4c8" letter-spacing="2">WINDOWS + MAC · LOCAL FIRST</text>
- <text x="76" y="316" fill="#f4f2f5" font-size="82" font-weight="600" letter-spacing="-4">Your AI usage.</text>
- <text x="76" y="410" fill="#ed93af" font-size="82" font-weight="600" letter-spacing="-4">Always in view.</text>
- <text x="81" y="477" fill="#a7a6b1" font-size="25">In the bar, from the first launch.</text>
- <text x="81" y="515" fill="#a7a6b1" font-size="25">Quotas, profiles and quick actions.</text>
+ <text x="76" y="316" fill="#f4f2f5" font-size="82" font-weight="600" letter-spacing="-4">Your AI quotas.</text>
+ <text x="76" y="410" fill="#ed93af" font-size="82" font-weight="600" letter-spacing="-4">Made simple.</text>
+ <text x="81" y="477" fill="#a7a6b1" font-size="25">Connect an account. See what’s left.</text>
+ <text x="81" y="515" fill="#a7a6b1" font-size="25">A clear view on Windows and Mac.</text>
  <rect x="80" y="567" width="280" height="48" rx="13" fill="#ed93af"/>
  <text x="108" y="598" fill="#24151c" font-size="18" font-weight="600">Windows &amp; Mac downloads</text>
  <text x="80" y="671" fill="#666673" font-size="13">Windows + macOS · synthetic example values</text>

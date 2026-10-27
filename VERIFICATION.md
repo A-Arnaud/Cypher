@@ -1,3 +1,9 @@
+# Cypher 0.8.0 interface verification (2026-10-27)
+
+Local typecheck/build and 206 unit tests passed (2 platform skips). All 32 UI scenarios passed, including the new explicit-permission/zero-quota flow and saved theme behavior. Native isolated first-run, browser availability without an external CLI, profile permissions, encrypted API collectors and launch behavior passed. Full Windows/Mac release CI and final artifact verification are required before publication.
+
+The interface study and resulting interaction choices are recorded in [the 0.8 interface guide](docs/interface-0.8.md). The reference project remains in ignored local research files. Public UI examples use demonstration data.
+
 # Public screenshots and local Windows installation (2026-10-27)
 
 Regenerated twelve 2x renderer screenshots using deterministic demonstration data, including English/French widgets, Windows/macOS indicator settings, Claude CLI connection status, reading ages, quick actions, API readings and update settings. External browser requests are blocked and the native bridge is never loaded. Rebuilt the hero and added a feature panel; macOS images are labelled layout previews. Image review, documentation link checks, GitHub Markdown rendering and publication/secret scans passed.

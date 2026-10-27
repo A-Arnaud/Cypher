@@ -4,10 +4,15 @@ if ($env:GITHUB_ACTIONS -ne 'true' -or $env:RUNNER_ENVIRONMENT -ne 'github-hoste
   throw 'Installation test is restricted to disposable GitHub-hosted runners.'
 }
 if (-not $Manifest) {
-  $packageVersion = (Get-Content -LiteralPath 'package.json' -Raw | ConvertFrom-Json).version
-  if ($packageVersion -notmatch '^\d+\.\d+\.\d+$') { throw 'Invalid package version' }
-  $Manifest = Join-Path 'distribution/winget/manifests/a/AArnaud/Cypher' $packageVersion
+  # A new app build can precede its published, hashed catalog manifest.
+  # Test the newest manifest actually present rather than a not-yet-published app.
+  $catalogVersion = Get-ChildItem -LiteralPath 'distribution/winget/manifests/a/AArnaud/Cypher' -Directory |
+    Where-Object { $_.Name -match '^\d+\.\d+\.\d+$' } |
+    Sort-Object { [version]$_.Name } -Descending | Select-Object -First 1
+  if (-not $catalogVersion) { throw 'No versioned WinGet manifest found' }
+  $Manifest = $catalogVersion.FullName
 }
+Write-Host "Validating published installer manifest: $Manifest"
 $versionFile = Join-Path $Manifest 'AArnaud.Cypher.yaml'
 if ((Get-Content -LiteralPath $versionFile -Raw) -notmatch '(?m)^PackageVersion: (?<Version>\d+\.\d+\.\d+)\s*$') {
   throw 'Invalid manifest version'

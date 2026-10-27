@@ -31,7 +31,7 @@ These statuses describe quota collection. They do not claim that a coding agent 
 
 ## A private, versioned diagnostic report
 
-Open **Settings → Diagnostics** or find **Diagnostics** in Quick actions. **View report** prepares local JSON. **Copy report** prepares a fresh report and writes it to the system clipboard after that click. No report is generated/exported merely by opening the section. Nothing is uploaded or saved automatically.
+Open **Settings → Advanced options → Diagnostics** or find **Diagnostics** in Quick actions. **View report** prepares local JSON. **Copy report** prepares a fresh report and writes it to the system clipboard after that click. No report is generated/exported merely by opening the section. Nothing is uploaded or saved automatically.
 
 The `cypher.diagnostics/v1` format contains app/OS/architecture, collection settings and counts, indicator/startup/update status, known connector IDs and anonymous per-profile health reasons/ages. It excludes profile/account names, emails, paths, keys, quota amounts, raw provider errors and logs. Review it before choosing to share it in a support request; the clipboard can be read by other applications or clipboard managers.
 

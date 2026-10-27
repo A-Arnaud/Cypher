@@ -1,14 +1,14 @@
 # Cypher — démarrage rapide en français
 
-**Version actuelle : 0.7.1**, pour Windows et Mac. [Toutes les releases](https://github.com/A-Arnaud/Cypher/releases/latest) · [README en anglais](../README.md)
+**Version actuelle : 0.8.0**, pour Windows et Mac. [Toutes les releases](https://github.com/A-Arnaud/Cypher/releases/latest) · [README en anglais](../README.md)
 
 ## Télécharger le bon fichier
 
 | Votre ordinateur | Téléchargement recommandé |
 | --- | --- |
-| **Windows 10 ou 11, x64** | **[Installateur Windows](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-Setup-0.7.1-win-x64.exe)** |
-| **Mac Intel** | **[Installateur Mac Intel](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.1-mac-x64.dmg)** |
-| **Mac Apple Silicon, puce M1, M2, M3…** | **[Installateur Mac Apple Silicon](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.1-mac-arm64.dmg)** |
+| **Windows 10 ou 11, x64** | **[Installateur Windows](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-Setup-0.8.0-win-x64.exe)** |
+| **Mac Intel** | **[Installateur Mac Intel](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.8.0-mac-x64.dmg)** |
+| **Mac Apple Silicon, puce M1, M2, M3…** | **[Installateur Mac Apple Silicon](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.8.0-mac-arm64.dmg)** |
 
 Mac nécessite **macOS 13 Ventura ou plus récent**. Dans le menu Apple, ouvrez **À propos de ce Mac** : un processeur Intel correspond au fichier `mac-x64`, une puce Apple M au fichier `mac-arm64`.
 
@@ -25,11 +25,11 @@ Le téléchargement Windows n'est pas signé Authenticode ; le téléchargement 
 
 ## Se connecter
 
-Dans **Connexions**, Cypher commence par la **Détection automatique** des profils existants. Autorisez uniquement ceux que vous souhaitez lire.
+Dans **Comptes**, Cypher commence par la **Détection automatique** des profils existants. Autorisez uniquement ceux que vous souhaitez lire.
 
-Pour Codex, ouvrez **Autres façons de se connecter → Se connecter dans le navigateur**. Cette méthode fonctionne sur Windows et Mac sans installer séparément le CLI, l'application Codex ou Node.js. Le composant officiel est inclus et crée un profil indépendant pour Cypher.
+Pour Codex, ouvrez **Autres méthodes de connexion → Se connecter dans le navigateur**. Cette méthode fonctionne sur Windows et Mac sans installer séparément le CLI, l'application Codex ou Node.js. Le composant officiel est inclus et crée un profil indépendant pour Cypher.
 
-**Claude Code est disponible dans Cypher :** détection du CLI, connexion officielle, profils indépendants et lecture de l’état du compte ainsi que de la formule lorsqu’elle est renvoyée par le CLI. Dans **Connexions**, autorisez un profil existant ou choisissez **Avec le CLI installé**. Le connecteur actuel ne collecte pas encore les pourcentages de quota restants ; **Ouvrir le fournisseur** permet de consulter la page d’utilisation Claude.
+**Claude Code est disponible dans Cypher :** détection du CLI, connexion officielle, profils indépendants et lecture de l’état du compte ainsi que de la formule lorsqu’elle est renvoyée par le CLI. Dans **Comptes**, autorisez un profil existant ou choisissez **Avec le CLI installé**. Le connecteur actuel ne collecte pas encore les pourcentages de quota restants ; **Ouvrir le fournisseur** permet de consulter la page d’utilisation Claude.
 
 Gemini propose aussi la détection, la connexion officielle et l’import de profils via son CLI ; la lecture des quotas reste à ajouter. **Utiliser une clé API** donne accès aux connecteurs API disponibles, dont Anthropic : cette facturation reste séparée de l’abonnement Claude Code. [Détail des méthodes](connection-methods.md).
 
@@ -62,11 +62,11 @@ Sur Mac, l'application doit être dans **Applications**. Si macOS demande une au
 
 ## Actions rapides et diagnostic
 
-**Nouveau en 0.7.0 :** cliquez sur **Actions rapides**, ou utilisez **Ctrl+K** sur Windows / **⌘K** sur Mac, pour trouver un profil, un service ou une action. Flèches pour naviguer, Entrée pour ouvrir, Échap pour fermer. **À vérifier** filtre les profils nécessitant une action ; les cartes indiquent l’âge/source des lectures. **Réglages → Diagnostic** propose un JSON local à consulter/copier explicitement, sans noms de comptes, e-mails, chemins, clés, montants de quota ni journaux bruts. [Guide détaillé](navigation-and-diagnostics.md).
+**Nouveau en 0.7.0 :** cliquez sur **Actions rapides**, ou utilisez **Ctrl+K** sur Windows / **⌘K** sur Mac, pour trouver un profil, un service ou une action. Flèches pour naviguer, Entrée pour ouvrir, Échap pour fermer. **À vérifier** filtre les profils nécessitant une action ; les cartes indiquent l’âge/source des lectures. **Réglages → Options avancées → Diagnostic** propose un JSON local à consulter/copier explicitement, sans noms de comptes, e-mails, chemins, clés, montants de quota ni journaux bruts. [Guide détaillé](navigation-and-diagnostics.md).
 
 ## Être averti des nouvelles versions
 
-Si vous utilisez encore **0.5.x**, installez **0.7.1 une première fois** pour obtenir le contrôle des mises à jour. Les versions 0.6.0 et suivantes le possèdent déjà. Cypher vérifie les releases stables GitHub après l'ouverture puis toutes les six heures. Une petite action **Mise à jour** apparaît dans le widget et le menu, sans ouvrir de fenêtre automatiquement.
+Si vous utilisez encore **0.5.x**, installez **0.8.0 une première fois** pour obtenir le contrôle des mises à jour. Les versions 0.6.0 et suivantes le possèdent déjà. Cypher vérifie les releases stables GitHub après l'ouverture puis toutes les six heures. Une petite action **Mise à jour** apparaît dans le widget et le menu, sans ouvrir de fenêtre automatiquement.
 
 Après votre accord, la **version Windows installée** télécharge et vérifie la mise à jour, puis l'installe et redémarre dans la barre. Sur **Mac actuellement**, Cypher ouvre le bon téléchargement dans votre navigateur ; le remplacement dans Applications reste manuel tant que le mécanisme Mac signé n'est pas disponible. Les versions Windows portables ou simplement décompressées restent également manuelles.
 
@@ -78,4 +78,4 @@ La fermeture de la fenêtre propose **Réduire dans la barre**, **Quitter Cypher
 
 Sur Mac, **Quitter** reste disponible dans le menu de l'icône en haut, même sans icône dans le Dock.
 
-[Aide et dépannage](../SUPPORT.md) · [Notes de version](releases/0.7.1.md) · [Vérifications et limites](../VERIFICATION.md) · [Signaler un problème](https://github.com/A-Arnaud/Cypher/issues/new/choose).
+[Aide et dépannage](../SUPPORT.md) · [Notes de version](releases/0.8.0.md) · [Vérifications et limites](../VERIFICATION.md) · [Signaler un problème](https://github.com/A-Arnaud/Cypher/issues/new/choose).

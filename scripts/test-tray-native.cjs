@@ -25,7 +25,7 @@ app.setName('Cypher isolated tray smoke');app.setPath('userData',path.join(${JSO
 app.disableHardwareAcceleration();
 let tray,window,host;
 app.whenReady().then(async()=>{
- let settings={...defaultSettings(),taskbarMode:true,taskbarOnboarded:true,pinned:['codex','claude','gemini','openai'],language:'en'};
+ let settings={...defaultSettings(),taskbarMode:true,taskbarOnboarded:true,pinned:['codex','claude','gemini','openai'],consents:['codex','claude','gemini','openai'],language:'en'};
  let state={settings,profiles:[{id:'codex',providerId:'codex',label:'private@example.invalid'}],providers:[{id:'codex',state:'stale',account:'never-display-this',metrics:[{remainingPercent:23}]}]};
  let presentation,menu,tooltip,nativeCalls=0,refreshes=0,pauses=0;
  window=new BrowserWindow({show:false,width:240,height:120,webPreferences:{sandbox:true,contextIsolation:true,nodeIntegration:false}});

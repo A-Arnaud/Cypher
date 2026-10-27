@@ -3,22 +3,22 @@
   <h1>Cypher — AI Quota Monitor</h1>
   <p><strong>Track your AI quotas on Windows and macOS.</strong><br>Codex subscription quotas, supported API balances and local model availability.</p>
   <p>
-    <a href="https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-Setup-0.7.1-win-x64.exe"><img src="https://img.shields.io/badge/Download-Windows_10_%2F_11-2f6feb?style=for-the-badge" alt="Download Cypher for Windows 10 or Windows 11"></a>
-    <a href="https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.1-mac-x64.dmg"><img src="https://img.shields.io/badge/Download-Mac_Intel-414956?style=for-the-badge" alt="Download Cypher for Mac Intel"></a>
-    <a href="https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.1-mac-arm64.dmg"><img src="https://img.shields.io/badge/Download-Mac_Apple_Silicon-c06b8d?style=for-the-badge" alt="Download Cypher for Mac Apple Silicon"></a>
+    <a href="https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-Setup-0.8.0-win-x64.exe"><img src="https://img.shields.io/badge/Download-Windows_10_%2F_11-2f6feb?style=for-the-badge" alt="Download Cypher for Windows 10 or Windows 11"></a>
+    <a href="https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.8.0-mac-x64.dmg"><img src="https://img.shields.io/badge/Download-Mac_Intel-414956?style=for-the-badge" alt="Download Cypher for Mac Intel"></a>
+    <a href="https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.8.0-mac-arm64.dmg"><img src="https://img.shields.io/badge/Download-Mac_Apple_Silicon-c06b8d?style=for-the-badge" alt="Download Cypher for Mac Apple Silicon"></a>
   </p>
   <p><a href="#download">Downloads</a> · <a href="#get-started">Quick start</a> · <a href="#what-works-today">Supported services</a> · <a href="SUPPORT.md">Help</a> · <a href="docs/demarrage-fr.md">Français</a></p>
 </div>
 
 ## Download
 
-**Current release: 0.7.1 for Windows and Mac. Choose your computer to download the app directly.**
+**Current release: 0.8.0 for Windows and Mac. Choose your computer to download the app directly.**
 
 | Your computer | Download | Requirements |
 | --- | --- | --- |
-| **Windows 10 or Windows 11** | **[Download for Windows](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-Setup-0.7.1-win-x64.exe)** | Windows x64 · same installer for both versions |
-| **Mac with an Intel processor** | **[Download for Mac Intel](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.1-mac-x64.dmg)** | macOS 13 Ventura or later |
-| **Mac with an Apple chip (M1, M2, M3…)** | **[Download for Mac Apple Silicon](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.1-mac-arm64.dmg)** | macOS 13 Ventura or later |
+| **Windows 10 or Windows 11** | **[Download for Windows](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-Setup-0.8.0-win-x64.exe)** | Windows x64 · same installer for both versions |
+| **Mac with an Intel processor** | **[Download for Mac Intel](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.8.0-mac-x64.dmg)** | macOS 13 Ventura or later |
+| **Mac with an Apple chip (M1, M2, M3…)** | **[Download for Mac Apple Silicon](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.8.0-mac-arm64.dmg)** | macOS 13 Ventura or later |
 
 **Which Mac do I have?** Open **Apple menu → About This Mac**. If it says **Intel**, choose Mac Intel. If it says **Chip: Apple M…**, choose Apple Silicon.
 
@@ -29,7 +29,7 @@
 ## Get started
 
 1. **Install.** On Windows, run the installer. On Mac, open the DMG and drag **Cypher.app** into **Applications**.
-2. **Connect.** Open **Connections**. Cypher detects existing profiles first; authorize the ones you want to read. **More ways to connect** also offers Codex browser sign-in without installing a CLI, plus CLI and API-key alternatives.
+2. **Connect.** Open **Accounts** and choose your service. Use an existing sign-in or select **Sign in with your browser** for Codex. CLI, profile-import and API alternatives are under **Other ways to connect**.
 3. **Keep it visible.** The quota indicator appears automatically whenever Cypher opens: at the bottom on Windows, at the top right on Mac. Pin your accounts, then use **Minimize to taskbar/menu bar** to hide the window. Disable the indicator only in **Settings → Quota indicator**; your choice is remembered.
 
 You do not need Node.js to run Cypher. English and French are available in Settings.
@@ -76,18 +76,19 @@ On **installed Windows**, approval downloads, verifies, installs and restarts Cy
 
 | Version | Included changes |
 | --- | --- |
-| **0.7.1 — current** | Indicator enabled at every launch; persistent Settings switch and clearer minimize control |
+| **0.8.0 — current** | Easier sign-in, compact quota cards, reset countdowns, light/dark themes and simpler Settings |
+| **0.7.1** | Automatic indicator at launch and a persistent Settings preference |
 | **0.7.0** | Quick actions with Ctrl+K / ⌘K, actionable profile status, reading ages and private diagnostic reports |
 | **0.6.0** | Discreet update proposals, approved Windows installer updates and Mac/portable download guidance |
 | **0.5.4** | Discreet Mac menu bar app: no running-app icon in the Dock or Command-Tab, including after reopening Settings |
 | **0.5.3** | Optional startup from Cypher Settings; login launches go directly into the bar without opening the window |
 | **0.5.2** | Visible bar-placement button, Minimize / Quit / Cancel closing choices, and Codex browser sign-in on both Windows and Mac |
 
-[Current release notes](docs/releases/0.7.1.md) · [Release history](docs/releases/README.md) · [Full changelog](CHANGELOG.md)
+[Current release notes](docs/releases/0.8.0.md) · [Release history](docs/releases/README.md) · [Full changelog](CHANGELOG.md)
 
 ## Connections
 
-**Find anything quickly.** Click **Quick actions**, or press **Ctrl+K** on Windows / **⌘K** on Mac, to find a pinned profile, connection or action. **Needs attention** filters profiles requiring action; each card shows the age/source of its last reading. **Settings → Diagnostics** offers a private JSON report for troubleshooting. [Navigation and status guide](docs/navigation-and-diagnostics.md).
+**Find anything quickly.** Click **Quick actions**, or press **Ctrl+K** on Windows / **⌘K** on Mac, to find a pinned profile, connection or action. **Needs attention** filters profiles requiring action; each card shows the age/source of its last reading. **Settings → Advanced options → Diagnostics** offers a private JSON report for troubleshooting. [Navigation and status guide](docs/navigation-and-diagnostics.md).
 
 Existing profiles come first. Additional methods depend on the provider and downloaded version: [connection options](docs/connection-methods.md).
 
@@ -103,13 +104,13 @@ Existing profiles come first. Additional methods depend on the provider and down
 | **Ollama, LM Studio, llama.cpp, vLLM** | Local model availability after authorization |
 | **Other catalog entries** | Some offer discovery or provider links only; a listed service does not imply a working quota connector |
 
-**Claude Code is available in Cypher.** Connect it through its installed CLI or authorize an existing profile in **Connections**. The current connector reads account status and the reported plan; remaining subscription quota percentages are not collected yet. Use **Open provider** to view Claude's usage page. Gemini subscription quota collection is also pending; Anthropic API spending is a separate connection.
+**Claude Code is available in Cypher.** Connect it through its installed CLI or authorize an existing profile in **Accounts**. The current connector reads account status and the reported plan; remaining subscription quota percentages are not collected yet. Use **Open provider** to view Claude's usage page. Gemini subscription quota collection is also pending; Anthropic API spending is a separate connection.
 
 [Full provider coverage](docs/catalog-coverage.md) · [Privacy](PRIVACY.md) · [Security](SECURITY.md)
 
 ## Screenshots
 
-<img src="docs/brand/whats-new.png" alt="Cypher 0.7.1: automatic indicator settings on Windows and macOS, plus searchable quick actions" width="100%">
+<img src="docs/brand/whats-new.png" alt="Cypher 0.8.0: automatic indicator settings on Windows and macOS, plus searchable quick actions" width="100%">
 
 Captured from the current Cypher interface at 2× resolution, with demonstration profiles and readings. macOS images preview the Mac layout. No personal account data is shown.
 
@@ -122,14 +123,14 @@ Captured from the current Cypher interface at 2× resolution, with demonstration
 </p>
 <p align="center">
   <img src="docs/screenshots/connections.png" alt="Claude Code connected through its CLI, with account status and subscription quota limitations clearly shown" width="350">
-  <img src="docs/screenshots/updates.png" alt="Update settings in Cypher 0.7.1, showing automatic checks and the requirement for approval before installation" width="350">
+  <img src="docs/screenshots/updates.png" alt="Update settings in Cypher 0.8.0, showing automatic checks and the requirement for approval before installation" width="350">
 </p>
 <p align="center">
   <img src="docs/screenshots/api-widget-synthetic.png" alt="Compact widget with demonstration API balances and points" width="350">
   <img src="docs/screenshots/api-details-synthetic.png" alt="Detailed API cards with demonstration values" width="350">
 </p>
 
-Screenshots use synthetic data, not a developer's account.
+Screenshots use demonstration data. [New interface and connection guide](docs/interface-0.8.md).
 
 </details>
 

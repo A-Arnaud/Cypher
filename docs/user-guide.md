@@ -4,7 +4,9 @@
 
 ## Desktop widget
 
-**Quick actions** beside the window controls opens a searchable action/profile picker: **Ctrl+K** on Windows, **Command+K** on Mac. Use arrows/Enter/Escape or the mouse. The detailed **Needs attention** filter and reading ages distinguish current, stale and unavailable data. **Settings → Diagnostics** provides an explicit local report/copy action. [Full navigation/status/diagnostic guide](navigation-and-diagnostics.md).
+**New in 0.8:** a guided first connection, smaller quota cards with reset countdowns and saved light/dark/system themes. **Accounts** chooses services and which accounts appear in your quotas. Technical controls live in **Settings → Advanced options**. [Interface guide](interface-0.8.md).
+
+**Quick actions** beside the window controls opens a searchable action/profile picker: **Ctrl+K** on Windows, **Command+K** on Mac. Use arrows/Enter/Escape or the mouse. The detailed **Needs attention** filter and reading ages distinguish current, stale and unavailable data. **Settings → Advanced options → Diagnostics** provides an explicit local report/copy action. [Full navigation/status/diagnostic guide](navigation-and-diagnostics.md).
 
 Pin the profiles you need, reorder them by dragging a handle or using the keyboard, and switch between compact rows and detailed cards. **Details** shows quota windows, API balances, points and reset times when the provider exposes them.
 

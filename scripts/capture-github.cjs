@@ -11,7 +11,7 @@ function fixture(platform='win32'){
   {id:'weekly',label:'weekly',unit:'percent',remainingPercent:weekly,source:'provider',observedAt:now,resetAt:now+3*86400000}
  ]});
  return {desktop:true,platform,taskbarBackend:platform==='darwin'?'tray':'embedded',taskbarStatus:'ready',startupAvailable:true,startupNeedsApproval:false,refreshing:false,
-  settings:{autoUpdateCheck:true,taskbarMode:true,taskbarOnboarded:true,language:'en',opacity:100,summaryMode:false,pinned:['codex',work],consents:['codex',work,team,'claude','openrouter','poe','deepseek'],alwaysOnTop:false,startAtLogin:false,paused:false,pollSeconds:60,shortcut:'Control+Alt+Q',compact:false,alertThresholds:[20,5]},
+  settings:{theme:'light',autoUpdateCheck:true,taskbarMode:true,taskbarOnboarded:true,language:'en',opacity:100,summaryMode:false,pinned:['codex',work],consents:['codex',work,team,'claude','openrouter','poe','deepseek'],alwaysOnTop:false,startAtLogin:false,paused:false,pollSeconds:60,shortcut:'Control+Alt+Q',compact:false,alertThresholds:[20,5]},
   appUpdate:{active:true,automaticChecks:true,phase:'current',notice:false,mode:platform==='darwin'?'manual':'automatic',...(platform==='darwin'?{reason:'mac-signing'}:{}),lastChecked:now},
   directLoginProviders:['codex'],configuredApiProviders:['openrouter','poe','deepseek'],loginErrors:{},loginProfileIds:[],
   detections:['codex','claude'].map(id=>({id,installed:true,configPresent:true,executable:'detected',evidence:[]})),
@@ -55,7 +55,7 @@ async function shot(page,name){await page.screenshot({path:path.join(out,name),o
    await expect(page.getByRole('switch',{name:platform==='darwin'?'Open at login':'Start with Windows',exact:true})).not.toBeChecked();
    await shot(page,platform==='darwin'?'settings-macos.png':'settings.png');
   }
-  page=await open(context,url,fixture());await page.getByRole('navigation').getByRole('button',{name:'Connections',exact:true}).click();await page.getByRole('searchbox').fill('Claude');await page.getByRole('searchbox').blur();
+  page=await open(context,url,fixture());await page.getByRole('navigation').getByRole('button',{name:'Accounts',exact:true}).click();await page.getByRole('button',{name:/Claude Code/}).click();
   await expect(page.locator('.profile-state')).toContainText('Connected');await expect(page.locator('.profile-state')).toContainText('Pro');await shot(page,'connections.png');
   state=fixture('darwin');state.settings.pinned=['codex',work];state.settings.compact=true;
   for(const id of state.settings.pinned){const provider=state.providers.find(p=>p.id===id);provider.metrics=provider.metrics.slice(0,1);delete provider.metrics[0].resetAt}
@@ -65,6 +65,9 @@ async function shot(page,name){await page.screenshot({path:path.join(out,name),o
   page=await open(context,url,fixture());await page.getByRole('button',{name:'Settings',exact:true}).click();await page.locator('.scroll-area').evaluate(el=>{el.scrollTop=el.scrollHeight});await expect(page.locator('.update-settings')).toContainText('Cypher is up to date');await expect(page.locator('.topbar')).toBeInViewport();await shot(page,'updates.png');
   state=fixture();state.settings.language='fr';page=await open(context,url,state);await page.getByRole('button',{name:'Réglages',exact:true}).click();await shot(page,'settings-fr.png');
   state.settings.summaryMode=true;state.settings.pinned=['codex',work,team];page=await open(context,url,state,{width:380,height:340});await shot(page,'widget-fr.png');
-  await context.close();console.log('Captured twelve 2x screenshots of the actual renderer. Demonstration accounts/readings only; all external requests blocked.');
+  state=fixture();state.profiles=[];state.providers=[];state.detections=[];state.configuredApiProviders=[];state.settings.consents=[];state.settings.pinned=['codex','claude','gemini'];page=await open(context,url,state);await expect(page.getByRole('heading',{name:'Add your first account',exact:true})).toBeVisible();await shot(page,'onboarding.png');
+  page=await open(context,url,state);await page.getByRole('button',{name:'Connect Codex',exact:true}).click();await expect(page.getByRole('button',{name:'Sign in with your browser',exact:true})).toBeVisible();await shot(page,'connect-codex.png');
+  state=fixture();state.settings.theme='dark';page=await open(context,url,state);await page.getByRole('button',{name:'Settings',exact:true}).click();await shot(page,'settings-dark.png');
+  await context.close();console.log('Captured fifteen 2x screenshots of the actual renderer. Demonstration accounts/readings only; all external requests blocked.');
  }finally{if(browser)await browser.close();await server.close()}
 })().catch(error=>{console.error(error);process.exitCode=1});
