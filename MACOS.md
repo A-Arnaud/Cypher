@@ -2,7 +2,7 @@
 
 Cypher is available for **Mac Intel and Apple Silicon**, with a native menu bar indicator at the top right. Working Mac use has been confirmed by the maintainer.
 
-**[Download for Mac Intel](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.5.2-mac-x64.dmg)** · **[Download for Apple Silicon](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.5.2-mac-arm64.dmg)** · [All Windows and Mac downloads](https://github.com/A-Arnaud/Cypher/releases/latest)
+**[Download for Mac Intel](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.5.3-mac-x64.dmg)** · **[Download for Apple Silicon](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.5.3-mac-arm64.dmg)** · [All Windows and Mac downloads](https://github.com/A-Arnaud/Cypher/releases/latest)
 
 **Requires macOS 13 Ventura or later**, on either processor. This is the minimum declared by the packaged application and its Electron runtime; the automated tests run on macOS 15. macOS 12 Monterey and earlier cannot run this release. On Intel, download the file ending in **`mac-x64.dmg`** or **`mac-x64.zip`**, never `arm64`.
 
@@ -18,7 +18,9 @@ Cypher is available for **Mac Intel and Apple Silicon**, with a native menu bar 
 
 The app works on Mac, but this download is **not notarized by Apple**. If macOS blocks the first launch, verify the download's SHA-256 and use **System Settings → Privacy & Security → Open Anyway** for Cypher. This is a signing prompt, separate from Mac compatibility. [First-launch help](docs/downloads.md#first-launch).
 
-If you want Cypher to open at login, add it manually in **System Settings → General → Login Items**. API keys use Electron safeStorage backed by the macOS Keychain. Windows credentials cannot be copied over and decrypted on a Mac.
+If you want Cypher to open at login, first move it into **Applications**, then enable **Settings → Open at login** in Cypher. It starts directly in the **top menu bar**, without showing its window. macOS may require approval in **System Settings → General → Login Items**; Cypher displays a separate pending-approval status when appropriate and verifies registration rather than silently assuming success. You can disable the switch at any time. Placing Cypher in the menu bar alone does not enable login startup. Signing/notarization still affects login-item reliability; a rejected registration is shown as an error. [Electron login-item behavior](https://www.electronjs.org/docs/latest/api/app#appsetloginitemsettingssettings).
+
+API keys use Electron safeStorage backed by the macOS Keychain. Windows credentials cannot be copied over and decrypted on a Mac.
 
 ## Connection methods
 

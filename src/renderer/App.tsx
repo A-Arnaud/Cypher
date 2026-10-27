@@ -14,7 +14,7 @@ export function App(){
  useEffect(()=>{let alive=true,receivedUpdate=false;setError('');const stop=bridge.subscribe(s=>{if(alive){receivedUpdate=true;setState(s)}});bridge.getState().then(s=>{if(alive&&!receivedUpdate)setState(s)}).catch(()=>{if(alive&&!receivedUpdate)setError('loadError')});return()=>{alive=false;stop()}},[loadAttempt]);
  useEffect(()=>{if(state)setShortcut(state.settings.shortcut)},[state?.settings.shortcut]);
  const lang=state?.settings.language??'en';const t=(key:string)=>copy(lang,key==='taskbarError'&&state?.taskbarBackend==='tray'?'trayError':key,state?.platform);useEffect(()=>{document.documentElement.lang=lang;document.body.classList.toggle('desktop',!!state?.desktop);document.documentElement.classList.toggle('desktop',!!state?.desktop)},[lang,state?.desktop]);
- const update=async(p:SettingsPatch)=>{try{setError('');await bridge.updateSettings(p)}catch{setError(p.shortcut!==undefined?'shortcutError':'settingsError')}};
+ const update=async(p:SettingsPatch)=>{try{setError('');await bridge.updateSettings(p)}catch{setError(p.shortcut!==undefined?'shortcutError':p.startAtLogin!==undefined?'startupError':'settingsError')}};
  const dock=async(enabled:boolean)=>{setBusy(true);try{setError('');await bridge.setTaskbarMode?.(enabled)}catch{setError('taskbarError')}finally{setBusy(false)}};
  const refresh=async()=>{setBusy(true);setError('');try{await bridge.refresh()}catch{setError('collectionFailed')}finally{setBusy(false)}};
  const action=async(fn:()=>Promise<void>|undefined)=>{setBusy(true);setError('');try{await fn()}catch{setError('actionFailed')}finally{setBusy(false)}};

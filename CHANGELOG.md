@@ -1,3 +1,10 @@
+# 0.5.3 — optional startup directly in the bar
+
+- Start automatically only when the user enables it in Settings. Moving into the bar or minimizing no longer registers automatic startup implicitly.
+- At login, always restore the Windows taskbar / Mac menu bar without showing the window, even if the indicator was previously removed. Manual opening remains visible; a failed indicator startup opens the window with an error.
+- Enable native macOS login-item registration for the packaged app in Applications. Detect macOS login launches without Windows arguments, verify the registered service, show pending OS approval separately and reflect changes made in system settings.
+- Add English/French startup guidance and native Electron login-launch scenarios for both platforms. Existing Windows portable restrictions and Apple signing limitations remain.
+
 # 0.5.2 — clear bar controls and closing choices
 
 - Replace the ambiguous header icons with a labelled **Move to taskbar** button on Windows and **Move to menu bar** on Mac. Explain the indicator's position directly below it in English and French.
