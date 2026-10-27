@@ -1,0 +1,44 @@
+name: WinGet manifest and published installer
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - distribution/winget/**
+      - scripts/test-winget.ps1
+      - .github/workflows/winget.yml
+  pull_request:
+    paths:
+      - distribution/winget/**
+      - scripts/test-winget.ps1
+      - .github/workflows/winget.yml
+permissions:
+  contents: read
+jobs:
+  install:
+    runs-on: windows-2025
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Prepare Microsoft's WinGet client on the disposable runner
+        shell: powershell
+        run: |
+          $ErrorActionPreference = 'Stop'
+          if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
+            Install-PackageProvider -Name NuGet -Force | Out-Null
+            Install-Module Microsoft.WinGet.Client -RequiredVersion 1.29.380 -Repository PSGallery -Scope CurrentUser -Force
+            Import-Module Microsoft.WinGet.Client -RequiredVersion 1.29.380
+            Repair-WinGetPackageManager -Version 1.29.380 -Force
+          }
+          if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
+            $package = Get-AppxPackage Microsoft.DesktopAppInstaller
+            if (-not $package) { throw 'App Installer registration unavailable' }
+            $env:PATH += ';' + $package.InstallLocation
+            $package.InstallLocation | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+          }
+          winget --version
+          if ($LASTEXITCODE -ne 0) { throw 'WinGet unavailable' }
+      - name: Validate, install and uninstall the public release on a clean runner
+        shell: pwsh
+        run: ./scripts/test-winget.ps1

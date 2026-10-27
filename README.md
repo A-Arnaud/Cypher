@@ -24,6 +24,8 @@
 
 [Portable Windows, Mac ZIP and checksums](docs/downloads.md#other-downloads) · [All downloads and release notes](https://github.com/A-Arnaud/Cypher/releases/latest)
 
+**Windows command line:** WinGet registration is in progress for `AArnaud.Cypher`. [Command and publication status](docs/winget.md). Use the downloads above until the package is available in Microsoft's catalog.
+
 ## Get started
 
 1. **Install.** On Windows, run the installer. On Mac, open the DMG and drag **Cypher.app** into **Applications**.
