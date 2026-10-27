@@ -1,3 +1,11 @@
+# 0.7.1 — automatic indicator at launch
+
+- Show the quota indicator by default at each manual/login launch on Windows and Mac, before the renderer opens.
+- Add an English/French Settings switch that persists explicit removal, including at login. Enabling it keeps Settings visible.
+- Use the main bar button to minimize; remove the separate removal button outside Settings.
+- Migrate untouched legacy defaults while retaining explicit removals, account permissions and startup preferences.
+- Verify first launch, migration, manual/login modes, opt-out, native Settings IPC, visibility and failure handling.
+
 # 0.7.0 — quick actions, actionable status and private diagnostics
 
 - Add a searchable mouse/keyboard action picker in both views: Ctrl+K on Windows, Command+K on Mac, arrows/Enter/Escape, focus restoration and explicit disabled actions. Find pinned profiles and connection options without starting logins from search.

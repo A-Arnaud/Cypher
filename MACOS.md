@@ -2,14 +2,14 @@
 
 Cypher is available for **Mac Intel and Apple Silicon**, with a native menu bar indicator at the top right. Working Mac use has been confirmed by the maintainer.
 
-**[Download for Mac Intel](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.0-mac-x64.dmg)** · **[Download for Apple Silicon](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.0-mac-arm64.dmg)** · [All Windows and Mac downloads](https://github.com/A-Arnaud/Cypher/releases/latest)
+**[Download for Mac Intel](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.1-mac-x64.dmg)** · **[Download for Apple Silicon](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.1-mac-arm64.dmg)** · [All Windows and Mac downloads](https://github.com/A-Arnaud/Cypher/releases/latest)
 
 **Requires macOS 13 Ventura or later**, on either processor. This is the minimum declared by the packaged application and its Electron runtime; the automated tests run on macOS 15. macOS 12 Monterey and earlier cannot run this release. On Intel, download the file ending in **`mac-x64.dmg`** or **`mac-x64.zip`**, never `arm64`.
 
 - **Apple Silicon:** choose the `mac-arm64.dmg` or `mac-arm64.zip` download.
 - **Intel:** choose `mac-x64.dmg` or `mac-x64.zip`.
 - When updating, choose **Quit** in the old Cypher menu first. Open the DMG and replace **Cypher.app** in **Applications**, or extract the ZIP and move the app there, then reopen it. An older process keeps its previous Dock behavior until you quit it.
-- Open Cypher, authorize the profiles or API connections you want, then choose **Move to menu bar**. The indicator appears **at the top right of the screen**. Its menu opens or hides the widget, refreshes data, pauses collection or quits.
+- Open Cypher and authorize the profiles or API connections you want. The indicator appears automatically **at the top right of the screen**. Its menu opens or hides the widget, refreshes data, pauses collection or quits.
 - Up to three pinned profiles show their remaining percentages alongside the menu bar icon. A dash means unavailable; balances and model counts remain in the widget. macOS controls available menu bar space, including on displays with a camera notch.
 - The default show/hide shortcut remains **Control+Option+Q** (the Mac name for `Control+Alt+Q`).
 - Closing the window asks whether to **Minimize to menu bar**, **Quit Cypher** or **Cancel**. Minimizing keeps the app running and its indicator accessible at the top right.
@@ -21,7 +21,7 @@ Cypher runs as a native Mac agent: its running-app icon stays out of the **Dock*
 - Click the Cypher icon at the top and choose **Show / Hide** (**Afficher / Masquer**) to open or hide its window.
 - **Control+Option+Q** also shows or hides it. Opening Cypher again from Applications restores its window.
 - **Quit** (**Quitter**) in the Cypher menu stops the application. Closing the window still offers Minimize, Quit and Cancel.
-- Removing quota readings does not remove the Cypher menu icon, so the app remains accessible.
+- **Settings → Quota indicator** can hide or restore quota readings. Your choice survives reopening and login startup. The Cypher menu icon remains accessible.
 - If you previously pinned Cypher to the Dock, use that icon's **Options → Remove from Dock** once. A manually pinned favorite belongs to macOS and is separate from Cypher's running-app icon.
 
 This is the Mac behavior documented by Apple for [menu bar apps](https://developer.apple.com/documentation/swiftui/menubarextra) and [agent applications](https://developer.apple.com/documentation/bundleresources/information-property-list/lsuielement). Cypher declares `LSUIElement=true` in its packaged app and keeps the accessory activation policy while its window is open. It does not change your Dock preferences or other applications.

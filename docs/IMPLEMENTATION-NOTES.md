@@ -1,6 +1,10 @@
-# Implementation notes — Cypher 0.7.0
+# Implementation notes — Cypher 0.7.1
 
 Current behavior is described in the [user guide](user-guide.md), [connection methods](connection-methods.md) and [provider matrix](catalog-coverage.md). Dated plans and verification records describe the version tested at that time; they are not the current feature specification.
+
+## Indicator lifecycle
+
+Indicator preference defaults to enabled. Legacy false values without the completed-activation marker migrate to true; explicit removals are preserved. Native initialization precedes renderer loading. Manual opening still shows the window, while login opening stays hidden. Login never overwrites a saved opt-out. Settings uses the same trusted boolean-validated lifecycle IPC with minimize=false; only explicit minimize actions hide after readiness. Startup registration remains independent.
 
 ## Processes and data
 

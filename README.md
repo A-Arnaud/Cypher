@@ -3,22 +3,22 @@
   <h1>Cypher — AI Quota Monitor</h1>
   <p><strong>Track your AI quotas on Windows and macOS.</strong><br>Codex subscription quotas, supported API balances and local model availability.</p>
   <p>
-    <a href="https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-Setup-0.7.0-win-x64.exe"><img src="https://img.shields.io/badge/Download-Windows_10_%2F_11-2f6feb?style=for-the-badge" alt="Download Cypher for Windows 10 or Windows 11"></a>
-    <a href="https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.0-mac-x64.dmg"><img src="https://img.shields.io/badge/Download-Mac_Intel-414956?style=for-the-badge" alt="Download Cypher for Mac Intel"></a>
-    <a href="https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.0-mac-arm64.dmg"><img src="https://img.shields.io/badge/Download-Mac_Apple_Silicon-c06b8d?style=for-the-badge" alt="Download Cypher for Mac Apple Silicon"></a>
+    <a href="https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-Setup-0.7.1-win-x64.exe"><img src="https://img.shields.io/badge/Download-Windows_10_%2F_11-2f6feb?style=for-the-badge" alt="Download Cypher for Windows 10 or Windows 11"></a>
+    <a href="https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.1-mac-x64.dmg"><img src="https://img.shields.io/badge/Download-Mac_Intel-414956?style=for-the-badge" alt="Download Cypher for Mac Intel"></a>
+    <a href="https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.1-mac-arm64.dmg"><img src="https://img.shields.io/badge/Download-Mac_Apple_Silicon-c06b8d?style=for-the-badge" alt="Download Cypher for Mac Apple Silicon"></a>
   </p>
   <p><a href="#download">Downloads</a> · <a href="#get-started">Quick start</a> · <a href="#what-works-today">Supported services</a> · <a href="SUPPORT.md">Help</a> · <a href="docs/demarrage-fr.md">Français</a></p>
 </div>
 
 ## Download
 
-**Current release: 0.7.0 for Windows and Mac. Choose your computer to download the app directly.**
+**Current release: 0.7.1 for Windows and Mac. Choose your computer to download the app directly.**
 
 | Your computer | Download | Requirements |
 | --- | --- | --- |
-| **Windows 10 or Windows 11** | **[Download for Windows](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-Setup-0.7.0-win-x64.exe)** | Windows x64 · same installer for both versions |
-| **Mac with an Intel processor** | **[Download for Mac Intel](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.0-mac-x64.dmg)** | macOS 13 Ventura or later |
-| **Mac with an Apple chip (M1, M2, M3…)** | **[Download for Mac Apple Silicon](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.0-mac-arm64.dmg)** | macOS 13 Ventura or later |
+| **Windows 10 or Windows 11** | **[Download for Windows](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-Setup-0.7.1-win-x64.exe)** | Windows x64 · same installer for both versions |
+| **Mac with an Intel processor** | **[Download for Mac Intel](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.1-mac-x64.dmg)** | macOS 13 Ventura or later |
+| **Mac with an Apple chip (M1, M2, M3…)** | **[Download for Mac Apple Silicon](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.1-mac-arm64.dmg)** | macOS 13 Ventura or later |
 
 **Which Mac do I have?** Open **Apple menu → About This Mac**. If it says **Intel**, choose Mac Intel. If it says **Chip: Apple M…**, choose Apple Silicon.
 
@@ -30,13 +30,13 @@
 
 1. **Install.** On Windows, run the installer. On Mac, open the DMG and drag **Cypher.app** into **Applications**.
 2. **Connect.** Open **Connections**. Cypher detects existing profiles first; authorize the ones you want to read. **More ways to connect** also offers Codex browser sign-in without installing a CLI, plus CLI and API-key alternatives.
-3. **Keep it visible.** Pin your accounts, then click **Move to taskbar** on Windows (bottom of the screen) or **Move to menu bar** on Mac (top right). The button is labelled in both the widget and detailed view.
+3. **Keep it visible.** The quota indicator appears automatically whenever Cypher opens: at the bottom on Windows, at the top right on Mac. Pin your accounts, then use **Minimize to taskbar/menu bar** to hide the window. Disable the indicator only in **Settings → Quota indicator**; your choice is remembered.
 
 You do not need Node.js to run Cypher. English and French are available in Settings.
 
 **Updating an existing installation?** Quit Cypher completely, replace or update the app, then reopen it. On Mac, this stops the previous version's Dock behavior. [Update instructions](docs/downloads.md#update-cypher).
 
-**Start automatically, stay in the bar.** In **Settings**, enable **Start with Windows** or **Open at login** on Mac. At sign-in, Cypher opens directly in the bottom Windows taskbar or top Mac menu bar without showing its window, even if you previously removed the indicator. This is optional; moving Cypher into the bar never enables automatic startup by itself. On Mac, move the app into Applications first and approve it in Login Items if macOS requests it.
+**Start automatically, stay in the bar.** In **Settings**, enable **Start with Windows** or **Open at login** on Mac. At sign-in, Cypher opens directly in the bottom Windows taskbar or top Mac menu bar without showing its window. Your quota-indicator preference is respected, including an explicit opt-out in Settings. This is optional; moving Cypher into the bar never enables automatic startup by itself. On Mac, move the app into Applications first and approve it in Login Items if macOS requests it.
 
 **First-launch security prompts:** Windows may show a SmartScreen warning; Mac may require **Privacy & Security → Open Anyway**. These builds are not publisher-signed/notarized. [Installation help](docs/downloads.md#first-launch).
 
@@ -76,13 +76,14 @@ On **installed Windows**, approval downloads, verifies, installs and restarts Cy
 
 | Version | Included changes |
 | --- | --- |
-| **0.7.0 — current** | Quick actions with Ctrl+K / ⌘K, actionable profile status, reading ages and private diagnostic reports |
+| **0.7.1 — current** | Indicator enabled at every launch; persistent Settings switch and clearer minimize control |
+| **0.7.0** | Quick actions with Ctrl+K / ⌘K, actionable profile status, reading ages and private diagnostic reports |
 | **0.6.0** | Discreet update proposals, approved Windows installer updates and Mac/portable download guidance |
 | **0.5.4** | Discreet Mac menu bar app: no running-app icon in the Dock or Command-Tab, including after reopening Settings |
 | **0.5.3** | Optional startup from Cypher Settings; login launches go directly into the bar without opening the window |
 | **0.5.2** | Visible bar-placement button, Minimize / Quit / Cancel closing choices, and Codex browser sign-in on both Windows and Mac |
 
-[Current release notes](docs/releases/0.7.0.md) · [Release history](docs/releases/README.md) · [Full changelog](CHANGELOG.md)
+[Current release notes](docs/releases/0.7.1.md) · [Release history](docs/releases/README.md) · [Full changelog](CHANGELOG.md)
 
 ## Connections
 

@@ -6,10 +6,10 @@
 
 | Computer | Recommended download |
 | --- | --- |
-| Windows 10 x64 | [Windows installer](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-Setup-0.7.0-win-x64.exe) |
-| Windows 11 x64 | [Windows installer](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-Setup-0.7.0-win-x64.exe) — the same file works on Windows 10 and 11 |
-| Mac Intel | [Mac Intel DMG](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.0-mac-x64.dmg) |
-| Mac with Apple Silicon | [Mac Apple Silicon DMG](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.0-mac-arm64.dmg) |
+| Windows 10 x64 | [Windows installer](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-Setup-0.7.1-win-x64.exe) |
+| Windows 11 x64 | [Windows installer](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-Setup-0.7.1-win-x64.exe) — the same file works on Windows 10 and 11 |
+| Mac Intel | [Mac Intel DMG](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.1-mac-x64.dmg) |
+| Mac with Apple Silicon | [Mac Apple Silicon DMG](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.1-mac-arm64.dmg) |
 
 Mac requires **macOS 13 Ventura or later**. To choose the correct Mac file, open **Apple menu → About This Mac**: **Intel** means Mac Intel; **Apple M…** means Apple Silicon. Windows downloads target x64, not Windows ARM64.
 
@@ -21,7 +21,7 @@ WinGet registration for `AArnaud.Cypher` has been [submitted to Microsoft](https
 
 1. Download and run the installer above. No administrator rights or Node.js installation are required.
 2. Open **Cypher**, then **Connections** to authorize an existing profile or add a supported API key.
-3. Pin your profiles. Click **Move to taskbar** to minimize into the bottom bar: the embedded indicator on Windows 10, or the notification area near the clock on Windows 11.
+3. Pin your profiles. The indicator appears automatically; **Minimize to taskbar** hides the window while keeping it in the bottom bar: the embedded indicator on Windows 10, or the notification area near the clock on Windows 11.
 
 Windows may put the notification icon under the hidden-icons arrow. The portable alternative below does not support automatic Windows startup.
 
@@ -29,13 +29,13 @@ Windows may put the notification icon under the hidden-icons arrow. The portable
 
 1. Open the DMG and drag **Cypher.app** into **Applications**.
 2. Open Cypher from Applications. Authorize a detected profile, or expand **More ways to connect** for Codex browser sign-in, CLI sign-in or an API alternative.
-3. Choose **Move to menu bar** to minimize into the indicator **at the top right**.
+3. The indicator appears automatically. Choose **Minimize to menu bar** to hide the window and keep the indicator **at the top right**.
 
 No separate Node.js, Codex CLI or Codex desktop app is needed for Codex browser sign-in on Windows or Mac. API billing and subscription quotas remain distinct. [Mac guide](../MACOS.md) · [Connection methods](connection-methods.md).
 
 ## Update Cypher
 
-On **0.5.x**, install **0.7.0 once** using the downloads above to get update proposals. Installed Windows 0.6.0 can already propose this update through Settings. The installed Windows app can then download/verify/install after your approval. Current Mac and portable/extracted Windows copies use the official browser download and manual replacement. Earlier 0.5.x versions do not check for releases. [Automatic update behavior](updates.md).
+On **0.5.x**, install **0.7.1 once** using the downloads above to get update proposals. Installed Windows 0.6.0 can already propose this update through Settings. The installed Windows app can then download/verify/install after your approval. Current Mac and portable/extracted Windows copies use the official browser download and manual replacement. Earlier 0.5.x versions do not check for releases. [Automatic update behavior](updates.md).
 
 1. **Quit the running version completely.** Choose **Quit / Quitter** from the Cypher bar menu, or **Quit Cypher / Quitter Cypher** in the closing dialog. Minimizing leaves the old process running.
 2. **Windows:** run the current installer. For the portable version, close the old executable, replace it with the new download and reopen it.
@@ -56,14 +56,14 @@ Platform compatibility and Apple notarization are separate. An Apple Developer I
 
 | Option | Download |
 | --- | --- |
-| Windows portable, without installation | [Portable EXE](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.0-win-x64.exe) |
-| Mac Intel ZIP | [Intel ZIP](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.0-mac-x64.zip) |
-| Mac Apple Silicon ZIP | [Apple Silicon ZIP](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.0-mac-arm64.zip) |
-| Windows checksums | [SHA-256 manifest](https://github.com/A-Arnaud/Cypher/releases/latest/download/SHA256SUMS-0.7.0.txt) |
+| Windows portable, without installation | [Portable EXE](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.1-win-x64.exe) |
+| Mac Intel ZIP | [Intel ZIP](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.1-mac-x64.zip) |
+| Mac Apple Silicon ZIP | [Apple Silicon ZIP](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.1-mac-arm64.zip) |
+| Windows checksums | [SHA-256 manifest](https://github.com/A-Arnaud/Cypher/releases/latest/download/SHA256SUMS-0.7.1.txt) |
 | Mac Intel checksums | [SHA-256 manifest](https://github.com/A-Arnaud/Cypher/releases/latest/download/SHA256SUMS-mac-x64.txt) |
 | Mac Apple Silicon checksums | [SHA-256 manifest](https://github.com/A-Arnaud/Cypher/releases/latest/download/SHA256SUMS-mac-arm64.txt) |
 
-The common release page contains **Cypher 0.7.0 for Windows and macOS**. Historical releases remain available with their original files and checksums.
+The common release page contains **Cypher 0.7.1 for Windows and macOS**. Historical releases remain available with their original files and checksums.
 
 ## Check a download
 
@@ -71,12 +71,12 @@ Compare the result with the matching SHA-256 manifest above.
 
 ```powershell
 # Windows PowerShell: substitute the filename you downloaded.
-Get-FileHash .\Cypher-Setup-0.7.0-win-x64.exe -Algorithm SHA256
+Get-FileHash .\Cypher-Setup-0.7.1-win-x64.exe -Algorithm SHA256
 ```
 
 ```sh
 # Mac Terminal: substitute your Intel or Apple Silicon filename.
-shasum -a 256 ~/Downloads/Cypher-0.7.0-mac-x64.dmg
+shasum -a 256 ~/Downloads/Cypher-0.7.1-mac-x64.dmg
 ```
 
 For a problem, check the [FAQ](../SUPPORT.md#faq), then [report it](https://github.com/A-Arnaud/Cypher/issues/new/choose) with your OS version, processor and filename. Do not attach account files or credentials.

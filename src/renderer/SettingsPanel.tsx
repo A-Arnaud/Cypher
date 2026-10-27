@@ -1,19 +1,28 @@
 import {UpdateSettings} from './UpdateNotice';
 import {DiagnosticsPanel} from './DiagnosticsPanel';
 import {useState} from 'react';
-import {Power,Activity,Palette,Command} from 'lucide-react';
+import {Power,Activity,Palette,Command,PanelTop} from 'lucide-react';
 import type {AppState,QuotaBridge,SettingsPatch} from '../shared/model';
 import {copy} from '../shared/i18n';
 import {OpacityControl} from './OpacityControl';
 import {validShortcut} from '../shared/shortcut';
+import {indicatorCopy} from '../shared/indicator-copy';
 
 interface Props {state:AppState;bridge:QuotaBridge;update:(patch:SettingsPatch)=>Promise<void>;shortcut:string;setShortcut:(value:string)=>void}
 export function SettingsPanel({state,bridge,update,shortcut,setShortcut}:Props){
  const t=(key:string)=>copy(state.settings.language,key,state.platform);const [savingStartup,setSavingStartup]=useState(false);const [savingShortcut,setSavingShortcut]=useState(false);
+ const bar=indicatorCopy(state.settings.language,state.platform,state.taskbarBackend);const [savingBar,setSavingBar]=useState(false);const [barError,setBarError]=useState(false);
+ const setBar=async(enabled:boolean)=>{setSavingBar(true);setBarError(false);try{await bridge.setTaskbarMode?.(enabled,false)}catch{setBarError(true)}finally{setSavingBar(false)}};
  const toggle=(label:string,key:'alwaysOnTop'|'compact',disabled=false)=><label className="setting-row"><span>{t(label)}</span><input type="checkbox" role="switch" checked={state.settings[key]} disabled={disabled} onChange={e=>void update({[key]:e.target.checked})}/><i className="switch"/></label>;
  const setStartup=async(enabled:boolean)=>{setSavingStartup(true);try{await update({startAtLogin:enabled})}finally{setSavingStartup(false)}};
  const saveShortcut=async()=>{setSavingShortcut(true);try{await update({shortcut})}finally{setSavingShortcut(false)}};
  return <div className="settings-panel">
+  <section className="settings-group" aria-labelledby="indicator-heading">
+   <h2 id="indicator-heading" className="settings-heading"><PanelTop size={14}/>{bar.title}</h2>
+   <label className="setting-row"><span>{bar.label}</span><input type="checkbox" role="switch" aria-label={bar.label} aria-describedby="indicator-hint" checked={state.settings.taskbarMode===true} disabled={!state.desktop||!bridge.setTaskbarMode||savingBar||state.taskbarStatus==='starting'} onChange={e=>void setBar(e.target.checked)}/><i className="switch"/></label>
+   <p id="indicator-hint" className="setting-hint">{bar.hint}</p>
+   {barError&&<p role="alert" className="setting-hint">{t(state.taskbarBackend==='tray'?'trayError':'taskbarError')}</p>}
+  </section>
   <section className="settings-group startup-group" aria-labelledby="startup-heading">
    <h2 id="startup-heading" className="settings-heading"><Power size={14}/>{state.platform==='darwin'?'macOS':'Windows'}<span className={'setting-status '+(state.settings.startAtLogin&&!state.startupNeedsApproval?'enabled':'')}>{t(savingStartup?'saving':state.startupNeedsApproval?'startupApproval':state.settings.startAtLogin?'enabled':'disabled')}</span></h2>
    <label className="setting-row"><span>{t('startup')}</span><input type="checkbox" role="switch" aria-label={t('startup')} checked={state.settings.startAtLogin} disabled={!state.desktop||!state.startupAvailable||savingStartup} onChange={e=>void setStartup(e.target.checked)}/><i className="switch"/></label>
