@@ -1,4 +1,4 @@
-import {UpdateSettings} from './UpdateNotice';import {DiagnosticsPanel} from './DiagnosticsPanel';
+import {UpdateSettings} from './UpdateNotice';import {DiagnosticsPanel} from './DiagnosticsPanel';import {IndicatorPreview} from './IndicatorPreview';
 import {useState} from 'react';import {Power,Activity,Palette,Command,PanelTop,SlidersHorizontal,ChevronDown} from 'lucide-react';
 import type {AppState,QuotaBridge,SettingsPatch} from '../shared/model';import {copy} from '../shared/i18n';import {OpacityControl} from './OpacityControl';
 import {validShortcut} from '../shared/shortcut';import {indicatorCopy} from '../shared/indicator-copy';import {experienceCopy} from '../shared/experience-copy';
@@ -17,7 +17,7 @@ export function SettingsPanel({state,bridge,update,shortcut,setShortcut}:Props){
   </section>
   <section className="settings-group" aria-labelledby="indicator-heading"><h2 id="indicator-heading" className="settings-heading"><PanelTop size={15}/>{bar.title}</h2>
    <label className="setting-row"><span>{bar.label}</span><input type="checkbox" role="switch" aria-label={bar.label} aria-describedby="indicator-hint" checked={state.settings.taskbarMode===true} disabled={!state.desktop||!bridge.setTaskbarMode||savingBar||state.taskbarStatus==='starting'} onChange={e=>void setBar(e.target.checked)}/><i className="switch"/></label>
-   <p id="indicator-hint" className="setting-hint">{w.barHint}</p>{barError&&<p role="alert" className="setting-hint">{t(state.taskbarBackend==='tray'?'trayError':'taskbarError')}</p>}
+   <p id="indicator-hint" className="setting-hint">{w.barHint}</p><IndicatorPreview state={state}/>{barError&&<p role="alert" className="setting-hint">{t(state.taskbarBackend==='tray'?'trayError':'taskbarError')}</p>}
   </section>
   <section className="settings-group startup-group" aria-labelledby="startup-heading"><h2 id="startup-heading" className="settings-heading"><Power size={15}/>{state.platform==='darwin'?'macOS':'Windows'}<span className={'setting-status '+(state.settings.startAtLogin&&!state.startupNeedsApproval?'enabled':'')}>{t(savingStartup?'saving':state.startupNeedsApproval?'startupApproval':state.settings.startAtLogin?'enabled':'disabled')}</span></h2>
    <label className="setting-row"><span>{t('startup')}</span><input type="checkbox" role="switch" aria-label={t('startup')} checked={state.settings.startAtLogin} disabled={!state.desktop||!state.startupAvailable||savingStartup} onChange={e=>void setStartup(e.target.checked)}/><i className="switch"/></label>

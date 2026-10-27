@@ -1,6 +1,6 @@
 {
   "name": "cypher-widget",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "private": true,
   "type": "module",
   "description": "Local-first AI quota monitor for Windows and macOS",
@@ -52,6 +52,7 @@
       "package.json",
       "!node_modules/**",
       "dist/assets/trayTemplate*.png",
+      "dist/assets/indicator/**",
       "dist/native/codex/**",
       "dist/assets/THIRD-PARTY-UPDATES.txt"
     ],

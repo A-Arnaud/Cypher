@@ -71,7 +71,7 @@ static class Program {
 
 sealed class Surface:Form {
     IntPtr shell,rebar,tasks;int reserve;bool attached,closing;Win.Rect original;readonly System.Windows.Forms.Timer timer=new System.Windows.Forms.Timer();
-    sealed class DisplayItem {public string Provider,Text;public bool Stale;}
+    sealed class DisplayItem {public string Provider,Text;public bool Stale;public List<string> Quotas=new List<string>();}
     readonly Dictionary<string,Image> logos=new Dictionary<string,Image>();
     readonly ToolTip tip=new ToolTip();readonly List<DisplayItem> displayItems=new List<DisplayItem>();int extraCount;string language="fr";
     public Surface(IntPtr h){
@@ -88,7 +88,7 @@ sealed class Surface:Form {
             rebar=Win.FindWindowEx(shell,IntPtr.Zero,"ReBarWindow32",null);tasks=Win.FindWindowEx(rebar,IntPtr.Zero,"MSTaskSwWClass",null);
             if(rebar==IntPtr.Zero||tasks==IntPtr.Zero)throw new Exception();
             original=Win.Bounds(rebar);var bar=Win.Bounds(shell);if(bar.Width<bar.Height)throw new Exception();
-            reserve=(int)Math.Round(216*Win.GetDpiForWindow(shell)/96.0);if(original.Width-reserve<300)throw new Exception();
+            reserve=ReservedWidth(Win.GetDpiForWindow(shell));if(original.Width-reserve<300)throw new Exception();
             // A separate watchdog survives an abrupt helper/Electron termination.
             var watch=new ProcessStartInfo(Application.ExecutablePath,"--watch "+Process.GetCurrentProcess().Id+" "+shell.ToInt64()) {UseShellExecute=false,CreateNoWindow=true,WindowStyle=ProcessWindowStyle.Hidden};
             using(var process=Process.Start(watch)){if(process==null)throw new Exception();}
@@ -103,7 +103,7 @@ sealed class Surface:Form {
     void LayoutSurface(){
         if(!Win.IsWindow(shell)||!Win.IsWindow(rebar)||!Win.IsWindow(tasks)||Win.GetParent(Handle)!=shell)throw new Exception();
         var bar=Win.Bounds(shell);if(bar.Width<bar.Height)throw new Exception();
-        var current=Win.Bounds(rebar);int dpi=(int)Win.GetDpiForWindow(shell);reserve=(int)Math.Round(216*dpi/96.0);
+        var current=Win.Bounds(rebar);int dpi=(int)Win.GetDpiForWindow(shell);reserve=ReservedWidth((uint)dpi);
         // Explorer owns the natural right edge. Weather/notification children bound it.
         int right=bar.R;
         foreach(string cls in new[]{"DynamicContent2","TrayNotifyWnd"}){
@@ -120,6 +120,13 @@ sealed class Surface:Form {
         var surface=Win.Bounds(Handle);
         if(surface.L!=right-reserve||surface.T!=bar.T||surface.Width!=reserve||surface.Height!=bar.Height)
             Win.MoveWindow(Handle,right-reserve-bar.L,0,reserve,bar.Height,true);
+    }
+    int ReservedWidth(uint dpi){return (int)Math.Round((8+Math.Max(1,displayItems.Count)*72+(extraCount>0?24:0))*dpi/96.0);}
+    static string SafePercent(object value){var text=Convert.ToString(value);return System.Text.RegularExpressions.Regex.IsMatch(text,@"^(100|\d{1,2})%$")?text:"—";}
+    string QuotaText(Dictionary<string,object> quota){
+        string label=Convert.ToString(quota["label"]);if(!System.Text.RegularExpressions.Regex.IsMatch(label,@"^(session|weekly|quota|\d{1,6}[mhd])$"))label="quota";
+        if(label=="session")label=language=="fr"?"sess.":"sess.";else if(label=="weekly")label=language=="fr"?"sem.":"week";else if(language=="fr"&&label.EndsWith("d"))label=label.Substring(0,label.Length-1)+"j";
+        return label+" "+SafePercent(quota["text"]);
     }
     void ReadInput(){
         try{string line;while((line=Console.ReadLine())!=null){
@@ -138,14 +145,18 @@ sealed class Surface:Form {
             if(values!=null)foreach(Dictionary<string,object> item in values){
                 if(displayItems.Count==3)break;
                 string provider=Convert.ToString(item["providerId"]);
-                string text=Convert.ToString(item["text"]);if(text.Length>32)text="—";
+                string text=SafePercent(item["text"]);
                 bool old=item.ContainsKey("stale")&&item["stale"] is bool&&(bool)item["stale"];
-                displayItems.Add(new DisplayItem {Provider=provider,Text=text+(old?"!":""),Stale=old});labels.Add(Convert.ToString(item["label"])+" : "+text+(old?" (ancien / stale)":""));
+                var reading=new DisplayItem {Provider=provider,Text=text,Stale=old};
+                var quotas=item.ContainsKey("quotas")?item["quotas"] as ArrayList:null;
+                if(quotas!=null)foreach(Dictionary<string,object> quota in quotas){if(reading.Quotas.Count==2)break;reading.Quotas.Add(QuotaText(quota));}
+                if(quotas!=null&&quotas.Count==1){var q=(Dictionary<string,object>)quotas[0];var label=Convert.ToString(q["label"]);if(label=="weekly"||label=="7d")reading.Quotas.Insert(0,"—");}
+                displayItems.Add(reading);labels.Add(Convert.ToString(item["label"])+" : "+(reading.Quotas.Count>0?string.Join(" / ",reading.Quotas.ToArray()):text)+(old?" (ancien / stale)":""));
             }
             extraCount=msg.ContainsKey("extraCount")?Math.Max(0,Convert.ToInt32(msg["extraCount"])):0;
-            string caption=language=="fr"?"Cypher — quota restant minimum connu\n":"Cypher — lowest known remaining quota\n";
+            string caption=language=="fr"?"Cypher — pourcentages restants\n":"Cypher — remaining percentages\n";
             string tooltip=caption+string.Join("\n",labels.ToArray())+"\n"+(language=="fr"?"Cliquer pour ouvrir Cypher":"Click to open Cypher");
-            tip.SetToolTip(this,tooltip.Length>1800?tooltip.Substring(0,1800):tooltip);Invalidate();
+            tip.SetToolTip(this,tooltip.Length>1800?tooltip.Substring(0,1800):tooltip);AccessibleDescription=tooltip;if(attached)LayoutSurface();Invalidate();
         }catch{Fail("taskbar-protocol");}
     }
     protected override void OnPaint(PaintEventArgs e){
@@ -159,7 +170,18 @@ sealed class Surface:Form {
         for(int i=0;i<displayItems.Count;i++){
             var item=displayItems[i];int x=padding+i*cell;Image logo;if(!logos.TryGetValue(item.Provider,out logo))logo=logos["default"];
             e.Graphics.DrawImage(logo,new Rectangle(x,(ClientSize.Height-iconSize)/2,iconSize,iconSize));
-            TextRenderer.DrawText(e.Graphics,item.Text,Font,new Rectangle(x+iconSize+gap,0,Math.Max(1,cell-iconSize-2*gap),ClientSize.Height),item.Stale?Color.FromArgb(255,202,110):ForeColor,flags);
+            var color=item.Stale?Color.FromArgb(255,202,110):ForeColor;
+            int numberX=x+iconSize+gap,numberWidth=Math.Max(1,cell-iconSize-gap);
+            if(item.Quotas.Count>0){
+                int rowHeight=Math.Min((int)Math.Round(15*scale),ClientSize.Height/2),top=(ClientSize.Height-rowHeight*2)/2;
+                using(var quotaFont=new Font("Segoe UI",8f,FontStyle.Regular,GraphicsUnit.Point))for(int row=0;row<2;row++){
+                    string line=row<item.Quotas.Count?item.Quotas[row]:"—";
+                    var match=System.Text.RegularExpressions.Regex.Match(line,@"(\d{1,3})%$");int remaining=match.Success?int.Parse(match.Groups[1].Value):101;
+                    var rowColor=item.Stale?color:remaining<=5?Color.FromArgb(255,135,135):remaining<=20?Color.FromArgb(255,210,100):color;
+                    TextRenderer.DrawText(e.Graphics,line,quotaFont,new Rectangle(numberX,top+row*rowHeight,numberWidth,rowHeight),rowColor,flags);
+                }
+            }else TextRenderer.DrawText(e.Graphics,item.Text,Font,new Rectangle(numberX,0,numberWidth,ClientSize.Height),color,flags);
+            if(item.Stale)e.Graphics.FillEllipse(Brushes.Goldenrod,new Rectangle(x+iconSize-(int)(4*scale),(ClientSize.Height+iconSize)/2-(int)(4*scale),(int)(4*scale),(int)(4*scale)));
         }
         if(extraWidth>0)TextRenderer.DrawText(e.Graphics,extra,Font,new Rectangle(ClientSize.Width-padding-extraWidth,0,extraWidth,ClientSize.Height),ForeColor,flags);
     }

@@ -1,4 +1,5 @@
 import {spawn,type ChildProcessWithoutNullStreams} from 'node:child_process';
+import {catalog} from '../shared/catalog';
 import type {Language} from '../shared/model';import type {TaskbarItem} from '../shared/taskbar';
 type Render={items:TaskbarItem[];extraCount:number;language:Language};
 interface Options {executable:string;args?:string[];timeout?:number;onOpen:()=>void;onError:(code:string)=>void}
@@ -30,7 +31,7 @@ export class TaskbarHost {
   });
   const result=this.starting;void result.finally(()=>{if(this.starting===result)this.starting=undefined}).catch(()=>{});return result;
  }
- render(value:Render):void{const session=this.session;if(!session?.ready||session.stopping)return;const line=JSON.stringify({type:'render',...value})+'\n';if(Buffer.byteLength(line)>12000||line===session.lastRender)return;session.lastRender=line;if(session.blocked)session.pending=line;else session.blocked=!session.child.stdin.write(line)}
+ render(value:Render):void{const session=this.session;if(!session?.ready||session.stopping)return;const items=value.items.map(item=>({...item,label:catalog.find(c=>c.id===item.providerId)?.name??'Cypher'}));const line=JSON.stringify({type:'render',...value,items})+'\n';if(Buffer.byteLength(line)>12000||line===session.lastRender)return;session.lastRender=line;if(session.blocked)session.pending=line;else session.blocked=!session.child.stdin.write(line)}
  async stop():Promise<void>{
   const session=this.session;if(!session)return;session.stopping=true;this.session=undefined;clearTimeout(session.timer);if(!session.ready)session.reject(Error('taskbar-cancelled'));
   session.child.stdin.end('{"type":"quit"}\n');const timer=setTimeout(()=>session.child.kill(),2000);try{await session.done}finally{clearTimeout(timer)}

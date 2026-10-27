@@ -1,3 +1,11 @@
+# 0.9.0 — two quota windows in a compact bar
+
+- Keep short/session and weekly quota percentages separate in compact native indicators.
+- Size the Windows 10 strip for its account count; combine logos and both rows in the Mac menu bar.
+- Show two-row numeric notification icons on Windows 11 with service/duration tooltips and native menus.
+- Replace nested quota cards with flat sections and a labelled navigation rail with service filters.
+- Add an indicator reading guide; retain real zero, unknown/stale values, privacy, startup and update behavior.
+
 # 0.8.0 — simpler account setup and a clearer interface
 
 - Add a guided first-run view, service picker and immediately visible Codex browser sign-in; keep explicit permission for existing profiles.

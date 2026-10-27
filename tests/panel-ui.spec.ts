@@ -1,0 +1,13 @@
+import {test,expect} from '@playwright/test';
+import {defaultSettings} from '../src/shared/defaults';
+test('service navigation filters quotas without hiding a profile opened from search',async({page})=>{
+ await page.addInitScript(settings=>{let state:any={desktop:true,platform:'win32',refreshing:false,settings,profiles:[],detections:[],providers:[{id:'codex',auth:'connected',state:'ready',message:'providerData',observedAt:Date.now(),metrics:[{id:'session',label:'300m',remainingPercent:0,unit:'percent',source:'provider',observedAt:Date.now()},{id:'weekly',label:'10080m',remainingPercent:62,unit:'percent',source:'provider',observedAt:Date.now()}]},{id:'claude',auth:'connected',state:'unavailable',message:'claudeQuotaUnavailable',observedAt:Date.now(),metrics:[]}]};const listeners=new Set<(s:any)=>void>();window.quota={getState:async()=>state,subscribe:fn=>{listeners.add(fn);return()=>{listeners.delete(fn)}},updateSettings:async patch=>{state={...state,settings:{...state.settings,...patch}};listeners.forEach(l=>l(state))},refresh:async()=>{},openProvider:async()=>{},hide:async()=>{},quit:async()=>{}}},{...defaultSettings(),language:'en',summaryMode:false,pinned:['codex','claude'],consents:['codex','claude']});
+ await page.goto('/');await expect(page.locator('.provider-card')).toHaveCount(2);await page.getByRole('button',{name:'Show Codex',exact:true}).click();await expect(page.locator('.provider-card')).toHaveCount(1);await expect(page.locator('.metric-line').first()).toContainText('0% remaining');
+ await page.getByRole('button',{name:'Quick actions',exact:true}).click();await page.getByRole('combobox').fill('Claude');await page.getByRole('option').filter({hasText:'Claude Code'}).first().click();await expect(page.locator('#profile-card-claude')).toBeVisible();
+ await page.getByRole('button',{name:'Settings',exact:true}).click();const preview=page.locator('.indicator-preview');await expect(preview).toContainText('5h0%');await expect(preview).toContainText('7d62%');await expect(page.locator('.topbar')).toBeInViewport();
+});
+test('the rail and quota controls stay within a narrow French window',async({page})=>{
+ await page.setViewportSize({width:380,height:704});await page.addInitScript(()=>localStorage.setItem('cypher-preview-language','fr'));
+ await page.goto('/');await page.getByRole('button',{name:'Settings',exact:true}).click();await page.getByLabel('Language',{exact:true}).selectOption('fr');await expect(page.getByRole('button',{name:'Réglages',exact:true})).toBeInViewport();await expect(page.getByLabel('Apparence',{exact:true})).toBeInViewport();
+ expect(await page.locator('.scroll-area').evaluate(el=>el.scrollWidth<=el.clientWidth)).toBe(true);
+});

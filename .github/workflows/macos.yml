@@ -38,6 +38,8 @@ jobs:
       - run: npm run test:mac
       - run: npm run security:scan
       - run: npm run build
+      - name: Verify compact dual-quota menu images and native Tray cleanup
+        run: node scripts/test-indicator-native.cjs
       - name: Verify quick actions and private diagnostic IPC without touching the clipboard
         run: node scripts/test-diagnostics.cjs
       - name: Verify bundled authentication component with an empty profile

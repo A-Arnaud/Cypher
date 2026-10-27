@@ -7,8 +7,8 @@ const work='codex-profile-0000000000000001';
 const team='codex-profile-0000000000000002';
 function fixture(platform='win32'){
  const quota=(id,session,weekly)=>({id,providerId:'codex',auth:'connected',state:'ready',plan:'Plus',message:'providerData',observedAt:now,metrics:[
-  {id:'session',label:'session',unit:'percent',remainingPercent:session,source:'provider',observedAt:now,resetAt:now+3*3600000},
-  {id:'weekly',label:'weekly',unit:'percent',remainingPercent:weekly,source:'provider',observedAt:now,resetAt:now+3*86400000}
+  {id:'session',label:'300m',unit:'percent',remainingPercent:session,source:'provider',observedAt:now,resetAt:now+3*3600000},
+  {id:'weekly',label:'10080m',unit:'percent',remainingPercent:weekly,source:'provider',observedAt:now,resetAt:now+3*86400000}
  ]});
  return {desktop:true,platform,taskbarBackend:platform==='darwin'?'tray':'embedded',taskbarStatus:'ready',startupAvailable:true,startupNeedsApproval:false,refreshing:false,
   settings:{theme:'light',autoUpdateCheck:true,taskbarMode:true,taskbarOnboarded:true,language:'en',opacity:100,summaryMode:false,pinned:['codex',work],consents:['codex',work,team,'claude','openrouter','poe','deepseek'],alwaysOnTop:false,startAtLogin:false,paused:false,pollSeconds:60,shortcut:'Control+Alt+Q',compact:false,alertThresholds:[20,5]},

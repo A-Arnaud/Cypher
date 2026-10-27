@@ -1,4 +1,4 @@
-# Implementation notes — Cypher 0.8.0
+# Implementation notes — Cypher 0.9.0
 
 Current behavior is described in the [user guide](user-guide.md), [connection methods](connection-methods.md) and [provider matrix](catalog-coverage.md). Dated plans and verification records describe the version tested at that time; they are not the current feature specification.
 
@@ -26,7 +26,7 @@ Preferences, registry and account profiles live outside the application archive.
 ## Platform presentation
 
 - **Windows 10:** the [native helper](../native/taskbar/Program.cs) embeds the quota indicator in a supported horizontal primary taskbar. Unsupported shells use the independent notification-area backend.
-- **Windows 11:** the [tray host](../src/main/tray-host.ts) supplies native tooltip/menu readings. It does not embed text in the Windows 11 taskbar or modify Explorer.
+- **Windows 11:** the [tray host](../src/main/tray-host.ts) supplies safe quota readings to the [native indicator compositor](../src/main/native-indicators.ts): small two-row numeric icons, tooltips and menus. It does not embed a strip in the Windows 11 taskbar or modify Explorer.
 - **Mac:** the packaged app declares `LSUIElement=true` and retains accessory activation. A top-right menu icon remains available while its window is open or hidden. Reopening the window does not promote the app back to the Dock.
 
 The [docking controller](../src/main/docking.ts) confirms the indicator is ready before hiding the window and reveals the window on failure. It does not register automatic startup. The [close controller](../src/main/window-close.ts) serializes native/renderer close requests and offers Minimize, Quit and Cancel. Explicit menu Quit exits directly.

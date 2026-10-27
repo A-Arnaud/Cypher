@@ -14,7 +14,7 @@ it('documents the percent-only indicator boundary without turning balances or mo
   {id:'codex',auth:'connected',state:'ready',message:'',observedAt:1,metrics:[{id:'quota',label:'quota',remainingPercent:23,unit:'percent',source:'provider',observedAt:1}]}
  ],refreshing:false,desktop:true};
  let presentation:TrayPresentation|undefined;const host=new TrayHost(v=>presentation=v);await host.start();host.render({...taskbarSummary(state),language:'en'});
- expect(presentation?.lines).toEqual(['DeepSeek API : —','Ollama : —','Codex : 23%']);
+ expect(presentation?.lines).toEqual(['DeepSeek API : —','Ollama : —','Codex : quota 23%']);
  expect(state.providers[0].metrics[0].remaining).toBe(12.5);expect(state.providers[1].metrics[0].remaining).toBe(4);
  await host.stop();
 });
