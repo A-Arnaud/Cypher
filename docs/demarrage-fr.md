@@ -1,14 +1,14 @@
 # Cypher — démarrage rapide en français
 
-**Version actuelle : 0.7.0**, pour Windows et Mac. [Toutes les releases](https://github.com/A-Arnaud/Cypher/releases/latest) · [README en anglais](../README.md)
+**Version actuelle : 0.7.1**, pour Windows et Mac. [Toutes les releases](https://github.com/A-Arnaud/Cypher/releases/latest) · [README en anglais](../README.md)
 
 ## Télécharger le bon fichier
 
 | Votre ordinateur | Téléchargement recommandé |
 | --- | --- |
-| **Windows 10 ou 11, x64** | **[Installateur Windows](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-Setup-0.7.0-win-x64.exe)** |
-| **Mac Intel** | **[Installateur Mac Intel](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.0-mac-x64.dmg)** |
-| **Mac Apple Silicon, puce M1, M2, M3…** | **[Installateur Mac Apple Silicon](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.0-mac-arm64.dmg)** |
+| **Windows 10 ou 11, x64** | **[Installateur Windows](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-Setup-0.7.1-win-x64.exe)** |
+| **Mac Intel** | **[Installateur Mac Intel](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.1-mac-x64.dmg)** |
+| **Mac Apple Silicon, puce M1, M2, M3…** | **[Installateur Mac Apple Silicon](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.7.1-mac-arm64.dmg)** |
 
 Mac nécessite **macOS 13 Ventura ou plus récent**. Dans le menu Apple, ouvrez **À propos de ce Mac** : un processeur Intel correspond au fichier `mac-x64`, une puce Apple M au fichier `mac-arm64`.
 
@@ -33,11 +33,13 @@ Les autres options proposées dépendent du fournisseur : **Avec le CLI install�
 
 ## Retrouver Cypher dans la barre
 
+L’indicateur apparaît automatiquement dès l’ouverture de Cypher. Le bouton **Réduire dans la barre** masque la fenêtre. Dans **Réglages → Indicateur de quotas**, vous pouvez désactiver ou réactiver les quotas sans fermer les réglages. Ce choix est conservé aux prochains lancements, y compris à la connexion de l’ordinateur. L’icône Cypher reste accessible.
+
 | Système | Action et emplacement |
 | --- | --- |
-| **Windows 10** | **Mettre dans la barre des tâches**, en bas, sur la barre principale horizontale |
-| **Windows 11** | **Mettre dans la barre des tâches**, en bas à droite près de l'horloge ; l'icône peut être sous la flèche des icônes masquées |
-| **Mac** | **Mettre dans la barre des menus**, en haut à droite ; Cypher reste absent du Dock et de ⌘Tab |
+| **Windows 10** | Automatiquement en bas, sur la barre principale horizontale |
+| **Windows 11** | Automatiquement en bas à droite près de l'horloge ; l'icône peut être sous la flèche des icônes masquées |
+| **Mac** | Automatiquement en haut à droite ; Cypher reste absent du Dock et de ⌘Tab |
 
 Sur Mac, cliquez sur l'icône du haut puis **Afficher / Masquer** pour ouvrir ou cacher la fenêtre. Cela fonctionne aussi après l'ouverture des réglages. Si vous aviez épinglé l'ancienne icône au Dock, retirez ce favori une fois depuis son menu d'options.
 
@@ -55,7 +57,7 @@ Sur Mac, l'application doit être dans **Applications**. Si macOS demande une au
 
 ## Être averti des nouvelles versions
 
-Si vous utilisez encore **0.5.x**, installez **0.7.0 une première fois** pour obtenir le contrôle des mises à jour. Les versions 0.6.0 et suivantes le possèdent déjà. Cypher vérifie les releases stables GitHub après l'ouverture puis toutes les six heures. Une petite action **Mise à jour** apparaît dans le widget et le menu, sans ouvrir de fenêtre automatiquement.
+Si vous utilisez encore **0.5.x**, installez **0.7.1 une première fois** pour obtenir le contrôle des mises à jour. Les versions 0.6.0 et suivantes le possèdent déjà. Cypher vérifie les releases stables GitHub après l'ouverture puis toutes les six heures. Une petite action **Mise à jour** apparaît dans le widget et le menu, sans ouvrir de fenêtre automatiquement.
 
 Après votre accord, la **version Windows installée** télécharge et vérifie la mise à jour, puis l'installe et redémarre dans la barre. Sur **Mac actuellement**, Cypher ouvre le bon téléchargement dans votre navigateur ; le remplacement dans Applications reste manuel tant que le mécanisme Mac signé n'est pas disponible. Les versions Windows portables ou simplement décompressées restent également manuelles.
 
@@ -67,4 +69,4 @@ La fermeture de la fenêtre propose **Réduire dans la barre**, **Quitter Cypher
 
 Sur Mac, **Quitter** reste disponible dans le menu de l'icône en haut, même sans icône dans le Dock.
 
-[Aide et dépannage](../SUPPORT.md) · [Notes de version](releases/0.7.0.md) · [Vérifications et limites](../VERIFICATION.md) · [Signaler un problème](https://github.com/A-Arnaud/Cypher/issues/new/choose).
+[Aide et dépannage](../SUPPORT.md) · [Notes de version](releases/0.7.1.md) · [Vérifications et limites](../VERIFICATION.md) · [Signaler un problème](https://github.com/A-Arnaud/Cypher/issues/new/choose).

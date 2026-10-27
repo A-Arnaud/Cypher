@@ -3,11 +3,11 @@ const {chromium}=require('playwright');const fs=require('node:fs/promises');
 (async()=>{const {createServer}=await import('vite');const server=await createServer({server:{host:'127.0.0.1',port:0}});let browser;
 try{await server.listen();browser=await chromium.launch({channel:'msedge'});const page=await browser.newPage({viewport:{width:430,height:704}});
  await page.addInitScript(()=>{
-  const now=Date.UTC(2026,9,25,12,0);let state={settings:{taskbarMode:false,taskbarOnboarded:false,language:'en',opacity:100,summaryMode:false,pinned:['openrouter','poe','deepseek'],consents:[],alwaysOnTop:false,startAtLogin:false,paused:false,pollSeconds:60,shortcut:'Control+Alt+Q',compact:false,alertThresholds:[20,5]},detections:[],providers:[
+  const now=Date.UTC(2026,9,25,12,0);let state={settings:{taskbarMode:true,taskbarOnboarded:false,language:'en',opacity:100,summaryMode:false,pinned:['openrouter','poe','deepseek'],consents:[],alwaysOnTop:false,startAtLogin:false,paused:false,pollSeconds:60,shortcut:'Control+Alt+Q',compact:false,alertThresholds:[20,5]},detections:[],providers:[
    {id:'openrouter',state:'ready',auth:'connected',message:'keyBudgetInfo',observedAt:now,metrics:[{id:'budget',label:'keyBudgetRemaining',remaining:74.5,remainingPercent:75,unit:'currency',currency:'USD',source:'provider',observedAt:now},{id:'cost',label:'monthlyApiSpend',used:25.5,unit:'currency',currency:'USD',source:'provider',observedAt:now}]},
    {id:'poe',state:'ready',auth:'connected',message:'apiBalanceInfo',observedAt:now,metrics:[{id:'points',label:'pointsRemaining',remaining:1500,unit:'points',source:'provider',observedAt:now}]},
    {id:'deepseek',state:'ready',auth:'connected',message:'apiBalanceInfo',observedAt:now,metrics:[{id:'balance',label:'apiBalance',remaining:17.5,unit:'currency',currency:'CNY',source:'provider',observedAt:now}]}
-  ],refreshing:false,desktop:true,platform:'win32',taskbarBackend:'tray',taskbarStatus:'off'};const listeners=new Set();
+  ],refreshing:false,desktop:true,platform:'win32',taskbarBackend:'tray',taskbarStatus:'ready'};const listeners=new Set();
   window.quota={getState:async()=>state,refresh:async()=>{},updateSettings:async patch=>{state={...state,settings:{...state.settings,...patch}};for(const l of listeners)l(state)},setTaskbarMode:async()=>{},requestClose:async()=>{},openProvider:async()=>{},hide:async()=>{},quit:async()=>{},subscribe:l=>{listeners.add(l);return()=>listeners.delete(l)}};
  });
  await page.clock.install({time:new Date(Date.UTC(2026,9,25,12,0))});

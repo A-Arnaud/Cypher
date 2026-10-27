@@ -1,3 +1,9 @@
+# Cypher 0.7.1 indicator launch verification (2026-10-27)
+
+Local checks: typecheck; 201 unit tests passed, 2 skipped; 29 browser UI tests passed. Real Electron isolated-profile launch tests passed for first run, untouched legacy preferences, enabled/disabled preferences, manual/login modes, no login window flash, explicit reopening, Settings disable/enable without hiding, invalid IPC rejection and no startup-registration side effects. Native closing-choice check passed. Windows and both Mac packaging/launch CI results will be recorded before publishing the release.
+
+The base Cypher menu icon remains available when quota presentation is disabled. Existing explicit removals are preserved. Startup remains optional and independent.
+
 # WinGet submission and isolated installation validation — October 27, 2026
 
 - Prepared `AArnaud.Cypher` 0.7.0 as four version/installer/English/French manifests and submitted [Microsoft winget-pkgs #462651](https://github.com/microsoft/winget-pkgs/pull/462651), ready for review. The manifest pins the official published x64 NSIS installer and SHA-256, per-user scope, stable native product code and observed Apps and Features fields (`Cypher 0.7.0`, publisher `Cypher`, version `0.7.0`). No project-wide open-source license is declared; the metadata uses Proprietary without adding a license grant.

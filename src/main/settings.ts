@@ -37,6 +37,9 @@ export async function readSettings(file:string):Promise<Settings>{
   for(const [key,value] of Object.entries(fields)){
    try{settings=validatePatch(settings,{[key]:value})}catch{}
   }
+  // Older installs saved false before the user had ever chosen a bar preference.
+  // Preserve an explicit removal, identified by a completed indicator activation.
+  if(fields.taskbarMode===false&&fields.taskbarOnboarded!==true)settings.taskbarMode=true;
   if(bounds&&typeof bounds==='object'&&['x','y','width','height'].every(k=>typeof (bounds as Record<string,unknown>)[k]==='number'&&Number.isFinite((bounds as Record<string,number>)[k])))settings.bounds=bounds as Settings['bounds'];
   return settings;
  }catch{return defaultSettings()}

@@ -1,6 +1,6 @@
 # Install Cypher with WinGet
 
-**Submitted to Microsoft: [winget-pkgs #462651](https://github.com/microsoft/winget-pkgs/pull/462651). The public command is not available yet.** Microsoft's review/catalog publication and the GitHub account owner's contributor agreement are pending. Until then, use the [Windows installer](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-Setup-0.7.0-win-x64.exe).
+**Submitted to Microsoft: [winget-pkgs #462651](https://github.com/microsoft/winget-pkgs/pull/462651). The public command is not available yet.** Microsoft's review/catalog publication and the GitHub account owner's contributor agreement are pending. Until then, use the [Windows installer](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-Setup-0.7.1-win-x64.exe).
 
 After catalog publication, the Windows command will be:
 

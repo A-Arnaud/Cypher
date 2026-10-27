@@ -7,7 +7,7 @@ const {_electron:electron,expect}=require('@playwright/test');const fs=require('
  const visible=async value=>{await expect.poll(()=>app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].isVisible())).toBe(value);await noDock()};
  const menuClick=label=>app.evaluate((_electron,label)=>{const item=globalThis.cypherMenu.items.find(item=>item.label===label);if(!item)throw Error('Missing native menu action: '+label);item.click()},label);
  await visible(true);await expect.poll(()=>app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].isFocused()),{timeout:15000}).toBe(true);
- await page.getByRole('button',{name:'Move to menu bar',exact:true}).click();await visible(false);
+ await page.getByRole('button',{name:'Minimize to menu bar',exact:true}).click();await visible(false);
  await menuClick('Show / Hide');await visible(true);
  await page.getByRole('button',{name:'Settings',exact:true}).click();const input=page.getByLabel('Show / hide shortcut', {exact:true});await input.fill('Control+Alt+Shift+8');await expect(input).toHaveValue('Control+Alt+Shift+8');await noDock();
  await menuClick('Pause');await expect.poll(async()=>(await page.evaluate(()=>window.quota.getState())).settings.paused).toBe(true);await menuClick('Resume');await noDock();
