@@ -1,3 +1,7 @@
+# Cypher 0.9.0 dual-quota indicator and panel (2026-10-27)
+
+Local typecheck/build, 210 unit tests (2 platform skips) and 35 browser UI scenarios passed. A real Electron native compositor/Tray lifecycle check passed with isolated data, including two rows, real zero, weekly-only placement and extra-icon cleanup. The actual C# painter produced a 152px two-account indicator with both labelled quota rows and an old-reading mark without attaching to Explorer. Public renderer captures use synthetic accounts, blocked external requests and no native bridge. Full Windows/Mac CI and final artifact checks are required before publication. See the [0.9 interface guide](docs/interface-0.9.md) for platform behavior and limits.
+
 # Public description follow-up (2026-10-27)
 
 Reviewed the live homepage and repeated generic/branded discovery queries. The homepage returned HTTP 200 with a generic title and Windows-only description; the tested branded queries did not surface the project. Updated and read back GitHub About to name Codex quotas, reset countdowns, Windows 10/11, macOS and system tray/menu bar behavior. Retained existing topics and added system-tray and claude-code (20 total). Updated the English/French README introduction and recorded the observations, accurate provider promise and proposed future website copy in [the discovery handoff](docs/discoverability.md). The website remains deferred. These wording changes do not establish improved ranking or indexing; app source, version and published 0.8.0 assets are unchanged.

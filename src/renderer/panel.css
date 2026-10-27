@@ -1,0 +1,44 @@
+/* The quota panel: a small navigation rail and one continuous reading surface. */
+:root{--app-bg:#fff;--surface:#fff;--card:#fff;--soft:#f1f2f4;--line:#e8e9ed;--ink:#202124;--muted:#70757d;--accent-ui:#52607c;--accent-soft:#eef0f5;--shadow:none}
+html[data-theme=dark]{--app-bg:#111214;--surface:#111214;--card:#111214;--soft:#222429;--line:#2b2d32;--ink:#f0f1f2;--muted:#a0a3ab;--accent-ui:#c2c9da;--accent-soft:#292d35;--shadow:none}
+.panel-shell .topbar{height:48px;min-height:48px;padding:8px 14px;border-bottom:1px solid var(--line)}
+.panel-shell .brand{font-size:15px;letter-spacing:-.2px;gap:8px}.panel-shell .brand-logo{width:24px;height:24px;border-radius:7px}
+.panel-shell .window-actions .back-widget{font-size:11px}.panel-workspace{display:flex;flex:1;min-height:0;overflow:clip}
+.panel-content{display:flex;flex-direction:column;flex:1;min-width:0;min-height:0}
+.panel-shell .panel-rail{width:58px;min-width:58px;height:auto;min-height:0;flex:none;flex-direction:column;align-items:center;gap:8px;padding:12px 5px 10px;border:0;border-right:1px solid var(--line);background:var(--surface);overflow:visible}
+.panel-rail>button{display:flex;flex-direction:column;gap:5px;flex:none;width:48px;min-height:47px;padding:7px 2px;font-size:9px;border-radius:8px;white-space:nowrap}
+.panel-rail>button svg{flex-shrink:0}.panel-rail>button.selected{color:var(--ink);background:var(--accent-soft)}
+.rail-services{display:flex;flex-direction:column;gap:7px;width:100%;padding:10px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);max-height:42%;overflow-y:auto;scrollbar-width:thin}
+.rail-services:empty{display:none}.panel-rail .rail-services button{position:relative;flex:none;display:grid;place-items:center;width:36px;min-height:36px;padding:8px;margin:0 auto;border-radius:8px;border:1px solid transparent}
+.rail-services .provider-image{width:21px;height:21px}.panel-rail .rail-services button.selected{background:var(--accent-soft);border-color:var(--line)}
+.rail-tooltip{position:absolute;left:100%;pointer-events:none;opacity:0;width:0;height:0;overflow:hidden}.panel-rail>.rail-settings{margin-top:auto}
+.panel-shell .scroll-area{padding:20px 18px 16px;overflow-x:hidden}.panel-shell .account-list-heading{padding-bottom:16px;align-items:flex-start}
+.panel-shell .account-list-heading>div:first-child{display:block}.panel-shell .account-list-heading h1{font-size:18px;letter-spacing:-.3px;font-weight:650}
+.panel-shell .account-list-heading>div:first-child>p{font-size:11px;background:none;padding:0;margin-top:4px;color:var(--muted)}
+.panel-shell .add-account-link{font-size:0;padding:6px;min-width:30px;min-height:30px;justify-content:center}.panel-shell .add-account-link svg{width:18px;height:18px}
+.panel-shell .cards{gap:0}.panel-shell .provider-card.account-card{padding:0 0 18px;margin:0 0 18px;border:0;border-bottom:1px solid var(--line);border-radius:0;background:transparent;box-shadow:none}
+.panel-shell .provider-card.account-card:last-child{margin-bottom:0}.panel-shell .provider-card.account-card .provider-heading{gap:9px;margin:0 0 15px}
+.panel-shell .provider-card.account-card .provider-logo{width:25px;height:25px;padding:0;background:none;border-radius:0}
+.panel-shell .provider-card.account-card .provider-logo img{width:24px;height:24px}.panel-shell .provider-card.account-card .provider-identity h2{font-size:15px;font-weight:650;letter-spacing:-.2px}
+.panel-shell .provider-card.account-card .provider-identity>span{font-size:11px;margin-top:3px}
+.account-plan{font-size:10px;font-weight:550;padding:4px 7px;max-width:80px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:var(--soft);border-radius:4px;color:var(--ink)}
+.panel-shell .account-status{max-width:none;min-width:7px}.panel-shell .account-status>span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.account-status>i{display:block;width:6px;height:6px;border-radius:50%;background:var(--muted)}.account-status.connected>i{background:var(--good)}.health-attention .account-status>i{background:var(--warn)}
+.panel-shell .account-readings{gap:15px}.panel-shell .account-card .metric-line{min-height:20px;gap:8px}.panel-shell .account-card .metric-line>span{font-size:13px;font-weight:550;color:var(--ink)}
+.panel-shell .account-card .metric-line>strong{font-size:18px;letter-spacing:-.3px}.panel-shell .account-card .metric-line strong small{font-size:10px}
+.panel-shell .account-card .meter{height:6px;margin-top:7px;border-radius:2px;background:var(--soft)}.panel-shell .account-card .meter>i{border-radius:2px}
+.panel-shell .account-card .metric-note{font-size:11px;line-height:1.5;margin-top:5px;text-align:right}
+.panel-shell .account-card .card-bottom{border:0;margin-top:12px;padding:0;min-height:16px}.panel-shell .account-card .reading-age,.panel-shell .reading-details summary{font-size:10px}
+.panel-shell .reading-detail-content{max-width:235px}.panel-shell .bar-placement{padding:7px 14px;border-top:1px solid var(--line)}
+.panel-shell .bar-place-button{min-height:29px;border:0;font-size:11px;padding:5px}.panel-shell>footer{border-top:1px solid var(--line);padding:6px 14px!important;height:30px!important;min-height:30px!important}
+.panel-shell .welcome-state{padding:18px 0 6px}.panel-shell .welcome-state h1{font-size:21px}.panel-shell .welcome-services button{min-height:49px;padding:11px}
+.panel-shell .setup-heading h1{font-size:20px}.panel-shell .setup-heading{gap:10px}.panel-shell .setup-heading>img{width:30px;height:30px}
+.panel-shell .settings-panel .settings-group{border:0;border-bottom:1px solid var(--line);border-radius:0;padding:0 0 13px;margin:0 0 10px;background:none}
+.panel-shell .settings-heading{padding:8px 0 5px;font-size:12px}.panel-shell .settings-panel .setting-row{font-size:12px;min-height:44px;gap:6px}
+.panel-shell .settings-panel .setting-row select{max-width:145px;font-size:11px}.panel-shell .setting-hint{font-size:11px}
+.panel-shell .advanced-settings{border-color:var(--line);border-radius:8px}.panel-shell .advanced-settings>summary{padding:12px}.panel-shell .service-choice{min-height:65px;padding:12px}
+.summary-shell .summary-list{gap:0;padding:4px 12px}.summary-shell .summary-row{height:57px;padding:8px 1px;border:0;border-bottom:1px solid var(--line);border-radius:0;background:none;box-shadow:none}
+.summary-shell .summary-row:last-child{border-bottom:0}.summary-shell .summary-row:hover{background:var(--soft)}.summary-shell .summary-name strong{font-size:12px}.summary-shell .summary-name small{font-size:10px}
+.summary-shell .summary-metric{min-width:58px}.summary-shell .summary-metric>span{font-size:9px}.summary-shell .summary-metric strong{font-size:15px;color:var(--ink)}
+.indicator-guide{padding:10px 0 0}.indicator-caption{font-size:10px;color:var(--muted);margin:0 0 8px}.indicator-preview{display:flex;gap:16px;flex-wrap:wrap;padding:10px 12px;background:var(--soft);border-radius:7px}.indicator-preview-item{display:flex;align-items:center;gap:8px}.indicator-preview-item>img{width:22px;height:22px}.indicator-preview-item>div{display:flex;flex-direction:column;gap:3px}.indicator-preview-row{display:flex;align-items:baseline;gap:8px}.indicator-preview-row>span{font-size:10px;color:var(--muted);min-width:17px}.indicator-preview-row>strong{font-size:12px;font-variant-numeric:tabular-nums;font-weight:600;color:var(--ink)}
+@media(max-width:390px){.panel-shell .panel-rail{width:52px;min-width:52px;padding-left:2px;padding-right:2px}.panel-shell .scroll-area{padding:16px 13px}.panel-shell .account-card .metric-line>strong{font-size:16px}.panel-shell .account-card .metric-line strong small{font-size:9px}.panel-shell .settings-panel .setting-row select{max-width:125px}.panel-shell .window-actions .back-widget span{display:none}}

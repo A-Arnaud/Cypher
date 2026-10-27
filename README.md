@@ -3,22 +3,22 @@
   <h1>Cypher — AI Quota Monitor</h1>
   <p><strong>Codex quota monitor for Windows and macOS.</strong><br>Remaining quotas and reset countdowns in your Windows taskbar/system tray or Mac menu bar.<br>Connect Claude Code accounts and track supported API balances.</p>
   <p>
-    <a href="https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-Setup-0.8.0-win-x64.exe"><img src="https://img.shields.io/badge/Download-Windows_10_%2F_11-2f6feb?style=for-the-badge" alt="Download Cypher for Windows 10 or Windows 11"></a>
-    <a href="https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.8.0-mac-x64.dmg"><img src="https://img.shields.io/badge/Download-Mac_Intel-414956?style=for-the-badge" alt="Download Cypher for Mac Intel"></a>
-    <a href="https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.8.0-mac-arm64.dmg"><img src="https://img.shields.io/badge/Download-Mac_Apple_Silicon-c06b8d?style=for-the-badge" alt="Download Cypher for Mac Apple Silicon"></a>
+    <a href="https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-Setup-0.9.0-win-x64.exe"><img src="https://img.shields.io/badge/Download-Windows_10_%2F_11-2f6feb?style=for-the-badge" alt="Download Cypher for Windows 10 or Windows 11"></a>
+    <a href="https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.9.0-mac-x64.dmg"><img src="https://img.shields.io/badge/Download-Mac_Intel-414956?style=for-the-badge" alt="Download Cypher for Mac Intel"></a>
+    <a href="https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.9.0-mac-arm64.dmg"><img src="https://img.shields.io/badge/Download-Mac_Apple_Silicon-c06b8d?style=for-the-badge" alt="Download Cypher for Mac Apple Silicon"></a>
   </p>
   <p><a href="#download">Downloads</a> · <a href="#get-started">Quick start</a> · <a href="#what-works-today">Supported services</a> · <a href="SUPPORT.md">Help</a> · <a href="docs/demarrage-fr.md">Français</a></p>
 </div>
 
 ## Download
 
-**Current release: 0.8.0 for Windows and Mac. Choose your computer to download the app directly.**
+**Current release: 0.9.0 for Windows and Mac. Choose your computer to download the app directly.**
 
 | Your computer | Download | Requirements |
 | --- | --- | --- |
-| **Windows 10 or Windows 11** | **[Download for Windows](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-Setup-0.8.0-win-x64.exe)** | Windows x64 · same installer for both versions |
-| **Mac with an Intel processor** | **[Download for Mac Intel](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.8.0-mac-x64.dmg)** | macOS 13 Ventura or later |
-| **Mac with an Apple chip (M1, M2, M3…)** | **[Download for Mac Apple Silicon](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.8.0-mac-arm64.dmg)** | macOS 13 Ventura or later |
+| **Windows 10 or Windows 11** | **[Download for Windows](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-Setup-0.9.0-win-x64.exe)** | Windows x64 · same installer for both versions |
+| **Mac with an Intel processor** | **[Download for Mac Intel](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.9.0-mac-x64.dmg)** | macOS 13 Ventura or later |
+| **Mac with an Apple chip (M1, M2, M3…)** | **[Download for Mac Apple Silicon](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.9.0-mac-arm64.dmg)** | macOS 13 Ventura or later |
 
 **Which Mac do I have?** Open **Apple menu → About This Mac**. If it says **Intel**, choose Mac Intel. If it says **Chip: Apple M…**, choose Apple Silicon.
 
@@ -57,10 +57,12 @@ You do not need Node.js to run Cypher. English and French are available in Setti
 | Platform | Where Cypher appears |
 | --- | --- |
 | **Windows 10** | Desktop widget + embedded indicator on the primary horizontal taskbar |
-| **Windows 11** | Desktop widget + notification-area icon, tooltip and menu; the icon may be under hidden icons |
+| **Windows 11** | Desktop widget + compact two-row numeric notification icons, tooltips and menu; Windows may hide or reorder them |
 | **macOS** | Desktop widget + native menu bar indicator **at the top right**, on Intel and Apple Silicon. No running-app icon in the Dock or Command-Tab |
 
 **Mac works:** Intel use has been confirmed by the maintainer, and Intel / Apple Silicon builds pass automated checks. See the [Mac guide](MACOS.md) for setup and [verification record](VERIFICATION.md) for tested environments.
+
+**Two quotas at a glance:** short/session above, weekly below. The Windows 10 strip sizes itself to the number of accounts; Mac uses one compact image with provider logos. Actual durations such as **5h / 7d** remain in the strip or native menus/tooltips. Values are **remaining percentages**. [Indicator and panel guide](docs/interface-0.9.md).
 
 **Discreet on Mac:** Cypher stays in the top menu bar even when you open its window or Settings. Click its menu bar icon and choose **Show / Hide** to open the window, or use **Control+Option+Q**. Choose **Quit** in that menu to stop Cypher completely.
 
@@ -76,7 +78,8 @@ On **installed Windows**, approval downloads, verifies, installs and restarts Cy
 
 | Version | Included changes |
 | --- | --- |
-| **0.8.0 — current** | Easier sign-in, compact quota cards, reset countdowns, light/dark themes and simpler Settings |
+| **0.9.0 - current** | Two quota rows in the bar, compact native indicators and a quieter panel with service navigation |
+| **0.8.0** | Guided account setup, browser sign-in and light/dark appearance |
 | **0.7.1** | Automatic indicator at launch and a persistent Settings preference |
 | **0.7.0** | Quick actions with Ctrl+K / ⌘K, actionable profile status, reading ages and private diagnostic reports |
 | **0.6.0** | Discreet update proposals, approved Windows installer updates and Mac/portable download guidance |
@@ -84,7 +87,7 @@ On **installed Windows**, approval downloads, verifies, installs and restarts Cy
 | **0.5.3** | Optional startup from Cypher Settings; login launches go directly into the bar without opening the window |
 | **0.5.2** | Visible bar-placement button, Minimize / Quit / Cancel closing choices, and Codex browser sign-in on both Windows and Mac |
 
-[Current release notes](docs/releases/0.8.0.md) · [Release history](docs/releases/README.md) · [Full changelog](CHANGELOG.md)
+[Current release notes](docs/releases/0.9.0.md) · [Release history](docs/releases/README.md) · [Full changelog](CHANGELOG.md)
 
 ## Connections
 
@@ -110,7 +113,7 @@ Existing profiles come first. Additional methods depend on the provider and down
 
 ## Screenshots
 
-<img src="docs/brand/whats-new.png" alt="Cypher 0.8.0: clearer quotas, direct browser sign-in and light/dark appearance" width="100%">
+<img src="docs/brand/whats-new.png" alt="Cypher 0.9.0: two quota windows in the bar and a simpler quota panel" width="100%">
 
 Captured from the current Cypher interface at 2× resolution, with demonstration profiles and readings. macOS images preview the Mac layout. No personal account data is shown.
 
@@ -127,14 +130,14 @@ Captured from the current Cypher interface at 2× resolution, with demonstration
 </p>
 <p align="center">
   <img src="docs/screenshots/connections.png" alt="Claude Code connected through its CLI, with account status and subscription quota limitations clearly shown" width="350">
-  <img src="docs/screenshots/updates.png" alt="Update settings in Cypher 0.8.0, showing automatic checks and the requirement for approval before installation" width="350">
+  <img src="docs/screenshots/updates.png" alt="Update settings in Cypher 0.9.0, showing automatic checks and the requirement for approval before installation" width="350">
 </p>
 <p align="center">
   <img src="docs/screenshots/api-widget-synthetic.png" alt="Compact widget with demonstration API balances and points" width="350">
   <img src="docs/screenshots/api-details-synthetic.png" alt="Detailed API cards with demonstration values" width="350">
 </p>
 
-Screenshots use demonstration data. [New interface and connection guide](docs/interface-0.8.md).
+Screenshots use demonstration data. [New interface and connection guide](docs/interface-0.9.md).
 
 </details>
 
@@ -151,6 +154,7 @@ To refresh the public screenshots and presentation panels using isolated demonst
 
 ```sh
 node scripts/capture-github.cjs
+node scripts/capture-indicators.cjs
 node scripts/generate-brand-assets.cjs
 node scripts/generate-github-panels.cjs
 ```

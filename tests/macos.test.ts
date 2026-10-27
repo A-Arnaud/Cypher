@@ -18,7 +18,7 @@ it('uses macOS menu bar wording in both languages while preserving Windows copy'
 it('shows bounded public quota text beside the native menu bar icon',async()=>{
  let shown:TrayPresentation|undefined;const host=new TrayHost(value=>shown=value);await host.start();
  host.render({items:[{id:'private-profile',providerId:'codex',label:'private@example.com',text:'42%',stale:false},{id:'another-private',providerId:'claude',label:'secret',text:'—',stale:true}],extraCount:2,language:'en'});
- expect(shown?.title).toBe('Codex : 42% · Claude Code : — (stale) · +2');
+ expect(shown?.title).toBe('+2');expect(shown?.lines).toEqual(['Codex : 42%','Claude Code : — (stale)','+2']);
  expect(shown?.title).not.toMatch(/private|secret/);await host.stop();expect(shown).toBeUndefined();
 });
 it('quotes shell metacharacters and restricts sign-in to one profile',()=>{

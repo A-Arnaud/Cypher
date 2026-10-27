@@ -1,7 +1,7 @@
 import {providerHealth} from '../shared/health';
 import {healthExplanation,healthLabel,readingAge,workspaceCopy} from '../shared/workspace-copy';
 import {experienceCopy} from '../shared/experience-copy';import {resetCountdown} from '../shared/friendly-time';
-import type {CSSProperties} from 'react';import {ArrowUpRight,Check,ChevronDown,RefreshCw} from 'lucide-react';
+import type {CSSProperties} from 'react';import {ArrowUpRight,ChevronDown,RefreshCw} from 'lucide-react';
 import type {AppState,QuotaBridge} from '../shared/model';import type {CatalogEntry} from '../shared/catalog';
 import {copy} from '../shared/i18n';import {ProviderLogo} from './ProviderLogo';import {metricValue,metricLabel} from '../shared/metric-format';
 interface Props {now?:number;entry:CatalogEntry;profileId?:string;state:AppState;bridge:QuotaBridge;onConnect:()=>void;onRetry?:()=>void;busy?:boolean}
@@ -10,10 +10,10 @@ export function ProviderCard({now=Date.now(),entry,profileId=entry.id,state,brid
  const profile=state.profiles?.find(p=>p.id===profileId),snapshot=state.providers.find(p=>p.id===profileId),metrics=snapshot?.metrics??[];
  const connected=snapshot?.auth==='connected',needsConnection=['consent','signIn','notConnected'].includes(health.reason);
  const stale=health.reason==='stale',retry=!needsConnection&&health.kind==='attention';
- const meta=[profile?.label==='default'?t('profileDefault'):profile?.label,snapshot?.plan].filter(Boolean).join(' · ');
+ const meta=profile?.label==='default'?t('profileDefault'):profile?.label;
  const status=connected&&!metrics.length?w.limited:health.kind==='fresh'?w.updated:healthLabel(lang,health.kind);
  return <article id={'profile-card-'+profileId} className={'provider-card account-card health-'+health.kind+' '+(state.settings.compact?'compact':'')} style={{'--accent':entry.color} as CSSProperties}>
-  <div className="provider-heading"><div className="provider-logo"><ProviderLogo providerId={entry.id}/></div><div className="provider-identity"><h2>{entry.name}</h2>{meta&&<span>{meta}</span>}</div><span className={'account-status '+(connected?'connected':'')} title={healthExplanation(lang,health.reason)}>{connected&&<Check size={12}/>}<span>{status}</span></span></div>
+  <div className="provider-heading"><div className="provider-logo"><ProviderLogo providerId={entry.id}/></div><div className="provider-identity"><h2>{entry.name}</h2>{meta&&<span>{meta}</span>}</div>{snapshot?.plan&&<span className="account-plan">{snapshot.plan}</span>}<span className={'account-status '+(connected?'connected':'')} title={status+' · '+healthExplanation(lang,health.reason)} aria-label={status}><i/><span>{status}</span></span></div>
   {metrics.length?<div className="account-readings">{metrics.map(m=>{
    const percent=m.unit==='percent'&&m.remainingPercent!==undefined,hasReset=m.resetAt!==undefined&&Number.isFinite(m.resetAt)&&Math.abs(m.resetAt)<=8640000000000000;
    return <div className={'metric '+(stale?'stale':'')} key={m.id}>

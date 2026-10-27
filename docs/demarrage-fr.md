@@ -2,21 +2,23 @@
 
 **Suivez vos quotas Codex dans la barre des tâches Windows ou la barre de menus Mac.** Cypher affiche les quotas restants et leur prochaine réinitialisation. Il permet aussi de connecter Claude Code et de consulter les soldes des API prises en charge ; les pourcentages de quota Claude ne sont pas encore collectés.
 
-**Version actuelle : 0.8.0**, pour Windows et Mac. [Toutes les releases](https://github.com/A-Arnaud/Cypher/releases/latest) · [README en anglais](../README.md)
+**Version actuelle : 0.9.0**, pour Windows et Mac. [Toutes les releases](https://github.com/A-Arnaud/Cypher/releases/latest) · [README en anglais](../README.md)
 
 ## Télécharger le bon fichier
 
 | Votre ordinateur | Téléchargement recommandé |
 | --- | --- |
-| **Windows 10 ou 11, x64** | **[Installateur Windows](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-Setup-0.8.0-win-x64.exe)** |
-| **Mac Intel** | **[Installateur Mac Intel](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.8.0-mac-x64.dmg)** |
-| **Mac Apple Silicon, puce M1, M2, M3…** | **[Installateur Mac Apple Silicon](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.8.0-mac-arm64.dmg)** |
+| **Windows 10 ou 11, x64** | **[Installateur Windows](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-Setup-0.9.0-win-x64.exe)** |
+| **Mac Intel** | **[Installateur Mac Intel](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.9.0-mac-x64.dmg)** |
+| **Mac Apple Silicon, puce M1, M2, M3…** | **[Installateur Mac Apple Silicon](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.9.0-mac-arm64.dmg)** |
 
 Mac nécessite **macOS 13 Ventura ou plus récent**. Dans le menu Apple, ouvrez **À propos de ce Mac** : un processeur Intel correspond au fichier `mac-x64`, une puce Apple M au fichier `mac-arm64`.
 
 [Version Windows portable, ZIP Mac et sommes de contrôle](downloads.md#other-downloads).
 
 ## Installer ou mettre à jour
+
+**Nouveau en 0.9 :** la barre garde les deux quotas visibles, session en haut et semaine en bas. Windows 10 affiche le logo et les durées réelles, par exemple **5 h / 7 j** ; Mac utilise une image compacte en haut. Windows 11 utilise de petites icônes numériques dans la zone de notification ; survolez-les pour identifier le service et les durées. Les pourcentages indiquent ce qu’il reste. [Guide de l’indicateur](interface-0.9.md).
 
 1. Si Cypher est déjà ouvert, choisissez **Quitter** dans son menu ou **Quitter Cypher** dans la fenêtre de fermeture. Réduire laisse l'ancienne version active.
 2. **Windows :** lancez l'installateur. **Mac :** ouvrez le DMG et placez ou remplacez **Cypher.app** dans **Applications**.
@@ -68,7 +70,7 @@ Sur Mac, l'application doit être dans **Applications**. Si macOS demande une au
 
 ## Être averti des nouvelles versions
 
-Si vous utilisez encore **0.5.x**, installez **0.8.0 une première fois** pour obtenir le contrôle des mises à jour. Les versions 0.6.0 et suivantes le possèdent déjà. Cypher vérifie les releases stables GitHub après l'ouverture puis toutes les six heures. Une petite action **Mise à jour** apparaît dans le widget et le menu, sans ouvrir de fenêtre automatiquement.
+Si vous utilisez encore **0.5.x**, installez **0.9.0 une première fois** pour obtenir le contrôle des mises à jour. Les versions 0.6.0 et suivantes le possèdent déjà. Cypher vérifie les releases stables GitHub après l'ouverture puis toutes les six heures. Une petite action **Mise à jour** apparaît dans le widget et le menu, sans ouvrir de fenêtre automatiquement.
 
 Après votre accord, la **version Windows installée** télécharge et vérifie la mise à jour, puis l'installe et redémarre dans la barre. Sur **Mac actuellement**, Cypher ouvre le bon téléchargement dans votre navigateur ; le remplacement dans Applications reste manuel tant que le mécanisme Mac signé n'est pas disponible. Les versions Windows portables ou simplement décompressées restent également manuelles.
 
@@ -80,4 +82,4 @@ La fermeture de la fenêtre propose **Réduire dans la barre**, **Quitter Cypher
 
 Sur Mac, **Quitter** reste disponible dans le menu de l'icône en haut, même sans icône dans le Dock.
 
-[Aide et dépannage](../SUPPORT.md) · [Notes de version](releases/0.8.0.md) · [Vérifications et limites](../VERIFICATION.md) · [Signaler un problème](https://github.com/A-Arnaud/Cypher/issues/new/choose).
+[Aide et dépannage](../SUPPORT.md) · [Notes de version](releases/0.9.0.md) · [Vérifications et limites](../VERIFICATION.md) · [Signaler un problème](https://github.com/A-Arnaud/Cypher/issues/new/choose).

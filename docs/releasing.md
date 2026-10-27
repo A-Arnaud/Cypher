@@ -4,7 +4,7 @@ The repository's **Latest** release is the common download page for **Windows 10
 
 Before promoting a release to Latest:
 
-1. Include the current Windows installer and portable EXE, **`latest.yml`**, both Mac DMGs, both Mac ZIPs and their checksum manifests: ten assets for 0.8.0. Run `node scripts/check-update-metadata.cjs` against the built installer before publication. Keep original filenames.
+1. Include the current Windows installer and portable EXE, **`latest.yml`**, both Mac DMGs, both Mac ZIPs and their checksum manifests: ten assets for 0.9.0. Run `node scripts/check-update-metadata.cjs` against the built installer before publication. Keep original filenames.
 2. If Windows has not changed, copy its existing published binaries, `latest.yml` and checksum manifest unchanged as one set. Verify against the original release digests; do not relabel them as a newer Windows build. The updater compares the package version for each platform, including mixed-version common releases.
 3. Verify every uploaded asset's SHA-256. State the actual Windows and Mac package versions in the release notes, even if they differ.
 4. Put the three recommended downloads at the top of the release body: **Windows 10 / 11**, **Mac Intel**, **Mac Apple Silicon**. Put portable/ZIP/checksum alternatives below.
@@ -13,7 +13,7 @@ Before promoting a release to Latest:
 
 Platform availability and signing are separate. Mac is supported and confirmed working; do not label it uncertain merely because Apple notarization is absent. Continue to describe the actual signature/notarization status in first-launch guidance. Only claim Apple notarization after the real [Developer ID checks](macos-signing.md) pass.
 
-The current common release contains **Cypher 0.8.0 for Windows and macOS**, including discreet update proposals, automatic installation after approval for installed Windows, manual browser downloads on current Mac/portable builds, and the existing bar/connection/startup behavior. Users of 0.5.x need to install the current version manually once to acquire the checker; installed Windows 0.6.0 can propose 0.8.0. Mac update instructions must tell users to quit the old process before replacing and reopening the application.
+The current common release contains **Cypher 0.9.0 for Windows and macOS**, including discreet update proposals, automatic installation after approval for installed Windows, manual browser downloads on current Mac/portable builds, and the existing bar/connection/startup behavior. Users of 0.5.x need to install the current version manually once to acquire the checker; installed Windows 0.6.0 can propose 0.9.0. Mac update instructions must tell users to quit the old process before replacing and reopening the application.
 
 ## WinGet catalog updates
 

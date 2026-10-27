@@ -37,17 +37,11 @@ write('card-widget',head(600,470)+`
  </g></svg>`);
 write('card-taskbar',head(600,470)+`
  <text x="38" y="57" fill="#ed93af" font-size="12" letter-spacing="3">02 / YOUR TASKBAR</text>
- <text x="36" y="110" fill="#f1eff4" font-size="35" font-weight="600" letter-spacing="-1">There when you need it.</text>
- <text x="38" y="147" fill="#9594a2" font-size="19">A glance. Then back to your work.</text>
- <rect x="40" y="205" width="520" height="210" rx="14" fill="#12131a" stroke="#353540"/>
- <path d="M40 363h520" stroke="#353540"/>
- <rect x="62" y="230" width="130" height="9" rx="4" fill="#272832"/><rect x="62" y="251" width="233" height="7" rx="3" fill="#22232b"/>
- <rect x="62" y="268" width="192" height="7" rx="3" fill="#22232b"/>
- <rect x="58" y="378" width="22" height="22" rx="4" fill="#58586b"/><rect x="90" y="378" width="22" height="22" rx="4" fill="#3e4052"/><rect x="122" y="378" width="22" height="22" rx="4" fill="#3e4052"/>
- <rect x="267" y="370" width="203" height="38" rx="9" fill="#ed93af" fill-opacity=".08" stroke="#ed93af" stroke-opacity=".4"/>
- <circle cx="285" cy="389" r="5" fill="#a9d7bd"/><text x="297" y="395" fill="#e4e3e9" font-size="15">75%</text><circle cx="354" cy="389" r="5" fill="#ed93af"/><text x="366" y="395" fill="#e4e3e9" font-size="15">24%</text><text x="425" y="395" fill="#92929f" font-size="15">+2</text>
- <text x="493" y="395" fill="#9999a7" font-size="13">12:00</text>
- <text x="40" y="445" fill="#626270" font-size="11">Illustrated taskbar · synthetic values · Windows 10</text>
+ <text x="36" y="110" fill="#f1eff4" font-size="35" font-weight="600">Both quotas. One glance.</text>
+ <text x="38" y="147" fill="#9594a2" font-size="19">Session above. Week below. Remaining %.</text>
+ <image x="72" y="220" width="456" height="120" xlink:href="${png('docs/screenshots/native-windows-taskbar.png')}"/>
+ <text x="40" y="410" fill="#92929f" font-size="15">Compact Windows 10 indicator</text>
+ <text x="40" y="445" fill="#626270" font-size="11">Actual native painter - synthetic readings - 3x display</text>
  </g></svg>`);
 write('card-connections',head(600,470)+`
  <text x="38" y="57" fill="#ed93af" font-size="12" letter-spacing="3">03 / YOUR CONNECTIONS</text>

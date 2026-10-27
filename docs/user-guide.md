@@ -4,7 +4,7 @@
 
 ## Desktop widget
 
-**New in 0.8:** a guided first connection, smaller quota cards with reset countdowns and saved light/dark/system themes. **Accounts** chooses services and which accounts appear in your quotas. Technical controls live in **Settings → Advanced options**. [Interface guide](interface-0.8.md).
+**New in 0.9:** two quota rows in the bar, a compact native image on Mac, numeric notification icons on Windows 11 and a quieter panel with direct service filters. **Accounts** chooses services and which accounts appear in your quotas. Technical controls live in **Settings → Advanced options**. [Interface guide](interface-0.9.md).
 
 **Quick actions** beside the window controls opens a searchable action/profile picker: **Ctrl+K** on Windows, **Command+K** on Mac. Use arrows/Enter/Escape or the mouse. The detailed **Needs attention** filter and reading ages distinguish current, stale and unavailable data. **Settings → Advanced options → Diagnostics** provides an explicit local report/copy action. [Full navigation/status/diagnostic guide](navigation-and-diagnostics.md).
 
@@ -22,13 +22,13 @@ The default show/hide shortcut is **Ctrl+Alt+Q** on Windows, **Control+Option+Q*
 
 **Windows 10:** the indicator automatically reserves a small area on the horizontal primary taskbar, at the bottom of the screen. It shows up to three pinned profiles and a `+N` count. Click the indicator to open the full window.
 
-**Windows 11:** the indicator automatically uses the native **notification area** at the bottom right, near the clock. Quotas appear in its tooltip and menu; Windows may put the icon under the hidden-icons arrow. Open the desktop widget for permanently visible numbers. It does not embed text into the Windows 11 taskbar or modify Explorer.
+**Windows 11:** the indicator automatically uses the native **notification area** at the bottom right, near the clock. Up to three small numeric icons show the two quota rows, one per pinned account. Hover for the service and actual durations; each icon shares the native action menu. Windows may place or reorder these under the hidden-icons arrow. It does not embed a strip into the Windows 11 taskbar or modify Explorer.
 
 Enable **Settings → Start with Windows** if you want automatic startup. At Windows sign-in, Cypher starts directly in the taskbar without showing its window, while respecting your quota-indicator setting. Moving into or out of the bar does not change this optional setting. Disable the switch to stop automatic startup. The installed or stable extracted Windows app supports this; the portable executable does not.
 
 ## Mac menu bar
 
-On **Intel and Apple Silicon**, the native indicator appears automatically **at the top right**. It shows up to three pinned profile readings and an additional-profile count. Open its menu to show/hide the widget, refresh, pause or quit.
+On **Intel and Apple Silicon**, the native indicator appears automatically **at the top right**. A compact image combines provider logos and two quota rows for up to three pinned accounts, plus an additional-account count. Open its menu to show/hide the widget, refresh, pause or quit.
 
 Cypher is a menu bar agent on Mac: no running-app icon in the Dock or Command-Tab, including while its window or Settings are open. Use the top menu's **Show / Hide**, **Control+Option+Q**, or reopen Cypher from Applications to restore its window. Quit remains explicit in that menu or in the closing dialog. If an old Dock favorite remains, remove that manually pinned favorite once through **Options → Remove from Dock**.
 
@@ -38,7 +38,7 @@ Opening Cypher yourself still opens its window. If the bar cannot initialize dur
 
 ## Understanding the readings
 
-Compact system indicators show available remaining **percentages**. A dash means no percentage is available; it does not mean zero. Balances, spending, points and local model counts remain in the widget/details. API billing is separate from chat subscriptions, and quotas shared by a confirmed account are not added together.
+Compact system indicators keep the short/session quota above the weekly quota, rather than taking their minimum. Actual 5h/7d durations remain labelled in the Windows 10 strip and native menus/tooltips. Other provider durations are preserved. Percentages mean **remaining**. A dash means unavailable, never zero; old readings stay marked. A lone weekly reading remains below. **Settings → Quota indicator** includes a reading guide. Balances, spending, points and local model counts remain in the widget/details. API billing is separate from subscriptions, and shared quotas are not added together.
 
 Profiles require read permission. Missing or stale data stays marked; a detected tool or profile alone does not establish a working connection or subscription. [Provider coverage](catalog-coverage.md).
 

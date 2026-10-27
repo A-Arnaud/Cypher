@@ -1,10 +1,11 @@
 # Cypher release history
 
-**For a new installation, use [Latest — Cypher 0.8.0](https://github.com/A-Arnaud/Cypher/releases/latest).** It contains Windows 10/11, Mac Intel and Mac Apple Silicon on one page. [Choose a download](../downloads.md) · [Guide en français](../demarrage-fr.md).
+**For a new installation, use [Latest — Cypher 0.9.0](https://github.com/A-Arnaud/Cypher/releases/latest).** It contains Windows 10/11, Mac Intel and Mac Apple Silicon on one page. [Choose a download](../downloads.md) · [Guide en français](../demarrage-fr.md).
 
 | Version | Scope | Notes |
 | --- | --- | --- |
-| **[0.8.0 - current](https://github.com/A-Arnaud/Cypher/releases/tag/v0.8.0)** | Easier account setup, readable quotas, light/dark themes and simpler Settings | [Notes](0.8.0.md) |
+| **[0.9.0 - current](https://github.com/A-Arnaud/Cypher/releases/tag/v0.9.0)** | Two quota rows in the bar, compact native indicators and service navigation | [Notes](0.9.0.md) |
+| [0.8.0](https://github.com/A-Arnaud/Cypher/releases/tag/v0.8.0) | Guided account setup, browser sign-in and light/dark appearance | [Notes](0.8.0.md) |
 | [0.7.1](https://github.com/A-Arnaud/Cypher/releases/tag/v0.7.1) | Automatic indicator at launch, persistent Settings preference | [Notes](0.7.1.md) |
 | [0.7.0](https://github.com/A-Arnaud/Cypher/releases/tag/v0.7.0) | Quick actions, actionable profile status and private diagnostics | [Notes](0.7.0.md) |
 | [0.6.0](https://github.com/A-Arnaud/Cypher/releases/tag/v0.6.0) | Discreet update proposals; Windows automatic installation and manual Mac/portable downloads | [Notes](0.6.0.md) |

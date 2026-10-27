@@ -2,7 +2,7 @@
 
 Cypher is available for **Mac Intel and Apple Silicon**, with a native menu bar indicator at the top right. Working Mac use has been confirmed by the maintainer.
 
-**[Download for Mac Intel](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.8.0-mac-x64.dmg)** · **[Download for Apple Silicon](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.8.0-mac-arm64.dmg)** · [All Windows and Mac downloads](https://github.com/A-Arnaud/Cypher/releases/latest)
+**[Download for Mac Intel](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.9.0-mac-x64.dmg)** · **[Download for Apple Silicon](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.9.0-mac-arm64.dmg)** · [All Windows and Mac downloads](https://github.com/A-Arnaud/Cypher/releases/latest)
 
 **Requires macOS 13 Ventura or later**, on either processor. This is the minimum declared by the packaged application and its Electron runtime; the automated tests run on macOS 15. macOS 12 Monterey and earlier cannot run this release. On Intel, download the file ending in **`mac-x64.dmg`** or **`mac-x64.zip`**, never `arm64`.
 
@@ -10,7 +10,7 @@ Cypher is available for **Mac Intel and Apple Silicon**, with a native menu bar 
 - **Intel:** choose `mac-x64.dmg` or `mac-x64.zip`.
 - When updating, choose **Quit** in the old Cypher menu first. Open the DMG and replace **Cypher.app** in **Applications**, or extract the ZIP and move the app there, then reopen it. An older process keeps its previous Dock behavior until you quit it.
 - Open Cypher and authorize the profiles or API connections you want. The indicator appears automatically **at the top right of the screen**. Its menu opens or hides the widget, refreshes data, pauses collection or quits.
-- Up to three pinned profiles show their remaining percentages alongside the menu bar icon. A dash means unavailable; balances and model counts remain in the widget. macOS controls available menu bar space, including on displays with a camera notch.
+- One compact menu bar image combines provider logos and two percentage rows for up to three pinned accounts: session above, week below. Hover or open the menu for services and actual durations, such as 5h and 7d. A dash means unavailable; balances and model counts remain in the widget. macOS controls available menu bar space, including on displays with a camera notch.
 - The default show/hide shortcut remains **Control+Option+Q** (the Mac name for `Control+Alt+Q`).
 - Closing the window asks whether to **Minimize to menu bar**, **Quit Cypher** or **Cancel**. Minimizing keeps the app running and its indicator accessible at the top right.
 

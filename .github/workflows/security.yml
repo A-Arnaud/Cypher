@@ -37,6 +37,8 @@ jobs:
       - name: Verify native notification-area backend without legacy taskbar manipulation
         run: node scripts/test-tray-native.cjs
       - run: npm run build:test
+      - name: Verify dual-quota native images and indicator lifecycle without touching Explorer
+        run: node scripts/test-indicator-native.cjs
       - name: Verify quick actions and private diagnostic IPC without touching the clipboard
         run: node scripts/test-diagnostics.cjs
       - name: Verify close, minimize and quit choices in native Electron
