@@ -85,7 +85,8 @@ if ($LASTEXITCODE -ne 0) { throw 'Manifest validation failed' }
     throw 'Unexpected installation directory'
   }
   $installedExe = Join-Path $installedRoot 'Cypher.exe'
-  if ((Get-Item -LiteralPath $installedExe).VersionInfo.ProductVersion -ne $manifestVersion) { throw 'Wrong installed application version' }
+  $actualVersion = (Get-Item -LiteralPath $installedExe).VersionInfo.ProductVersion
+  if ($actualVersion -notin @($manifestVersion, "$manifestVersion.0")) { throw "Wrong installed application version: $actualVersion" }
   Write-Output "Cypher $manifestVersion installed silently; publisher, version, executable and per-user registration match."
   Invoke-TestProcess -Arguments @('uninstall', '--product-code', $productCode, '--silent', '--accept-source-agreements', '--disable-interactivity')
   if (Test-Path -LiteralPath $uninstallKey) { throw 'Uninstall registration remains' }
