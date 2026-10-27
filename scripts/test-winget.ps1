@@ -75,7 +75,8 @@ if ($LASTEXITCODE -ne 0) { throw 'Manifest validation failed' }
   if ((Get-FileHash -LiteralPath $installerPath -Algorithm SHA256).Hash -ne $expectedHash) { throw 'Installer hash mismatch' }
   Invoke-TestProcess -FilePath $installerPath -Arguments @('/S')
   $entry = Get-ItemProperty -LiteralPath $uninstallKey
-  if ($entry.DisplayName -ne 'Cypher' -or $entry.Publisher -ne 'Cypher' -or $entry.DisplayVersion -ne $manifestVersion) {
+  $entry | Select-Object DisplayName, Publisher, DisplayVersion | ConvertTo-Json | Write-Output
+  if ($entry.DisplayName -ne "Cypher $manifestVersion" -or $entry.Publisher -ne 'Cypher' -or $entry.DisplayVersion -ne $manifestVersion) {
     throw 'Installed registration differs from manifest metadata'
   }
   $installedRoot = [IO.Path]::GetFullPath((Get-ItemProperty -LiteralPath $installKey).InstallLocation)
