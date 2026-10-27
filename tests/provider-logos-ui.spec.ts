@@ -1,14 +1,7 @@
-import {test,expect} from '@playwright/test';
-test('uses loaded provider logos rather than letters in details, connections and summary',async({page})=>{
- await page.goto('/');
- const detailed=page.locator('.provider-logo .provider-image');await expect(detailed).toHaveCount(3);
- for(const id of ['codex','claude','gemini'])await expect(page.locator('.provider-card .provider-image[data-provider="'+id+'"]')).toHaveCount(1);
- expect(await page.locator('.provider-logo').allTextContents()).toEqual(['','','']);
- await expect.poll(()=>detailed.evaluateAll(es=>es.every(e=>(e as HTMLImageElement).complete&&(e as HTMLImageElement).naturalWidth>0))).toBe(true);
- await page.getByRole('navigation').getByRole('button',{name:'Connections',exact:true}).click();
- const connections=page.locator('.connection .provider-image');expect(await connections.count()).toBe(await page.locator('.connection').count());
- await expect.poll(()=>connections.evaluateAll(es=>es.every(e=>(e as HTMLImageElement).complete&&(e as HTMLImageElement).naturalWidth>0))).toBe(true);
- expect(await connections.evaluateAll(es=>es.filter(e=>(e as HTMLImageElement).src.includes('service.svg')).map(e=>e.getAttribute('data-provider')))).toEqual([]);
- await expect(page.locator('.connection .provider-logo').filter({hasText:/^[A-Za-z]{1,2}$/})).toHaveCount(0);
- await page.getByRole('button',{name:'Back to widget',exact:true}).click();await expect(page.locator('.summary-logo .provider-image')).toHaveCount(3);expect(await page.locator('.summary-logo').allTextContents()).toEqual(['','','']);
+import {test,expect} from '@playwright/test';import {defaultSettings} from '../src/shared/defaults';
+test('uses loaded provider logos in onboarding, provider selection, quota cards and the compact view',async({page})=>{
+ await page.goto('/');const welcome=page.locator('.welcome-services .provider-image');await expect(welcome).toHaveCount(3);await expect.poll(()=>welcome.evaluateAll(es=>es.every(e=>(e as HTMLImageElement).complete&&(e as HTMLImageElement).naturalWidth>0))).toBe(true);
+ await page.getByRole('navigation').getByRole('button',{name:'Accounts',exact:true}).click();const picker=page.locator('.service-choice .provider-image');await expect(picker).toHaveCount(3);await expect.poll(()=>picker.evaluateAll(es=>es.every(e=>(e as HTMLImageElement).complete&&(e as HTMLImageElement).naturalWidth>0))).toBe(true);
+ await page.addInitScript(settings=>{let state:any={settings,desktop:true,refreshing:false,detections:[],providers:['codex','claude','gemini'].map(id=>({id,auth:'connected',state:'unavailable',message:'quotaUnavailable',metrics:[],observedAt:0}))};const listeners=new Set<(s:any)=>void>();window.quota={getState:async()=>state,subscribe:l=>{listeners.add(l);return()=>{listeners.delete(l)}},refresh:async()=>{},updateSettings:async p=>{state={...state,settings:{...state.settings,...p}};listeners.forEach(l=>l(state))},openProvider:async()=>{},hide:async()=>{},quit:async()=>{}}},{...defaultSettings(),summaryMode:true,consents:['codex','claude','gemini']});
+ await page.reload();await expect(page.locator('.summary-logo .provider-image')).toHaveCount(3);await page.getByRole('button',{name:'Details',exact:true}).click();const detailed=page.locator('.provider-logo .provider-image');await expect(detailed).toHaveCount(3);expect(await page.locator('.provider-logo').allTextContents()).toEqual(['','','']);await expect.poll(()=>detailed.evaluateAll(es=>es.every(e=>(e as HTMLImageElement).complete&&(e as HTMLImageElement).naturalWidth>0))).toBe(true);
 });

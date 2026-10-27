@@ -1,10 +1,10 @@
 # Connection methods
 
-These choices are available in **Cypher 0.7.1 for Windows and macOS**. Earlier Windows 0.5.0 packages retain their earlier CLI/API connection interface.
+These choices are available in **Cypher 0.8.0 for Windows and macOS**. Earlier Windows 0.5.0 packages retain their earlier CLI/API connection interface.
 
-Connections starts with **Automatic detection**. Existing profiles remain separate and require explicit permission before Cypher reads them. Detecting a profile does not authorize it, sign it in or prove its subscription.
+Accounts starts with **Automatic detection**. Existing profiles remain separate and require explicit permission before Cypher reads them. Detecting a profile does not authorize it, sign it in or prove its subscription.
 
-**More ways to connect** offers methods supported by the selected provider:
+**Other ways to connect** offers methods supported by the selected provider:
 
 | Provider | Browser sign-in without external CLI | Installed CLI/profile | API alternative |
 | --- | --- | --- | --- |

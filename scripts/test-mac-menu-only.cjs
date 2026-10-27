@@ -9,7 +9,7 @@ const {_electron:electron,expect}=require('@playwright/test');const fs=require('
  await visible(true);await expect.poll(()=>app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].isFocused()),{timeout:15000}).toBe(true);
  await page.getByRole('button',{name:'Minimize to menu bar',exact:true}).click();await visible(false);
  await menuClick('Show / Hide');await visible(true);
- await page.getByRole('button',{name:'Settings',exact:true}).click();const input=page.getByLabel('Show / hide shortcut', {exact:true});await input.fill('Control+Alt+Shift+8');await expect(input).toHaveValue('Control+Alt+Shift+8');await noDock();
+ await page.getByRole('button',{name:'Settings',exact:true}).click();await page.locator('.advanced-settings > summary').click();const input=page.getByLabel('Show / hide shortcut', {exact:true});await input.fill('Control+Alt+Shift+8');await expect(input).toHaveValue('Control+Alt+Shift+8');await noDock();
  await menuClick('Pause');await expect.poll(async()=>(await page.evaluate(()=>window.quota.getState())).settings.paused).toBe(true);await menuClick('Resume');await noDock();
  await page.getByRole('button',{name:'Close window',exact:true}).click();await visible(true);
  await page.getByRole('button',{name:'Minimize to menu bar',exact:true}).click();await visible(false);

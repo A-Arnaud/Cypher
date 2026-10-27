@@ -6,6 +6,7 @@ export function ApiConnection({providerId,configured,bridge,language}:{providerI
  async function save(e:FormEvent){e.preventDefault();if(!bridge.saveApiKey||busy)return;const value=key.trim();setKey('');setBusy(true);setError('');try{await bridge.saveApiKey(providerId,value)}catch{setError('apiConnectionFailed')}finally{setBusy(false)}}
  async function remove(){if(!bridge.removeApiKey)return;setBusy(true);setError('');try{await bridge.removeApiKey(providerId)}catch{setError('apiConnectionFailed')}finally{setBusy(false)}}
  return <form className="api-connection" onSubmit={e=>void save(e)}>
+ {configured&&<p className="api-key-saved" role="status">{t('apiKeySaved')}</p>}
  <p>{t('apiKeyHint')}</p>{['openai','anthropic'].includes(providerId)&&<p>{t('adminKeyHint')}</p>}{providerId==='fal'&&<p>{t('falKeyHint')}</p>}<label>{t(configured?'replaceApiKey':'apiKey')}<input type="password" autoComplete="off" spellCheck={false} value={key} maxLength={4096} onChange={e=>setKey(e.target.value)} disabled={busy} /></label>
  <button className="consent-button" type="submit" disabled={busy||key.trim().length<8||!bridge.saveApiKey}>{t('connectApi')}</button>
  <button className="provider-link" type="button" disabled={busy||!bridge.openApiKeys} onClick={()=>void bridge.openApiKeys?.(providerId)}>{t('getApiKey')}</button>

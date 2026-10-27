@@ -8,5 +8,5 @@ for(const [platform,backend,label,minimize] of [
  await page.goto('/');await expect(page.getByRole('button',{name:minimize,exact:true})).toBeVisible();await expect(page.locator('.bar-remove-button')).toHaveCount(0);
  await page.getByRole('button',{name:'Réglages',exact:true}).click();const toggle=page.getByRole('switch',{name:label,exact:true});await expect(toggle).toBeChecked();await toggle.uncheck();await expect(toggle).not.toBeChecked();await expect(page.getByRole('switch',{name:platform==='darwin'?'Ouvrir à la connexion':'Démarrer avec Windows'})).not.toBeChecked();
  await toggle.check();await expect(toggle).toBeChecked();expect(await page.evaluate(()=>(window as any).barCalls)).toEqual([[false,false],[true,false]]);
- await page.getByRole('button',{name:'Retour au widget',exact:true}).click();await page.getByRole('button',{name:minimize,exact:true}).click();expect(await page.evaluate(()=>(window as any).barCalls.at(-1))).toEqual([true,true]);
+ await page.getByRole('button',{name:'Vue compacte',exact:true}).click();await page.getByRole('button',{name:minimize,exact:true}).click();expect(await page.evaluate(()=>(window as any).barCalls.at(-1))).toEqual([true,true]);
 });

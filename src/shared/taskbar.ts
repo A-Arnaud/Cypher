@@ -1,9 +1,9 @@
-import {metricValue} from './metric-format';
+import {displayedAccountIds} from './accounts-view';
 import type {AppState} from './model';import {catalog} from './catalog';
 export interface TaskbarItem {id:string;providerId:string;label:string;text:string;stale:boolean}
 export function taskbarSummary(state:AppState):{items:TaskbarItem[];extraCount:number}{
  const values:TaskbarItem[]=[];
- for(const id of state.settings.pinned){
+ for(const id of displayedAccountIds(state)){
   const profile=state.profiles?.find(p=>p.id===id),snapshot=state.providers.find(p=>p.id===id);if(snapshot?.duplicateOf)continue;
   const providerId=profile?.providerId??snapshot?.providerId??id,entry=catalog.find(c=>c.id===providerId);if(!entry)continue;
   const metrics=snapshot&&(snapshot.state==='ready'||snapshot.state==='stale')?snapshot.metrics:[];

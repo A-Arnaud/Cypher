@@ -34,4 +34,5 @@ import continueLogo from '../../assets/providers/continue.svg';
 import llamacpp from '../../assets/providers/llamacpp.svg';
 import './provider-logo.css';
 const images:Record<string,string>={codex,claude,gemini,anthropic,azure,bedrock,cohere,copilot,cursor,deepseek,fal,fireworks,'google-ai':googleai,grok,groq,huggingface,lmstudio,mistral,ollama,openai,opencode,openrouter,perplexity,poe,replicate,together,vertex,vllm,windsurf,xai,aider,continue:continueLogo,llamacpp,chatgpt:openai,lechat:mistral,'deepseek-chat':deepseek};
-export function ProviderLogo({providerId}:{providerId:string}){return <img className="provider-image" data-provider={providerId} src={images[providerId]??service} alt="" aria-hidden="true"/>}
+const monochrome=new Set(['anthropic','codex','copilot','cursor','grok','groq','lmstudio','ollama','openai','opencode','replicate','windsurf','xai','chatgpt']);
+export function ProviderLogo({providerId}:{providerId:string}){return <img className={'provider-image'+(monochrome.has(providerId)?' provider-monochrome':'')} data-provider={providerId} src={images[providerId]??service} alt="" aria-hidden="true"/>}

@@ -1,3 +1,4 @@
+import {chooseService} from './ui-helpers';
 import {test,expect} from '@playwright/test';
 import {defaultSettings} from '../src/shared/defaults';
 test('connects a key without retaining it in the form, displays points, and disconnects',async({page})=>{
@@ -5,9 +6,9 @@ test('connects a key without retaining it in the form, displays points, and disc
   let state:any={settings,detections:[],providers:[],refreshing:false,desktop:true,configuredApiProviders:[]};const listeners=new Set<(s:any)=>void>();const publish=()=>listeners.forEach(f=>f(state));
   window.quota={getState:async()=>state,refresh:async()=>{},hide:async()=>{},quit:async()=>{},openProvider:async()=>{},updateSettings:async p=>{state={...state,settings:{...state.settings,...p}};publish()},subscribe:f=>{listeners.add(f);return()=>{listeners.delete(f)}},saveApiKey:async(id,key)=>{if(id!=='poe'||key!=='synthetic-test-key')throw Error('fixture');state={...state,configuredApiProviders:[id],settings:{...state.settings,pinned:[id]},providers:[{id,auth:'connected',state:'ready',message:'apiBalanceInfo',observedAt:1,metrics:[{id:'poe:points',label:'pointsRemaining',remaining:1500,unit:'points',source:'provider',observedAt:1}]}]};publish()},removeApiKey:async()=>{state={...state,configuredApiProviders:[],providers:[]};publish()}};
  },{...defaultSettings(),language:'fr'});
- await page.goto('/');await page.getByRole('navigation').getByRole('button',{name:'Connexions',exact:true}).click();await page.getByPlaceholder('Rechercher un service…').fill('Poe');
- const connection=page.locator('.connection');const input=connection.getByLabel('Clé API',{exact:true});await expect(input).toHaveAttribute('type','password');await input.fill('synthetic-test-key');await connection.getByRole('button',{name:'Connecter et lire',exact:true}).click();await expect(connection.getByLabel('Remplacer la clé API')).toHaveValue('');await expect(connection.getByText('Clé enregistrée',{exact:true})).toBeVisible();
- await page.getByRole('navigation').getByRole('button',{name:'Vue d’ensemble',exact:true}).click();await expect(page.locator('.metric-line')).toContainText('points');await expect(page.locator('[role="progressbar"]')).toHaveCount(0);
- await page.getByRole('button',{name:'Retour au widget',exact:true}).click();await expect(page.locator('.summary-metrics')).toContainText('points');
- await page.getByRole('button',{name:'Détails',exact:true}).click();await page.getByRole('navigation').getByRole('button',{name:'Connexions',exact:true}).click();await page.getByPlaceholder('Rechercher un service…').fill('Poe');await page.getByRole('button',{name:'Déconnecter et supprimer la clé',exact:true}).click();await expect(page.getByLabel('Clé API',{exact:true})).toHaveValue('');
+ await page.goto('/');await chooseService(page,'Poe','fr');
+ const connection=page.locator('.service-setup');const input=connection.getByLabel('Clé API',{exact:true});await expect(input).toHaveAttribute('type','password');await input.fill('synthetic-test-key');await connection.getByRole('button',{name:'Connecter et lire',exact:true}).click();await expect(connection.getByLabel('Remplacer la clé API')).toHaveValue('');await expect(connection.getByText('Clé enregistrée',{exact:true})).toBeVisible();
+ await page.getByRole('navigation').getByRole('button',{name:'Quotas',exact:true}).click();await expect(page.locator('.metric-line')).toContainText('points');await expect(page.locator('[role="progressbar"]')).toHaveCount(0);
+ await page.getByRole('button',{name:'Vue compacte',exact:true}).click();await expect(page.locator('.summary-metrics')).toContainText('points');
+ await page.getByRole('button',{name:'Détails',exact:true}).click();await chooseService(page,'Poe','fr');await page.getByRole('button',{name:'Déconnecter et supprimer la clé',exact:true}).click();await expect(page.getByLabel('Clé API',{exact:true})).toHaveValue('');
 });

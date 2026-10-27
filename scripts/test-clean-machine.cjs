@@ -31,9 +31,8 @@ const assert=require('node:assert/strict');
   assert.equal(state.profiles.some(p=>p.configPresent||p.authFilePresent),false);
   assert.equal(state.providers.some(p=>p.metrics.length||p.auth==='connected'),false);
   await page.evaluate(()=>window.quota.updateSettings({shortcut:'Control+Alt+Shift+9'}));
-  await page.getByRole('navigation').getByRole('button',{name:'Connections',exact:true}).click();
-  for(const option of await page.getByText('More ways to connect',{exact:true}).all())await option.click();
-  assert.equal(await page.getByRole('button',{name:'Install CLI',exact:true}).count(),3);
+  await page.getByRole('navigation').getByRole('button',{name:'Accounts',exact:true}).click();
+  await page.locator('.service-choice').filter({hasText:'Codex'}).click();
   assert.equal(await page.getByRole('button',{name:'Sign in',exact:true}).count(),0);
   assert.deepEqual(state.directLoginProviders,['codex']);
   assert.equal(state.detections.find(d=>d.id==='codex').builtIn,true);
@@ -41,8 +40,9 @@ const assert=require('node:assert/strict');
   const connector=path.join(path.dirname(path.resolve(process.argv[2]??'.local-builds/electron-test/win-unpacked/Cypher.exe')),'resources/app.asar.unpacked/dist/native/codex/bin/codex.exe');
   const connectorVersion=require('node:child_process').execFileSync(connector,['--version'],{env,encoding:'utf8',windowsHide:true,timeout:15000});
   assert.equal(connectorVersion.trim(),'codex-cli '+require('@openai/codex/package.json').version);
-  const local=page.locator('.connection').filter({has:page.getByRole('heading',{name:'Ollama',exact:true})});
-  assert.equal(await local.getByRole('button',{name:'Enable read-only access',exact:true}).count(),1);
+  for(const [id,name] of [['claude','Claude Code'],['gemini','Gemini CLI']]){await page.getByRole('navigation').getByRole('button',{name:'Accounts',exact:true}).click();await page.locator('.service-choice').filter({hasText:name}).click();assert.equal(await page.getByRole('button',{name:'Install '+name,exact:true}).count(),1);assert.equal(await page.getByRole('button',{name:'Sign in',exact:true}).count(),0)}
+  await page.getByRole('navigation').getByRole('button',{name:'Accounts',exact:true}).click();await page.getByRole('button',{name:'More services',exact:true}).click();await page.getByRole('searchbox').fill('Ollama');await page.locator('.other-service-list').getByRole('button',{name:'Ollama',exact:true}).click();
+  assert.equal(await page.getByRole('button',{name:'Enable read-only access',exact:true}).count(),1);
   // Synthetic HTTP responses exercise real IPC, DPAPI and the packaged collectors.
   // No request leaves this process and no real API key is used.
   await app.evaluate(()=>{globalThis.fetch=async(url,options)=>{
@@ -57,11 +57,11 @@ const assert=require('node:assert/strict');
   assert(!JSON.stringify(apiState).includes('synthetic-test-key'));
   assert.equal(apiState.providers.find(p=>p.id==='poe').metrics[0].remaining,1500);
   await page.evaluate(()=>window.quota.updateSettings({pinned:['openrouter','poe','deepseek']}));
-  await page.getByRole('navigation').getByRole('button',{name:'Overview',exact:true}).click();
+  await page.getByRole('navigation').getByRole('button',{name:'Quotas',exact:true}).click();
   const amounts=(await page.locator('.metric-line strong').allTextContents()).join(' ').normalize('NFKC');
   for(const amount of ['74.50','25.50','1,500','17.50'])assert(amounts.includes(amount),'missing rendered amount '+amount);
   await page.screenshot({path:path.join(root,'api-details.png')});
-  await page.getByRole('button',{name:'Back to widget',exact:true}).click();
+  await page.getByRole('button',{name:'Compact view',exact:true}).click();
   await page.locator('.summary-row').first().waitFor();await page.screenshot({path:path.join(root,'api-widget.png')});
   await page.getByRole('button',{name:'Settings',exact:true}).click();
   await page.locator('.settings-panel').waitFor();await page.screenshot({path:path.join(root,'api-settings.png')});

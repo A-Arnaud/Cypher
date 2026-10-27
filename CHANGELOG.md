@@ -1,3 +1,11 @@
+# 0.8.0 — simpler account setup and a clearer interface
+
+- Add a guided first-run view, service picker and immediately visible Codex browser sign-in; keep explicit permission for existing profiles.
+- Compact quota cards with remaining amounts, relative reset countdowns, actionable errors and expandable source details. Preserve real zeros, stale readings and provider limits.
+- Add saved light/dark/system themes and theme-aware monochrome logos. Move advanced collection, opacity, shortcut and diagnostic controls into a disclosure.
+- Keep empty default service placeholders out of account and indicator summaries; retain user profile permissions and pin preferences.
+- Move the bar/minimize control to a quiet footer. Preserve native closing choices, optional startup, Mac menu-only behavior and approved update flows.
+
 # 0.7.1 — automatic indicator at launch
 
 - Show the quota indicator by default at each manual/login launch on Windows and Mac, before the renderer opens.

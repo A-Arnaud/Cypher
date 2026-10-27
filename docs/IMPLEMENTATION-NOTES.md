@@ -1,4 +1,4 @@
-# Implementation notes — Cypher 0.7.1
+# Implementation notes — Cypher 0.8.0
 
 Current behavior is described in the [user guide](user-guide.md), [connection methods](connection-methods.md) and [provider matrix](catalog-coverage.md). Dated plans and verification records describe the version tested at that time; they are not the current feature specification.
 
