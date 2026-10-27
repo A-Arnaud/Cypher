@@ -1,4 +1,4 @@
-# Implementation notes — Cypher 0.5.4
+# Implementation notes — Cypher 0.6.0
 
 Current behavior is described in the [user guide](user-guide.md), [connection methods](connection-methods.md) and [provider matrix](catalog-coverage.md). Dated plans and verification records describe the version tested at that time; they are not the current feature specification.
 
@@ -36,6 +36,8 @@ Automatic profile detection comes first. Codex browser sign-in uses an included,
 Existing CLI login, independent accounts, executable selection, profile import and supported API-key alternatives remain available. Claude/Gemini CLI sign-in does not establish implemented subscription quota reads. API spending/balances and chat subscriptions remain distinct. Readers send no generation prompts; missing metrics remain unknown.
 
 ## Build and verification
+
+The [update controller](../src/main/update-controller.ts) schedules quiet stable-release checks, coalesces requests, requires native user consent and persists only short deferrals. The [release reader](../src/main/update-release.ts) bounds metadata and validates fixed HTTPS hosts, package names, architecture, monotonic package versions and GitHub digests. The [Windows adapter](../src/main/update-windows.ts) uses pinned electron-updater 6.8.12 NSIS downloads with a fixed accepted asset, full SHA-512/SHA-256 verification, no staged-rollout identifier and no install-on-quit hook. Main lifecycle cleanup runs before its explicit installer handoff. Mac/portable/extracted-copy download paths remain manual. [Update guide](updates.md).
 
 The build bundles renderer/main/preload separately, copies only allowlisted assets and the matching native Codex component, and compiles the Windows helper only on Windows. Mac Intel and Apple Silicon packaging run on separate matching hosts; cross-architecture components are rejected.
 

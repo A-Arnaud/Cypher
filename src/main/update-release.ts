@@ -1,0 +1,28 @@
+import {createHash} from 'node:crypto';
+export const UPDATE_REPOSITORY='https://github.com/A-Arnaud/Cypher';
+export const UPDATE_API='https://api.github.com/repos/A-Arnaud/Cypher/releases/latest';
+export interface ReleaseFile {name:string;url:string;size:number;sha256:string}
+export interface UpdateCandidate {version:string;file:ReleaseFile;manifest?:ReleaseFile;mode:'automatic'|'manual';reason?:'mac-signing'|'portable'|'metadata'|'installation'}
+export function stableVersion(value:unknown):value is string{return typeof value==='string'&&/^\d{1,6}\.\d{1,6}\.\d{1,6}$/.test(value)}
+export function newerVersion(next:string,current:string){if(!stableVersion(next)||!stableVersion(current))return false;const a=next.split('.').map(Number),b=current.split('.').map(Number);for(let i=0;i<3;i++)if(a[i]!==b[i])return a[i]>b[i];return false}
+export function trustedUpdateUrl(value:string){try{const u=new URL(value);if(u.protocol!=='https:'||u.username||u.password||u.port&&u.port!=='443'||u.hash)return false;if(u.hostname==='api.github.com')return value===UPDATE_API;if(u.hostname==='github.com')return /^\/A-Arnaud\/Cypher\/releases\/download\/v\d{1,6}\.\d{1,6}\.\d{1,6}\/[A-Za-z0-9._-]+$/.test(u.pathname);return ['release-assets.githubusercontent.com','objects.githubusercontent.com','github-releases.githubusercontent.com'].includes(u.hostname)}catch{return false}}
+function asset(raw:unknown,name:string,version:string):ReleaseFile|undefined{if(!raw||typeof raw!=='object')return;const a=raw as Record<string,unknown>;const url=UPDATE_REPOSITORY+'/releases/download/v'+version+'/'+name;if(a.name!==name||a.browser_download_url!==url||a.state!=='uploaded'||typeof a.size!=='number'||!Number.isSafeInteger(a.size)||a.size<=0||a.size>1024**3||typeof a.digest!=='string'||!/^sha256:[a-f0-9]{64}$/.test(a.digest))return;return {name,url,size:a.size,sha256:a.digest.slice(7)}}
+export function selectUpdate(raw:unknown,current:string,platform:string,arch:string,portable=false,installed=true):UpdateCandidate|null{
+ if(!raw||typeof raw!=='object')throw Error('invalid-release');const r=raw as Record<string,unknown>;if(r.draft===true||r.prerelease===true)return null;if(r.draft!==false||r.prerelease!==false||typeof r.tag_name!=='string'||!r.tag_name.startsWith('v'))throw Error('invalid-release');const releaseVersion=r.tag_name.slice(1);if(!stableVersion(releaseVersion))return null;if(!Array.isArray(r.assets)||r.assets.length>100)throw Error('invalid-assets');
+ if(platform!=='win32'&&platform!=='darwin'||platform==='win32'&&arch!=='x64'||platform==='darwin'&&!['x64','arm64'].includes(arch))return null;
+ const prefix=platform==='win32'&&!portable?'Cypher-Setup-':'Cypher-';const suffix=platform==='darwin'?'-mac-'+arch+'.dmg':'-win-x64.exe';
+ const candidates=r.assets.filter(a=>a&&typeof a==='object'&&typeof a.name==='string'&&a.name.startsWith(prefix)&&a.name.endsWith(suffix)).map(a=>({raw:a,version:a.name.slice(prefix.length,-suffix.length)})).filter(a=>stableVersion(a.version));if(!candidates.length)throw Error('missing-asset');if(candidates.some(a=>newerVersion(a.version,releaseVersion)))throw Error('invalid-asset-version');candidates.sort((a,b)=>newerVersion(a.version,b.version)?-1:newerVersion(b.version,a.version)?1:0);const version=candidates[0].version;if(!newerVersion(version,current))return null;const name=prefix+version+suffix;
+ if(candidates.filter(a=>a.raw.name===name).length!==1)throw Error('duplicate-asset');const file=asset(candidates[0].raw,name,releaseVersion);if(!file)throw Error('invalid-asset');
+ const manifests=r.assets.filter(a=>a&&typeof a==='object'&&a.name==='latest.yml');const found=manifests.length===1?asset(manifests[0],'latest.yml',releaseVersion):undefined;const manifest=found&&found.size<=65536?found:undefined;
+ const reason=platform==='darwin'?'mac-signing':portable?'portable':!installed?'installation':!manifest?'metadata':undefined;
+ return {version,file,manifest,mode:reason?'manual':'automatic',reason};
+}
+export class GitHubUpdateSource {
+ constructor(private request:typeof fetch=fetch){}
+ async bytes(url:string,signal:AbortSignal,limit:number):Promise<Buffer>{
+  const timeout=AbortSignal.any([signal,AbortSignal.timeout(20000)]);let target=url;
+  for(let i=0;i<5;i++){if(!trustedUpdateUrl(target))throw Error('untrusted-update-url');const response=await this.request(target,{redirect:'manual',signal:timeout,headers:{'User-Agent':'Cypher-Update-Checker',Accept:'application/vnd.github+json'}});if([301,302,303,307,308].includes(response.status)){const location=response.headers.get('location');await response.body?.cancel();if(!location)throw Error('invalid-redirect');target=new URL(location,target).href;continue}if(response.status!==200){await response.body?.cancel();throw Error('update-http-error')}if(Number(response.headers.get('content-length'))>limit){await response.body?.cancel();throw Error('update-too-large')}const reader=response.body?.getReader();if(!reader)throw Error('empty-update');const chunks:Buffer[]=[];let size=0;try{for(;;){const {value,done}=await reader.read();if(done)break;size+=value.byteLength;if(size>limit)throw Error('update-too-large');chunks.push(Buffer.from(value))}}finally{await reader.cancel().catch(()=>{})}return Buffer.concat(chunks)}throw Error('update-redirect-loop');
+ }
+ async latest(signal:AbortSignal){return JSON.parse((await this.bytes(UPDATE_API,signal,1024**2)).toString('utf8')) as unknown}
+ async manifest(candidate:UpdateCandidate,signal:AbortSignal){const file=candidate.manifest;if(!file)throw Error('missing-manifest');const data=await this.bytes(file.url,signal,65536);if(data.length!==file.size||createHash('sha256').update(data).digest('hex')!==file.sha256)throw Error('manifest-digest');return data.toString('utf8')}
+}

@@ -13,6 +13,7 @@ Codex browser connections use an official authentication component included in C
 | File/folder | Contents |
 |---|---|
 | settings.json | Language, display, order, authorized profiles, and settings; no API keys |
+| app-update-state.json | Deferred update version and expiration; no account information |
 | registry.json | Paths to manually added CLIs and profiles; not their authentication contents |
 | credentials.enc.json | Keys entered in Cypher, encrypted with Windows DPAPI or macOS Keychain-backed safeStorage and bound to the provider |
 | profiles/ | Profiles created on demand; credentials there are managed by the official CLI |
@@ -25,7 +26,13 @@ Quota data and masked accounts remain in memory and are not cached in preference
 
 Uninstallation preserves the user-data folder so that profiles survive reinstallation. Delete keys from Connections before handing over a PC, and manage CLI sign-out separately. Do not copy this folder into the GitHub repository or a distribution archive.
 
-## Destinations contacted after authorization
+## Application update traffic
+
+Application update checks are separate from provider read permission. In packaged 0.6.0+, the default optional checker contacts `api.github.com/repos/A-Arnaud/Cypher/releases/latest` after startup and every six hours. Disable it in Settings to stop automatic checks; manual checking remains available. It sends ordinary connection metadata and a fixed Cypher user agent, without provider credentials or account information. No persistent installation/staged-rollout identifier is generated for these checks/downloads.
+
+On an approved installed-Windows update, metadata and binaries are retrieved from the project's GitHub releases and GitHub asset hosts, with hash checks before installation. Mac/portable download actions open the official download in the system browser; that browser follows its normal download/privacy behavior. The local deferral is stored in `app-update-state.json`; Windows download cache is separate from account profiles. [Update details](docs/updates.md).
+
+## Provider destinations contacted after authorization
 
 | Connector | Destination | Data transmitted |
 |---|---|---|

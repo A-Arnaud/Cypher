@@ -1,3 +1,11 @@
+# 0.6.0 — discreet release proposals and approved Windows updates
+
+- Check stable GitHub releases after startup and every six hours, with small footer/native-menu indicators. No unsolicited window, Dock bounce or OS notification. Automatic checks can be disabled; Later defers an offer for 24 hours.
+- Require explicit user approval before download/install. Installed Windows copies use the NSIS update engine, bounded/version-pinned metadata, manifest SHA-512 and independent GitHub SHA-256 validation, orderly shutdown and restart in the bar. Ordinary Quit never installs a cached update.
+- Keep current Mac and portable/extracted Windows downloads manual, with clear platform-specific instructions. Mac native installation remains blocked by the unavailable stable Apple signing identity/integration; no Gatekeeper bypass is introduced.
+- Publish and verify Windows `latest.yml` with the release. No persistent staged-rollout identifier or provider credentials are transmitted by the updater. Include bundled dependency license notices.
+- Earlier 0.5.x binaries need one manual installation of 0.6.0 to acquire the checker. Existing startup, menu-only Mac behavior, closing choices and account/profile isolation remain.
+
 # 0.5.4 — discreet Mac menu bar app
 
 - Declare the packaged Mac app as an agent (`LSUIElement=true`) and retain accessory activation for manual launches, login launches and reopened windows. Opening Settings or restoring the widget no longer promotes Cypher to a normal Dock application.
