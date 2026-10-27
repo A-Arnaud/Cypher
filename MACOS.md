@@ -1,6 +1,8 @@
 # Cypher for macOS
 
-The macOS preview is a separate release from Windows: [download v0.5.1-mac.2](https://github.com/A-Arnaud/Cypher/releases/tag/v0.5.1-mac.2).
+Cypher is available for **Mac Intel and Apple Silicon**, with a native menu bar indicator at the top right. Working Mac use has been confirmed by the maintainer.
+
+**[Download for Mac Intel](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.5.1-mac.2-mac-x64.dmg)** · **[Download for Apple Silicon](https://github.com/A-Arnaud/Cypher/releases/latest/download/Cypher-0.5.1-mac.2-mac-arm64.dmg)** · [All Windows and Mac downloads](https://github.com/A-Arnaud/Cypher/releases/latest)
 
 **Requires macOS 13 Ventura or later**, on either processor. This is the minimum declared by the packaged application and its Electron runtime; the automated tests run on macOS 15. macOS 12 Monterey and earlier cannot run this release. On Intel, download the file ending in **`mac-x64.dmg`** or **`mac-x64.zip`**, never `arm64`.
 
@@ -13,11 +15,9 @@ The macOS preview is a separate release from Windows: [download v0.5.1-mac.2](ht
 
 ## First launch
 
-To remove this warning in a future release, the maintainer must configure [Developer ID signing and Apple notarization](docs/macos-signing.md). The prepared workflow requires an active Apple Developer membership and credentials; it has not notarized the current preview.
+The app works on Mac, but this download is **not notarized by Apple**. If macOS blocks the first launch, verify the download's SHA-256 and use **System Settings → Privacy & Security → Open Anyway** for Cypher. This is a signing prompt, separate from Mac compatibility. [First-launch help](docs/downloads.md#first-launch).
 
-This preview has an **ad-hoc signature**, without an Apple Developer ID certificate or notarization. macOS Gatekeeper may block the first launch. After checking the release SHA-256 checksum, use **System Settings → Privacy & Security → Open Anyway** if macOS offers it. Do not disable Gatekeeper globally.
-
-Automatic login registration is unavailable in this preview. If desired, add the installed app manually in **System Settings → General → Login Items**. API keys use Electron safeStorage backed by the macOS Keychain. Windows credentials cannot be copied over and decrypted on a Mac.
+If you want Cypher to open at login, add it manually in **System Settings → General → Login Items**. API keys use Electron safeStorage backed by the macOS Keychain. Windows credentials cannot be copied over and decrypted on a Mac.
 
 ## Connection methods
 
@@ -33,7 +33,9 @@ Sign-in opens a separate **Terminal** instance using the official CLI and the se
 
 ## Verification and builds
 
-GitHub Actions builds and tests separately on **macOS 15 Apple Silicon and Intel**. It runs portable unit tests, real synthetic CLI subprocess tests, an Electron menu bar docking/restore smoke test, a final packaged app launch and signature check, and source/archive publication scans. These automated checks do not establish live-account compatibility, Gatekeeper approval, or physical-device/notch/full-screen validation. A hands-on Mac check remains necessary.
+Working use on an **Intel Mac has been confirmed by the maintainer**. GitHub Actions also builds and tests separately on **macOS 15 Apple Silicon and Intel**, including unit/subprocess tests, native menu bar docking/restore, final app/connector launch and signature checks, and publication scans. See [verification records](VERIFICATION.md) for exact evidence and advanced display/provider cases; these checks do not constitute Apple notarization.
+
+Maintainers preparing a future Apple-signed build should follow [Developer ID signing and notarization](docs/macos-signing.md).
 
 ```sh
 npm ci

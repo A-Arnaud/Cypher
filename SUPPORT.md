@@ -2,13 +2,13 @@
 
 ## FAQ
 
-**Where do I download Cypher?** Choose [Windows 0.5.0 stable](https://github.com/A-Arnaud/Cypher/releases/tag/v0.5.0) or the separate [macOS 0.5.1-mac.1 preview](https://github.com/A-Arnaud/Cypher/releases/tag/v0.5.1-mac.1). Windows offers an installer and portable executable; Mac offers Apple Silicon and Intel DMG/ZIP downloads. See [Windows setup](README.md#get-started) or [Mac setup](MACOS.md), and verify the supplied SHA-256 checksums. Windows executables lack Authenticode signatures; the Mac preview is ad-hoc signed without Apple notarization.
+**Where do I download Cypher?** Open [the latest download page](https://github.com/A-Arnaud/Cypher/releases/latest). It contains Windows 10/11, Mac Intel and Mac Apple Silicon on one page. Use the [download guide](docs/downloads.md) if you are unsure which file to choose.
 
 **Where are the quotas on Mac?** Choose **Show quotas in menu bar**. The indicator appears in the macOS menu bar at the top right, with up to three pinned percentage readings. Its menu can show/hide the widget, refresh, pause or quit. A dash means unavailable percentage data; balances and model counts remain in the widget. On a display with a camera notch or many menu bar items, macOS may limit available space. See [the Mac guide](MACOS.md).
 
 **Why is the Mac application grayed out or marked incompatible?** First check your macOS version and downloaded architecture. This release requires **macOS 13 Ventura or later**. Intel Macs need the `mac-x64` download; `mac-arm64` is for Apple Silicon. A security exception does not make an unsupported OS or architecture compatible. If both requirements are met, report the exact Finder message and filename so the failure can be diagnosed.
 
-**Why does macOS block the first launch?** This preview has no Apple Developer ID or notarization. Follow the [first-launch instructions](MACOS.md#first-launch) after checking the checksum. Automatic login registration is unavailable in this preview; add Cypher manually to macOS Login Items if desired.
+**Why does macOS block the first launch?** The current Mac download has no Apple Developer ID or notarization. Follow the [first-launch instructions](MACOS.md#first-launch) after checking the checksum. Automatic login registration is unavailable in this release; add Cypher manually to macOS Login Items if desired.
 
 **Why is my quota missing although the tool is installed?** Detection does not establish a signed-in account, permission or a working quota connector. Check [provider status](README.md#what-works-today), then authorize the intended profile in Connections. Claude Code and Gemini quota reads are not implemented. Missing data is not zero usage.
 

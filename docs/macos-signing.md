@@ -1,6 +1,6 @@
 # Developer ID signing and Apple notarization
 
-The current public Mac preview is **not notarized**. The signing pipeline described here is prepared but cannot run successfully until Apple credentials are configured. It does not change the downloads already published or remove their warning retroactively.
+The current public Mac release is **not notarized**. The signing pipeline described here is prepared but cannot run successfully until Apple credentials are configured. It does not change the downloads already published or remove their warning retroactively.
 
 To remove the unverified-developer/malware-check warning from a new download, the app needs a **Developer ID Application** certificate, **hardened runtime**, Apple notarization and a stapled ticket. A free Apple developer account or an ad-hoc signature does not provide these distribution credentials. The usual first-download confirmation can still appear after notarization.
 
@@ -30,7 +30,7 @@ The signed configuration removes the ad-hoc identity, requires real code signing
 
 After electron-builder notarizes and staples the app, the finalization script also notarizes/staples the outer DMG. It checks Developer ID and hardened runtime, `codesign`, `stapler` and Gatekeeper's `spctl` assessment. It extracts the ZIP and mounts the DMG read-only to verify the app inside each download. The workflow then runs the final application smoke and archive scan and computes checksums from the final files.
 
-Successful builds are retained as `cypher-developer-id-*` artifacts. The workflow has a read-only GitHub token and **does not replace or publish releases automatically**. Publish a new Mac version from the verified artifacts and update its checksums and download links together; keep the existing Windows release. Never label the existing ad-hoc preview as notarized.
+Successful builds are retained as `cypher-developer-id-*` artifacts. The workflow has a read-only GitHub token and **does not replace or publish releases automatically**. Publish a new Mac version from the verified artifacts and update its checksums and download links together; keep the existing Windows release. Never label the existing ad-hoc release as notarized.
 
 Real Apple signing, notarization and Gatekeeper acceptance cannot be tested until valid credentials exist. Current unit coverage verifies missing-secret rejection, rejection of PR signing, removal of ad-hoc signing from the production config, and rejection of ad-hoc/non-hardened signature results.
 

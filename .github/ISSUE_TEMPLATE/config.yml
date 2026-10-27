@@ -1,5 +1,8 @@
 blank_issues_enabled: false
 contact_links:
+  - name: Download Cypher for Windows or Mac
+    url: https://github.com/A-Arnaud/Cypher/releases/latest
+    about: Windows 10/11 installer, Mac Intel and Apple Silicon downloads on one page.
   - name: Help and troubleshooting
     url: https://github.com/A-Arnaud/Cypher/blob/main/SUPPORT.md
     about: Read setup guidance and troubleshooting before opening an issue.

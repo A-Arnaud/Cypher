@@ -1,3 +1,10 @@
+# Current download availability - October 27, 2026
+
+- The maintainer confirms Cypher works on Mac. Current documentation presents macOS as available on Intel and Apple Silicon, with the existing native/CI evidence below. This confirmation does not claim Apple notarization or universal live-provider quota coverage.
+- GitHub Latest now groups Windows 10/11, Mac Intel and Mac Apple Silicon on one download page. It contains Windows 0.5.0 and macOS 0.5.1-mac.2, with their actual package versions stated explicitly.
+- All nine common-release assets match the original Windows and Mac release SHA-256 digests. Original Windows release asset IDs and digests are retained; its executables have not been rebuilt or replaced. Mac executables are unchanged.
+- The home page has direct download buttons for the three choices, with alternative formats and detailed instructions in docs/downloads.md. GitHub-rendered Markdown, 18 download references and 49 local file/anchor links were checked during publication. Historical test records retain their dates and scope below.
+
 # Cypher 0.5.1-mac.2 - connection options verification on October 27, 2026
 
 - Published [Mac preview 0.5.1-mac.2](https://github.com/A-Arnaud/Cypher/releases/tag/v0.5.1-mac.2), with DMG/ZIP downloads and SHA-256 manifests for Intel and Apple Silicon. Existing Windows 0.5.0 binaries remain the stable release.

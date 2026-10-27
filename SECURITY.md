@@ -1,6 +1,6 @@
 ﻿# Security
 
-Cypher is a local application for Windows, with a separate macOS preview. It has no central server, application telemetry, or account-upload mechanism. “Local” does not mean “offline”: after authorization, quota reads contact the relevant provider. The external browser can also be opened on demand for login or a dashboard. Destinations and stored data are described in [PRIVACY.md](PRIVACY.md).
+Cypher is a local application for Windows and macOS. It has no central server, application telemetry, or account-upload mechanism. “Local” does not mean “offline”: after authorization, quota reads contact the relevant provider. The external browser can also be opened on demand for login or a dashboard. Destinations and stored data are described in [PRIVACY.md](PRIVACY.md).
 
 ## Implemented protections
 
@@ -21,7 +21,7 @@ CLIs and their configurations belong to the user. They may perform their own net
 
 Current executables are not Authenticode-signed. ASAR integrity is not a publisher signature: it does not by itself prove the origin of a download. Compare the published SHA-256 hashes from a trusted repository. Do not run an unknown build with administrator privileges.
 
-The separate macOS preview uses an ad-hoc signature without Apple Developer ID or notarization. Its hardened runtime is disabled for this preview; Gatekeeper may block the first launch. Keychain encryption is not a guarantee against malicious software in the same user session. See [the Mac guide](MACOS.md) for first-launch instructions and manual login items. Mac CI checks the final application signature and launch on both architectures; this is not Apple approval or physical-device certification.
+The current macOS download uses an ad-hoc signature without Apple Developer ID or notarization. Its hardened runtime is disabled for this build; Gatekeeper may block the first launch. Keychain encryption is not a guarantee against malicious software in the same user session. See [the Mac guide](MACOS.md) for first-launch instructions and manual login items. Mac CI checks the final application signature and launch on both architectures; this is not Apple approval or physical-device certification.
 
 A separate manual [Developer ID/notarization workflow](docs/macos-signing.md) is prepared for future releases. It requires Apple credentials, enables hardened runtime and fails if signature, notarization-ticket or Gatekeeper checks fail. These checks have not been exercised with real Apple credentials and do not change the status of the current preview.
 

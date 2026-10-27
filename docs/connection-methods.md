@@ -1,6 +1,6 @@
 # Connection methods
 
-These choices are available in **macOS preview 0.5.1-mac.2** and current source builds. The published **Windows 0.5.0 stable** package retains its earlier CLI/API connection interface.
+These choices are available in **macOS 0.5.1-mac.2** and current source builds. The published **Windows 0.5.0 stable** package retains its earlier CLI/API connection interface.
 
 Connections starts with **Automatic detection**. Existing profiles remain separate and require explicit permission before Cypher reads them. Detecting a profile does not authorize it, sign it in or prove its subscription.
 
@@ -23,6 +23,6 @@ The app accepts only HTTPS authorization URLs on exact official OpenAI hosts and
 
 When no external Codex CLI exists, the included helper can also read an explicitly authorized existing Codex profile. Its presence is marked as a built-in connector, not an externally installed app. Claude/Gemini behavior and quota limitations are unchanged.
 
-Provider sign-in and quota availability are separate. Tests use synthetic subprocess responses and empty profiles; live account completion remains a manual validation step. The existing Mac preview remains unnotarized until Apple credentials are supplied.
+Provider sign-in and quota availability are separate. Tests use synthetic subprocess responses and empty profiles; live account completion remains a manual validation step. The current Mac release remains unnotarized until Apple credentials are supplied.
 
 References: [official Codex app-server](https://learn.chatgpt.com/docs/app-server), [bundled license](../assets/licenses/CODEX-LICENSE.txt), [upstream notice](../assets/licenses/CODEX-NOTICE.txt).
