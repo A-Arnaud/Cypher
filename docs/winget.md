@@ -29,7 +29,9 @@ Run the schema check locally without installing the application:
 winget validate --manifest distribution/winget/manifests/a/AArnaud/Cypher/0.7.0
 ```
 
-The [dedicated workflow](../.github/workflows/winget.yml) installs Microsoft's pinned WinGet client if needed, validates the manifests, installs the published installer silently, checks its registration/executable version and uninstalls by product code. The installation script refuses to run outside disposable GitHub-hosted runners or over an existing Cypher installation. Application binaries are neither rebuilt nor replaced by a catalog submission.
+The [dedicated workflow](../.github/workflows/winget.yml) prepares Microsoft's WinGet client, validates the manifests, verifies the published installer SHA-256, runs that NSIS installer silently, checks its registration/executable version and uninstalls through WinGet by product code. The script refuses to run outside disposable GitHub-hosted runners or over an existing Cypher installation. Application binaries are neither rebuilt nor replaced by a catalog submission.
+
+An attempted local-manifest installation downloaded/verified the package but stopped at SmartScreen before NSIS ran. Local manifests are not a trusted catalog source. The independent installer test does not prove acceptance or installation from Microsoft's public catalog; Microsoft's scans/review and a real public-source check are still required. No customer instruction disables SmartScreen or skips hash validation.
 
 For a future release, add a new versioned manifest directory, retain stable package ID/product code, use the exact published installer URL, recompute/verify its SHA-256 and test before submitting one version per PR to `microsoft/winget-pkgs`. Submit only the manifest files upstream. Repository merge and public catalog availability are distinct; mark the command available only after a real `winget show` from the public source succeeds.
 

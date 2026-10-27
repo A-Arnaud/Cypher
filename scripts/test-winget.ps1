@@ -15,9 +15,9 @@ if ((Get-Content -LiteralPath $versionFile -Raw) -notmatch '(?m)^PackageVersion:
 $manifestVersion = $Matches.Version
 $diagnosticRoot = Join-Path $env:RUNNER_TEMP 'cypher-winget-diagnostics'
 New-Item -ItemType Directory -Path $diagnosticRoot -Force | Out-Null
-function Invoke-TestWinGet {
-  param([string[]]$Arguments, [int]$TimeoutSeconds = 180)
-  $start = [Diagnostics.ProcessStartInfo]::new((Get-Command winget).Source)
+function Invoke-TestProcess {
+  param([string]$FilePath = (Get-Command winget).Source, [string[]]$Arguments, [int]$TimeoutSeconds = 180)
+  $start = [Diagnostics.ProcessStartInfo]::new($FilePath)
   $start.UseShellExecute = $false
   $start.CreateNoWindow = $true
   $start.RedirectStandardOutput = $true
@@ -47,12 +47,12 @@ function Invoke-TestWinGet {
     $process.WaitForExit()
     $stdout.GetAwaiter().GetResult() | Set-Content (Join-Path $diagnosticRoot 'stdout.txt')
     $stderr.GetAwaiter().GetResult() | Set-Content (Join-Path $diagnosticRoot 'stderr.txt')
-    throw 'WinGet operation timed out; isolated runner diagnostics captured'
+    throw 'Installation operation timed out; isolated runner diagnostics captured'
   }
   $process.WaitForExit()
   Write-Output $stdout.GetAwaiter().GetResult()
   Write-Output $stderr.GetAwaiter().GetResult()
-  if ($process.ExitCode -ne 0) { throw "WinGet failed with exit code $($process.ExitCode)" }
+  if ($process.ExitCode -ne 0) { throw "Installation operation failed with exit code $($process.ExitCode)" }
 }
 $productCode = '9d10fd83-a3eb-5c67-9fe1-e052446dd9ec'
 $uninstallKey = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\$productCode"
@@ -62,10 +62,18 @@ if ((Test-Path -LiteralPath $uninstallKey) -or (Test-Path -LiteralPath $installK
 }
 winget validate --manifest $Manifest --disable-interactivity
 if ($LASTEXITCODE -ne 0) { throw 'Manifest validation failed' }
-winget settings --enable LocalManifestFiles --disable-interactivity
-if ($LASTEXITCODE -ne 0) { throw 'Could not enable local manifests on test runner' }
-try {
-  Invoke-TestWinGet -Arguments @('install', '--manifest', (Resolve-Path -LiteralPath $Manifest).Path, '--silent', '--accept-package-agreements', '--accept-source-agreements', '--disable-interactivity')
+  # A local manifest is not a scanned/trusted catalog source: SmartScreen can
+  # stop it before NSIS runs. Test the exact published bytes independently.
+  # Full trusted-catalog installation is validated by Microsoft's pipeline.
+  $installerManifest = Get-Content -LiteralPath (Join-Path $Manifest 'AArnaud.Cypher.installer.yaml') -Raw
+  if ($installerManifest -notmatch '(?m)^\s+InstallerSha256: (?<Hash>[A-Fa-f0-9]{64})\s*$') { throw 'Missing installer SHA-256' }
+  $expectedHash = $Matches.Hash
+  $installerUrl = "https://github.com/A-Arnaud/Cypher/releases/download/v$manifestVersion/Cypher-Setup-$manifestVersion-win-x64.exe"
+  if (-not $installerManifest.Contains("InstallerUrl: $installerUrl")) { throw 'Unexpected installer URL' }
+  $installerPath = Join-Path $env:RUNNER_TEMP "Cypher-Setup-$manifestVersion-win-x64.exe"
+  Invoke-WebRequest -Uri $installerUrl -OutFile $installerPath
+  if ((Get-FileHash -LiteralPath $installerPath -Algorithm SHA256).Hash -ne $expectedHash) { throw 'Installer hash mismatch' }
+  Invoke-TestProcess -FilePath $installerPath -Arguments @('/S')
   $entry = Get-ItemProperty -LiteralPath $uninstallKey
   if ($entry.DisplayName -ne 'Cypher' -or $entry.Publisher -ne 'Cypher' -or $entry.DisplayVersion -ne $manifestVersion) {
     throw 'Installed registration differs from manifest metadata'
@@ -78,10 +86,7 @@ try {
   $installedExe = Join-Path $installedRoot 'Cypher.exe'
   if ((Get-Item -LiteralPath $installedExe).VersionInfo.ProductVersion -ne $manifestVersion) { throw 'Wrong installed application version' }
   Write-Output "Cypher $manifestVersion installed silently; publisher, version, executable and per-user registration match."
-  Invoke-TestWinGet -Arguments @('uninstall', '--product-code', $productCode, '--silent', '--accept-source-agreements', '--disable-interactivity')
+  Invoke-TestProcess -Arguments @('uninstall', '--product-code', $productCode, '--silent', '--accept-source-agreements', '--disable-interactivity')
   if (Test-Path -LiteralPath $uninstallKey) { throw 'Uninstall registration remains' }
   if (Test-Path -LiteralPath $installedExe) { throw 'Application executable remains after uninstall' }
   Write-Output 'WinGet uninstall passed; test performed only on a disposable runner.'
-} finally {
-  winget settings --disable LocalManifestFiles --disable-interactivity
-}
