@@ -96,11 +96,14 @@ Existing profiles come first. Additional methods depend on the provider and down
 | Connection | What Cypher can show |
 | --- | --- |
 | **Codex** | Account and provider-reported quota windows; browser sign-in without a separate CLI on **Windows and Mac** |
-| **Claude Code / Gemini CLI** | CLI detection and sign-in; Claude account status. Subscription quota reads are not implemented |
+| **Claude Code** | Available: CLI detection and sign-in, independent profiles, connected-account status and plan when reported by the CLI |
+| **Gemini CLI** | CLI detection, official sign-in and profile import |
 | **OpenRouter, DeepSeek, Poe, fal.ai** | Supported key budgets, API balances or points |
 | **OpenAI, Anthropic, Together AI APIs** | Organization spending, with provider-specific key permissions; separate from chat subscriptions |
 | **Ollama, LM Studio, llama.cpp, vLLM** | Local model availability after authorization |
 | **Other catalog entries** | Some offer discovery or provider links only; a listed service does not imply a working quota connector |
+
+**Claude Code is available in Cypher.** Connect it through its installed CLI or authorize an existing profile in **Connections**. The current connector reads account status and the reported plan; remaining subscription quota percentages are not collected yet. Use **Open provider** to view Claude's usage page. Gemini subscription quota collection is also pending; Anthropic API spending is a separate connection.
 
 [Full provider coverage](docs/catalog-coverage.md) · [Privacy](PRIVACY.md) · [Security](SECURITY.md)
 

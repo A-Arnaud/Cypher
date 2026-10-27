@@ -1,4 +1,4 @@
-# Catalog coverage — Cypher 0.7.0
+# Catalog coverage — Cypher 0.7.1
 
 Goal: cover every service in the catalog. This goal has not yet been reached.
 
@@ -7,7 +7,7 @@ Goal: cover every service in the catalog. This goal has not yet been reached.
 | Service | Status in this release | Remaining work or access |
 |---|---|---|
 | Codex | Account, plan, server quotas and browser sign-in with the included component on Windows/Mac | Live browser completion, other CLI versions and accounts need validation |
-| Claude Code | Detection, login, and account status | Subscription quota connector to develop |
+| Claude Code | Available: CLI detection, official login, independent profiles, account status and reported plan | Remaining quota percentages are not collected yet; Open provider opens Claude Usage |
 | Gemini CLI | Detection, profiles, and official login | Account verification and quotas to develop |
 | OpenCode | Detection; billing identified as belonging to the upstream provider | Upstream account association to develop |
 | Aider | Detection; billing identified as belonging to the upstream provider | Upstream account association to develop |

@@ -29,7 +29,9 @@ Dans **Connexions**, Cypher commence par la **Détection automatique** des profi
 
 Pour Codex, ouvrez **Autres façons de se connecter → Se connecter dans le navigateur**. Cette méthode fonctionne sur Windows et Mac sans installer séparément le CLI, l'application Codex ou Node.js. Le composant officiel est inclus et crée un profil indépendant pour Cypher.
 
-Les autres options proposées dépendent du fournisseur : **Avec le CLI installé**, dossier de profil ou **Utiliser une clé API**. Claude et Gemini utilisent encore leur CLI pour la connexion à un compte d'abonnement ; leurs lecteurs de quotas d'abonnement ne sont pas implémentés. La facturation API reste séparée des quotas des abonnements. [Détail des méthodes](connection-methods.md).
+**Claude Code est disponible dans Cypher :** détection du CLI, connexion officielle, profils indépendants et lecture de l’état du compte ainsi que de la formule lorsqu’elle est renvoyée par le CLI. Dans **Connexions**, autorisez un profil existant ou choisissez **Avec le CLI installé**. Le connecteur actuel ne collecte pas encore les pourcentages de quota restants ; **Ouvrir le fournisseur** permet de consulter la page d’utilisation Claude.
+
+Gemini propose aussi la détection, la connexion officielle et l’import de profils via son CLI ; la lecture des quotas reste à ajouter. **Utiliser une clé API** donne accès aux connecteurs API disponibles, dont Anthropic : cette facturation reste séparée de l’abonnement Claude Code. [Détail des méthodes](connection-methods.md).
 
 ## Retrouver Cypher dans la barre
 

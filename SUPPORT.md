@@ -24,7 +24,9 @@ For a support report, **Settings → Diagnostics → View report / Copy report**
 
 **Why does macOS block the first launch?** The current Mac download has no Apple Developer ID or notarization. Follow the [first-launch instructions](MACOS.md#first-launch) after checking the checksum. For optional automatic startup, move Cypher into Applications and enable **Settings → Open at login**. Cypher shows any pending macOS approval or registration error. At sign-in, it opens directly in the menu bar.
 
-**Why is my quota missing although the tool is installed?** Detection does not establish a signed-in account, permission or a working quota connector. Check [provider status](README.md#what-works-today), then authorize the intended profile in Connections. Claude Code and Gemini quota reads are not implemented. Missing data is not zero usage.
+**Is Claude Code available?** Yes. Cypher detects its installed CLI, supports official sign-in and independent profiles, and reads connected-account status and the plan reported by the CLI after authorization. In Connections, authorize an existing profile or choose the installed CLI method. **Open provider** opens Claude's usage page. The current connector does not collect remaining subscription quota percentages; Anthropic API organization spending is a separate connection.
+
+**Why is my quota missing although the tool is installed?** Detection does not establish a signed-in account, permission or a working quota connector. Check [provider status](README.md#what-works-today), then authorize the intended profile in Connections. Claude Code sign-in/account reads are available, but Claude Code and Gemini subscription quota percentages are not collected yet. Missing data is not zero usage.
 
 **Does Cypher need my chat password or browser cookies?** No. Use Codex browser sign-in through the included official component, the official CLI flow for CLI profiles, or a supported API key in Connections. Cypher does not import your personal browser cookies. Do not share keys or account credentials in an issue. See [Privacy](PRIVACY.md).
 
@@ -46,7 +48,7 @@ After building, `npm run test:clean-machine` launches the executable with an emp
 
 Codex quotas are implemented. Poe, DeepSeek API, OpenRouter, and fal.ai support API-key reads of points/balance/budget. Together AI reads spending for finalized days of the month. OpenAI API and Anthropic API support organization spending reads with an admin key. Explicitly entered keys use Windows DPAPI or macOS Keychain-backed encryption. API connector tests use simulated responses; validation with their real accounts remains outstanding.
 
-Claude and Gemini quotas and connections for services marked “Planned” remain to be developed. An available connection does not mean the service's quota is accessible. See the [full catalog matrix](docs/catalog-coverage.md) for the 36 services, their access requirements, and remaining work.
+Claude Code and Gemini CLI connections are available. Their subscription quota collectors, and connectors for services marked “Planned”, remain to be developed. See the [full catalog matrix](docs/catalog-coverage.md) for the 36 services, their access requirements, and remaining work.
 
 No provider is presented as universally connected. The sources below are implemented; accounts on this PC are not queried before consent in Connections.
 

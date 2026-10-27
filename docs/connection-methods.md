@@ -1,6 +1,6 @@
 # Connection methods
 
-These choices are available in **Cypher 0.7.0 for Windows and macOS**. Earlier Windows 0.5.0 packages retain their earlier CLI/API connection interface.
+These choices are available in **Cypher 0.7.1 for Windows and macOS**. Earlier Windows 0.5.0 packages retain their earlier CLI/API connection interface.
 
 Connections starts with **Automatic detection**. Existing profiles remain separate and require explicit permission before Cypher reads them. Detecting a profile does not authorize it, sign it in or prove its subscription.
 
@@ -9,9 +9,11 @@ Connections starts with **Automatic detection**. Existing profiles remain separa
 | Provider | Browser sign-in without external CLI | Installed CLI/profile | API alternative |
 | --- | --- | --- | --- |
 | Codex | Included official Codex account/auth component; opens the system browser | Existing CLI login, add independent account, choose executable or import folder | OpenAI organization API spending; separate billing and credentials |
-| Claude Code | Not implemented | Existing official CLI login and independent profiles | Anthropic organization API spending; separate billing and credentials |
+| Claude Code | Use the installed CLI's official login flow | Available: official CLI sign-in, independent profiles, account status and reported plan | Anthropic organization API spending; separate billing and credentials |
 | Gemini CLI | Not implemented | Existing official CLI login and profile import | No Gemini API billing collector implemented |
 | Other API connectors | Provider key creation/dashboard link, not subscription OAuth | Not required | Existing API-key collectors |
+
+Claude Code is an available connection. Its sign-in flow requires the Claude Code CLI; Cypher does not bundle a separate CLI-free Claude authentication component. Account/plan reads are implemented, while remaining subscription quota percentages are not collected by the current connector. **Open provider** opens Claude's usage page.
 
 ## Codex browser login
 
