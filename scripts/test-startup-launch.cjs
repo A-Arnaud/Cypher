@@ -10,7 +10,9 @@ const {_electron:electron,expect}=require('@playwright/test');const fs=require('
    const page=await app.firstWindow();await page.waitForFunction(()=>!!window.quota);await expect.poll(async()=>{const state=await page.evaluate(()=>window.quota.getState());return state.taskbarStatus}).toBe(automatic||savedBar?'ready':'off');
    await page.waitForTimeout(300);expect(await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].isVisible())).toBe(!automatic);expect(await app.evaluate(()=>globalThis.windowShows)).toBe(automatic?0:1);
    const state=await page.evaluate(()=>window.quota.getState());expect(state.settings.startAtLogin).toBe(false);expect(state.settings.taskbarMode).toBe(automatic||savedBar);
+   if(process.platform==='darwin')expect(await app.evaluate(({app})=>app.dock.isVisible())).toBe(false);
    if(automatic){await app.evaluate(({app})=>app.emit('second-instance',{},[],''));await expect.poll(()=>app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].isVisible())).toBe(true)}
+   if(process.platform==='darwin')expect(await app.evaluate(({app})=>app.dock.isVisible())).toBe(false);
   }finally{await app.close()}
  }
  console.log('Login launch checks passed: no window flash, bar restored even when previously removed, manual launch visible, explicit reopen works, no startup registration side effects.');

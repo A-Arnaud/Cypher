@@ -1,3 +1,10 @@
+# 0.5.4 — discreet Mac menu bar app
+
+- Declare the packaged Mac app as an agent (`LSUIElement=true`) and retain accessory activation for manual launches, login launches and reopened windows. Opening Settings or restoring the widget no longer promotes Cypher to a normal Dock application.
+- Keep the top menu bar icon, Show / Hide, keyboard shortcut and explicit Quit available. Windows presentation and optional startup settings retain their behavior.
+- Verify actual native Dock visibility through menu restoration, Settings input, pause/resume, hiding, reopening and quitting on both Mac architectures. Check the final app's plist and native process activation policy after packaging/signing.
+- Explain how to reopen the app and remove a previously pinned Dock favorite in the Mac guide and FAQ.
+
 # 0.5.3 — optional startup directly in the bar
 
 - Start automatically only when the user enables it in Settings. Moving into the bar or minimizing no longer registers automatic startup implicitly.

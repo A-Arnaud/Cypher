@@ -1,6 +1,6 @@
 {
   "name": "cypher-widget",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "private": true,
   "type": "module",
   "description": "Local-first AI quota monitor for Windows and macOS",
@@ -90,7 +90,10 @@
       "icon": "assets/logo-source.png",
       "identity": "-",
       "artifactName": "Cypher-${version}-mac-${arch}.${ext}",
-      "hardenedRuntime": false
+      "hardenedRuntime": false,
+      "extendInfo": {
+        "LSUIElement": true
+      }
     },
     "beforePack": "scripts/check-codex-target.cjs"
   },

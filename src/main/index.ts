@@ -22,8 +22,8 @@ const helperExecutable=app.isPackaged?path.join(process.resourcesPath,'app.asar.
 const startup=process.platform==='darwin'?createMacStartup(app,startupAvailable):createStartup(app,process.execPath,startupAvailable,process.platform==='win32'?()=>readStartupCommand(helperExecutable):undefined);
 const bundledCodex=path.join(__dirname,'../native/codex/bin',process.platform==='win32'?'codex.exe':'codex').replace(/app\.asar([\\/])/,'app.asar.unpacked$1');
 const directExecutable=existsSync(bundledCodex)?bundledCodex:undefined;
-let loginLaunch=launchedAtLogin(process.platform,process.argv),initializing=true,backgroundLogin=false;
-function showWindow(){if(backgroundLogin){backgroundLogin=false;app.setActivationPolicy('regular')}window?.show();window?.focus()}
+let loginLaunch=launchedAtLogin(process.platform,process.argv),initializing=true;
+function showWindow(){window?.show();window?.focus()}
 async function showDetails(){try{if(state.settings.summaryMode)await changeSettings({summaryMode:false})}finally{showWindow()}}
 let state:AppState;let detections:Detection[]=[];let settingsFile='';const alertHistory=new Set<string>();let accounts:Accounts;let credentials:Credentials;const rescans=new RescanQueue();
 const renderer=path.join(__dirname,'../renderer/index.html');const devUrl=app.isPackaged?undefined:process.env.QG_DEV_URL;
@@ -55,7 +55,7 @@ function handlers(){ipcMain.handle('qg:api-keys-url',async(e,id)=>{verify(e);if(
  ipcMain.handle('qg:login',async(e,id)=>{verify(e);await accounts.login(id)});ipcMain.handle('qg:add-account',async(e,id)=>{verify(e);await accounts.addAccount(id)});ipcMain.handle('qg:import-profile',async(e,id)=>{verify(e);await accounts.importProfile(id)});ipcMain.handle('qg:locate',async(e,id)=>{verify(e);await accounts.locateExecutable(id)});ipcMain.handle('qg:consent',async(e,id,allowed)=>{verify(e);if(typeof id==='string'&&isLocalProvider(id)){if(typeof allowed!=='boolean')throw Error('invalid-consent');await queueSettings({input:{},consent:{id,allowed}})}else await accounts.consent(id,allowed)});
 }
 if(ownsLock){app.whenReady().then(async()=>{
- if(process.platform==='darwin'){loginLaunch=launchedAtLogin(process.platform,process.argv,app.getLoginItemSettings({type:'mainAppService'}).wasOpenedAtLogin);if(loginLaunch){backgroundLogin=true;app.setActivationPolicy('accessory')}}
+ if(process.platform==='darwin'){loginLaunch=launchedAtLogin(process.platform,process.argv,app.getLoginItemSettings({type:'mainAppService'}).wasOpenedAtLogin);app.setActivationPolicy('accessory')}
  if(process.platform==='darwin')Menu.setApplicationMenu(Menu.buildFromTemplate([{role:'appMenu'},{role:'editMenu'},{role:'windowMenu'}]));
  credentials=new Credentials(path.join(app.getPath('userData'),'credentials.enc.json'),safeStorage);await credentials.initialize();
  settingsFile=path.join(app.getPath('userData'),'settings.json');const settings=await readSettings(settingsFile);settings.startAtLogin=startup.startupStatus();
@@ -79,5 +79,5 @@ if(ownsLock){app.whenReady().then(async()=>{
  if(loginLaunch&&!state.settings.taskbarMode)await queueSettings({input:{taskbarMode:true,taskbarOnboarded:true}});
  if(devUrl)await window.loadURL(devUrl);else await window.loadFile(renderer);if(state.settings.taskbarMode)await docking.restore().catch(()=>{});initializing=false;publish();
 }).catch(()=>{app.exit(1)});
- app.on('second-instance',()=>{void showDetails().catch(()=>{})});app.on('activate',()=>{if(backgroundLogin||initializing&&loginLaunch)return;void showDetails().catch(()=>{})});app.on('before-quit',e=>{if(quitting)return;e.preventDefault();quitting=true;updates.stop();poller?.stop();accounts?.dispose();globalShortcut.unregisterAll();void (docking?.shutdown()??taskbar?.stop()??Promise.resolve()).finally(()=>{tray?.destroy();app.quit()})});app.on('window-all-closed',()=>{if(quitting)app.quit()});
+ app.on('second-instance',()=>{void showDetails().catch(()=>{})});app.on('activate',()=>{if(initializing&&loginLaunch)return;void showDetails().catch(()=>{})});app.on('before-quit',e=>{if(quitting)return;e.preventDefault();quitting=true;updates.stop();poller?.stop();accounts?.dispose();globalShortcut.unregisterAll();void (docking?.shutdown()??taskbar?.stop()??Promise.resolve()).finally(()=>{tray?.destroy();app.quit()})});app.on('window-all-closed',()=>{if(quitting)app.quit()});
 }

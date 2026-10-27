@@ -8,7 +8,7 @@ Pin the profiles you need, reorder them by dragging a handle or using the keyboa
 
 Settings controls opacity, always-on-top behavior, language, keyboard shortcut and refresh interval. The default interval is **60 seconds after a collection completes**; errors use exponential backoff up to 15 minutes. **Pause** suspends collection, **Refresh** starts a read immediately, and **Quit** stops the application.
 
-The labelled button below the header places Cypher in the Windows taskbar or Mac menu bar and minimizes the window. Its hint explains where to find the indicator. Once placed, the button reads **Minimize to taskbar/menu bar**; **Remove** brings Cypher back to the desktop and removes its indicator.
+The labelled button below the header places Cypher in the Windows taskbar or Mac menu bar and minimizes the window. Its hint explains where to find the indicator. Once placed, the button reads **Minimize to taskbar/menu bar**; **Remove** turns off the quota display and brings the window back. The base Cypher menu icon remains accessible.
 
 Clicking the close button or closing the native window asks whether to **minimize into the bar**, **quit Cypher**, or **cancel**. Minimizing keeps collection running; quitting stops the app. Cancel or Escape leaves the window open. If the indicator cannot start, Cypher remains visible with an error. Explicit **Quit** from the indicator menu exits directly.
 
@@ -25,6 +25,8 @@ Enable **Settings → Start with Windows** if you want automatic startup. At Win
 ## Mac menu bar
 
 On **Intel and Apple Silicon**, **Move to menu bar** places the native indicator **at the top right**. It shows up to three pinned profile readings and an additional-profile count. Open its menu to show/hide the widget, refresh, pause or quit.
+
+Cypher is a menu bar agent on Mac: no running-app icon in the Dock or Command-Tab, including while its window or Settings are open. Use the top menu's **Show / Hide**, **Control+Option+Q**, or reopen Cypher from Applications to restore its window. Quit remains explicit in that menu or in the closing dialog. If an old Dock favorite remains, remove that manually pinned favorite once through **Options → Remove from Dock**.
 
 macOS controls available menu bar space, including around camera notches and in full-screen apps. Move Cypher into **Applications**, then enable **Settings → Open at login** in Cypher. It uses macOS's native login-item registration. If approval is required, Cypher displays that status and directs you to **System Settings → General → Login Items**. At sign-in, it starts directly in the top menu bar without showing its window. The registered service is checked again when you return to the app, so disabling it in macOS is reflected in Cypher.
 
